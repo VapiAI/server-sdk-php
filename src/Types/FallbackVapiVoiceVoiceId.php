@@ -1,0 +1,18 @@
+<?php
+
+namespace Vapi\Types;
+
+enum FallbackVapiVoiceVoiceId: string
+{
+    case Elliot = "Elliot";
+    case Kylie = "Kylie";
+    case Rohan = "Rohan";
+    case Lily = "Lily";
+    case Savannah = "Savannah";
+    case Hana = "Hana";
+    case Neha = "Neha";
+    case Cole = "Cole";
+    case Harry = "Harry";
+    case Paige = "Paige";
+    case Spencer = "Spencer";
+}

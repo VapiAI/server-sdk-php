@@ -1,0 +1,12 @@
+<?php
+
+namespace Vapi\Types;
+
+enum FallbackCartesiaVoiceModel: string
+{
+    case Sonic2 = "sonic-2";
+    case SonicEnglish = "sonic-english";
+    case SonicMultilingual = "sonic-multilingual";
+    case SonicPreview = "sonic-preview";
+    case Sonic = "sonic";
+}

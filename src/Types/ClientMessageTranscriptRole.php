@@ -1,0 +1,9 @@
+<?php
+
+namespace Vapi\Types;
+
+enum ClientMessageTranscriptRole: string
+{
+    case Assistant = "assistant";
+    case User = "user";
+}

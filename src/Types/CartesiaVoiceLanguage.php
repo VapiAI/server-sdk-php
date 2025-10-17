@@ -1,0 +1,22 @@
+<?php
+
+namespace Vapi\Types;
+
+enum CartesiaVoiceLanguage: string
+{
+    case En = "en";
+    case De = "de";
+    case Es = "es";
+    case Fr = "fr";
+    case Ja = "ja";
+    case Pt = "pt";
+    case Zh = "zh";
+    case Hi = "hi";
+    case It = "it";
+    case Ko = "ko";
+    case Nl = "nl";
+    case Pl = "pl";
+    case Ru = "ru";
+    case Sv = "sv";
+    case Tr = "tr";
+}

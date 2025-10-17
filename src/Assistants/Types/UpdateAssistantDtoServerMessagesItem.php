@@ -15,7 +15,7 @@ enum UpdateAssistantDtoServerMessagesItem
     case SpeechUpdate = "speech-update";
     case StatusUpdate = "status-update";
     case Transcript = "transcript";
-    case TranscriptTranscriptTypeFinal = "transcript[transcriptType="final"]";
+    case TranscriptTranscriptTypeFinal = "transcript[transcriptType=\"final\"]";
     case ToolCalls = "tool-calls";
     case TransferDestinationRequest = "transfer-destination-request";
     case HandoffDestinationRequest = "handoff-destination-request";

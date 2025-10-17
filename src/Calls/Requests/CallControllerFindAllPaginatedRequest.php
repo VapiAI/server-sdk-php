@@ -3,7 +3,7 @@
 namespace Vapi\Calls\Requests;
 
 use Vapi\Core\Json\JsonSerializableType;
-use Vapi\Calls\Types\CallControllerFindAllPaginatedRequestStructuredOutputsValue;
+use Vapi\Types\StructuredOutputsFilterValue;
 use Vapi\Calls\Types\CallControllerFindAllPaginatedRequestSortOrder;
 use DateTime;
 
@@ -70,7 +70,7 @@ class CallControllerFindAllPaginatedRequest extends JsonSerializableType
     public ?string $phoneNumberId;
 
     /**
-     * @var ?array<string, ?CallControllerFindAllPaginatedRequestStructuredOutputsValue> $structuredOutputs Filter calls by structured output values. Use structured output ID as key and filter operators as values.
+     * @var ?array<string, ?StructuredOutputsFilterValue> $structuredOutputs Filter calls by structured output values. Use structured output ID as key and filter operators as values.
      */
     public ?array $structuredOutputs;
 
@@ -143,7 +143,7 @@ class CallControllerFindAllPaginatedRequest extends JsonSerializableType
      *   successEvaluation?: ?string,
      *   endedReason?: ?string,
      *   phoneNumberId?: ?string,
-     *   structuredOutputs?: ?array<string, ?CallControllerFindAllPaginatedRequestStructuredOutputsValue>,
+     *   structuredOutputs?: ?array<string, ?StructuredOutputsFilterValue>,
      *   page?: ?float,
      *   sortOrder?: ?value-of<CallControllerFindAllPaginatedRequestSortOrder>,
      *   limit?: ?float,

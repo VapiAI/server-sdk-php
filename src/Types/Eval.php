@@ -9,7 +9,7 @@ use Vapi\Core\Types\Union;
 use DateTime;
 use Vapi\Core\Types\Date;
 
-class Eval extends JsonSerializableType
+class Eval_ extends JsonSerializableType
 {
     /**
      * This is the mock conversation that will be used to evaluate the flow of the conversation.

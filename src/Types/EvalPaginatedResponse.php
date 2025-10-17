@@ -9,9 +9,9 @@ use Vapi\Core\Types\ArrayType;
 class EvalPaginatedResponse extends JsonSerializableType
 {
     /**
-     * @var array<Eval> $results
+     * @var array<Eval_> $results
      */
-    #[JsonProperty('results'), ArrayType([Eval::class])]
+    #[JsonProperty('results'), ArrayType([Eval_::class])]
     public array $results;
 
     /**
@@ -22,7 +22,7 @@ class EvalPaginatedResponse extends JsonSerializableType
 
     /**
      * @param array{
-     *   results: array<Eval>,
+     *   results: array<Eval_>,
      *   metadata: PaginationMeta,
      * } $values
      */

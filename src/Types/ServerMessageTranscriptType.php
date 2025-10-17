@@ -5,5 +5,5 @@ namespace Vapi\Types;
 enum ServerMessageTranscriptType
  : string {
     case Transcript = "transcript";
-    case TranscriptTranscriptTypeFinal = "transcript[transcriptType="final"]";
+    case TranscriptTranscriptTypeFinal = "transcript[transcriptType=\"final\"]";
 }

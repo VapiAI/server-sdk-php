@@ -1,11 +1,14 @@
 <?php
 
-namespace Vapi\Calls\Types;
+namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
-class CallControllerFindAllPaginatedRequestStructuredOutputsValue extends JsonSerializableType
+/**
+ * Filter operators for structured output values
+ */
+class StructuredOutputsFilterValue extends JsonSerializableType
 {
     /**
      * @var ?string $eq Equal to

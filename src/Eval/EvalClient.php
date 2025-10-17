@@ -15,7 +15,7 @@ use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Vapi\Types\CreateEvalDto;
-use Vapi\Types\Eval;
+use Vapi\Types\Eval_;
 use Vapi\Eval\Requests\UpdateEvalDto;
 use Vapi\Types\EvalRun;
 use Vapi\Eval\Requests\EvalControllerGetRunsPaginatedRequest;
@@ -160,11 +160,11 @@ class EvalClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Eval
+     * @return Eval_
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function evalControllerCreate(CreateEvalDto $request, ?array $options = null): Eval {
+    public function evalControllerCreate(CreateEvalDto $request, ?array $options = null): Eval_ {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
@@ -179,7 +179,7 @@ class EvalClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return Eval::fromJson($json);
+                return Eval_::fromJson($json);
             }
             } catch (JsonException $e) {
                 throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -213,11 +213,11 @@ class EvalClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Eval
+     * @return Eval_
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function evalControllerGet(string $id, ?array $options = null): Eval {
+    public function evalControllerGet(string $id, ?array $options = null): Eval_ {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
@@ -231,7 +231,7 @@ class EvalClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return Eval::fromJson($json);
+                return Eval_::fromJson($json);
             }
             } catch (JsonException $e) {
                 throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -265,11 +265,11 @@ class EvalClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Eval
+     * @return Eval_
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function evalControllerRemove(string $id, ?array $options = null): Eval {
+    public function evalControllerRemove(string $id, ?array $options = null): Eval_ {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
@@ -283,7 +283,7 @@ class EvalClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return Eval::fromJson($json);
+                return Eval_::fromJson($json);
             }
             } catch (JsonException $e) {
                 throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -318,11 +318,11 @@ class EvalClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Eval
+     * @return Eval_
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function evalControllerUpdate(string $id, UpdateEvalDto $request = new UpdateEvalDto(), ?array $options = null): Eval {
+    public function evalControllerUpdate(string $id, UpdateEvalDto $request = new UpdateEvalDto(), ?array $options = null): Eval_ {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
@@ -337,7 +337,7 @@ class EvalClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return Eval::fromJson($json);
+                return Eval_::fromJson($json);
             }
             } catch (JsonException $e) {
                 throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

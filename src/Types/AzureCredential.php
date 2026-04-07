@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class AzureCredential extends JsonSerializableType
 {
     /**
-     * @var 'azure' $provider
+     * @var value-of<AzureCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -77,7 +77,7 @@ class AzureCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'azure',
+     *   provider: value-of<AzureCredentialProvider>,
      *   service: value-of<AzureCredentialService>,
      *   id: string,
      *   orgId: string,

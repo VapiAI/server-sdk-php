@@ -19,7 +19,7 @@ class TextEditorToolWithToolCall extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var 'text_editor_20241022' $subType The sub type of tool.
+     * @var value-of<TextEditorToolWithToolCallSubType> $subType The sub type of tool.
      */
     #[JsonProperty('subType')]
     public string $subType;
@@ -47,7 +47,7 @@ class TextEditorToolWithToolCall extends JsonSerializableType
     public ToolCall $toolCall;
 
     /**
-     * @var 'str_replace_editor' $name The name of the tool, fixed to 'str_replace_editor'
+     * @var value-of<TextEditorToolWithToolCallName> $name The name of the tool, fixed to 'str_replace_editor'
      */
     #[JsonProperty('name')]
     public string $name;
@@ -139,9 +139,9 @@ class TextEditorToolWithToolCall extends JsonSerializableType
 
     /**
      * @param array{
-     *   subType: 'text_editor_20241022',
+     *   subType: value-of<TextEditorToolWithToolCallSubType>,
      *   toolCall: ToolCall,
-     *   name: 'str_replace_editor',
+     *   name: value-of<TextEditorToolWithToolCallName>,
      *   messages?: ?array<TextEditorToolWithToolCallMessagesItem>,
      *   server?: ?Server,
      *   rejectionPlan?: ?ToolRejectionPlan,

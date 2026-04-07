@@ -43,7 +43,7 @@ class ServerMessageCallEndpointingRequest extends JsonSerializableType
      *   "timeoutSeconds": 0.5
      * }
      *
-     * @var 'call.endpointing.request' $type
+     * @var value-of<ServerMessageCallEndpointingRequestType> $type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -108,7 +108,7 @@ class ServerMessageCallEndpointingRequest extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'call.endpointing.request',
+     *   type: value-of<ServerMessageCallEndpointingRequestType>,
      *   messagesOpenAiFormatted: array<OpenAiMessage>,
      *   phoneNumber?: ?ServerMessageCallEndpointingRequestPhoneNumber,
      *   messages?: ?array<(

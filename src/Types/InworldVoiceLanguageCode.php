@@ -15,4 +15,8 @@ enum InworldVoiceLanguageCode: string
     case It = "it";
     case Pl = "pl";
     case Pt = "pt";
+    case Ru = "ru";
+    case Hi = "hi";
+    case He = "he";
+    case Ar = "ar";
 }

@@ -68,6 +68,12 @@ class Call extends JsonSerializableType
     public ?string $endedReason;
 
     /**
+     * @var ?string $endedMessage This is the message that adds more context to the ended reason. It can be used to provide potential error messages or warnings.
+     */
+    #[JsonProperty('endedMessage')]
+    public ?string $endedMessage;
+
+    /**
      * @var ?CallDestination $destination This is the destination where the call ended up being transferred to. If the call was not transferred, this will be empty.
      */
     #[JsonProperty('destination')]
@@ -226,6 +232,15 @@ class Call extends JsonSerializableType
     public ?CreateSquadDto $squad;
 
     /**
+     * These are the overrides for the `squad` or `squadId`'s member settings and template variables.
+     * This will apply to all members of the squad.
+     *
+     * @var ?AssistantOverrides $squadOverrides
+     */
+    #[JsonProperty('squadOverrides')]
+    public ?AssistantOverrides $squadOverrides;
+
+    /**
      * This is the workflow that will be used for the call. To use a transient workflow, use `workflow` instead.
      *
      * To start a call with:
@@ -334,6 +349,7 @@ class Call extends JsonSerializableType
      *   phoneCallTransport?: ?value-of<CallPhoneCallTransport>,
      *   status?: ?value-of<CallStatus>,
      *   endedReason?: ?value-of<CallEndedReason>,
+     *   endedMessage?: ?string,
      *   destination?: ?CallDestination,
      *   startedAt?: ?DateTime,
      *   endedAt?: ?DateTime,
@@ -351,6 +367,7 @@ class Call extends JsonSerializableType
      *   assistantOverrides?: ?AssistantOverrides,
      *   squadId?: ?string,
      *   squad?: ?CreateSquadDto,
+     *   squadOverrides?: ?AssistantOverrides,
      *   workflowId?: ?string,
      *   workflow?: ?CreateWorkflowDto,
      *   workflowOverrides?: ?WorkflowOverrides,
@@ -373,6 +390,7 @@ class Call extends JsonSerializableType
         $this->phoneCallTransport = $values['phoneCallTransport'] ?? null;
         $this->status = $values['status'] ?? null;
         $this->endedReason = $values['endedReason'] ?? null;
+        $this->endedMessage = $values['endedMessage'] ?? null;
         $this->destination = $values['destination'] ?? null;
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];
@@ -394,6 +412,7 @@ class Call extends JsonSerializableType
         $this->assistantOverrides = $values['assistantOverrides'] ?? null;
         $this->squadId = $values['squadId'] ?? null;
         $this->squad = $values['squad'] ?? null;
+        $this->squadOverrides = $values['squadOverrides'] ?? null;
         $this->workflowId = $values['workflowId'] ?? null;
         $this->workflow = $values['workflow'] ?? null;
         $this->workflowOverrides = $values['workflowOverrides'] ?? null;

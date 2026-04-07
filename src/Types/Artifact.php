@@ -6,6 +6,8 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
+use DateTime;
+use Vapi\Core\Types\Date;
 
 class Artifact extends JsonSerializableType
 {
@@ -82,6 +84,12 @@ class Artifact extends JsonSerializableType
     public ?array $nodes;
 
     /**
+     * @var ?array<AssistantActivation> $assistantActivations Ordered list of assistants that were active during the call, including after transfers and handoffs.
+     */
+    #[JsonProperty('assistantActivations'), ArrayType([AssistantActivation::class])]
+    public ?array $assistantActivations;
+
+    /**
      * @var ?array<string, mixed> $variableValues These are the variable values at the end of the workflow execution.
      */
     #[JsonProperty('variableValues'), ArrayType(['string' => 'mixed'])]
@@ -103,10 +111,25 @@ class Artifact extends JsonSerializableType
     public ?array $structuredOutputs;
 
     /**
+     * These are the scorecards that have been evaluated based on the structured outputs extracted during the call.
+     * To enable, set `assistant.artifactPlan.scorecardIds` or `assistant.artifactPlan.scorecards` with the IDs or objects of the scorecards you want to evaluate.
+     *
+     * @var ?array<string, mixed> $scorecards
+     */
+    #[JsonProperty('scorecards'), ArrayType(['string' => 'mixed'])]
+    public ?array $scorecards;
+
+    /**
      * @var ?array<string> $transfers These are the transfer records from warm transfers, including destinations, transcripts, and status.
      */
     #[JsonProperty('transfers'), ArrayType(['string'])]
     public ?array $transfers;
+
+    /**
+     * @var ?DateTime $structuredOutputsLastUpdatedAt This is when the structured outputs were last updated
+     */
+    #[JsonProperty('structuredOutputsLastUpdatedAt'), Date(Date::TYPE_DATETIME)]
+    public ?DateTime $structuredOutputsLastUpdatedAt;
 
     /**
      * @param array{
@@ -127,10 +150,13 @@ class Artifact extends JsonSerializableType
      *   pcapUrl?: ?string,
      *   logUrl?: ?string,
      *   nodes?: ?array<NodeArtifact>,
+     *   assistantActivations?: ?array<AssistantActivation>,
      *   variableValues?: ?array<string, mixed>,
      *   performanceMetrics?: ?PerformanceMetrics,
      *   structuredOutputs?: ?array<string, mixed>,
+     *   scorecards?: ?array<string, mixed>,
      *   transfers?: ?array<string>,
+     *   structuredOutputsLastUpdatedAt?: ?DateTime,
      * } $values
      */
     public function __construct(
@@ -147,10 +173,13 @@ class Artifact extends JsonSerializableType
         $this->pcapUrl = $values['pcapUrl'] ?? null;
         $this->logUrl = $values['logUrl'] ?? null;
         $this->nodes = $values['nodes'] ?? null;
+        $this->assistantActivations = $values['assistantActivations'] ?? null;
         $this->variableValues = $values['variableValues'] ?? null;
         $this->performanceMetrics = $values['performanceMetrics'] ?? null;
         $this->structuredOutputs = $values['structuredOutputs'] ?? null;
+        $this->scorecards = $values['scorecards'] ?? null;
         $this->transfers = $values['transfers'] ?? null;
+        $this->structuredOutputsLastUpdatedAt = $values['structuredOutputsLastUpdatedAt'] ?? null;
     }
 
     /**

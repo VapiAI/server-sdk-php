@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class RunpodCredential extends JsonSerializableType
 {
     /**
-     * @var 'runpod' $provider
+     * @var value-of<RunpodCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class RunpodCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'runpod',
+     *   provider: value-of<RunpodCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

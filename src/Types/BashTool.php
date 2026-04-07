@@ -21,7 +21,7 @@ class BashTool extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var 'bash_20241022' $subType The sub type of tool.
+     * @var value-of<BashToolSubType> $subType The sub type of tool.
      */
     #[JsonProperty('subType')]
     public string $subType;
@@ -152,19 +152,19 @@ class BashTool extends JsonSerializableType
     public ?ToolRejectionPlan $rejectionPlan;
 
     /**
-     * @var 'bash' $name The name of the tool, fixed to 'bash'
+     * @var value-of<BashToolName> $name The name of the tool, fixed to 'bash'
      */
     #[JsonProperty('name')]
     public string $name;
 
     /**
      * @param array{
-     *   subType: 'bash_20241022',
+     *   subType: value-of<BashToolSubType>,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
-     *   name: 'bash',
+     *   name: value-of<BashToolName>,
      *   messages?: ?array<BashToolMessagesItem>,
      *   server?: ?Server,
      *   rejectionPlan?: ?ToolRejectionPlan,

@@ -9,6 +9,12 @@ use Vapi\Core\Types\ArrayType;
 class PhoneNumberHookCallRinging extends JsonSerializableType
 {
     /**
+     * @var ?array<PhoneNumberCallRingingHookFilter> $filters Optional filters to decide when to trigger the hook. Currently supports filtering by caller country code.
+     */
+    #[JsonProperty('filters'), ArrayType([PhoneNumberCallRingingHookFilter::class])]
+    public ?array $filters;
+
+    /**
      * @var array<PhoneNumberHookCallRingingDoItem> $do Only the first action will be executed. Additional actions will be ignored.
      */
     #[JsonProperty('do'), ArrayType([PhoneNumberHookCallRingingDoItem::class])]
@@ -17,11 +23,13 @@ class PhoneNumberHookCallRinging extends JsonSerializableType
     /**
      * @param array{
      *   do: array<PhoneNumberHookCallRingingDoItem>,
+     *   filters?: ?array<PhoneNumberCallRingingHookFilter>,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->filters = $values['filters'] ?? null;
         $this->do = $values['do'];
     }
 

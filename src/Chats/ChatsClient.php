@@ -2,17 +2,17 @@
 
 namespace Vapi\Chats;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Vapi\Core\Client\RawClient;
-use Vapi\Chats\Requests\ChatsListRequest;
+use Vapi\Chats\Requests\ListChatsRequest;
 use Vapi\Types\ChatPaginatedResponse;
 use Vapi\Exceptions\VapiException;
 use Vapi\Exceptions\VapiApiException;
+use Vapi\Core\Json\JsonSerializer;
 use Vapi\Core\Json\JsonApiRequest;
 use Vapi\Environments;
 use Vapi\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Vapi\Chats\Requests\CreateChatDto;
 use Vapi\Types\Chat;
@@ -35,7 +35,7 @@ class ChatsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -63,7 +63,7 @@ class ChatsClient
     }
 
     /**
-     * @param ChatsListRequest $request
+     * @param ListChatsRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -72,25 +72,31 @@ class ChatsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ChatPaginatedResponse
+     * @return ?ChatPaginatedResponse
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function list(ChatsListRequest $request = new ChatsListRequest(), ?array $options = null): ChatPaginatedResponse
+    public function list(ListChatsRequest $request = new ListChatsRequest(), ?array $options = null): ?ChatPaginatedResponse
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
+        if ($request->id != null) {
+            $query['id'] = $request->id;
+        }
         if ($request->assistantId != null) {
             $query['assistantId'] = $request->assistantId;
+        }
+        if ($request->assistantIdAny != null) {
+            $query['assistantIdAny'] = $request->assistantIdAny;
         }
         if ($request->squadId != null) {
             $query['squadId'] = $request->squadId;
         }
-        if ($request->workflowId != null) {
-            $query['workflowId'] = $request->workflowId;
-        }
         if ($request->sessionId != null) {
             $query['sessionId'] = $request->sessionId;
+        }
+        if ($request->previousChatId != null) {
+            $query['previousChatId'] = $request->previousChatId;
         }
         if ($request->page != null) {
             $query['page'] = $request->page;
@@ -102,28 +108,28 @@ class ChatsClient
             $query['limit'] = $request->limit;
         }
         if ($request->createdAtGt != null) {
-            $query['createdAtGt'] = $request->createdAtGt;
+            $query['createdAtGt'] = JsonSerializer::serializeDateTime($request->createdAtGt);
         }
         if ($request->createdAtLt != null) {
-            $query['createdAtLt'] = $request->createdAtLt;
+            $query['createdAtLt'] = JsonSerializer::serializeDateTime($request->createdAtLt);
         }
         if ($request->createdAtGe != null) {
-            $query['createdAtGe'] = $request->createdAtGe;
+            $query['createdAtGe'] = JsonSerializer::serializeDateTime($request->createdAtGe);
         }
         if ($request->createdAtLe != null) {
-            $query['createdAtLe'] = $request->createdAtLe;
+            $query['createdAtLe'] = JsonSerializer::serializeDateTime($request->createdAtLe);
         }
         if ($request->updatedAtGt != null) {
-            $query['updatedAtGt'] = $request->updatedAtGt;
+            $query['updatedAtGt'] = JsonSerializer::serializeDateTime($request->updatedAtGt);
         }
         if ($request->updatedAtLt != null) {
-            $query['updatedAtLt'] = $request->updatedAtLt;
+            $query['updatedAtLt'] = JsonSerializer::serializeDateTime($request->updatedAtLt);
         }
         if ($request->updatedAtGe != null) {
-            $query['updatedAtGe'] = $request->updatedAtGe;
+            $query['updatedAtGe'] = JsonSerializer::serializeDateTime($request->updatedAtGe);
         }
         if ($request->updatedAtLe != null) {
-            $query['updatedAtLe'] = $request->updatedAtLe;
+            $query['updatedAtLe'] = JsonSerializer::serializeDateTime($request->updatedAtLe);
         }
         try {
             $response = $this->client->sendRequest(
@@ -138,20 +144,13 @@ class ChatsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ChatPaginatedResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -177,11 +176,11 @@ class ChatsClient
      * @return (
      *    Chat
      *   |CreateChatStreamResponse
-     * )
+     * )|null
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function create(CreateChatDto $request, ?array $options = null): Chat|CreateChatStreamResponse
+    public function create(CreateChatDto $request, ?array $options = null): Chat|CreateChatStreamResponse|null
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -197,20 +196,13 @@ class ChatsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return JsonDecoder::decodeUnion($json, new Union(Chat::class, CreateChatStreamResponse::class)); // @phpstan-ignore-line
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -231,11 +223,11 @@ class ChatsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Chat
+     * @return ?Chat
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function get(string $id, ?array $options = null): Chat
+    public function get(string $id, ?array $options = null): ?Chat
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -250,20 +242,13 @@ class ChatsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Chat::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -284,11 +269,11 @@ class ChatsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Chat
+     * @return ?Chat
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function delete(string $id, ?array $options = null): Chat
+    public function delete(string $id, ?array $options = null): ?Chat
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -303,20 +288,13 @@ class ChatsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Chat::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -343,11 +321,11 @@ class ChatsClient
      *   |ResponseTextDoneEvent
      *   |ResponseCompletedEvent
      *   |ResponseErrorEvent
-     * )
+     * )|null
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function createResponse(OpenAiResponsesRequest $request, ?array $options = null): ResponseObject|ResponseTextDeltaEvent|ResponseTextDoneEvent|ResponseCompletedEvent|ResponseErrorEvent
+    public function createResponse(OpenAiResponsesRequest $request, ?array $options = null): ResponseObject|ResponseTextDeltaEvent|ResponseTextDoneEvent|ResponseCompletedEvent|ResponseErrorEvent|null
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -363,20 +341,13 @@ class ChatsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return JsonDecoder::decodeUnion($json, new Union(ResponseObject::class, ResponseTextDeltaEvent::class, ResponseTextDoneEvent::class, ResponseCompletedEvent::class, ResponseErrorEvent::class)); // @phpstan-ignore-line
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }

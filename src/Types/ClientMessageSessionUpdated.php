@@ -14,7 +14,7 @@ class ClientMessageSessionUpdated extends JsonSerializableType
     public ?ClientMessageSessionUpdatedPhoneNumber $phoneNumber;
 
     /**
-     * @var 'session.updated' $type This is the type of the message. "session.updated" is sent when a session is updated.
+     * @var value-of<ClientMessageSessionUpdatedType> $type This is the type of the message. "session.updated" is sent when a session is updated.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -51,7 +51,7 @@ class ClientMessageSessionUpdated extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'session.updated',
+     *   type: value-of<ClientMessageSessionUpdatedType>,
      *   session: Session,
      *   phoneNumber?: ?ClientMessageSessionUpdatedPhoneNumber,
      *   timestamp?: ?float,

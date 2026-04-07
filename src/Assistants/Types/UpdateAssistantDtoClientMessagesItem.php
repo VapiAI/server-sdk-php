@@ -5,6 +5,7 @@ namespace Vapi\Assistants\Types;
 enum UpdateAssistantDtoClientMessagesItem: string
 {
     case ConversationUpdate = "conversation-update";
+    case AssistantSpeechStarted = "assistant.speechStarted";
     case FunctionCall = "function-call";
     case FunctionCallResult = "function-call-result";
     case Hang = "hang";
@@ -21,4 +22,5 @@ enum UpdateAssistantDtoClientMessagesItem: string
     case UserInterrupted = "user-interrupted";
     case VoiceInput = "voice-input";
     case WorkflowNodeStarted = "workflow.node.started";
+    case AssistantStarted = "assistant.started";
 }

@@ -4,6 +4,7 @@ namespace Vapi\Tests\Core\Json;
 
 use JsonSerializable;
 use PHPUnit\Framework\TestCase;
+use Vapi\Core\Json\JsonEncoder;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Types\ArrayType;
@@ -60,10 +61,10 @@ class EnumTest extends TestCase
             [Shape::Square, Shape::Circle, Shape::Triangle]
         );
 
-        $expectedJson = json_encode([
+        $expectedJson = JsonEncoder::encode([
             'shape' => 'CIRCLE',
             'shapes' => ['SQUARE', 'CIRCLE', 'TRIANGLE']
-        ], JSON_THROW_ON_ERROR);
+        ]);
 
         $actualJson = $object->toJson();
 

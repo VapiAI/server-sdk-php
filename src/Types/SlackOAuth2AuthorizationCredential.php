@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class SlackOAuth2AuthorizationCredential extends JsonSerializableType
 {
     /**
-     * @var 'slack.oauth2-authorization' $provider
+     * @var value-of<SlackOAuth2AuthorizationCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class SlackOAuth2AuthorizationCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'slack.oauth2-authorization',
+     *   provider: value-of<SlackOAuth2AuthorizationCredentialProvider>,
      *   authorizationId: string,
      *   id: string,
      *   orgId: string,

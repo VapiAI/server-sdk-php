@@ -14,7 +14,7 @@ class FallbackMinimaxVoice extends JsonSerializableType
     public ?bool $cachingEnabled;
 
     /**
-     * @var 'minimax' $provider This is the voice provider that will be used.
+     * @var value-of<FallbackMinimaxVoiceProvider> $provider This is the voice provider that will be used.
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -45,6 +45,18 @@ class FallbackMinimaxVoice extends JsonSerializableType
      */
     #[JsonProperty('emotion')]
     public ?string $emotion;
+
+    /**
+     * Controls the granularity of subtitle/timing data returned by Minimax
+     * during synthesis. Set to 'word' to receive per-word timestamps in
+     * assistant.speechStarted events for karaoke-style caption rendering.
+     *
+     * @default "sentence"
+     *
+     * @var ?value-of<FallbackMinimaxVoiceSubtitleType> $subtitleType
+     */
+    #[JsonProperty('subtitleType')]
+    public ?string $subtitleType;
 
     /**
      * Voice pitch adjustment. Range from -12 to 12 semitones.
@@ -99,11 +111,12 @@ class FallbackMinimaxVoice extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'minimax',
+     *   provider: value-of<FallbackMinimaxVoiceProvider>,
      *   voiceId: string,
      *   cachingEnabled?: ?bool,
      *   model?: ?value-of<FallbackMinimaxVoiceModel>,
      *   emotion?: ?string,
+     *   subtitleType?: ?value-of<FallbackMinimaxVoiceSubtitleType>,
      *   pitch?: ?float,
      *   speed?: ?float,
      *   volume?: ?float,
@@ -121,6 +134,7 @@ class FallbackMinimaxVoice extends JsonSerializableType
         $this->voiceId = $values['voiceId'];
         $this->model = $values['model'] ?? null;
         $this->emotion = $values['emotion'] ?? null;
+        $this->subtitleType = $values['subtitleType'] ?? null;
         $this->pitch = $values['pitch'] ?? null;
         $this->speed = $values['speed'] ?? null;
         $this->volume = $values['volume'] ?? null;

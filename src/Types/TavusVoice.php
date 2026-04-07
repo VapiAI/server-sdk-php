@@ -15,7 +15,7 @@ class TavusVoice extends JsonSerializableType
 
     /**
      * @var (
-     *    'r52da2535a'
+     *    value-of<TavusVoiceVoiceIdZero>
      *   |string
      * ) $voiceId This is the provider-specific ID that will be used.
      */
@@ -73,7 +73,7 @@ class TavusVoice extends JsonSerializableType
     /**
      * @param array{
      *   voiceId: (
-     *    'r52da2535a'
+     *    value-of<TavusVoiceVoiceIdZero>
      *   |string
      * ),
      *   cachingEnabled?: ?bool,

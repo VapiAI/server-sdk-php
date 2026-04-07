@@ -14,7 +14,7 @@ class ClientMessageVoiceInput extends JsonSerializableType
     public ?ClientMessageVoiceInputPhoneNumber $phoneNumber;
 
     /**
-     * @var 'voice-input' $type This is the type of the message. "voice-input" is sent when a generation is requested from voice provider.
+     * @var value-of<ClientMessageVoiceInputType> $type This is the type of the message. "voice-input" is sent when a generation is requested from voice provider.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -51,7 +51,7 @@ class ClientMessageVoiceInput extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'voice-input',
+     *   type: value-of<ClientMessageVoiceInputType>,
      *   input: string,
      *   phoneNumber?: ?ClientMessageVoiceInputPhoneNumber,
      *   timestamp?: ?float,

@@ -49,6 +49,16 @@ class DeepgramTranscriber extends JsonSerializableType
     public ?bool $numerals;
 
     /**
+     * If set to true, Deepgram will replace profanity in transcripts with surrounding asterisks, e.g. "f***".
+     *
+     * @default false
+     *
+     * @var ?bool $profanityFilter
+     */
+    #[JsonProperty('profanityFilter')]
+    public ?bool $profanityFilter;
+
+    /**
      * Transcripts below this confidence threshold will be discarded.
      *
      * @default 0.4
@@ -112,7 +122,7 @@ class DeepgramTranscriber extends JsonSerializableType
     public ?float $endpointing;
 
     /**
-     * @var ?FallbackTranscriberPlan $fallbackPlan This is the plan for voice provider fallbacks in the event that the primary voice provider fails.
+     * @var ?FallbackTranscriberPlan $fallbackPlan This is the plan for transcriber provider fallbacks in the event that the primary transcriber provider fails.
      */
     #[JsonProperty('fallbackPlan')]
     public ?FallbackTranscriberPlan $fallbackPlan;
@@ -124,6 +134,7 @@ class DeepgramTranscriber extends JsonSerializableType
      *   smartFormat?: ?bool,
      *   mipOptOut?: ?bool,
      *   numerals?: ?bool,
+     *   profanityFilter?: ?bool,
      *   confidenceThreshold?: ?float,
      *   eagerEotThreshold?: ?float,
      *   eotThreshold?: ?float,
@@ -142,6 +153,7 @@ class DeepgramTranscriber extends JsonSerializableType
         $this->smartFormat = $values['smartFormat'] ?? null;
         $this->mipOptOut = $values['mipOptOut'] ?? null;
         $this->numerals = $values['numerals'] ?? null;
+        $this->profanityFilter = $values['profanityFilter'] ?? null;
         $this->confidenceThreshold = $values['confidenceThreshold'] ?? null;
         $this->eagerEotThreshold = $values['eagerEotThreshold'] ?? null;
         $this->eotThreshold = $values['eotThreshold'] ?? null;

@@ -4,9 +4,16 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
+use Vapi\Core\Types\ArrayType;
 
 class Monitor extends JsonSerializableType
 {
+    /**
+     * @var ?array<MonitorResult> $monitors
+     */
+    #[JsonProperty('monitors'), ArrayType([MonitorResult::class])]
+    public ?array $monitors;
+
     /**
      * @var ?string $listenUrl This is the URL where the assistant's calls can be listened to in real-time. To enable, set `assistant.monitorPlan.listenEnabled` to `true`.
      */
@@ -21,6 +28,7 @@ class Monitor extends JsonSerializableType
 
     /**
      * @param array{
+     *   monitors?: ?array<MonitorResult>,
      *   listenUrl?: ?string,
      *   controlUrl?: ?string,
      * } $values
@@ -28,6 +36,7 @@ class Monitor extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->monitors = $values['monitors'] ?? null;
         $this->listenUrl = $values['listenUrl'] ?? null;
         $this->controlUrl = $values['controlUrl'] ?? null;
     }

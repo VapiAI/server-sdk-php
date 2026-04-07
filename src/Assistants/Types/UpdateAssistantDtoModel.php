@@ -4,6 +4,7 @@ namespace Vapi\Assistants\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Types\AnthropicModel;
+use Vapi\Types\AnthropicBedrockModel;
 use Vapi\Types\AnyscaleModel;
 use Vapi\Types\CerebrasModel;
 use Vapi\Types\CustomLlmModel;
@@ -12,6 +13,7 @@ use Vapi\Types\DeepSeekModel;
 use Vapi\Types\GoogleModel;
 use Vapi\Types\GroqModel;
 use Vapi\Types\InflectionAiModel;
+use Vapi\Types\MinimaxLlmModel;
 use Vapi\Types\OpenAiModel;
 use Vapi\Types\OpenRouterModel;
 use Vapi\Types\PerplexityAiModel;
@@ -28,6 +30,7 @@ class UpdateAssistantDtoModel extends JsonSerializableType
     /**
      * @var (
      *    'anthropic'
+     *   |'anthropic-bedrock'
      *   |'anyscale'
      *   |'cerebras'
      *   |'custom-llm'
@@ -36,6 +39,7 @@ class UpdateAssistantDtoModel extends JsonSerializableType
      *   |'google'
      *   |'groq'
      *   |'inflection-ai'
+     *   |'minimax'
      *   |'openai'
      *   |'openrouter'
      *   |'perplexity-ai'
@@ -49,6 +53,7 @@ class UpdateAssistantDtoModel extends JsonSerializableType
     /**
      * @var (
      *    AnthropicModel
+     *   |AnthropicBedrockModel
      *   |AnyscaleModel
      *   |CerebrasModel
      *   |CustomLlmModel
@@ -57,6 +62,7 @@ class UpdateAssistantDtoModel extends JsonSerializableType
      *   |GoogleModel
      *   |GroqModel
      *   |InflectionAiModel
+     *   |MinimaxLlmModel
      *   |OpenAiModel
      *   |OpenRouterModel
      *   |PerplexityAiModel
@@ -71,6 +77,7 @@ class UpdateAssistantDtoModel extends JsonSerializableType
      * @param array{
      *   provider: (
      *    'anthropic'
+     *   |'anthropic-bedrock'
      *   |'anyscale'
      *   |'cerebras'
      *   |'custom-llm'
@@ -79,6 +86,7 @@ class UpdateAssistantDtoModel extends JsonSerializableType
      *   |'google'
      *   |'groq'
      *   |'inflection-ai'
+     *   |'minimax'
      *   |'openai'
      *   |'openrouter'
      *   |'perplexity-ai'
@@ -88,6 +96,7 @@ class UpdateAssistantDtoModel extends JsonSerializableType
      * ),
      *   value: (
      *    AnthropicModel
+     *   |AnthropicBedrockModel
      *   |AnyscaleModel
      *   |CerebrasModel
      *   |CustomLlmModel
@@ -96,6 +105,7 @@ class UpdateAssistantDtoModel extends JsonSerializableType
      *   |GoogleModel
      *   |GroqModel
      *   |InflectionAiModel
+     *   |MinimaxLlmModel
      *   |OpenAiModel
      *   |OpenRouterModel
      *   |PerplexityAiModel
@@ -121,6 +131,18 @@ class UpdateAssistantDtoModel extends JsonSerializableType
         return new UpdateAssistantDtoModel([
             'provider' => 'anthropic',
             'value' => $anthropic,
+        ]);
+    }
+
+    /**
+     * @param AnthropicBedrockModel $anthropicBedrock
+     * @return UpdateAssistantDtoModel
+     */
+    public static function anthropicBedrock(AnthropicBedrockModel $anthropicBedrock): UpdateAssistantDtoModel
+    {
+        return new UpdateAssistantDtoModel([
+            'provider' => 'anthropic-bedrock',
+            'value' => $anthropicBedrock,
         ]);
     }
 
@@ -221,6 +243,18 @@ class UpdateAssistantDtoModel extends JsonSerializableType
     }
 
     /**
+     * @param MinimaxLlmModel $minimax
+     * @return UpdateAssistantDtoModel
+     */
+    public static function minimax(MinimaxLlmModel $minimax): UpdateAssistantDtoModel
+    {
+        return new UpdateAssistantDtoModel([
+            'provider' => 'minimax',
+            'value' => $minimax,
+        ]);
+    }
+
+    /**
      * @param OpenAiModel $openai
      * @return UpdateAssistantDtoModel
      */
@@ -296,6 +330,28 @@ class UpdateAssistantDtoModel extends JsonSerializableType
         if (!($this->value instanceof AnthropicModel && $this->provider === 'anthropic')) {
             throw new Exception(
                 "Expected anthropic; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAnthropicBedrock(): bool
+    {
+        return $this->value instanceof AnthropicBedrockModel && $this->provider === 'anthropic-bedrock';
+    }
+
+    /**
+     * @return AnthropicBedrockModel
+     */
+    public function asAnthropicBedrock(): AnthropicBedrockModel
+    {
+        if (!($this->value instanceof AnthropicBedrockModel && $this->provider === 'anthropic-bedrock')) {
+            throw new Exception(
+                "Expected anthropic-bedrock; got " . $this->provider . " with value of type " . get_debug_type($this->value),
             );
         }
 
@@ -481,6 +537,28 @@ class UpdateAssistantDtoModel extends JsonSerializableType
     /**
      * @return bool
      */
+    public function isMinimax(): bool
+    {
+        return $this->value instanceof MinimaxLlmModel && $this->provider === 'minimax';
+    }
+
+    /**
+     * @return MinimaxLlmModel
+     */
+    public function asMinimax(): MinimaxLlmModel
+    {
+        if (!($this->value instanceof MinimaxLlmModel && $this->provider === 'minimax')) {
+            throw new Exception(
+                "Expected minimax; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
     public function isOpenai(): bool
     {
         return $this->value instanceof OpenAiModel && $this->provider === 'openai';
@@ -612,6 +690,10 @@ class UpdateAssistantDtoModel extends JsonSerializableType
                 $value = $this->asAnthropic()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
+            case 'anthropic-bedrock':
+                $value = $this->asAnthropicBedrock()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
             case 'anyscale':
                 $value = $this->asAnyscale()->jsonSerialize();
                 $result = array_merge($value, $result);
@@ -642,6 +724,10 @@ class UpdateAssistantDtoModel extends JsonSerializableType
                 break;
             case 'inflection-ai':
                 $value = $this->asInflectionAi()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'minimax':
+                $value = $this->asMinimax()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case 'openai':
@@ -715,6 +801,9 @@ class UpdateAssistantDtoModel extends JsonSerializableType
             case 'anthropic':
                 $args['value'] = AnthropicModel::jsonDeserialize($data);
                 break;
+            case 'anthropic-bedrock':
+                $args['value'] = AnthropicBedrockModel::jsonDeserialize($data);
+                break;
             case 'anyscale':
                 $args['value'] = AnyscaleModel::jsonDeserialize($data);
                 break;
@@ -738,6 +827,9 @@ class UpdateAssistantDtoModel extends JsonSerializableType
                 break;
             case 'inflection-ai':
                 $args['value'] = InflectionAiModel::jsonDeserialize($data);
+                break;
+            case 'minimax':
+                $args['value'] = MinimaxLlmModel::jsonDeserialize($data);
                 break;
             case 'openai':
                 $args['value'] = OpenAiModel::jsonDeserialize($data);

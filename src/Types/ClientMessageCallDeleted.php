@@ -14,7 +14,7 @@ class ClientMessageCallDeleted extends JsonSerializableType
     public ?ClientMessageCallDeletedPhoneNumber $phoneNumber;
 
     /**
-     * @var 'call.deleted' $type This is the type of the message. "call.deleted" is sent when a call is deleted.
+     * @var value-of<ClientMessageCallDeletedType> $type This is the type of the message. "call.deleted" is sent when a call is deleted.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -45,7 +45,7 @@ class ClientMessageCallDeleted extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'call.deleted',
+     *   type: value-of<ClientMessageCallDeletedType>,
      *   phoneNumber?: ?ClientMessageCallDeletedPhoneNumber,
      *   timestamp?: ?float,
      *   call?: ?Call,

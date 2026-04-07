@@ -15,10 +15,19 @@ class ClientMessageModelOutput extends JsonSerializableType
     public ?ClientMessageModelOutputPhoneNumber $phoneNumber;
 
     /**
-     * @var 'model-output' $type This is the type of the message. "model-output" is sent as the model outputs tokens.
+     * @var value-of<ClientMessageModelOutputType> $type This is the type of the message. "model-output" is sent as the model outputs tokens.
      */
     #[JsonProperty('type')]
     public string $type;
+
+    /**
+     * This is the unique identifier for the current LLM turn. All tokens from the same
+     * LLM response share the same turnId. Use this to group tokens and discard on interruption.
+     *
+     * @var ?string $turnId
+     */
+    #[JsonProperty('turnId')]
+    public ?string $turnId;
 
     /**
      * @var ?float $timestamp This is the timestamp of the message.
@@ -52,9 +61,10 @@ class ClientMessageModelOutput extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'model-output',
+     *   type: value-of<ClientMessageModelOutputType>,
      *   output: array<string, mixed>,
      *   phoneNumber?: ?ClientMessageModelOutputPhoneNumber,
+     *   turnId?: ?string,
      *   timestamp?: ?float,
      *   call?: ?Call,
      *   customer?: ?CreateCustomerDto,
@@ -66,6 +76,7 @@ class ClientMessageModelOutput extends JsonSerializableType
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
         $this->type = $values['type'];
+        $this->turnId = $values['turnId'] ?? null;
         $this->timestamp = $values['timestamp'] ?? null;
         $this->call = $values['call'] ?? null;
         $this->customer = $values['customer'] ?? null;

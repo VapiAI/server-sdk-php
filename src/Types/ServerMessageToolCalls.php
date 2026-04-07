@@ -15,7 +15,7 @@ class ServerMessageToolCalls extends JsonSerializableType
     public ?ServerMessageToolCallsPhoneNumber $phoneNumber;
 
     /**
-     * @var ?'tool-calls' $type This is the type of the message. "tool-calls" is sent to call a tool.
+     * @var ?value-of<ServerMessageToolCallsType> $type This is the type of the message. "tool-calls" is sent to call a tool.
      */
     #[JsonProperty('type')]
     public ?string $type;
@@ -77,7 +77,7 @@ class ServerMessageToolCalls extends JsonSerializableType
      *   toolWithToolCallList: array<ServerMessageToolCallsToolWithToolCallListItem>,
      *   toolCallList: array<ToolCall>,
      *   phoneNumber?: ?ServerMessageToolCallsPhoneNumber,
-     *   type?: ?'tool-calls',
+     *   type?: ?value-of<ServerMessageToolCallsType>,
      *   timestamp?: ?float,
      *   artifact?: ?Artifact,
      *   assistant?: ?CreateAssistantDto,

@@ -6,6 +6,7 @@ enum FallbackSpeechmaticsTranscriberLanguage: string
 {
     case Auto = "auto";
     case Ar = "ar";
+    case ArEn = "ar_en";
     case Ba = "ba";
     case Eu = "eu";
     case Be = "be";
@@ -37,8 +38,10 @@ enum FallbackSpeechmaticsTranscriberLanguage: string
     case Lv = "lv";
     case Lt = "lt";
     case Ms = "ms";
+    case EnMs = "en_ms";
     case Mt = "mt";
     case Cmn = "cmn";
+    case CmnEn = "cmn_en";
     case Mr = "mr";
     case Mn = "mn";
     case No = "no";
@@ -50,9 +53,12 @@ enum FallbackSpeechmaticsTranscriberLanguage: string
     case Sk = "sk";
     case Sl = "sl";
     case Es = "es";
+    case EnEs = "en_es";
     case Sw = "sw";
     case Sv = "sv";
+    case Tl = "tl";
     case Ta = "ta";
+    case EnTa = "en_ta";
     case Th = "th";
     case Tr = "tr";
     case Uk = "uk";

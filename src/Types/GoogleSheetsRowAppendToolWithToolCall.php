@@ -19,7 +19,7 @@ class GoogleSheetsRowAppendToolWithToolCall extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var 'google.sheets.row.append' $type The type of tool. "google.sheets.row.append" for Google Sheets Row Append tool.
+     * @var value-of<GoogleSheetsRowAppendToolWithToolCallType> $type The type of tool. "google.sheets.row.append" for Google Sheets Row Append tool.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -117,7 +117,7 @@ class GoogleSheetsRowAppendToolWithToolCall extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'google.sheets.row.append',
+     *   type: value-of<GoogleSheetsRowAppendToolWithToolCallType>,
      *   toolCall: ToolCall,
      *   messages?: ?array<GoogleSheetsRowAppendToolWithToolCallMessagesItem>,
      *   rejectionPlan?: ?ToolRejectionPlan,

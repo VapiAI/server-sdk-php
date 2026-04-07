@@ -3,8 +3,10 @@
 namespace Vapi\StructuredOutputs\Requests;
 
 use Vapi\Core\Json\JsonSerializableType;
-use Vapi\StructuredOutputs\Types\UpdateStructuredOutputDtoModel;
+use Vapi\StructuredOutputs\Types\UpdateStructuredOutputDtoType;
 use Vapi\Core\Json\JsonProperty;
+use Vapi\StructuredOutputs\Types\UpdateStructuredOutputDtoModel;
+use Vapi\Types\ComplianceOverride;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Types\JsonSchema;
 
@@ -16,16 +18,44 @@ class UpdateStructuredOutputDto extends JsonSerializableType
     public string $schemaOverride;
 
     /**
+     * This is the type of structured output.
+     *
+     * - 'ai': Uses an LLM to extract structured data from the conversation (default).
+     * - 'regex': Uses a regex pattern to extract data from the transcript without an LLM.
+     *
+     * @var ?value-of<UpdateStructuredOutputDtoType> $type
+     */
+    #[JsonProperty('type')]
+    public ?string $type;
+
+    /**
+     * This is the regex pattern to match against the transcript.
+     *
+     * Only used when type is 'regex'. Supports both raw patterns (e.g. '\d+') and
+     * regex literal format (e.g. '/\d+/gi'). Uses RE2 syntax for safety.
+     *
+     * The result depends on the schema type:
+     * - boolean: true if the pattern matches, false otherwise
+     * - string: the first match or first capture group
+     * - number/integer: the first match parsed as a number
+     * - array: all matches
+     *
+     * @var ?string $regex
+     */
+    #[JsonProperty('regex')]
+    public ?string $regex;
+
+    /**
      * This is the model that will be used to extract the structured output.
      *
      * To provide your own custom system and user prompts for structured output extraction, populate the messages array with your system and user messages. You can specify liquid templating in your system and user messages.
-     * Between the system or user messages, you must reference either 'transcript' or 'messages' with the '{{}}' syntax to access the conversation history.
-     * Between the system or user messages, you must reference a variation of the structured output with the '{{}}' syntax to access the structured output definition.
+     * Between the system or user messages, you must reference either 'transcript' or 'messages' with the `{{}}` syntax to access the conversation history.
+     * Between the system or user messages, you must reference a variation of the structured output with the `{{}}` syntax to access the structured output definition.
      * i.e.:
-     * {{structuredOutput}}
-     * {{structuredOutput.name}}
-     * {{structuredOutput.description}}
-     * {{structuredOutput.schema}}
+     * `{{structuredOutput}}`
+     * `{{structuredOutput.name}}`
+     * `{{structuredOutput.description}}`
+     * `{{structuredOutput.schema}}`
      *
      * If model is not specified, GPT-4.1 will be used by default for extraction, utilizing default system and user prompts.
      * If messages or required fields are not specified, the default system and user prompts will be used.
@@ -34,6 +64,12 @@ class UpdateStructuredOutputDto extends JsonSerializableType
      */
     #[JsonProperty('model')]
     public ?UpdateStructuredOutputDtoModel $model;
+
+    /**
+     * @var ?ComplianceOverride $compliancePlan Compliance configuration for this output. Only enable overrides if no sensitive data will be stored.
+     */
+    #[JsonProperty('compliancePlan')]
+    public ?ComplianceOverride $compliancePlan;
 
     /**
      * @var ?string $name This is the name of the structured output.
@@ -90,7 +126,10 @@ class UpdateStructuredOutputDto extends JsonSerializableType
     /**
      * @param array{
      *   schemaOverride: string,
+     *   type?: ?value-of<UpdateStructuredOutputDtoType>,
+     *   regex?: ?string,
      *   model?: ?UpdateStructuredOutputDtoModel,
+     *   compliancePlan?: ?ComplianceOverride,
      *   name?: ?string,
      *   description?: ?string,
      *   assistantIds?: ?array<string>,
@@ -102,7 +141,10 @@ class UpdateStructuredOutputDto extends JsonSerializableType
         array $values,
     ) {
         $this->schemaOverride = $values['schemaOverride'];
+        $this->type = $values['type'] ?? null;
+        $this->regex = $values['regex'] ?? null;
         $this->model = $values['model'] ?? null;
+        $this->compliancePlan = $values['compliancePlan'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->description = $values['description'] ?? null;
         $this->assistantIds = $values['assistantIds'] ?? null;

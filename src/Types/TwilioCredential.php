@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class TwilioCredential extends JsonSerializableType
 {
     /**
-     * @var 'twilio' $provider
+     * @var value-of<TwilioCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -71,7 +71,7 @@ class TwilioCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'twilio',
+     *   provider: value-of<TwilioCredentialProvider>,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,

@@ -12,10 +12,12 @@ use Vapi\PhoneNumbers\PhoneNumbersClient;
 use Vapi\Tools\ToolsClient;
 use Vapi\Files\FilesClient;
 use Vapi\StructuredOutputs\StructuredOutputsClient;
+use Vapi\Insight\InsightClient;
 use Vapi\Eval\EvalClient;
+use Vapi\ObservabilityScorecard\ObservabilityScorecardClient;
 use Vapi\ProviderResources\ProviderResourcesClient;
 use Vapi\Analytics\AnalyticsClient;
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Vapi\Core\Client\RawClient;
 
 class VapiClient
@@ -71,9 +73,19 @@ class VapiClient
     public StructuredOutputsClient $structuredOutputs;
 
     /**
+     * @var InsightClient $insight
+     */
+    public InsightClient $insight;
+
+    /**
      * @var EvalClient $eval
      */
     public EvalClient $eval;
+
+    /**
+     * @var ObservabilityScorecardClient $observabilityScorecard
+     */
+    public ObservabilityScorecardClient $observabilityScorecard;
 
     /**
      * @var ProviderResourcesClient $providerResources
@@ -92,7 +104,7 @@ class VapiClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -119,11 +131,12 @@ class VapiClient
             'Authorization' => "Bearer $token",
             'X-Fern-Language' => 'PHP',
             'X-Fern-SDK-Name' => 'Vapi',
-            'X-Fern-SDK-Version' => '0.0.1',
-            'User-Agent' => 'vapi/vapi/0.0.1',
+            'X-Fern-SDK-Version' => '1.0.0',
+            'User-Agent' => 'vapi/vapi/1.0.0',
         ];
 
         $this->options = $options ?? [];
+
         $this->options['headers'] = array_merge(
             $defaultHeaders,
             $this->options['headers'] ?? [],
@@ -143,7 +156,9 @@ class VapiClient
         $this->tools = new ToolsClient($this->client, $this->options);
         $this->files = new FilesClient($this->client, $this->options);
         $this->structuredOutputs = new StructuredOutputsClient($this->client, $this->options);
+        $this->insight = new InsightClient($this->client, $this->options);
         $this->eval = new EvalClient($this->client, $this->options);
+        $this->observabilityScorecard = new ObservabilityScorecardClient($this->client, $this->options);
         $this->providerResources = new ProviderResourcesClient($this->client, $this->options);
         $this->analytics = new AnalyticsClient($this->client, $this->options);
     }

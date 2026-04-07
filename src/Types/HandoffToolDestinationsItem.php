@@ -12,6 +12,7 @@ class HandoffToolDestinationsItem extends JsonSerializableType
      * @var (
      *    'assistant'
      *   |'dynamic'
+     *   |'squad'
      *   |'_unknown'
      * ) $type
      */
@@ -21,6 +22,7 @@ class HandoffToolDestinationsItem extends JsonSerializableType
      * @var (
      *    HandoffDestinationAssistant
      *   |HandoffDestinationDynamic
+     *   |HandoffDestinationSquad
      *   |mixed
      * ) $value
      */
@@ -31,11 +33,13 @@ class HandoffToolDestinationsItem extends JsonSerializableType
      *   type: (
      *    'assistant'
      *   |'dynamic'
+     *   |'squad'
      *   |'_unknown'
      * ),
      *   value: (
      *    HandoffDestinationAssistant
      *   |HandoffDestinationDynamic
+     *   |HandoffDestinationSquad
      *   |mixed
      * ),
      * } $values
@@ -68,6 +72,18 @@ class HandoffToolDestinationsItem extends JsonSerializableType
         return new HandoffToolDestinationsItem([
             'type' => 'dynamic',
             'value' => $dynamic,
+        ]);
+    }
+
+    /**
+     * @param HandoffDestinationSquad $squad
+     * @return HandoffToolDestinationsItem
+     */
+    public static function squad(HandoffDestinationSquad $squad): HandoffToolDestinationsItem
+    {
+        return new HandoffToolDestinationsItem([
+            'type' => 'squad',
+            'value' => $squad,
         ]);
     }
 
@@ -116,6 +132,28 @@ class HandoffToolDestinationsItem extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isSquad(): bool
+    {
+        return $this->value instanceof HandoffDestinationSquad && $this->type === 'squad';
+    }
+
+    /**
+     * @return HandoffDestinationSquad
+     */
+    public function asSquad(): HandoffDestinationSquad
+    {
+        if (!($this->value instanceof HandoffDestinationSquad && $this->type === 'squad')) {
+            throw new Exception(
+                "Expected squad; got " . $this->type . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -141,6 +179,10 @@ class HandoffToolDestinationsItem extends JsonSerializableType
                 break;
             case 'dynamic':
                 $value = $this->asDynamic()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'squad':
+                $value = $this->asSquad()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -196,6 +238,9 @@ class HandoffToolDestinationsItem extends JsonSerializableType
                 break;
             case 'dynamic':
                 $args['value'] = HandoffDestinationDynamic::jsonDeserialize($data);
+                break;
+            case 'squad':
+                $args['value'] = HandoffDestinationSquad::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

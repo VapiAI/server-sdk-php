@@ -24,6 +24,12 @@ class GoogleVoicemailDetectionPlan extends JsonSerializableType
     public ?float $beepMaxAwaitSeconds;
 
     /**
+     * @var value-of<GoogleVoicemailDetectionPlanProvider> $provider This is the provider to use for voicemail detection.
+     */
+    #[JsonProperty('provider')]
+    public string $provider;
+
+    /**
      * @var ?VoicemailDetectionBackoffPlan $backoffPlan This is the backoff plan for the voicemail detection.
      */
     #[JsonProperty('backoffPlan')]
@@ -42,15 +48,17 @@ class GoogleVoicemailDetectionPlan extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider: value-of<GoogleVoicemailDetectionPlanProvider>,
      *   beepMaxAwaitSeconds?: ?float,
      *   backoffPlan?: ?VoicemailDetectionBackoffPlan,
      *   type?: ?value-of<GoogleVoicemailDetectionPlanType>,
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
         $this->beepMaxAwaitSeconds = $values['beepMaxAwaitSeconds'] ?? null;
+        $this->provider = $values['provider'];
         $this->backoffPlan = $values['backoffPlan'] ?? null;
         $this->type = $values['type'] ?? null;
     }

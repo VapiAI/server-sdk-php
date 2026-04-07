@@ -25,6 +25,22 @@ class Server extends JsonSerializableType
     public ?string $credentialId;
 
     /**
+     * If enabled, requests will originate from a static set of IPs owned and managed by Vapi.
+     *
+     * @default false
+     *
+     * @var ?bool $staticIpAddressesEnabled
+     */
+    #[JsonProperty('staticIpAddressesEnabled')]
+    public ?bool $staticIpAddressesEnabled;
+
+    /**
+     * @var ?array<string> $encryptedPaths This is the paths to encrypt in the request body if credentialId and encryptionPlan are defined.
+     */
+    #[JsonProperty('encryptedPaths'), ArrayType(['string'])]
+    public ?array $encryptedPaths;
+
+    /**
      * @var ?string $url This is where the request will be sent.
      */
     #[JsonProperty('url')]
@@ -56,6 +72,8 @@ class Server extends JsonSerializableType
      * @param array{
      *   timeoutSeconds?: ?float,
      *   credentialId?: ?string,
+     *   staticIpAddressesEnabled?: ?bool,
+     *   encryptedPaths?: ?array<string>,
      *   url?: ?string,
      *   headers?: ?array<string, mixed>,
      *   backoffPlan?: ?BackoffPlan,
@@ -66,6 +84,8 @@ class Server extends JsonSerializableType
     ) {
         $this->timeoutSeconds = $values['timeoutSeconds'] ?? null;
         $this->credentialId = $values['credentialId'] ?? null;
+        $this->staticIpAddressesEnabled = $values['staticIpAddressesEnabled'] ?? null;
+        $this->encryptedPaths = $values['encryptedPaths'] ?? null;
         $this->url = $values['url'] ?? null;
         $this->headers = $values['headers'] ?? null;
         $this->backoffPlan = $values['backoffPlan'] ?? null;

@@ -16,7 +16,7 @@ class ServerMessageConversationUpdate extends JsonSerializableType
     public ?ServerMessageConversationUpdatePhoneNumber $phoneNumber;
 
     /**
-     * @var 'conversation-update' $type This is the type of the message. "conversation-update" is sent when an update is committed to the conversation history.
+     * @var value-of<ServerMessageConversationUpdateType> $type This is the type of the message. "conversation-update" is sent when an update is committed to the conversation history.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -81,7 +81,7 @@ class ServerMessageConversationUpdate extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'conversation-update',
+     *   type: value-of<ServerMessageConversationUpdateType>,
      *   messagesOpenAiFormatted: array<OpenAiMessage>,
      *   phoneNumber?: ?ServerMessageConversationUpdatePhoneNumber,
      *   messages?: ?array<(

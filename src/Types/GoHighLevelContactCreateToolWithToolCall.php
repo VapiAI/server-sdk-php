@@ -19,7 +19,7 @@ class GoHighLevelContactCreateToolWithToolCall extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var 'gohighlevel.contact.create' $type The type of tool. "gohighlevel.contact.create" for GoHighLevel Contact Create tool.
+     * @var value-of<GoHighLevelContactCreateToolWithToolCallType> $type The type of tool. "gohighlevel.contact.create" for GoHighLevel Contact Create tool.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -117,7 +117,7 @@ class GoHighLevelContactCreateToolWithToolCall extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'gohighlevel.contact.create',
+     *   type: value-of<GoHighLevelContactCreateToolWithToolCallType>,
      *   toolCall: ToolCall,
      *   messages?: ?array<GoHighLevelContactCreateToolWithToolCallMessagesItem>,
      *   rejectionPlan?: ?ToolRejectionPlan,

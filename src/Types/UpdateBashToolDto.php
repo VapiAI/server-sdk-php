@@ -19,7 +19,7 @@ class UpdateBashToolDto extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var ?'bash_20241022' $subType The sub type of tool.
+     * @var ?value-of<UpdateBashToolDtoSubType> $subType The sub type of tool.
      */
     #[JsonProperty('subType')]
     public ?string $subType;
@@ -126,7 +126,7 @@ class UpdateBashToolDto extends JsonSerializableType
     public ?ToolRejectionPlan $rejectionPlan;
 
     /**
-     * @var ?'bash' $name The name of the tool, fixed to 'bash'
+     * @var ?value-of<UpdateBashToolDtoName> $name The name of the tool, fixed to 'bash'
      */
     #[JsonProperty('name')]
     public ?string $name;
@@ -134,10 +134,10 @@ class UpdateBashToolDto extends JsonSerializableType
     /**
      * @param array{
      *   messages?: ?array<UpdateBashToolDtoMessagesItem>,
-     *   subType?: ?'bash_20241022',
+     *   subType?: ?value-of<UpdateBashToolDtoSubType>,
      *   server?: ?Server,
      *   rejectionPlan?: ?ToolRejectionPlan,
-     *   name?: ?'bash',
+     *   name?: ?value-of<UpdateBashToolDtoName>,
      * } $values
      */
     public function __construct(

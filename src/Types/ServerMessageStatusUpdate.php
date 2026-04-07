@@ -16,7 +16,7 @@ class ServerMessageStatusUpdate extends JsonSerializableType
     public ?ServerMessageStatusUpdatePhoneNumber $phoneNumber;
 
     /**
-     * @var 'status-update' $type This is the type of the message. "status-update" is sent whenever the `call.status` changes.
+     * @var value-of<ServerMessageStatusUpdateType> $type This is the type of the message. "status-update" is sent whenever the `call.status` changes.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -121,7 +121,7 @@ class ServerMessageStatusUpdate extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'status-update',
+     *   type: value-of<ServerMessageStatusUpdateType>,
      *   status: value-of<ServerMessageStatusUpdateStatus>,
      *   phoneNumber?: ?ServerMessageStatusUpdatePhoneNumber,
      *   endedReason?: ?value-of<ServerMessageStatusUpdateEndedReason>,

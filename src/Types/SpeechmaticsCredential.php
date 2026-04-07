@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class SpeechmaticsCredential extends JsonSerializableType
 {
     /**
-     * @var 'speechmatics' $provider
+     * @var value-of<SpeechmaticsCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class SpeechmaticsCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'speechmatics',
+     *   provider: value-of<SpeechmaticsCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

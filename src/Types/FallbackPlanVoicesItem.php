@@ -20,6 +20,7 @@ class FallbackPlanVoicesItem extends JsonSerializableType
      *   |'lmnt'
      *   |'openai'
      *   |'playht'
+     *   |'wellsaid'
      *   |'rime-ai'
      *   |'smallest-ai'
      *   |'tavus'
@@ -43,6 +44,7 @@ class FallbackPlanVoicesItem extends JsonSerializableType
      *   |FallbackLmntVoice
      *   |FallbackOpenAiVoice
      *   |FallbackPlayHtVoice
+     *   |FallbackWellSaidVoice
      *   |FallbackRimeAiVoice
      *   |FallbackSmallestAiVoice
      *   |FallbackTavusVoice
@@ -67,6 +69,7 @@ class FallbackPlanVoicesItem extends JsonSerializableType
      *   |'lmnt'
      *   |'openai'
      *   |'playht'
+     *   |'wellsaid'
      *   |'rime-ai'
      *   |'smallest-ai'
      *   |'tavus'
@@ -86,6 +89,7 @@ class FallbackPlanVoicesItem extends JsonSerializableType
      *   |FallbackLmntVoice
      *   |FallbackOpenAiVoice
      *   |FallbackPlayHtVoice
+     *   |FallbackWellSaidVoice
      *   |FallbackRimeAiVoice
      *   |FallbackSmallestAiVoice
      *   |FallbackTavusVoice
@@ -220,6 +224,18 @@ class FallbackPlanVoicesItem extends JsonSerializableType
         return new FallbackPlanVoicesItem([
             'provider' => 'playht',
             'value' => $playht,
+        ]);
+    }
+
+    /**
+     * @param FallbackWellSaidVoice $wellsaid
+     * @return FallbackPlanVoicesItem
+     */
+    public static function wellsaid(FallbackWellSaidVoice $wellsaid): FallbackPlanVoicesItem
+    {
+        return new FallbackPlanVoicesItem([
+            'provider' => 'wellsaid',
+            'value' => $wellsaid,
         ]);
     }
 
@@ -518,6 +534,28 @@ class FallbackPlanVoicesItem extends JsonSerializableType
     /**
      * @return bool
      */
+    public function isWellsaid(): bool
+    {
+        return $this->value instanceof FallbackWellSaidVoice && $this->provider === 'wellsaid';
+    }
+
+    /**
+     * @return FallbackWellSaidVoice
+     */
+    public function asWellsaid(): FallbackWellSaidVoice
+    {
+        if (!($this->value instanceof FallbackWellSaidVoice && $this->provider === 'wellsaid')) {
+            throw new Exception(
+                "Expected wellsaid; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
     public function isRimeAi(): bool
     {
         return $this->value instanceof FallbackRimeAiVoice && $this->provider === 'rime-ai';
@@ -707,6 +745,10 @@ class FallbackPlanVoicesItem extends JsonSerializableType
                 $value = $this->asPlayht()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
+            case 'wellsaid':
+                $value = $this->asWellsaid()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
             case 'rime-ai':
                 $value = $this->asRimeAi()->jsonSerialize();
                 $result = array_merge($value, $result);
@@ -808,6 +850,9 @@ class FallbackPlanVoicesItem extends JsonSerializableType
                 break;
             case 'playht':
                 $args['value'] = FallbackPlayHtVoice::jsonDeserialize($data);
+                break;
+            case 'wellsaid':
+                $args['value'] = FallbackWellSaidVoice::jsonDeserialize($data);
                 break;
             case 'rime-ai':
                 $args['value'] = FallbackRimeAiVoice::jsonDeserialize($data);

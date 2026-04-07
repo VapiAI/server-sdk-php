@@ -19,7 +19,7 @@ class CreateMakeToolDto extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var 'make' $type The type of tool. "make" for Make tool.
+     * @var value-of<CreateMakeToolDtoType> $type The type of tool. "make" for Make tool.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -117,7 +117,7 @@ class CreateMakeToolDto extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'make',
+     *   type: value-of<CreateMakeToolDtoType>,
      *   metadata: MakeToolMetadata,
      *   messages?: ?array<CreateMakeToolDtoMessagesItem>,
      *   rejectionPlan?: ?ToolRejectionPlan,

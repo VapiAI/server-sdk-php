@@ -14,7 +14,7 @@ class ServerMessageCallDeleteFailed extends JsonSerializableType
     public ?ServerMessageCallDeleteFailedPhoneNumber $phoneNumber;
 
     /**
-     * @var 'call.delete.failed' $type This is the type of the message. "call.deleted" is sent when a call is deleted.
+     * @var value-of<ServerMessageCallDeleteFailedType> $type This is the type of the message. "call.deleted" is sent when a call is deleted.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -61,7 +61,7 @@ class ServerMessageCallDeleteFailed extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'call.delete.failed',
+     *   type: value-of<ServerMessageCallDeleteFailedType>,
      *   phoneNumber?: ?ServerMessageCallDeleteFailedPhoneNumber,
      *   timestamp?: ?float,
      *   artifact?: ?Artifact,

@@ -4,22 +4,27 @@ namespace Vapi\Types;
 
 enum CreateAzureOpenAiCredentialDtoRegion: string
 {
-    case Australia = "australia";
+    case Australiaeast = "australiaeast";
     case Canadaeast = "canadaeast";
     case Canadacentral = "canadacentral";
+    case Centralus = "centralus";
     case Eastus2 = "eastus2";
     case Eastus = "eastus";
     case France = "france";
+    case Germanywestcentral = "germanywestcentral";
     case India = "india";
     case Japaneast = "japaneast";
     case Japanwest = "japanwest";
-    case Uaenorth = "uaenorth";
     case Northcentralus = "northcentralus";
     case Norway = "norway";
+    case Polandcentral = "polandcentral";
     case Southcentralus = "southcentralus";
+    case Spaincentral = "spaincentral";
     case Swedencentral = "swedencentral";
     case Switzerland = "switzerland";
+    case Uaenorth = "uaenorth";
     case Uk = "uk";
+    case Westeurope = "westeurope";
     case Westus = "westus";
     case Westus3 = "westus3";
 }

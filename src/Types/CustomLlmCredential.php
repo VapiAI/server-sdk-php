@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class CustomLlmCredential extends JsonSerializableType
 {
     /**
-     * @var 'custom-llm' $provider
+     * @var value-of<CustomLlmCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -65,7 +65,7 @@ class CustomLlmCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'custom-llm',
+     *   provider: value-of<CustomLlmCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

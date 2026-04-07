@@ -9,6 +9,12 @@ use Vapi\Core\Types\ArrayType;
 class CredentialEndUser extends JsonSerializableType
 {
     /**
+     * @var ?string $endUserEmail
+     */
+    #[JsonProperty('endUserEmail')]
+    public ?string $endUserEmail;
+
+    /**
      * @var string $endUserId
      */
     #[JsonProperty('endUserId')]
@@ -30,12 +36,14 @@ class CredentialEndUser extends JsonSerializableType
      * @param array{
      *   endUserId: string,
      *   organizationId: string,
+     *   endUserEmail?: ?string,
      *   tags?: ?array<string, mixed>,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->endUserEmail = $values['endUserEmail'] ?? null;
         $this->endUserId = $values['endUserId'];
         $this->organizationId = $values['organizationId'];
         $this->tags = $values['tags'] ?? null;

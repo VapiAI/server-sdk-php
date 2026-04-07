@@ -8,7 +8,7 @@ use Vapi\Core\Json\JsonProperty;
 class RegexSecurityFilter extends JsonSerializableType
 {
     /**
-     * @var 'regex' $type The type of security threat to filter.
+     * @var value-of<RegexSecurityFilterType> $type The type of security threat to filter.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -21,7 +21,7 @@ class RegexSecurityFilter extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'regex',
+     *   type: value-of<RegexSecurityFilterType>,
      *   regex: string,
      * } $values
      */

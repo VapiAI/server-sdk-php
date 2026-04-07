@@ -12,7 +12,10 @@ enum WorkflowAnthropicModelModel: string
     case Claude35Haiku20241022 = "claude-3-5-haiku-20241022";
     case Claude37Sonnet20250219 = "claude-3-7-sonnet-20250219";
     case ClaudeOpus420250514 = "claude-opus-4-20250514";
+    case ClaudeOpus4520251101 = "claude-opus-4-5-20251101";
+    case ClaudeOpus46 = "claude-opus-4-6";
     case ClaudeSonnet420250514 = "claude-sonnet-4-20250514";
     case ClaudeSonnet4520250929 = "claude-sonnet-4-5-20250929";
+    case ClaudeSonnet46 = "claude-sonnet-4-6";
     case ClaudeHaiku4520251001 = "claude-haiku-4-5-20251001";
 }

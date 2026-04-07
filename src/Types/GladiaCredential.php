@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class GladiaCredential extends JsonSerializableType
 {
     /**
-     * @var 'gladia' $provider
+     * @var value-of<GladiaCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class GladiaCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'gladia',
+     *   provider: value-of<GladiaCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

@@ -34,7 +34,7 @@ class Template extends JsonSerializableType
     public ?string $visibility;
 
     /**
-     * @var 'tool' $type
+     * @var value-of<TemplateType> $type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -77,7 +77,7 @@ class Template extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'tool',
+     *   type: value-of<TemplateType>,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,

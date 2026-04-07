@@ -1,0 +1,39 @@
+<?php
+
+namespace Vapi\Types;
+
+use Vapi\Core\Json\JsonSerializableType;
+use Vapi\Core\Json\JsonProperty;
+
+class InsightRunFormatPlan extends JsonSerializableType
+{
+    /**
+     * This is the format of the data to return.
+     * If not provided, defaults to "raw".
+     * Raw provides the data as fetched from the database, with formulas evaluated.
+     * Recharts provides the data in a format that can is ready to be used by recharts.js to render charts.
+     *
+     * @var ?value-of<InsightRunFormatPlanFormat> $format
+     */
+    #[JsonProperty('format')]
+    public ?string $format;
+
+    /**
+     * @param array{
+     *   format?: ?value-of<InsightRunFormatPlanFormat>,
+     * } $values
+     */
+    public function __construct(
+        array $values = [],
+    ) {
+        $this->format = $values['format'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
+}

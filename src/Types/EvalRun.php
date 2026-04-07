@@ -90,10 +90,22 @@ class EvalRun extends JsonSerializableType
     public array $results;
 
     /**
+     * @var float $cost This is the cost of the eval or suite run in USD.
+     */
+    #[JsonProperty('cost')]
+    public float $cost;
+
+    /**
+     * @var array<array<string, mixed>> $costs This is the break up of costs of the eval or suite run.
+     */
+    #[JsonProperty('costs'), ArrayType([['string' => 'mixed']])]
+    public array $costs;
+
+    /**
      * This is the type of the run.
      * Currently it is fixed to `eval`.
      *
-     * @var 'eval' $type
+     * @var value-of<EvalRunType> $type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -115,7 +127,9 @@ class EvalRun extends JsonSerializableType
      *   startedAt: DateTime,
      *   endedAt: DateTime,
      *   results: array<EvalRunResult>,
-     *   type: 'eval',
+     *   cost: float,
+     *   costs: array<array<string, mixed>>,
+     *   type: value-of<EvalRunType>,
      *   eval?: ?CreateEvalDto,
      *   endedMessage?: ?string,
      *   evalId?: ?string,
@@ -135,6 +149,8 @@ class EvalRun extends JsonSerializableType
         $this->endedAt = $values['endedAt'];
         $this->endedMessage = $values['endedMessage'] ?? null;
         $this->results = $values['results'];
+        $this->cost = $values['cost'];
+        $this->costs = $values['costs'];
         $this->type = $values['type'];
         $this->evalId = $values['evalId'] ?? null;
     }

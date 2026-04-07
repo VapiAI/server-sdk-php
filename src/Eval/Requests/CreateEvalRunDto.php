@@ -6,6 +6,7 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Types\CreateEvalDto;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Eval\Types\CreateEvalRunDtoTarget;
+use Vapi\Eval\Types\CreateEvalRunDtoType;
 
 class CreateEvalRunDto extends JsonSerializableType
 {
@@ -25,7 +26,7 @@ class CreateEvalRunDto extends JsonSerializableType
      * This is the type of the run.
      * Currently it is fixed to `eval`.
      *
-     * @var 'eval' $type
+     * @var value-of<CreateEvalRunDtoType> $type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -39,7 +40,7 @@ class CreateEvalRunDto extends JsonSerializableType
     /**
      * @param array{
      *   target: CreateEvalRunDtoTarget,
-     *   type: 'eval',
+     *   type: value-of<CreateEvalRunDtoType>,
      *   eval?: ?CreateEvalDto,
      *   evalId?: ?string,
      * } $values

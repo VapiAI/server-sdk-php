@@ -2,7 +2,7 @@
 
 namespace Vapi\Analytics;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Vapi\Core\Client\RawClient;
 use Vapi\Analytics\Requests\AnalyticsQueryDto;
 use Vapi\Types\AnalyticsQueryResult;
@@ -13,7 +13,6 @@ use Vapi\Environments;
 use Vapi\Core\Client\HttpMethod;
 use Vapi\Core\Json\JsonDecoder;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 
 class AnalyticsClient
@@ -25,7 +24,7 @@ class AnalyticsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -62,11 +61,11 @@ class AnalyticsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return array<AnalyticsQueryResult>
+     * @return ?array<AnalyticsQueryResult>
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function get(AnalyticsQueryDto $request, ?array $options = null): array
+    public function get(AnalyticsQueryDto $request, ?array $options = null): ?array
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -82,20 +81,13 @@ class AnalyticsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return JsonDecoder::decodeArray($json, [AnalyticsQueryResult::class]); // @phpstan-ignore-line
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }

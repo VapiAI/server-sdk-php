@@ -73,6 +73,33 @@ class OpenAiModel extends JsonSerializableType
     public ?string $toolStrictCompatibilityMode;
 
     /**
+     * This controls the prompt cache retention policy for models that support extended caching (GPT-4.1, GPT-5 series).
+     *
+     * - `in_memory`: Default behavior, cache retained in GPU memory only
+     * - `24h`: Extended caching, keeps cached prefixes active for up to 24 hours by offloading to GPU-local storage
+     *
+     * Only applies to models: gpt-5.4, gpt-5.4-mini, gpt-5.4-nano, gpt-5.2, gpt-5.1, gpt-5.1-codex, gpt-5.1-codex-mini, gpt-5.1-chat-latest, gpt-5, gpt-5-codex, gpt-4.1
+     *
+     * @default undefined (uses API default which is 'in_memory')
+     *
+     * @var ?value-of<OpenAiModelPromptCacheRetention> $promptCacheRetention
+     */
+    #[JsonProperty('promptCacheRetention')]
+    public ?string $promptCacheRetention;
+
+    /**
+     * This is the prompt cache key for models that support extended caching (GPT-4.1, GPT-5 series).
+     *
+     * Providing a cache key allows you to share cached prefixes across requests.
+     *
+     * @default undefined
+     *
+     * @var ?string $promptCacheKey
+     */
+    #[JsonProperty('promptCacheKey')]
+    public ?string $promptCacheKey;
+
+    /**
      * @var ?float $temperature This is the temperature that will be used for calls. Default is 0 to leverage caching for lower latency.
      */
     #[JsonProperty('temperature')]
@@ -117,6 +144,8 @@ class OpenAiModel extends JsonSerializableType
      *   knowledgeBase?: ?CreateCustomKnowledgeBaseDto,
      *   fallbackModels?: ?array<value-of<OpenAiModelFallbackModelsItem>>,
      *   toolStrictCompatibilityMode?: ?value-of<OpenAiModelToolStrictCompatibilityMode>,
+     *   promptCacheRetention?: ?value-of<OpenAiModelPromptCacheRetention>,
+     *   promptCacheKey?: ?string,
      *   temperature?: ?float,
      *   maxTokens?: ?float,
      *   emotionRecognitionEnabled?: ?bool,
@@ -133,6 +162,8 @@ class OpenAiModel extends JsonSerializableType
         $this->model = $values['model'];
         $this->fallbackModels = $values['fallbackModels'] ?? null;
         $this->toolStrictCompatibilityMode = $values['toolStrictCompatibilityMode'] ?? null;
+        $this->promptCacheRetention = $values['promptCacheRetention'] ?? null;
+        $this->promptCacheKey = $values['promptCacheKey'] ?? null;
         $this->temperature = $values['temperature'] ?? null;
         $this->maxTokens = $values['maxTokens'] ?? null;
         $this->emotionRecognitionEnabled = $values['emotionRecognitionEnabled'] ?? null;

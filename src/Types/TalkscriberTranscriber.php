@@ -8,7 +8,7 @@ use Vapi\Core\Json\JsonProperty;
 class TalkscriberTranscriber extends JsonSerializableType
 {
     /**
-     * @var ?'whisper' $model This is the model that will be used for the transcription.
+     * @var ?value-of<TalkscriberTranscriberModel> $model This is the model that will be used for the transcription.
      */
     #[JsonProperty('model')]
     public ?string $model;
@@ -20,14 +20,14 @@ class TalkscriberTranscriber extends JsonSerializableType
     public ?string $language;
 
     /**
-     * @var ?FallbackTranscriberPlan $fallbackPlan This is the plan for voice provider fallbacks in the event that the primary voice provider fails.
+     * @var ?FallbackTranscriberPlan $fallbackPlan This is the plan for transcriber provider fallbacks in the event that the primary transcriber provider fails.
      */
     #[JsonProperty('fallbackPlan')]
     public ?FallbackTranscriberPlan $fallbackPlan;
 
     /**
      * @param array{
-     *   model?: ?'whisper',
+     *   model?: ?value-of<TalkscriberTranscriberModel>,
      *   language?: ?value-of<TalkscriberTranscriberLanguage>,
      *   fallbackPlan?: ?FallbackTranscriberPlan,
      * } $values

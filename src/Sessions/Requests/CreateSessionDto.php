@@ -6,6 +6,7 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Sessions\Types\CreateSessionDtoStatus;
 use Vapi\Types\CreateAssistantDto;
+use Vapi\Types\AssistantOverrides;
 use Vapi\Types\CreateSquadDto;
 use Vapi\Types\SystemMessage;
 use Vapi\Types\UserMessage;
@@ -53,6 +54,16 @@ class CreateSessionDto extends JsonSerializableType
     public ?CreateAssistantDto $assistant;
 
     /**
+     * These are the overrides for the assistant configuration.
+     * Use this to provide variable values and other overrides when using assistantId.
+     * Variable substitution will be applied to the assistant's messages and other text-based fields.
+     *
+     * @var ?AssistantOverrides $assistantOverrides
+     */
+    #[JsonProperty('assistantOverrides')]
+    public ?AssistantOverrides $assistantOverrides;
+
+    /**
      * @var ?string $squadId This is the squad ID associated with this session. Use this when referencing an existing squad.
      */
     #[JsonProperty('squadId')]
@@ -86,6 +97,12 @@ class CreateSessionDto extends JsonSerializableType
     public ?CreateCustomerDto $customer;
 
     /**
+     * @var ?string $customerId This is the customerId of the customer associated with this session.
+     */
+    #[JsonProperty('customerId')]
+    public ?string $customerId;
+
+    /**
      * @var ?string $phoneNumberId This is the ID of the phone number associated with this session.
      */
     #[JsonProperty('phoneNumberId')]
@@ -104,6 +121,7 @@ class CreateSessionDto extends JsonSerializableType
      *   expirationSeconds?: ?float,
      *   assistantId?: ?string,
      *   assistant?: ?CreateAssistantDto,
+     *   assistantOverrides?: ?AssistantOverrides,
      *   squadId?: ?string,
      *   squad?: ?CreateSquadDto,
      *   messages?: ?array<(
@@ -114,6 +132,7 @@ class CreateSessionDto extends JsonSerializableType
      *   |DeveloperMessage
      * )>,
      *   customer?: ?CreateCustomerDto,
+     *   customerId?: ?string,
      *   phoneNumberId?: ?string,
      *   phoneNumber?: ?ImportTwilioPhoneNumberDto,
      * } $values
@@ -126,10 +145,12 @@ class CreateSessionDto extends JsonSerializableType
         $this->expirationSeconds = $values['expirationSeconds'] ?? null;
         $this->assistantId = $values['assistantId'] ?? null;
         $this->assistant = $values['assistant'] ?? null;
+        $this->assistantOverrides = $values['assistantOverrides'] ?? null;
         $this->squadId = $values['squadId'] ?? null;
         $this->squad = $values['squad'] ?? null;
         $this->messages = $values['messages'] ?? null;
         $this->customer = $values['customer'] ?? null;
+        $this->customerId = $values['customerId'] ?? null;
         $this->phoneNumberId = $values['phoneNumberId'] ?? null;
         $this->phoneNumber = $values['phoneNumber'] ?? null;
     }

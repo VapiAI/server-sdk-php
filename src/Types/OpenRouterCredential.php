@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class OpenRouterCredential extends JsonSerializableType
 {
     /**
-     * @var 'openrouter' $provider
+     * @var value-of<OpenRouterCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class OpenRouterCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'openrouter',
+     *   provider: value-of<OpenRouterCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

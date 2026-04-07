@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class TavusCredential extends JsonSerializableType
 {
     /**
-     * @var 'tavus' $provider
+     * @var value-of<TavusCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class TavusCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'tavus',
+     *   provider: value-of<TavusCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

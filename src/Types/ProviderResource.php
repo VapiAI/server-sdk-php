@@ -6,6 +6,7 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use DateTime;
 use Vapi\Core\Types\Date;
+use Vapi\Core\Types\ArrayType;
 
 class ProviderResource extends JsonSerializableType
 {
@@ -34,13 +35,13 @@ class ProviderResource extends JsonSerializableType
     public DateTime $updatedAt;
 
     /**
-     * @var '11labs' $provider This is the provider that manages this resource.
+     * @var value-of<ProviderResourceProvider> $provider This is the provider that manages this resource.
      */
     #[JsonProperty('provider')]
     public string $provider;
 
     /**
-     * @var 'pronunciation-dictionary' $resourceName This is the name/type of the resource.
+     * @var value-of<ProviderResourceResourceName> $resourceName This is the name/type of the resource.
      */
     #[JsonProperty('resourceName')]
     public string $resourceName;
@@ -52,10 +53,10 @@ class ProviderResource extends JsonSerializableType
     public string $resourceId;
 
     /**
-     * @var ElevenLabsPronunciationDictionary $resource This is the full resource data from the provider's API.
+     * @var array<string, mixed> $resource This is the full resource data from the provider's API.
      */
-    #[JsonProperty('resource')]
-    public ElevenLabsPronunciationDictionary $resource;
+    #[JsonProperty('resource'), ArrayType(['string' => 'mixed'])]
+    public array $resource;
 
     /**
      * @param array{
@@ -63,10 +64,10 @@ class ProviderResource extends JsonSerializableType
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
-     *   provider: '11labs',
-     *   resourceName: 'pronunciation-dictionary',
+     *   provider: value-of<ProviderResourceProvider>,
+     *   resourceName: value-of<ProviderResourceResourceName>,
      *   resourceId: string,
-     *   resource: ElevenLabsPronunciationDictionary,
+     *   resource: array<string, mixed>,
      * } $values
      */
     public function __construct(

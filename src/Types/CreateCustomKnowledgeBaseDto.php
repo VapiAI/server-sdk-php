@@ -8,7 +8,7 @@ use Vapi\Core\Json\JsonProperty;
 class CreateCustomKnowledgeBaseDto extends JsonSerializableType
 {
     /**
-     * @var 'custom-knowledge-base' $provider This knowledge base is bring your own knowledge base implementation.
+     * @var value-of<CreateCustomKnowledgeBaseDtoProvider> $provider This knowledge base is bring your own knowledge base implementation.
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -61,7 +61,7 @@ class CreateCustomKnowledgeBaseDto extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'custom-knowledge-base',
+     *   provider: value-of<CreateCustomKnowledgeBaseDtoProvider>,
      *   server: Server,
      * } $values
      */

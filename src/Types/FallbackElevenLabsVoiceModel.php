@@ -10,4 +10,5 @@ enum FallbackElevenLabsVoiceModel: string
     case ElevenFlashV2 = "eleven_flash_v2";
     case ElevenFlashV25 = "eleven_flash_v2_5";
     case ElevenMonolingualV1 = "eleven_monolingual_v1";
+    case ElevenV3 = "eleven_v3";
 }

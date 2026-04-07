@@ -19,7 +19,7 @@ class TransferSuccessfulToolUserEditable extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var 'transferSuccessful' $type The type of tool. "transferSuccessful" for Transfer Successful tool. This tool can only be used during warm-transfer-experimental by the transfer assistant to confirm that the transfer should proceed and finalize the handoff to the destination.
+     * @var value-of<TransferSuccessfulToolUserEditableType> $type The type of tool. "transferSuccessful" for Transfer Successful tool. This tool can only be used during warm-transfer-experimental by the transfer assistant to confirm that the transfer should proceed and finalize the handoff to the destination.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -111,7 +111,7 @@ class TransferSuccessfulToolUserEditable extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'transferSuccessful',
+     *   type: value-of<TransferSuccessfulToolUserEditableType>,
      *   messages?: ?array<TransferSuccessfulToolUserEditableMessagesItem>,
      *   rejectionPlan?: ?ToolRejectionPlan,
      * } $values

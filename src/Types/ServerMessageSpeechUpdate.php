@@ -14,7 +14,7 @@ class ServerMessageSpeechUpdate extends JsonSerializableType
     public ?ServerMessageSpeechUpdatePhoneNumber $phoneNumber;
 
     /**
-     * @var 'speech-update' $type This is the type of the message. "speech-update" is sent whenever assistant or user start or stop speaking.
+     * @var value-of<ServerMessageSpeechUpdateType> $type This is the type of the message. "speech-update" is sent whenever assistant or user start or stop speaking.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -79,7 +79,7 @@ class ServerMessageSpeechUpdate extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'speech-update',
+     *   type: value-of<ServerMessageSpeechUpdateType>,
      *   status: value-of<ServerMessageSpeechUpdateStatus>,
      *   role: value-of<ServerMessageSpeechUpdateRole>,
      *   phoneNumber?: ?ServerMessageSpeechUpdatePhoneNumber,

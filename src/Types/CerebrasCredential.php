@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class CerebrasCredential extends JsonSerializableType
 {
     /**
-     * @var 'cerebras' $provider
+     * @var value-of<CerebrasCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class CerebrasCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'cerebras',
+     *   provider: value-of<CerebrasCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

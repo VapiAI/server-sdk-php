@@ -15,7 +15,7 @@ class ClientMessageTransferUpdate extends JsonSerializableType
     public ?ClientMessageTransferUpdatePhoneNumber $phoneNumber;
 
     /**
-     * @var 'transfer-update' $type This is the type of the message. "transfer-update" is sent whenever a transfer happens.
+     * @var value-of<ClientMessageTransferUpdateType> $type This is the type of the message. "transfer-update" is sent whenever a transfer happens.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -76,7 +76,7 @@ class ClientMessageTransferUpdate extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'transfer-update',
+     *   type: value-of<ClientMessageTransferUpdateType>,
      *   phoneNumber?: ?ClientMessageTransferUpdatePhoneNumber,
      *   destination?: ?ClientMessageTransferUpdateDestination,
      *   timestamp?: ?float,

@@ -8,7 +8,7 @@ use Vapi\Core\Json\JsonProperty;
 class TestSuitePhoneNumber extends JsonSerializableType
 {
     /**
-     * @var 'test-suite' $provider This is the provider of the phone number.
+     * @var value-of<TestSuitePhoneNumberProvider> $provider This is the provider of the phone number.
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -21,7 +21,7 @@ class TestSuitePhoneNumber extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'test-suite',
+     *   provider: value-of<TestSuitePhoneNumberProvider>,
      *   number: string,
      * } $values
      */

@@ -14,6 +14,12 @@ class CustomVoice extends JsonSerializableType
     public ?bool $cachingEnabled;
 
     /**
+     * @var ?string $voiceId This is the provider-specific ID that will be used. This is passed in the voice request payload to identify the voice to use.
+     */
+    #[JsonProperty('voiceId')]
+    public ?string $voiceId;
+
+    /**
      * @var ?ChunkPlan $chunkPlan This is the plan for chunking the model output before it is sent to the voice provider.
      */
     #[JsonProperty('chunkPlan')]
@@ -58,6 +64,7 @@ class CustomVoice extends JsonSerializableType
      * @param array{
      *   server: Server,
      *   cachingEnabled?: ?bool,
+     *   voiceId?: ?string,
      *   chunkPlan?: ?ChunkPlan,
      *   fallbackPlan?: ?FallbackPlan,
      * } $values
@@ -66,6 +73,7 @@ class CustomVoice extends JsonSerializableType
         array $values,
     ) {
         $this->cachingEnabled = $values['cachingEnabled'] ?? null;
+        $this->voiceId = $values['voiceId'] ?? null;
         $this->chunkPlan = $values['chunkPlan'] ?? null;
         $this->server = $values['server'];
         $this->fallbackPlan = $values['fallbackPlan'] ?? null;

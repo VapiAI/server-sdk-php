@@ -21,7 +21,7 @@ class OutputTool extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var 'output' $type The type of tool. "output" for Output tool.
+     * @var value-of<OutputToolType> $type The type of tool. "output" for Output tool.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -137,7 +137,7 @@ class OutputTool extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'output',
+     *   type: value-of<OutputToolType>,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,

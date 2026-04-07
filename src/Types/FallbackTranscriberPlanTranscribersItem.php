@@ -21,6 +21,7 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
      *   |'speechmatics'
      *   |'openai'
      *   |'cartesia'
+     *   |'soniox'
      *   |'_unknown'
      * ) $provider
      */
@@ -39,6 +40,7 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
      *   |FallbackSpeechmaticsTranscriber
      *   |FallbackOpenAiTranscriber
      *   |FallbackCartesiaTranscriber
+     *   |FallbackSonioxTranscriber
      *   |mixed
      * ) $value
      */
@@ -58,6 +60,7 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
      *   |'speechmatics'
      *   |'openai'
      *   |'cartesia'
+     *   |'soniox'
      *   |'_unknown'
      * ),
      *   value: (
@@ -72,6 +75,7 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
      *   |FallbackSpeechmaticsTranscriber
      *   |FallbackOpenAiTranscriber
      *   |FallbackCartesiaTranscriber
+     *   |FallbackSonioxTranscriber
      *   |mixed
      * ),
      * } $values
@@ -212,6 +216,18 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
         return new FallbackTranscriberPlanTranscribersItem([
             'provider' => 'cartesia',
             'value' => $cartesia,
+        ]);
+    }
+
+    /**
+     * @param FallbackSonioxTranscriber $soniox
+     * @return FallbackTranscriberPlanTranscribersItem
+     */
+    public static function soniox(FallbackSonioxTranscriber $soniox): FallbackTranscriberPlanTranscribersItem
+    {
+        return new FallbackTranscriberPlanTranscribersItem([
+            'provider' => 'soniox',
+            'value' => $soniox,
         ]);
     }
 
@@ -458,6 +474,28 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isSoniox(): bool
+    {
+        return $this->value instanceof FallbackSonioxTranscriber && $this->provider === 'soniox';
+    }
+
+    /**
+     * @return FallbackSonioxTranscriber
+     */
+    public function asSoniox(): FallbackSonioxTranscriber
+    {
+        if (!($this->value instanceof FallbackSonioxTranscriber && $this->provider === 'soniox')) {
+            throw new Exception(
+                "Expected soniox; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -519,6 +557,10 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
                 break;
             case 'cartesia':
                 $value = $this->asCartesia()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'soniox':
+                $value = $this->asSoniox()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -601,6 +643,9 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
                 break;
             case 'cartesia':
                 $args['value'] = FallbackCartesiaTranscriber::jsonDeserialize($data);
+                break;
+            case 'soniox':
+                $args['value'] = FallbackSonioxTranscriber::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

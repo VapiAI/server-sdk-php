@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class ToolCallHookAction extends JsonSerializableType
 {
     /**
+     * @var value-of<ToolCallHookActionType> $type This is the type of action - must be "tool"
+     */
+    #[JsonProperty('type')]
+    public string $type;
+
+    /**
      * @var ?ToolCallHookActionTool $tool This is the tool to call. To use an existing tool, send `toolId` instead.
      */
     #[JsonProperty('tool')]
@@ -21,13 +27,15 @@ class ToolCallHookAction extends JsonSerializableType
 
     /**
      * @param array{
+     *   type: value-of<ToolCallHookActionType>,
      *   tool?: ?ToolCallHookActionTool,
      *   toolId?: ?string,
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
+        $this->type = $values['type'];
         $this->tool = $values['tool'] ?? null;
         $this->toolId = $values['toolId'] ?? null;
     }

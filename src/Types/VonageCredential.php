@@ -16,7 +16,7 @@ class VonageCredential extends JsonSerializableType
     public string $vonageApplicationPrivateKey;
 
     /**
-     * @var 'vonage' $provider
+     * @var value-of<VonageCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -76,7 +76,7 @@ class VonageCredential extends JsonSerializableType
     /**
      * @param array{
      *   vonageApplicationPrivateKey: string,
-     *   provider: 'vonage',
+     *   provider: value-of<VonageCredentialProvider>,
      *   apiSecret: string,
      *   id: string,
      *   orgId: string,

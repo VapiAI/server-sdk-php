@@ -10,13 +10,13 @@ use Vapi\Core\Json\JsonDecoder;
  * This is the model that will be used to extract the structured output.
  *
  * To provide your own custom system and user prompts for structured output extraction, populate the messages array with your system and user messages. You can specify liquid templating in your system and user messages.
- * Between the system or user messages, you must reference either 'transcript' or 'messages' with the '{{}}' syntax to access the conversation history.
- * Between the system or user messages, you must reference a variation of the structured output with the '{{}}' syntax to access the structured output definition.
+ * Between the system or user messages, you must reference either 'transcript' or 'messages' with the `{{}}` syntax to access the conversation history.
+ * Between the system or user messages, you must reference a variation of the structured output with the `{{}}` syntax to access the structured output definition.
  * i.e.:
- * {{structuredOutput}}
- * {{structuredOutput.name}}
- * {{structuredOutput.description}}
- * {{structuredOutput.schema}}
+ * `{{structuredOutput}}`
+ * `{{structuredOutput.name}}`
+ * `{{structuredOutput.description}}`
+ * `{{structuredOutput.schema}}`
  *
  * If model is not specified, GPT-4.1 will be used by default for extraction, utilizing default system and user prompts.
  * If messages or required fields are not specified, the default system and user prompts will be used.
@@ -27,6 +27,7 @@ class StructuredOutputModel extends JsonSerializableType
      * @var (
      *    'openai'
      *   |'anthropic'
+     *   |'anthropic-bedrock'
      *   |'google'
      *   |'custom-llm'
      *   |'_unknown'
@@ -38,6 +39,7 @@ class StructuredOutputModel extends JsonSerializableType
      * @var (
      *    WorkflowOpenAiModel
      *   |WorkflowAnthropicModel
+     *   |WorkflowAnthropicBedrockModel
      *   |WorkflowGoogleModel
      *   |WorkflowCustomModel
      *   |mixed
@@ -50,6 +52,7 @@ class StructuredOutputModel extends JsonSerializableType
      *   provider: (
      *    'openai'
      *   |'anthropic'
+     *   |'anthropic-bedrock'
      *   |'google'
      *   |'custom-llm'
      *   |'_unknown'
@@ -57,6 +60,7 @@ class StructuredOutputModel extends JsonSerializableType
      *   value: (
      *    WorkflowOpenAiModel
      *   |WorkflowAnthropicModel
+     *   |WorkflowAnthropicBedrockModel
      *   |WorkflowGoogleModel
      *   |WorkflowCustomModel
      *   |mixed
@@ -91,6 +95,18 @@ class StructuredOutputModel extends JsonSerializableType
         return new StructuredOutputModel([
             'provider' => 'anthropic',
             'value' => $anthropic,
+        ]);
+    }
+
+    /**
+     * @param WorkflowAnthropicBedrockModel $anthropicBedrock
+     * @return StructuredOutputModel
+     */
+    public static function anthropicBedrock(WorkflowAnthropicBedrockModel $anthropicBedrock): StructuredOutputModel
+    {
+        return new StructuredOutputModel([
+            'provider' => 'anthropic-bedrock',
+            'value' => $anthropicBedrock,
         ]);
     }
 
@@ -156,6 +172,28 @@ class StructuredOutputModel extends JsonSerializableType
         if (!($this->value instanceof WorkflowAnthropicModel && $this->provider === 'anthropic')) {
             throw new Exception(
                 "Expected anthropic; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAnthropicBedrock(): bool
+    {
+        return $this->value instanceof WorkflowAnthropicBedrockModel && $this->provider === 'anthropic-bedrock';
+    }
+
+    /**
+     * @return WorkflowAnthropicBedrockModel
+     */
+    public function asAnthropicBedrock(): WorkflowAnthropicBedrockModel
+    {
+        if (!($this->value instanceof WorkflowAnthropicBedrockModel && $this->provider === 'anthropic-bedrock')) {
+            throw new Exception(
+                "Expected anthropic-bedrock; got " . $this->provider . " with value of type " . get_debug_type($this->value),
             );
         }
 
@@ -234,6 +272,10 @@ class StructuredOutputModel extends JsonSerializableType
                 $value = $this->asAnthropic()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
+            case 'anthropic-bedrock':
+                $value = $this->asAnthropicBedrock()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
             case 'google':
                 $value = $this->asGoogle()->jsonSerialize();
                 $result = array_merge($value, $result);
@@ -295,6 +337,9 @@ class StructuredOutputModel extends JsonSerializableType
                 break;
             case 'anthropic':
                 $args['value'] = WorkflowAnthropicModel::jsonDeserialize($data);
+                break;
+            case 'anthropic-bedrock':
+                $args['value'] = WorkflowAnthropicBedrockModel::jsonDeserialize($data);
                 break;
             case 'google':
                 $args['value'] = WorkflowGoogleModel::jsonDeserialize($data);

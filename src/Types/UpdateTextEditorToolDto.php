@@ -19,7 +19,7 @@ class UpdateTextEditorToolDto extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var ?'text_editor_20241022' $subType The sub type of tool.
+     * @var ?value-of<UpdateTextEditorToolDtoSubType> $subType The sub type of tool.
      */
     #[JsonProperty('subType')]
     public ?string $subType;
@@ -126,7 +126,7 @@ class UpdateTextEditorToolDto extends JsonSerializableType
     public ?ToolRejectionPlan $rejectionPlan;
 
     /**
-     * @var ?'str_replace_editor' $name The name of the tool, fixed to 'str_replace_editor'
+     * @var ?value-of<UpdateTextEditorToolDtoName> $name The name of the tool, fixed to 'str_replace_editor'
      */
     #[JsonProperty('name')]
     public ?string $name;
@@ -134,10 +134,10 @@ class UpdateTextEditorToolDto extends JsonSerializableType
     /**
      * @param array{
      *   messages?: ?array<UpdateTextEditorToolDtoMessagesItem>,
-     *   subType?: ?'text_editor_20241022',
+     *   subType?: ?value-of<UpdateTextEditorToolDtoSubType>,
      *   server?: ?Server,
      *   rejectionPlan?: ?ToolRejectionPlan,
-     *   name?: ?'str_replace_editor',
+     *   name?: ?value-of<UpdateTextEditorToolDtoName>,
      * } $values
      */
     public function __construct(

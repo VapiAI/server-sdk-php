@@ -40,10 +40,10 @@ class Token extends JsonSerializableType
     public DateTime $updatedAt;
 
     /**
-     * @var string $value This is the token key.
+     * @var ?string $value This is the token key.
      */
     #[JsonProperty('value')]
-    public string $value;
+    public ?string $value;
 
     /**
      * @var ?string $name This is the name of the token. This is just for your own reference.
@@ -63,8 +63,8 @@ class Token extends JsonSerializableType
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
-     *   value: string,
      *   tag?: ?value-of<TokenTag>,
+     *   value?: ?string,
      *   name?: ?string,
      *   restrictions?: ?TokenRestrictions,
      * } $values
@@ -77,7 +77,7 @@ class Token extends JsonSerializableType
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];
         $this->updatedAt = $values['updatedAt'];
-        $this->value = $values['value'];
+        $this->value = $values['value'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->restrictions = $values['restrictions'] ?? null;
     }

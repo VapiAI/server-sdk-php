@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class TogetherAiCredential extends JsonSerializableType
 {
     /**
-     * @var 'together-ai' $provider
+     * @var value-of<TogetherAiCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class TogetherAiCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'together-ai',
+     *   provider: value-of<TogetherAiCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

@@ -2,17 +2,17 @@
 
 namespace Vapi\Sessions;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Vapi\Core\Client\RawClient;
-use Vapi\Sessions\Requests\SessionsListRequest;
+use Vapi\Sessions\Requests\ListSessionsRequest;
 use Vapi\Types\SessionPaginatedResponse;
 use Vapi\Exceptions\VapiException;
 use Vapi\Exceptions\VapiApiException;
+use Vapi\Core\Json\JsonSerializer;
 use Vapi\Core\Json\JsonApiRequest;
 use Vapi\Environments;
 use Vapi\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Vapi\Sessions\Requests\CreateSessionDto;
 use Vapi\Types\Session;
@@ -27,7 +27,7 @@ class SessionsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -55,7 +55,7 @@ class SessionsClient
     }
 
     /**
-     * @param SessionsListRequest $request
+     * @param ListSessionsRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -64,25 +64,61 @@ class SessionsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return SessionPaginatedResponse
+     * @return ?SessionPaginatedResponse
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function list(SessionsListRequest $request = new SessionsListRequest(), ?array $options = null): SessionPaginatedResponse
+    public function list(ListSessionsRequest $request = new ListSessionsRequest(), ?array $options = null): ?SessionPaginatedResponse
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
+        if ($request->id != null) {
+            $query['id'] = $request->id;
+        }
         if ($request->name != null) {
             $query['name'] = $request->name;
         }
         if ($request->assistantId != null) {
             $query['assistantId'] = $request->assistantId;
         }
+        if ($request->assistantIdAny != null) {
+            $query['assistantIdAny'] = $request->assistantIdAny;
+        }
         if ($request->squadId != null) {
             $query['squadId'] = $request->squadId;
         }
         if ($request->workflowId != null) {
             $query['workflowId'] = $request->workflowId;
+        }
+        if ($request->numberE164CheckEnabled != null) {
+            $query['numberE164CheckEnabled'] = $request->numberE164CheckEnabled;
+        }
+        if ($request->extension != null) {
+            $query['extension'] = $request->extension;
+        }
+        if ($request->assistantOverrides != null) {
+            $query['assistantOverrides'] = $request->assistantOverrides;
+        }
+        if ($request->number != null) {
+            $query['number'] = $request->number;
+        }
+        if ($request->sipUri != null) {
+            $query['sipUri'] = $request->sipUri;
+        }
+        if ($request->email != null) {
+            $query['email'] = $request->email;
+        }
+        if ($request->externalId != null) {
+            $query['externalId'] = $request->externalId;
+        }
+        if ($request->customerNumberAny != null) {
+            $query['customerNumberAny'] = $request->customerNumberAny;
+        }
+        if ($request->phoneNumberId != null) {
+            $query['phoneNumberId'] = $request->phoneNumberId;
+        }
+        if ($request->phoneNumberIdAny != null) {
+            $query['phoneNumberIdAny'] = $request->phoneNumberIdAny;
         }
         if ($request->page != null) {
             $query['page'] = $request->page;
@@ -94,28 +130,28 @@ class SessionsClient
             $query['limit'] = $request->limit;
         }
         if ($request->createdAtGt != null) {
-            $query['createdAtGt'] = $request->createdAtGt;
+            $query['createdAtGt'] = JsonSerializer::serializeDateTime($request->createdAtGt);
         }
         if ($request->createdAtLt != null) {
-            $query['createdAtLt'] = $request->createdAtLt;
+            $query['createdAtLt'] = JsonSerializer::serializeDateTime($request->createdAtLt);
         }
         if ($request->createdAtGe != null) {
-            $query['createdAtGe'] = $request->createdAtGe;
+            $query['createdAtGe'] = JsonSerializer::serializeDateTime($request->createdAtGe);
         }
         if ($request->createdAtLe != null) {
-            $query['createdAtLe'] = $request->createdAtLe;
+            $query['createdAtLe'] = JsonSerializer::serializeDateTime($request->createdAtLe);
         }
         if ($request->updatedAtGt != null) {
-            $query['updatedAtGt'] = $request->updatedAtGt;
+            $query['updatedAtGt'] = JsonSerializer::serializeDateTime($request->updatedAtGt);
         }
         if ($request->updatedAtLt != null) {
-            $query['updatedAtLt'] = $request->updatedAtLt;
+            $query['updatedAtLt'] = JsonSerializer::serializeDateTime($request->updatedAtLt);
         }
         if ($request->updatedAtGe != null) {
-            $query['updatedAtGe'] = $request->updatedAtGe;
+            $query['updatedAtGe'] = JsonSerializer::serializeDateTime($request->updatedAtGe);
         }
         if ($request->updatedAtLe != null) {
-            $query['updatedAtLe'] = $request->updatedAtLe;
+            $query['updatedAtLe'] = JsonSerializer::serializeDateTime($request->updatedAtLe);
         }
         try {
             $response = $this->client->sendRequest(
@@ -130,20 +166,13 @@ class SessionsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return SessionPaginatedResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -164,11 +193,11 @@ class SessionsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Session
+     * @return ?Session
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function create(CreateSessionDto $request = new CreateSessionDto(), ?array $options = null): Session
+    public function create(CreateSessionDto $request = new CreateSessionDto(), ?array $options = null): ?Session
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -184,20 +213,13 @@ class SessionsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Session::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -218,11 +240,11 @@ class SessionsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Session
+     * @return ?Session
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function get(string $id, ?array $options = null): Session
+    public function get(string $id, ?array $options = null): ?Session
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -237,20 +259,13 @@ class SessionsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Session::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -271,11 +286,11 @@ class SessionsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Session
+     * @return ?Session
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function delete(string $id, ?array $options = null): Session
+    public function delete(string $id, ?array $options = null): ?Session
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -290,20 +305,13 @@ class SessionsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Session::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -325,11 +333,11 @@ class SessionsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Session
+     * @return ?Session
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function update(string $id, UpdateSessionDto $request = new UpdateSessionDto(), ?array $options = null): Session
+    public function update(string $id, UpdateSessionDto $request = new UpdateSessionDto(), ?array $options = null): ?Session
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -345,20 +353,13 @@ class SessionsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Session::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }

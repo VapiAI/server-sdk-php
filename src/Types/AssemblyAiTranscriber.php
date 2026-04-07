@@ -9,7 +9,7 @@ use Vapi\Core\Types\ArrayType;
 class AssemblyAiTranscriber extends JsonSerializableType
 {
     /**
-     * @var ?'en' $language This is the language that will be set for the transcription.
+     * @var ?value-of<AssemblyAiTranscriberLanguage> $language This is the language that will be set for the transcription.
      */
     #[JsonProperty('language')]
     public ?string $language;
@@ -73,6 +73,29 @@ class AssemblyAiTranscriber extends JsonSerializableType
     public ?float $maxTurnSilence;
 
     /**
+     * Use VAD to assist with endpointing decisions from the transcriber.
+     * When enabled, transcriber endpointing will be buffered if VAD detects the user is still speaking, preventing premature turn-taking.
+     * When disabled, transcriber endpointing will be used immediately regardless of VAD state, allowing for quicker but more aggressive turn-taking.
+     * Note: Only used if startSpeakingPlan.smartEndpointingPlan is not set.
+     *
+     * @default true
+     *
+     * @var ?bool $vadAssistedEndpointingEnabled
+     */
+    #[JsonProperty('vadAssistedEndpointingEnabled')]
+    public ?bool $vadAssistedEndpointingEnabled;
+
+    /**
+     * This is the speech model used for the streaming session.
+     * Note: Keyterms prompting is not supported with multilingual streaming.
+     * @default 'universal-streaming-english'
+     *
+     * @var ?value-of<AssemblyAiTranscriberSpeechModel> $speechModel
+     */
+    #[JsonProperty('speechModel')]
+    public ?string $speechModel;
+
+    /**
      * @var ?string $realtimeUrl The WebSocket URL that the transcriber connects to.
      */
     #[JsonProperty('realtimeUrl')]
@@ -110,20 +133,22 @@ class AssemblyAiTranscriber extends JsonSerializableType
     public ?bool $disablePartialTranscripts;
 
     /**
-     * @var ?FallbackTranscriberPlan $fallbackPlan This is the plan for voice provider fallbacks in the event that the primary voice provider fails.
+     * @var ?FallbackTranscriberPlan $fallbackPlan This is the plan for transcriber provider fallbacks in the event that the primary transcriber provider fails.
      */
     #[JsonProperty('fallbackPlan')]
     public ?FallbackTranscriberPlan $fallbackPlan;
 
     /**
      * @param array{
-     *   language?: ?'en',
+     *   language?: ?value-of<AssemblyAiTranscriberLanguage>,
      *   confidenceThreshold?: ?float,
      *   formatTurns?: ?bool,
      *   endOfTurnConfidenceThreshold?: ?float,
      *   minEndOfTurnSilenceWhenConfident?: ?float,
      *   wordFinalizationMaxWaitTime?: ?float,
      *   maxTurnSilence?: ?float,
+     *   vadAssistedEndpointingEnabled?: ?bool,
+     *   speechModel?: ?value-of<AssemblyAiTranscriberSpeechModel>,
      *   realtimeUrl?: ?string,
      *   wordBoost?: ?array<string>,
      *   keytermsPrompt?: ?array<string>,
@@ -142,6 +167,8 @@ class AssemblyAiTranscriber extends JsonSerializableType
         $this->minEndOfTurnSilenceWhenConfident = $values['minEndOfTurnSilenceWhenConfident'] ?? null;
         $this->wordFinalizationMaxWaitTime = $values['wordFinalizationMaxWaitTime'] ?? null;
         $this->maxTurnSilence = $values['maxTurnSilence'] ?? null;
+        $this->vadAssistedEndpointingEnabled = $values['vadAssistedEndpointingEnabled'] ?? null;
+        $this->speechModel = $values['speechModel'] ?? null;
         $this->realtimeUrl = $values['realtimeUrl'] ?? null;
         $this->wordBoost = $values['wordBoost'] ?? null;
         $this->keytermsPrompt = $values['keytermsPrompt'] ?? null;

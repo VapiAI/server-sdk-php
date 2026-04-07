@@ -8,7 +8,7 @@ use Vapi\Core\Json\JsonProperty;
 class AiEdgeCondition extends JsonSerializableType
 {
     /**
-     * @var 'ai' $type
+     * @var value-of<AiEdgeConditionType> $type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -21,7 +21,7 @@ class AiEdgeCondition extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'ai',
+     *   type: value-of<AiEdgeConditionType>,
      *   prompt: string,
      * } $values
      */

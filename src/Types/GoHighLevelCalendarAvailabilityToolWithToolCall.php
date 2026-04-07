@@ -19,7 +19,7 @@ class GoHighLevelCalendarAvailabilityToolWithToolCall extends JsonSerializableTy
     public ?array $messages;
 
     /**
-     * @var 'gohighlevel.calendar.availability.check' $type The type of tool. "gohighlevel.calendar.availability.check" for GoHighLevel Calendar Availability Check tool.
+     * @var value-of<GoHighLevelCalendarAvailabilityToolWithToolCallType> $type The type of tool. "gohighlevel.calendar.availability.check" for GoHighLevel Calendar Availability Check tool.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -117,7 +117,7 @@ class GoHighLevelCalendarAvailabilityToolWithToolCall extends JsonSerializableTy
 
     /**
      * @param array{
-     *   type: 'gohighlevel.calendar.availability.check',
+     *   type: value-of<GoHighLevelCalendarAvailabilityToolWithToolCallType>,
      *   toolCall: ToolCall,
      *   messages?: ?array<GoHighLevelCalendarAvailabilityToolWithToolCallMessagesItem>,
      *   rejectionPlan?: ?ToolRejectionPlan,

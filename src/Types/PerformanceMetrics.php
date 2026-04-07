@@ -45,6 +45,30 @@ class PerformanceMetrics extends JsonSerializableType
     public ?float $turnLatencyAverage;
 
     /**
+     * @var ?float $fromTransportLatencyAverage This is the average latency for packets received from the transport provider in milliseconds.
+     */
+    #[JsonProperty('fromTransportLatencyAverage')]
+    public ?float $fromTransportLatencyAverage;
+
+    /**
+     * @var ?float $toTransportLatencyAverage This is the average latency for packets sent to the transport provider in milliseconds.
+     */
+    #[JsonProperty('toTransportLatencyAverage')]
+    public ?float $toTransportLatencyAverage;
+
+    /**
+     * @var ?float $numUserInterrupted This is the number of times the user was interrupted by the assistant during the call.
+     */
+    #[JsonProperty('numUserInterrupted')]
+    public ?float $numUserInterrupted;
+
+    /**
+     * @var ?float $numAssistantInterrupted This is the number of times the assistant was interrupted by the user during the call.
+     */
+    #[JsonProperty('numAssistantInterrupted')]
+    public ?float $numAssistantInterrupted;
+
+    /**
      * @param array{
      *   turnLatencies?: ?array<TurnLatency>,
      *   modelLatencyAverage?: ?float,
@@ -52,6 +76,10 @@ class PerformanceMetrics extends JsonSerializableType
      *   transcriberLatencyAverage?: ?float,
      *   endpointingLatencyAverage?: ?float,
      *   turnLatencyAverage?: ?float,
+     *   fromTransportLatencyAverage?: ?float,
+     *   toTransportLatencyAverage?: ?float,
+     *   numUserInterrupted?: ?float,
+     *   numAssistantInterrupted?: ?float,
      * } $values
      */
     public function __construct(
@@ -63,6 +91,10 @@ class PerformanceMetrics extends JsonSerializableType
         $this->transcriberLatencyAverage = $values['transcriberLatencyAverage'] ?? null;
         $this->endpointingLatencyAverage = $values['endpointingLatencyAverage'] ?? null;
         $this->turnLatencyAverage = $values['turnLatencyAverage'] ?? null;
+        $this->fromTransportLatencyAverage = $values['fromTransportLatencyAverage'] ?? null;
+        $this->toTransportLatencyAverage = $values['toTransportLatencyAverage'] ?? null;
+        $this->numUserInterrupted = $values['numUserInterrupted'] ?? null;
+        $this->numAssistantInterrupted = $values['numAssistantInterrupted'] ?? null;
     }
 
     /**

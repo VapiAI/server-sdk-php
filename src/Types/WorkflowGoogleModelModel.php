@@ -4,6 +4,7 @@ namespace Vapi\Types;
 
 enum WorkflowGoogleModelModel: string
 {
+    case Gemini3FlashPreview = "gemini-3-flash-preview";
     case Gemini25Pro = "gemini-2.5-pro";
     case Gemini25Flash = "gemini-2.5-flash";
     case Gemini25FlashLite = "gemini-2.5-flash-lite";

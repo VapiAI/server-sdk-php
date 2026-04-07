@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class LmntCredential extends JsonSerializableType
 {
     /**
-     * @var 'lmnt' $provider
+     * @var value-of<LmntCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class LmntCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'lmnt',
+     *   provider: value-of<LmntCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

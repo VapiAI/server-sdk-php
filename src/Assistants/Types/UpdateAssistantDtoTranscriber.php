@@ -14,6 +14,7 @@ use Vapi\Types\SpeechmaticsTranscriber;
 use Vapi\Types\TalkscriberTranscriber;
 use Vapi\Types\OpenAiTranscriber;
 use Vapi\Types\CartesiaTranscriber;
+use Vapi\Types\SonioxTranscriber;
 use Exception;
 use Vapi\Core\Json\JsonDecoder;
 
@@ -35,6 +36,7 @@ class UpdateAssistantDtoTranscriber extends JsonSerializableType
      *   |'talkscriber'
      *   |'openai'
      *   |'cartesia'
+     *   |'soniox'
      *   |'_unknown'
      * ) $provider
      */
@@ -53,6 +55,7 @@ class UpdateAssistantDtoTranscriber extends JsonSerializableType
      *   |TalkscriberTranscriber
      *   |OpenAiTranscriber
      *   |CartesiaTranscriber
+     *   |SonioxTranscriber
      *   |mixed
      * ) $value
      */
@@ -72,6 +75,7 @@ class UpdateAssistantDtoTranscriber extends JsonSerializableType
      *   |'talkscriber'
      *   |'openai'
      *   |'cartesia'
+     *   |'soniox'
      *   |'_unknown'
      * ),
      *   value: (
@@ -86,6 +90,7 @@ class UpdateAssistantDtoTranscriber extends JsonSerializableType
      *   |TalkscriberTranscriber
      *   |OpenAiTranscriber
      *   |CartesiaTranscriber
+     *   |SonioxTranscriber
      *   |mixed
      * ),
      * } $values
@@ -226,6 +231,18 @@ class UpdateAssistantDtoTranscriber extends JsonSerializableType
         return new UpdateAssistantDtoTranscriber([
             'provider' => 'cartesia',
             'value' => $cartesia,
+        ]);
+    }
+
+    /**
+     * @param SonioxTranscriber $soniox
+     * @return UpdateAssistantDtoTranscriber
+     */
+    public static function soniox(SonioxTranscriber $soniox): UpdateAssistantDtoTranscriber
+    {
+        return new UpdateAssistantDtoTranscriber([
+            'provider' => 'soniox',
+            'value' => $soniox,
         ]);
     }
 
@@ -472,6 +489,28 @@ class UpdateAssistantDtoTranscriber extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isSoniox(): bool
+    {
+        return $this->value instanceof SonioxTranscriber && $this->provider === 'soniox';
+    }
+
+    /**
+     * @return SonioxTranscriber
+     */
+    public function asSoniox(): SonioxTranscriber
+    {
+        if (!($this->value instanceof SonioxTranscriber && $this->provider === 'soniox')) {
+            throw new Exception(
+                "Expected soniox; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -533,6 +572,10 @@ class UpdateAssistantDtoTranscriber extends JsonSerializableType
                 break;
             case 'cartesia':
                 $value = $this->asCartesia()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'soniox':
+                $value = $this->asSoniox()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -615,6 +658,9 @@ class UpdateAssistantDtoTranscriber extends JsonSerializableType
                 break;
             case 'cartesia':
                 $args['value'] = CartesiaTranscriber::jsonDeserialize($data);
+                break;
+            case 'soniox':
+                $args['value'] = SonioxTranscriber::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

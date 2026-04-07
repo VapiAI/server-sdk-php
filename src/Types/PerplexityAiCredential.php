@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class PerplexityAiCredential extends JsonSerializableType
 {
     /**
-     * @var 'perplexity-ai' $provider
+     * @var value-of<PerplexityAiCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class PerplexityAiCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'perplexity-ai',
+     *   provider: value-of<PerplexityAiCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

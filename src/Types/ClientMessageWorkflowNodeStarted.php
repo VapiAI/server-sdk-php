@@ -15,7 +15,7 @@ class ClientMessageWorkflowNodeStarted extends JsonSerializableType
     public ?ClientMessageWorkflowNodeStartedPhoneNumber $phoneNumber;
 
     /**
-     * @var 'workflow.node.started' $type This is the type of the message. "workflow.node.started" is sent when the active node changes.
+     * @var value-of<ClientMessageWorkflowNodeStartedType> $type This is the type of the message. "workflow.node.started" is sent when the active node changes.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -52,7 +52,7 @@ class ClientMessageWorkflowNodeStarted extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'workflow.node.started',
+     *   type: value-of<ClientMessageWorkflowNodeStartedType>,
      *   node: array<string, mixed>,
      *   phoneNumber?: ?ClientMessageWorkflowNodeStartedPhoneNumber,
      *   timestamp?: ?float,

@@ -4,11 +4,18 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
+use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
 class GetSessionPaginatedDto extends JsonSerializableType
 {
+    /**
+     * @var ?string $id This is the unique identifier for the session to filter by.
+     */
+    #[JsonProperty('id')]
+    public ?string $id;
+
     /**
      * @var ?string $name This is the name of the session to filter by.
      */
@@ -22,6 +29,12 @@ class GetSessionPaginatedDto extends JsonSerializableType
     public ?string $assistantId;
 
     /**
+     * @var ?string $assistantIdAny Filter by multiple assistant IDs. Provide as comma-separated values.
+     */
+    #[JsonProperty('assistantIdAny')]
+    public ?string $assistantIdAny;
+
+    /**
      * @var ?string $squadId This is the ID of the squad to filter sessions by.
      */
     #[JsonProperty('squadId')]
@@ -32,6 +45,30 @@ class GetSessionPaginatedDto extends JsonSerializableType
      */
     #[JsonProperty('workflowId')]
     public ?string $workflowId;
+
+    /**
+     * @var ?CreateCustomerDto $customer This is the customer information to filter by.
+     */
+    #[JsonProperty('customer')]
+    public ?CreateCustomerDto $customer;
+
+    /**
+     * @var ?string $customerNumberAny Filter by any of the specified customer phone numbers (comma-separated).
+     */
+    #[JsonProperty('customerNumberAny')]
+    public ?string $customerNumberAny;
+
+    /**
+     * @var ?string $phoneNumberId This will return sessions with the specified phoneNumberId.
+     */
+    #[JsonProperty('phoneNumberId')]
+    public ?string $phoneNumberId;
+
+    /**
+     * @var ?array<string> $phoneNumberIdAny This will return sessions with any of the specified phoneNumberIds.
+     */
+    #[JsonProperty('phoneNumberIdAny'), ArrayType(['string'])]
+    public ?array $phoneNumberIdAny;
 
     /**
      * @var ?float $page This is the page number to return. Defaults to 1.
@@ -101,10 +138,16 @@ class GetSessionPaginatedDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   id?: ?string,
      *   name?: ?string,
      *   assistantId?: ?string,
+     *   assistantIdAny?: ?string,
      *   squadId?: ?string,
      *   workflowId?: ?string,
+     *   customer?: ?CreateCustomerDto,
+     *   customerNumberAny?: ?string,
+     *   phoneNumberId?: ?string,
+     *   phoneNumberIdAny?: ?array<string>,
      *   page?: ?float,
      *   sortOrder?: ?value-of<GetSessionPaginatedDtoSortOrder>,
      *   limit?: ?float,
@@ -121,10 +164,16 @@ class GetSessionPaginatedDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->id = $values['id'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->assistantId = $values['assistantId'] ?? null;
+        $this->assistantIdAny = $values['assistantIdAny'] ?? null;
         $this->squadId = $values['squadId'] ?? null;
         $this->workflowId = $values['workflowId'] ?? null;
+        $this->customer = $values['customer'] ?? null;
+        $this->customerNumberAny = $values['customerNumberAny'] ?? null;
+        $this->phoneNumberId = $values['phoneNumberId'] ?? null;
+        $this->phoneNumberIdAny = $values['phoneNumberIdAny'] ?? null;
         $this->page = $values['page'] ?? null;
         $this->sortOrder = $values['sortOrder'] ?? null;
         $this->limit = $values['limit'] ?? null;

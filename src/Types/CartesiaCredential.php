@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class CartesiaCredential extends JsonSerializableType
 {
     /**
-     * @var 'cartesia' $provider
+     * @var value-of<CartesiaCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class CartesiaCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'cartesia',
+     *   provider: value-of<CartesiaCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

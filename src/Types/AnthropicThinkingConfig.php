@@ -8,7 +8,7 @@ use Vapi\Core\Json\JsonProperty;
 class AnthropicThinkingConfig extends JsonSerializableType
 {
     /**
-     * @var 'enabled' $type
+     * @var value-of<AnthropicThinkingConfigType> $type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -24,7 +24,7 @@ class AnthropicThinkingConfig extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'enabled',
+     *   type: value-of<AnthropicThinkingConfigType>,
      *   budgetTokens: float,
      * } $values
      */

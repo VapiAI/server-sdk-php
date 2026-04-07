@@ -23,7 +23,7 @@ class CustomMessage extends JsonSerializableType
     public ?array $contents;
 
     /**
-     * @var 'custom-message' $type This is a custom message.
+     * @var value-of<CustomMessageType> $type This is a custom message.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -36,7 +36,7 @@ class CustomMessage extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'custom-message',
+     *   type: value-of<CustomMessageType>,
      *   contents?: ?array<TextContent>,
      *   content?: ?string,
      * } $values

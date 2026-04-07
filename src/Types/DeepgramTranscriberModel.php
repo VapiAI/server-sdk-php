@@ -4,6 +4,7 @@ namespace Vapi\Types;
 
 enum DeepgramTranscriberModel: string
 {
+    case FluxGeneralEn = "flux-general-en";
     case Nova3 = "nova-3";
     case Nova3General = "nova-3-general";
     case Nova3Medical = "nova-3-medical";
@@ -35,4 +36,5 @@ enum DeepgramTranscriberModel: string
     case BaseConversationalai = "base-conversationalai";
     case BaseVoicemail = "base-voicemail";
     case BaseVideo = "base-video";
+    case Whisper = "whisper";
 }

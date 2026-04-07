@@ -26,6 +26,12 @@ class AnalysisCostBreakdown extends JsonSerializableType
     public ?float $summaryCompletionTokens;
 
     /**
+     * @var ?float $summaryCachedPromptTokens This is the number of cached prompt tokens used to summarize the call.
+     */
+    #[JsonProperty('summaryCachedPromptTokens')]
+    public ?float $summaryCachedPromptTokens;
+
+    /**
      * @var ?float $structuredData This is the cost to extract structured data from the call.
      */
     #[JsonProperty('structuredData')]
@@ -42,6 +48,12 @@ class AnalysisCostBreakdown extends JsonSerializableType
      */
     #[JsonProperty('structuredDataCompletionTokens')]
     public ?float $structuredDataCompletionTokens;
+
+    /**
+     * @var ?float $structuredDataCachedPromptTokens This is the number of cached prompt tokens used to extract structured data from the call.
+     */
+    #[JsonProperty('structuredDataCachedPromptTokens')]
+    public ?float $structuredDataCachedPromptTokens;
 
     /**
      * @var ?float $successEvaluation This is the cost to evaluate if the call was successful.
@@ -62,6 +74,12 @@ class AnalysisCostBreakdown extends JsonSerializableType
     public ?float $successEvaluationCompletionTokens;
 
     /**
+     * @var ?float $successEvaluationCachedPromptTokens This is the number of cached prompt tokens used to evaluate if the call was successful.
+     */
+    #[JsonProperty('successEvaluationCachedPromptTokens')]
+    public ?float $successEvaluationCachedPromptTokens;
+
+    /**
      * @var ?float $structuredOutput This is the cost to evaluate structuredOutputs from the call.
      */
     #[JsonProperty('structuredOutput')]
@@ -80,19 +98,29 @@ class AnalysisCostBreakdown extends JsonSerializableType
     public ?float $structuredOutputCompletionTokens;
 
     /**
+     * @var ?float $structuredOutputCachedPromptTokens This is the number of cached prompt tokens used to evaluate structuredOutputs from the call.
+     */
+    #[JsonProperty('structuredOutputCachedPromptTokens')]
+    public ?float $structuredOutputCachedPromptTokens;
+
+    /**
      * @param array{
      *   summary?: ?float,
      *   summaryPromptTokens?: ?float,
      *   summaryCompletionTokens?: ?float,
+     *   summaryCachedPromptTokens?: ?float,
      *   structuredData?: ?float,
      *   structuredDataPromptTokens?: ?float,
      *   structuredDataCompletionTokens?: ?float,
+     *   structuredDataCachedPromptTokens?: ?float,
      *   successEvaluation?: ?float,
      *   successEvaluationPromptTokens?: ?float,
      *   successEvaluationCompletionTokens?: ?float,
+     *   successEvaluationCachedPromptTokens?: ?float,
      *   structuredOutput?: ?float,
      *   structuredOutputPromptTokens?: ?float,
      *   structuredOutputCompletionTokens?: ?float,
+     *   structuredOutputCachedPromptTokens?: ?float,
      * } $values
      */
     public function __construct(
@@ -101,15 +129,19 @@ class AnalysisCostBreakdown extends JsonSerializableType
         $this->summary = $values['summary'] ?? null;
         $this->summaryPromptTokens = $values['summaryPromptTokens'] ?? null;
         $this->summaryCompletionTokens = $values['summaryCompletionTokens'] ?? null;
+        $this->summaryCachedPromptTokens = $values['summaryCachedPromptTokens'] ?? null;
         $this->structuredData = $values['structuredData'] ?? null;
         $this->structuredDataPromptTokens = $values['structuredDataPromptTokens'] ?? null;
         $this->structuredDataCompletionTokens = $values['structuredDataCompletionTokens'] ?? null;
+        $this->structuredDataCachedPromptTokens = $values['structuredDataCachedPromptTokens'] ?? null;
         $this->successEvaluation = $values['successEvaluation'] ?? null;
         $this->successEvaluationPromptTokens = $values['successEvaluationPromptTokens'] ?? null;
         $this->successEvaluationCompletionTokens = $values['successEvaluationCompletionTokens'] ?? null;
+        $this->successEvaluationCachedPromptTokens = $values['successEvaluationCachedPromptTokens'] ?? null;
         $this->structuredOutput = $values['structuredOutput'] ?? null;
         $this->structuredOutputPromptTokens = $values['structuredOutputPromptTokens'] ?? null;
         $this->structuredOutputCompletionTokens = $values['structuredOutputCompletionTokens'] ?? null;
+        $this->structuredOutputCachedPromptTokens = $values['structuredOutputCachedPromptTokens'] ?? null;
     }
 
     /**

@@ -14,7 +14,7 @@ class ResponseCompletedEvent extends JsonSerializableType
     public ResponseObject $response;
 
     /**
-     * @var 'response.completed' $type Event type
+     * @var value-of<ResponseCompletedEventType> $type Event type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -22,7 +22,7 @@ class ResponseCompletedEvent extends JsonSerializableType
     /**
      * @param array{
      *   response: ResponseObject,
-     *   type: 'response.completed',
+     *   type: value-of<ResponseCompletedEventType>,
      * } $values
      */
     public function __construct(

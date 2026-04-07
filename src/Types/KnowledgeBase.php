@@ -15,7 +15,7 @@ class KnowledgeBase extends JsonSerializableType
     public string $name;
 
     /**
-     * @var 'google' $provider The provider of the knowledge base
+     * @var value-of<KnowledgeBaseProvider> $provider The provider of the knowledge base
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -41,7 +41,7 @@ class KnowledgeBase extends JsonSerializableType
     /**
      * @param array{
      *   name: string,
-     *   provider: 'google',
+     *   provider: value-of<KnowledgeBaseProvider>,
      *   description: string,
      *   fileIds: array<string>,
      *   model?: ?value-of<KnowledgeBaseModel>,

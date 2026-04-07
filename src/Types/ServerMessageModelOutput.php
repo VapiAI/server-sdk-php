@@ -15,10 +15,19 @@ class ServerMessageModelOutput extends JsonSerializableType
     public ?ServerMessageModelOutputPhoneNumber $phoneNumber;
 
     /**
-     * @var 'model-output' $type This is the type of the message. "model-output" is sent as the model outputs tokens.
+     * @var value-of<ServerMessageModelOutputType> $type This is the type of the message. "model-output" is sent as the model outputs tokens.
      */
     #[JsonProperty('type')]
     public string $type;
+
+    /**
+     * This is the unique identifier for the current LLM turn. All tokens from the same
+     * LLM response share the same turnId. Use this to group tokens and discard on interruption.
+     *
+     * @var ?string $turnId
+     */
+    #[JsonProperty('turnId')]
+    public ?string $turnId;
 
     /**
      * @var ?float $timestamp This is the timestamp of the message.
@@ -68,9 +77,10 @@ class ServerMessageModelOutput extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'model-output',
+     *   type: value-of<ServerMessageModelOutputType>,
      *   output: array<string, mixed>,
      *   phoneNumber?: ?ServerMessageModelOutputPhoneNumber,
+     *   turnId?: ?string,
      *   timestamp?: ?float,
      *   artifact?: ?Artifact,
      *   assistant?: ?CreateAssistantDto,
@@ -84,6 +94,7 @@ class ServerMessageModelOutput extends JsonSerializableType
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
         $this->type = $values['type'];
+        $this->turnId = $values['turnId'] ?? null;
         $this->timestamp = $values['timestamp'] ?? null;
         $this->artifact = $values['artifact'] ?? null;
         $this->assistant = $values['assistant'] ?? null;

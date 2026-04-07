@@ -9,7 +9,7 @@ use Vapi\Core\Types\ArrayType;
 class SpeechmaticsTranscriber extends JsonSerializableType
 {
     /**
-     * @var ?'default' $model This is the model that will be used for the transcription.
+     * @var ?value-of<SpeechmaticsTranscriberModel> $model This is the model that will be used for the transcription.
      */
     #[JsonProperty('model')]
     public ?string $model;
@@ -51,26 +51,6 @@ class SpeechmaticsTranscriber extends JsonSerializableType
     public ?bool $enableDiarization;
 
     /**
-     * This sets the maximum number of speakers to detect when diarization is enabled. Only used when enableDiarization is true.
-     *
-     * @default 2
-     *
-     * @var ?float $maxSpeakers
-     */
-    #[JsonProperty('maxSpeakers')]
-    public ?float $maxSpeakers;
-
-    /**
-     * This enables partial transcripts during speech recognition. When false, only final transcripts are returned.
-     *
-     * @default true
-     *
-     * @var ?bool $enablePartials
-     */
-    #[JsonProperty('enablePartials')]
-    public ?bool $enablePartials;
-
-    /**
      * This sets the maximum delay in milliseconds for partial transcripts. Balances latency and accuracy.
      *
      * @default 3000
@@ -87,7 +67,7 @@ class SpeechmaticsTranscriber extends JsonSerializableType
     public array $customVocabulary;
 
     /**
-     * This controls how numbers are formatted in the transcription output.
+     * This controls how numbers, dates, currencies, and other entities are formatted in the transcription output.
      *
      * @default 'written'
      *
@@ -95,36 +75,6 @@ class SpeechmaticsTranscriber extends JsonSerializableType
      */
     #[JsonProperty('numeralStyle')]
     public ?string $numeralStyle;
-
-    /**
-     * This enables detection of non-speech audio events like music, applause, and laughter.
-     *
-     * @default false
-     *
-     * @var ?bool $enableEntities
-     */
-    #[JsonProperty('enableEntities')]
-    public ?bool $enableEntities;
-
-    /**
-     * This enables automatic punctuation in the transcription output.
-     *
-     * @default true
-     *
-     * @var ?bool $enablePunctuation
-     */
-    #[JsonProperty('enablePunctuation')]
-    public ?bool $enablePunctuation;
-
-    /**
-     * This enables automatic capitalization in the transcription output.
-     *
-     * @default true
-     *
-     * @var ?bool $enableCapitalization
-     */
-    #[JsonProperty('enableCapitalization')]
-    public ?bool $enableCapitalization;
 
     /**
      * This is the sensitivity level for end-of-turn detection, which determines when a speaker has finished talking. Higher values are more sensitive.
@@ -138,6 +88,8 @@ class SpeechmaticsTranscriber extends JsonSerializableType
 
     /**
      * This enables removal of disfluencies (um, uh) from the transcript to create cleaner, more professional output.
+     *
+     * This is only supported for the English language transcriber.
      *
      * @default false
      *
@@ -157,7 +109,7 @@ class SpeechmaticsTranscriber extends JsonSerializableType
     public ?float $minimumSpeechDuration;
 
     /**
-     * @var ?FallbackTranscriberPlan $fallbackPlan This is the plan for voice provider fallbacks in the event that the primary voice provider fails.
+     * @var ?FallbackTranscriberPlan $fallbackPlan This is the plan for transcriber provider fallbacks in the event that the primary transcriber provider fails.
      */
     #[JsonProperty('fallbackPlan')]
     public ?FallbackTranscriberPlan $fallbackPlan;
@@ -165,18 +117,13 @@ class SpeechmaticsTranscriber extends JsonSerializableType
     /**
      * @param array{
      *   customVocabulary: array<SpeechmaticsCustomVocabularyItem>,
-     *   model?: ?'default',
+     *   model?: ?value-of<SpeechmaticsTranscriberModel>,
      *   language?: ?value-of<SpeechmaticsTranscriberLanguage>,
      *   operatingPoint?: ?value-of<SpeechmaticsTranscriberOperatingPoint>,
      *   region?: ?value-of<SpeechmaticsTranscriberRegion>,
      *   enableDiarization?: ?bool,
-     *   maxSpeakers?: ?float,
-     *   enablePartials?: ?bool,
      *   maxDelay?: ?float,
      *   numeralStyle?: ?value-of<SpeechmaticsTranscriberNumeralStyle>,
-     *   enableEntities?: ?bool,
-     *   enablePunctuation?: ?bool,
-     *   enableCapitalization?: ?bool,
      *   endOfTurnSensitivity?: ?float,
      *   removeDisfluencies?: ?bool,
      *   minimumSpeechDuration?: ?float,
@@ -191,14 +138,9 @@ class SpeechmaticsTranscriber extends JsonSerializableType
         $this->operatingPoint = $values['operatingPoint'] ?? null;
         $this->region = $values['region'] ?? null;
         $this->enableDiarization = $values['enableDiarization'] ?? null;
-        $this->maxSpeakers = $values['maxSpeakers'] ?? null;
-        $this->enablePartials = $values['enablePartials'] ?? null;
         $this->maxDelay = $values['maxDelay'] ?? null;
         $this->customVocabulary = $values['customVocabulary'];
         $this->numeralStyle = $values['numeralStyle'] ?? null;
-        $this->enableEntities = $values['enableEntities'] ?? null;
-        $this->enablePunctuation = $values['enablePunctuation'] ?? null;
-        $this->enableCapitalization = $values['enableCapitalization'] ?? null;
         $this->endOfTurnSensitivity = $values['endOfTurnSensitivity'] ?? null;
         $this->removeDisfluencies = $values['removeDisfluencies'] ?? null;
         $this->minimumSpeechDuration = $values['minimumSpeechDuration'] ?? null;

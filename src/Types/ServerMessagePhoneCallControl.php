@@ -18,7 +18,7 @@ class ServerMessagePhoneCallControl extends JsonSerializableType
      *
      * When it is requested in `assistant.serverMessages`, the hangup and forwarding responsibilities are delegated to your server. Vapi will no longer do the actual transfer and hangup.
      *
-     * @var 'phone-call-control' $type
+     * @var value-of<ServerMessagePhoneCallControlType> $type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -77,7 +77,7 @@ class ServerMessagePhoneCallControl extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'phone-call-control',
+     *   type: value-of<ServerMessagePhoneCallControlType>,
      *   request: value-of<ServerMessagePhoneCallControlRequest>,
      *   phoneNumber?: ?ServerMessagePhoneCallControlPhoneNumber,
      *   destination?: ?ServerMessagePhoneCallControlDestination,

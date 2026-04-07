@@ -19,12 +19,6 @@ class CreateVoicemailToolDto extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var 'voicemail' $type The type of tool. "voicemail" for Voicemail tool.
-     */
-    #[JsonProperty('type')]
-    public string $type;
-
-    /**
      * This is the flag that enables beep detection for voicemail detection and applies only for twilio based calls.
      *
      * @default false
@@ -121,17 +115,15 @@ class CreateVoicemailToolDto extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'voicemail',
      *   messages?: ?array<CreateVoicemailToolDtoMessagesItem>,
      *   beepDetectionEnabled?: ?bool,
      *   rejectionPlan?: ?ToolRejectionPlan,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
         $this->messages = $values['messages'] ?? null;
-        $this->type = $values['type'];
         $this->beepDetectionEnabled = $values['beepDetectionEnabled'] ?? null;
         $this->rejectionPlan = $values['rejectionPlan'] ?? null;
     }

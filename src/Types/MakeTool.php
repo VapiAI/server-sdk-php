@@ -21,7 +21,7 @@ class MakeTool extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var 'make' $type The type of tool. "make" for Make tool.
+     * @var value-of<MakeToolType> $type The type of tool. "make" for Make tool.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -143,7 +143,7 @@ class MakeTool extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'make',
+     *   type: value-of<MakeToolType>,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,

@@ -4,6 +4,7 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
+use Vapi\Core\Types\ArrayType;
 
 class MonitorPlan extends JsonSerializableType
 {
@@ -58,11 +59,24 @@ class MonitorPlan extends JsonSerializableType
     public ?bool $controlAuthenticationEnabled;
 
     /**
+     * This the set of monitor ids that are attached to the assistant.
+     * The source of truth for the monitor ids is the assistant_monitor join table.
+     * This field can be used for transient assistants and to update assistants with new monitor ids.
+     *
+     * @default []
+     *
+     * @var ?array<string> $monitorIds
+     */
+    #[JsonProperty('monitorIds'), ArrayType(['string'])]
+    public ?array $monitorIds;
+
+    /**
      * @param array{
      *   listenEnabled?: ?bool,
      *   listenAuthenticationEnabled?: ?bool,
      *   controlEnabled?: ?bool,
      *   controlAuthenticationEnabled?: ?bool,
+     *   monitorIds?: ?array<string>,
      * } $values
      */
     public function __construct(
@@ -72,6 +86,7 @@ class MonitorPlan extends JsonSerializableType
         $this->listenAuthenticationEnabled = $values['listenAuthenticationEnabled'] ?? null;
         $this->controlEnabled = $values['controlEnabled'] ?? null;
         $this->controlAuthenticationEnabled = $values['controlAuthenticationEnabled'] ?? null;
+        $this->monitorIds = $values['monitorIds'] ?? null;
     }
 
     /**

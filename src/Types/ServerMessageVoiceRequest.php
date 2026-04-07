@@ -37,7 +37,7 @@ class ServerMessageVoiceRequest extends JsonSerializableType
      * });
      * ```
      *
-     * @var 'voice-request' $type
+     * @var value-of<ServerMessageVoiceRequestType> $type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -96,7 +96,7 @@ class ServerMessageVoiceRequest extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'voice-request',
+     *   type: value-of<ServerMessageVoiceRequestType>,
      *   text: string,
      *   sampleRate: float,
      *   phoneNumber?: ?ServerMessageVoiceRequestPhoneNumber,

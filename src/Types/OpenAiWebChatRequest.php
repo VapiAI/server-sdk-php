@@ -9,10 +9,16 @@ use Vapi\Core\Types\Union;
 class OpenAiWebChatRequest extends JsonSerializableType
 {
     /**
-     * @var string $assistantId The assistant ID to use for this chat
+     * @var ?string $assistantId This is the assistant ID to use for this chat. To use a transient assistant, use `assistant` instead.
      */
     #[JsonProperty('assistantId')]
-    public string $assistantId;
+    public ?string $assistantId;
+
+    /**
+     * @var ?CreateAssistantDto $assistant This is the transient assistant configuration for this chat. To use an existing assistant, use `assistantId` instead.
+     */
+    #[JsonProperty('assistant')]
+    public ?CreateAssistantDto $assistant;
 
     /**
      * This is the ID of the session that will be used for the chat.
@@ -23,6 +29,15 @@ class OpenAiWebChatRequest extends JsonSerializableType
      */
     #[JsonProperty('sessionId')]
     public ?string $sessionId;
+
+    /**
+     * This is the expiration time for the session. This can ONLY be set if starting a new chat and therefore a new session is created.
+     * If session already exists, this will be ignored and NOT be updated for the existing session. Use PATCH /session/:id to update the session expiration time.
+     *
+     * @var ?float $sessionExpirationSeconds
+     */
+    #[JsonProperty('sessionExpirationSeconds')]
+    public ?float $sessionExpirationSeconds;
 
     /**
      * These are the variable values that will be used to replace template variables in the assistant messages.
@@ -78,7 +93,6 @@ class OpenAiWebChatRequest extends JsonSerializableType
 
     /**
      * @param array{
-     *   assistantId: string,
      *   input: (
      *    string
      *   |array<(
@@ -89,7 +103,10 @@ class OpenAiWebChatRequest extends JsonSerializableType
      *   |DeveloperMessage
      * )>
      * ),
+     *   assistantId?: ?string,
+     *   assistant?: ?CreateAssistantDto,
      *   sessionId?: ?string,
+     *   sessionExpirationSeconds?: ?float,
      *   assistantOverrides?: ?ChatAssistantOverrides,
      *   customer?: ?CreateWebCustomerDto,
      *   stream?: ?bool,
@@ -99,8 +116,10 @@ class OpenAiWebChatRequest extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->assistantId = $values['assistantId'];
+        $this->assistantId = $values['assistantId'] ?? null;
+        $this->assistant = $values['assistant'] ?? null;
         $this->sessionId = $values['sessionId'] ?? null;
+        $this->sessionExpirationSeconds = $values['sessionExpirationSeconds'] ?? null;
         $this->assistantOverrides = $values['assistantOverrides'] ?? null;
         $this->customer = $values['customer'] ?? null;
         $this->input = $values['input'];

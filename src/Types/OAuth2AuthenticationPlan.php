@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class OAuth2AuthenticationPlan extends JsonSerializableType
 {
     /**
+     * @var value-of<OAuth2AuthenticationPlanType> $type
+     */
+    #[JsonProperty('type')]
+    public string $type;
+
+    /**
      * @var string $url This is the OAuth2 URL.
      */
     #[JsonProperty('url')]
@@ -33,6 +39,7 @@ class OAuth2AuthenticationPlan extends JsonSerializableType
 
     /**
      * @param array{
+     *   type: value-of<OAuth2AuthenticationPlanType>,
      *   url: string,
      *   clientId: string,
      *   clientSecret: string,
@@ -42,6 +49,7 @@ class OAuth2AuthenticationPlan extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
+        $this->type = $values['type'];
         $this->url = $values['url'];
         $this->clientId = $values['clientId'];
         $this->clientSecret = $values['clientSecret'];

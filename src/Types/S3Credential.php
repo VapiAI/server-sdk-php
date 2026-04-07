@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class S3Credential extends JsonSerializableType
 {
     /**
-     * @var 's3' $provider Credential provider. Only allowed value is s3
+     * @var value-of<S3CredentialProvider> $provider Credential provider. Only allowed value is s3
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -83,7 +83,7 @@ class S3Credential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 's3',
+     *   provider: value-of<S3CredentialProvider>,
      *   awsAccessKeyId: string,
      *   awsSecretAccessKey: string,
      *   region: string,

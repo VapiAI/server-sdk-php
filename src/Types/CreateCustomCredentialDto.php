@@ -14,6 +14,12 @@ class CreateCustomCredentialDto extends JsonSerializableType
     public CreateCustomCredentialDtoAuthenticationPlan $authenticationPlan;
 
     /**
+     * @var ?CreateCustomCredentialDtoEncryptionPlan $encryptionPlan This is the encryption plan for encrypting sensitive data. Currently supports public-key encryption.
+     */
+    #[JsonProperty('encryptionPlan')]
+    public ?CreateCustomCredentialDtoEncryptionPlan $encryptionPlan;
+
+    /**
      * @var ?string $name This is the name of credential. This is just for your reference.
      */
     #[JsonProperty('name')]
@@ -22,6 +28,7 @@ class CreateCustomCredentialDto extends JsonSerializableType
     /**
      * @param array{
      *   authenticationPlan: CreateCustomCredentialDtoAuthenticationPlan,
+     *   encryptionPlan?: ?CreateCustomCredentialDtoEncryptionPlan,
      *   name?: ?string,
      * } $values
      */
@@ -29,6 +36,7 @@ class CreateCustomCredentialDto extends JsonSerializableType
         array $values,
     ) {
         $this->authenticationPlan = $values['authenticationPlan'];
+        $this->encryptionPlan = $values['encryptionPlan'] ?? null;
         $this->name = $values['name'] ?? null;
     }
 

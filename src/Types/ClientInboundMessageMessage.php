@@ -18,6 +18,7 @@ class ClientInboundMessageMessage extends JsonSerializableType
      *   |'say'
      *   |'end-call'
      *   |'transfer'
+     *   |'send-transport-message'
      *   |'_unknown'
      * ) $type
      */
@@ -30,6 +31,7 @@ class ClientInboundMessageMessage extends JsonSerializableType
      *   |ClientInboundMessageSay
      *   |ClientInboundMessageEndCall
      *   |ClientInboundMessageTransfer
+     *   |ClientInboundMessageSendTransportMessage
      *   |mixed
      * ) $value
      */
@@ -43,6 +45,7 @@ class ClientInboundMessageMessage extends JsonSerializableType
      *   |'say'
      *   |'end-call'
      *   |'transfer'
+     *   |'send-transport-message'
      *   |'_unknown'
      * ),
      *   value: (
@@ -51,6 +54,7 @@ class ClientInboundMessageMessage extends JsonSerializableType
      *   |ClientInboundMessageSay
      *   |ClientInboundMessageEndCall
      *   |ClientInboundMessageTransfer
+     *   |ClientInboundMessageSendTransportMessage
      *   |mixed
      * ),
      * } $values
@@ -119,6 +123,18 @@ class ClientInboundMessageMessage extends JsonSerializableType
         return new ClientInboundMessageMessage([
             'type' => 'transfer',
             'value' => $transfer,
+        ]);
+    }
+
+    /**
+     * @param ClientInboundMessageSendTransportMessage $sendTransportMessage
+     * @return ClientInboundMessageMessage
+     */
+    public static function sendTransportMessage(ClientInboundMessageSendTransportMessage $sendTransportMessage): ClientInboundMessageMessage
+    {
+        return new ClientInboundMessageMessage([
+            'type' => 'send-transport-message',
+            'value' => $sendTransportMessage,
         ]);
     }
 
@@ -233,6 +249,28 @@ class ClientInboundMessageMessage extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isSendTransportMessage(): bool
+    {
+        return $this->value instanceof ClientInboundMessageSendTransportMessage && $this->type === 'send-transport-message';
+    }
+
+    /**
+     * @return ClientInboundMessageSendTransportMessage
+     */
+    public function asSendTransportMessage(): ClientInboundMessageSendTransportMessage
+    {
+        if (!($this->value instanceof ClientInboundMessageSendTransportMessage && $this->type === 'send-transport-message')) {
+            throw new Exception(
+                "Expected send-transport-message; got " . $this->type . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -270,6 +308,10 @@ class ClientInboundMessageMessage extends JsonSerializableType
                 break;
             case 'transfer':
                 $value = $this->asTransfer()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'send-transport-message':
+                $value = $this->asSendTransportMessage()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -334,6 +376,9 @@ class ClientInboundMessageMessage extends JsonSerializableType
                 break;
             case 'transfer':
                 $args['value'] = ClientInboundMessageTransfer::jsonDeserialize($data);
+                break;
+            case 'send-transport-message':
+                $args['value'] = ClientInboundMessageSendTransportMessage::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

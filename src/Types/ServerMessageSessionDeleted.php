@@ -14,7 +14,7 @@ class ServerMessageSessionDeleted extends JsonSerializableType
     public ?ServerMessageSessionDeletedPhoneNumber $phoneNumber;
 
     /**
-     * @var 'session.deleted' $type This is the type of the message. "session.deleted" is sent when a session is deleted.
+     * @var value-of<ServerMessageSessionDeletedType> $type This is the type of the message. "session.deleted" is sent when a session is deleted.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -67,7 +67,7 @@ class ServerMessageSessionDeleted extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'session.deleted',
+     *   type: value-of<ServerMessageSessionDeletedType>,
      *   session: Session,
      *   phoneNumber?: ?ServerMessageSessionDeletedPhoneNumber,
      *   timestamp?: ?float,

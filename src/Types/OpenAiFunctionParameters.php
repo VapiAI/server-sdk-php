@@ -9,7 +9,7 @@ use Vapi\Core\Types\ArrayType;
 class OpenAiFunctionParameters extends JsonSerializableType
 {
     /**
-     * @var 'object' $type This must be set to 'object'. It instructs the model to return a JSON object containing the function call properties.
+     * @var value-of<OpenAiFunctionParametersType> $type This must be set to 'object'. It instructs the model to return a JSON object containing the function call properties.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -32,7 +32,7 @@ class OpenAiFunctionParameters extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'object',
+     *   type: value-of<OpenAiFunctionParametersType>,
      *   properties: array<string, JsonSchema>,
      *   required?: ?array<string>,
      * } $values

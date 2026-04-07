@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class HandoffDestinationAssistant extends JsonSerializableType
 {
     /**
+     * @var value-of<HandoffDestinationAssistantType> $type
+     */
+    #[JsonProperty('type')]
+    public string $type;
+
+    /**
      * @var ?HandoffDestinationAssistantContextEngineeringPlan $contextEngineeringPlan This is the plan for manipulating the message context before handing off the call to the next assistant.
      */
     #[JsonProperty('contextEngineeringPlan')]
@@ -38,6 +44,12 @@ class HandoffDestinationAssistant extends JsonSerializableType
     public ?VariableExtractionPlan $variableExtractionPlan;
 
     /**
+     * @var ?AssistantOverrides $assistantOverrides These are the assistant overrides to apply to the destination assistant.
+     */
+    #[JsonProperty('assistantOverrides')]
+    public ?AssistantOverrides $assistantOverrides;
+
+    /**
      * @var ?string $description This is the description of the destination, used by the AI to choose when and how to transfer the call.
      */
     #[JsonProperty('description')]
@@ -45,22 +57,26 @@ class HandoffDestinationAssistant extends JsonSerializableType
 
     /**
      * @param array{
+     *   type: value-of<HandoffDestinationAssistantType>,
      *   contextEngineeringPlan?: ?HandoffDestinationAssistantContextEngineeringPlan,
      *   assistantName?: ?string,
      *   assistantId?: ?string,
      *   assistant?: ?CreateAssistantDto,
      *   variableExtractionPlan?: ?VariableExtractionPlan,
+     *   assistantOverrides?: ?AssistantOverrides,
      *   description?: ?string,
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
+        $this->type = $values['type'];
         $this->contextEngineeringPlan = $values['contextEngineeringPlan'] ?? null;
         $this->assistantName = $values['assistantName'] ?? null;
         $this->assistantId = $values['assistantId'] ?? null;
         $this->assistant = $values['assistant'] ?? null;
         $this->variableExtractionPlan = $values['variableExtractionPlan'] ?? null;
+        $this->assistantOverrides = $values['assistantOverrides'] ?? null;
         $this->description = $values['description'] ?? null;
     }
 

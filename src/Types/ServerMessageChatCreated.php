@@ -14,7 +14,7 @@ class ServerMessageChatCreated extends JsonSerializableType
     public ?ServerMessageChatCreatedPhoneNumber $phoneNumber;
 
     /**
-     * @var 'chat.created' $type This is the type of the message. "chat.created" is sent when a new chat is created.
+     * @var value-of<ServerMessageChatCreatedType> $type This is the type of the message. "chat.created" is sent when a new chat is created.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -61,7 +61,7 @@ class ServerMessageChatCreated extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'chat.created',
+     *   type: value-of<ServerMessageChatCreatedType>,
      *   chat: Chat,
      *   phoneNumber?: ?ServerMessageChatCreatedPhoneNumber,
      *   timestamp?: ?float,

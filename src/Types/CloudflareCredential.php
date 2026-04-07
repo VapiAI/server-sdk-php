@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class CloudflareCredential extends JsonSerializableType
 {
     /**
-     * @var 'cloudflare' $provider Credential provider. Only allowed value is cloudflare
+     * @var value-of<CloudflareCredentialProvider> $provider Credential provider. Only allowed value is cloudflare
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -77,7 +77,7 @@ class CloudflareCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'cloudflare',
+     *   provider: value-of<CloudflareCredentialProvider>,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,

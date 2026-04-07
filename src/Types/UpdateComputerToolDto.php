@@ -19,7 +19,7 @@ class UpdateComputerToolDto extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var ?'computer_20241022' $subType The sub type of tool.
+     * @var ?value-of<UpdateComputerToolDtoSubType> $subType The sub type of tool.
      */
     #[JsonProperty('subType')]
     public ?string $subType;
@@ -126,7 +126,7 @@ class UpdateComputerToolDto extends JsonSerializableType
     public ?ToolRejectionPlan $rejectionPlan;
 
     /**
-     * @var ?'computer' $name The name of the tool, fixed to 'computer'
+     * @var ?value-of<UpdateComputerToolDtoName> $name The name of the tool, fixed to 'computer'
      */
     #[JsonProperty('name')]
     public ?string $name;
@@ -152,10 +152,10 @@ class UpdateComputerToolDto extends JsonSerializableType
     /**
      * @param array{
      *   messages?: ?array<UpdateComputerToolDtoMessagesItem>,
-     *   subType?: ?'computer_20241022',
+     *   subType?: ?value-of<UpdateComputerToolDtoSubType>,
      *   server?: ?Server,
      *   rejectionPlan?: ?ToolRejectionPlan,
-     *   name?: ?'computer',
+     *   name?: ?value-of<UpdateComputerToolDtoName>,
      *   displayWidthPx?: ?float,
      *   displayHeightPx?: ?float,
      *   displayNumber?: ?float,

@@ -8,7 +8,7 @@ use Vapi\Core\Json\JsonProperty;
 class ResponseErrorEvent extends JsonSerializableType
 {
     /**
-     * @var 'error' $type Event type
+     * @var value-of<ResponseErrorEventType> $type Event type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -39,7 +39,7 @@ class ResponseErrorEvent extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'error',
+     *   type: value-of<ResponseErrorEventType>,
      *   code: string,
      *   message: string,
      *   sequenceNumber: float,

@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class NeuphonicCredential extends JsonSerializableType
 {
     /**
-     * @var 'neuphonic' $provider
+     * @var value-of<NeuphonicCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class NeuphonicCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'neuphonic',
+     *   provider: value-of<NeuphonicCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

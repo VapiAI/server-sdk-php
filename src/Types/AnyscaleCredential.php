@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class AnyscaleCredential extends JsonSerializableType
 {
     /**
-     * @var 'anyscale' $provider
+     * @var value-of<AnyscaleCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class AnyscaleCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'anyscale',
+     *   provider: value-of<AnyscaleCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

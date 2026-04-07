@@ -16,7 +16,7 @@ class ServerMessageKnowledgeBaseRequest extends JsonSerializableType
     public ?ServerMessageKnowledgeBaseRequestPhoneNumber $phoneNumber;
 
     /**
-     * @var 'knowledge-base-request' $type This is the type of the message. "knowledge-base-request" is sent to request knowledge base documents. To enable, use `assistant.knowledgeBase.provider=custom-knowledge-base`.
+     * @var value-of<ServerMessageKnowledgeBaseRequestType> $type This is the type of the message. "knowledge-base-request" is sent to request knowledge base documents. To enable, use `assistant.knowledgeBase.provider=custom-knowledge-base`.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -81,7 +81,7 @@ class ServerMessageKnowledgeBaseRequest extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'knowledge-base-request',
+     *   type: value-of<ServerMessageKnowledgeBaseRequestType>,
      *   messagesOpenAiFormatted: array<OpenAiMessage>,
      *   phoneNumber?: ?ServerMessageKnowledgeBaseRequestPhoneNumber,
      *   messages?: ?array<(

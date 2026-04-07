@@ -8,12 +8,16 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Assistants\Types\UpdateAssistantDtoModel;
 use Vapi\Assistants\Types\UpdateAssistantDtoVoice;
 use Vapi\Assistants\Types\UpdateAssistantDtoFirstMessageMode;
-use Vapi\Assistants\Types\UpdateAssistantDtoVoicemailDetection;
+use Vapi\Assistants\Types\UpdateAssistantDtoVoicemailDetectionZero;
+use Vapi\Types\GoogleVoicemailDetectionPlan;
+use Vapi\Types\OpenAiVoicemailDetectionPlan;
+use Vapi\Types\TwilioVoicemailDetectionPlan;
+use Vapi\Types\VapiVoicemailDetectionPlan;
+use Vapi\Core\Types\Union;
 use Vapi\Assistants\Types\UpdateAssistantDtoClientMessagesItem;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Assistants\Types\UpdateAssistantDtoServerMessagesItem;
 use Vapi\Assistants\Types\UpdateAssistantDtoBackgroundSoundZero;
-use Vapi\Core\Types\Union;
 use Vapi\Types\TransportConfigurationTwilio;
 use Vapi\Types\LangfuseObservabilityPlan;
 use Vapi\Assistants\Types\UpdateAssistantDtoCredentialsItem;
@@ -21,6 +25,7 @@ use Vapi\Types\CallHookCallEnding;
 use Vapi\Types\CallHookAssistantSpeechInterrupted;
 use Vapi\Types\CallHookCustomerSpeechInterrupted;
 use Vapi\Types\CallHookCustomerSpeechTimeout;
+use Vapi\Types\SessionCreatedHook;
 use Vapi\Types\CompliancePlan;
 use Vapi\Types\BackgroundSpeechDenoisingPlan;
 use Vapi\Types\AnalysisPlan;
@@ -84,22 +89,27 @@ class UpdateAssistantDto extends JsonSerializableType
 
     /**
      * These are the settings to configure or disable voicemail detection. Alternatively, voicemail detection can be configured using the model.tools=[VoicemailTool].
-     * This uses Twilio's built-in detection while the VoicemailTool relies on the model to detect if a voicemail was reached.
-     * You can use neither of them, one of them, or both of them. By default, Twilio built-in detection is enabled while VoicemailTool is not.
+     * By default, voicemail detection is disabled.
      *
-     * @var ?UpdateAssistantDtoVoicemailDetection $voicemailDetection
+     * @var (
+     *    value-of<UpdateAssistantDtoVoicemailDetectionZero>
+     *   |GoogleVoicemailDetectionPlan
+     *   |OpenAiVoicemailDetectionPlan
+     *   |TwilioVoicemailDetectionPlan
+     *   |VapiVoicemailDetectionPlan
+     * )|null $voicemailDetection
      */
-    #[JsonProperty('voicemailDetection')]
-    public ?UpdateAssistantDtoVoicemailDetection $voicemailDetection;
+    #[JsonProperty('voicemailDetection'), Union('string', GoogleVoicemailDetectionPlan::class, OpenAiVoicemailDetectionPlan::class, TwilioVoicemailDetectionPlan::class, VapiVoicemailDetectionPlan::class, 'null')]
+    public string|GoogleVoicemailDetectionPlan|OpenAiVoicemailDetectionPlan|TwilioVoicemailDetectionPlan|VapiVoicemailDetectionPlan|null $voicemailDetection;
 
     /**
-     * @var ?array<value-of<UpdateAssistantDtoClientMessagesItem>> $clientMessages These are the messages that will be sent to your Client SDKs. Default is conversation-update,function-call,hang,model-output,speech-update,status-update,transfer-update,transcript,tool-calls,user-interrupted,voice-input,workflow.node.started. You can check the shape of the messages in ClientMessage schema.
+     * @var ?array<value-of<UpdateAssistantDtoClientMessagesItem>> $clientMessages These are the messages that will be sent to your Client SDKs. Default is conversation-update,function-call,hang,model-output,speech-update,status-update,transfer-update,transcript,tool-calls,user-interrupted,voice-input,workflow.node.started,assistant.started. You can check the shape of the messages in ClientMessage schema.
      */
     #[JsonProperty('clientMessages'), ArrayType(['string'])]
     public ?array $clientMessages;
 
     /**
-     * @var ?array<value-of<UpdateAssistantDtoServerMessagesItem>> $serverMessages These are the messages that will be sent to your Server URL. Default is conversation-update,end-of-call-report,function-call,hang,speech-update,status-update,tool-calls,transfer-destination-request,handoff-destination-request,user-interrupted. You can check the shape of the messages in ServerMessage schema.
+     * @var ?array<value-of<UpdateAssistantDtoServerMessagesItem>> $serverMessages These are the messages that will be sent to your Server URL. Default is conversation-update,end-of-call-report,function-call,hang,speech-update,status-update,tool-calls,transfer-destination-request,handoff-destination-request,user-interrupted,assistant.started. You can check the shape of the messages in ServerMessage schema.
      */
     #[JsonProperty('serverMessages'), ArrayType(['string'])]
     public ?array $serverMessages;
@@ -128,8 +138,6 @@ class UpdateAssistantDto extends JsonSerializableType
 
     /**
      * This determines whether the model's output is used in conversation history rather than the transcription of assistant's speech.
-     *
-     * Default `false` while in beta.
      *
      * @default false
      *
@@ -166,9 +174,10 @@ class UpdateAssistantDto extends JsonSerializableType
      *   |CallHookAssistantSpeechInterrupted
      *   |CallHookCustomerSpeechInterrupted
      *   |CallHookCustomerSpeechTimeout
+     *   |SessionCreatedHook
      * )> $hooks This is a set of actions that will be performed on certain events.
      */
-    #[JsonProperty('hooks'), ArrayType([new Union(CallHookCallEnding::class, CallHookAssistantSpeechInterrupted::class, CallHookCustomerSpeechInterrupted::class, CallHookCustomerSpeechTimeout::class)])]
+    #[JsonProperty('hooks'), ArrayType([new Union(CallHookCallEnding::class, CallHookAssistantSpeechInterrupted::class, CallHookCustomerSpeechInterrupted::class, CallHookCustomerSpeechTimeout::class, SessionCreatedHook::class)])]
     public ?array $hooks;
 
     /**
@@ -283,6 +292,7 @@ class UpdateAssistantDto extends JsonSerializableType
      * Usage:
      * - To enable live listening of the assistant's calls, set `monitorPlan.listenEnabled` to `true`.
      * - To enable live control of the assistant's calls, set `monitorPlan.controlEnabled` to `true`.
+     * - To attach monitors to the assistant, set `monitorPlan.monitorIds` to the set of monitor ids.
      *
      * @var ?MonitorPlan $monitorPlan
      */
@@ -323,7 +333,13 @@ class UpdateAssistantDto extends JsonSerializableType
      *   firstMessage?: ?string,
      *   firstMessageInterruptionsEnabled?: ?bool,
      *   firstMessageMode?: ?value-of<UpdateAssistantDtoFirstMessageMode>,
-     *   voicemailDetection?: ?UpdateAssistantDtoVoicemailDetection,
+     *   voicemailDetection?: (
+     *    value-of<UpdateAssistantDtoVoicemailDetectionZero>
+     *   |GoogleVoicemailDetectionPlan
+     *   |OpenAiVoicemailDetectionPlan
+     *   |TwilioVoicemailDetectionPlan
+     *   |VapiVoicemailDetectionPlan
+     * )|null,
      *   clientMessages?: ?array<value-of<UpdateAssistantDtoClientMessagesItem>>,
      *   serverMessages?: ?array<value-of<UpdateAssistantDtoServerMessagesItem>>,
      *   maxDurationSeconds?: ?float,
@@ -340,6 +356,7 @@ class UpdateAssistantDto extends JsonSerializableType
      *   |CallHookAssistantSpeechInterrupted
      *   |CallHookCustomerSpeechInterrupted
      *   |CallHookCustomerSpeechTimeout
+     *   |SessionCreatedHook
      * )>,
      *   name?: ?string,
      *   voicemailMessage?: ?string,

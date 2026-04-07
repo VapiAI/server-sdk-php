@@ -11,6 +11,7 @@ class AnalysisPlan extends JsonSerializableType
     /**
      * The minimum number of messages required to run the analysis plan.
      * If the number of messages is less than this, analysis will be skipped.
+     *
      * @default 2
      *
      * @var ?float $minMessagesThreshold

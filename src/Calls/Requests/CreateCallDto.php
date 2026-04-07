@@ -103,6 +103,15 @@ class CreateCallDto extends JsonSerializableType
     public ?CreateSquadDto $squad;
 
     /**
+     * These are the overrides for the `squad` or `squadId`'s member settings and template variables.
+     * This will apply to all members of the squad.
+     *
+     * @var ?AssistantOverrides $squadOverrides
+     */
+    #[JsonProperty('squadOverrides')]
+    public ?AssistantOverrides $squadOverrides;
+
+    /**
      * This is the workflow that will be used for the call. To use a transient workflow, use `workflow` instead.
      *
      * To start a call with:
@@ -185,6 +194,7 @@ class CreateCallDto extends JsonSerializableType
      *   assistantOverrides?: ?AssistantOverrides,
      *   squadId?: ?string,
      *   squad?: ?CreateSquadDto,
+     *   squadOverrides?: ?AssistantOverrides,
      *   workflowId?: ?string,
      *   workflow?: ?CreateWorkflowDto,
      *   workflowOverrides?: ?WorkflowOverrides,
@@ -206,6 +216,7 @@ class CreateCallDto extends JsonSerializableType
         $this->assistantOverrides = $values['assistantOverrides'] ?? null;
         $this->squadId = $values['squadId'] ?? null;
         $this->squad = $values['squad'] ?? null;
+        $this->squadOverrides = $values['squadOverrides'] ?? null;
         $this->workflowId = $values['workflowId'] ?? null;
         $this->workflow = $values['workflow'] ?? null;
         $this->workflowOverrides = $values['workflowOverrides'] ?? null;

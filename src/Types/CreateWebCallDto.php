@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class CreateWebCallDto extends JsonSerializableType
 {
     /**
+     * @var ?bool $roomDeleteOnUserLeaveEnabled
+     */
+    #[JsonProperty('roomDeleteOnUserLeaveEnabled')]
+    public ?bool $roomDeleteOnUserLeaveEnabled;
+
+    /**
      * This is the assistant ID that will be used for the call. To use a transient assistant, use `assistant` instead.
      *
      * To start a call with:
@@ -66,6 +72,15 @@ class CreateWebCallDto extends JsonSerializableType
     public ?CreateSquadDto $squad;
 
     /**
+     * These are the overrides for the `squad` or `squadId`'s member settings and template variables.
+     * This will apply to all members of the squad.
+     *
+     * @var ?AssistantOverrides $squadOverrides
+     */
+    #[JsonProperty('squadOverrides')]
+    public ?AssistantOverrides $squadOverrides;
+
+    /**
      * This is the workflow that will be used for the call. To use a transient workflow, use `workflow` instead.
      *
      * To start a call with:
@@ -99,11 +114,13 @@ class CreateWebCallDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   roomDeleteOnUserLeaveEnabled?: ?bool,
      *   assistantId?: ?string,
      *   assistant?: ?CreateAssistantDto,
      *   assistantOverrides?: ?AssistantOverrides,
      *   squadId?: ?string,
      *   squad?: ?CreateSquadDto,
+     *   squadOverrides?: ?AssistantOverrides,
      *   workflowId?: ?string,
      *   workflow?: ?CreateWorkflowDto,
      *   workflowOverrides?: ?WorkflowOverrides,
@@ -112,11 +129,13 @@ class CreateWebCallDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->roomDeleteOnUserLeaveEnabled = $values['roomDeleteOnUserLeaveEnabled'] ?? null;
         $this->assistantId = $values['assistantId'] ?? null;
         $this->assistant = $values['assistant'] ?? null;
         $this->assistantOverrides = $values['assistantOverrides'] ?? null;
         $this->squadId = $values['squadId'] ?? null;
         $this->squad = $values['squad'] ?? null;
+        $this->squadOverrides = $values['squadOverrides'] ?? null;
         $this->workflowId = $values['workflowId'] ?? null;
         $this->workflow = $values['workflow'] ?? null;
         $this->workflowOverrides = $values['workflowOverrides'] ?? null;

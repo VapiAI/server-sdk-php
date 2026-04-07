@@ -14,7 +14,7 @@ class ClientMessageChatDeleted extends JsonSerializableType
     public ?ClientMessageChatDeletedPhoneNumber $phoneNumber;
 
     /**
-     * @var 'chat.deleted' $type This is the type of the message. "chat.deleted" is sent when a chat is deleted.
+     * @var value-of<ClientMessageChatDeletedType> $type This is the type of the message. "chat.deleted" is sent when a chat is deleted.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -51,7 +51,7 @@ class ClientMessageChatDeleted extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'chat.deleted',
+     *   type: value-of<ClientMessageChatDeletedType>,
      *   chat: Chat,
      *   phoneNumber?: ?ClientMessageChatDeletedPhoneNumber,
      *   timestamp?: ?float,

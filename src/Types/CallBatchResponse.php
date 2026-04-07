@@ -9,6 +9,12 @@ use Vapi\Core\Types\ArrayType;
 class CallBatchResponse extends JsonSerializableType
 {
     /**
+     * @var ?SubscriptionLimits $subscriptionLimits Subscription limits at the end of this batch
+     */
+    #[JsonProperty('subscriptionLimits')]
+    public ?SubscriptionLimits $subscriptionLimits;
+
+    /**
      * @var array<Call> $results This is the list of calls that were created.
      */
     #[JsonProperty('results'), ArrayType([Call::class])]
@@ -24,11 +30,13 @@ class CallBatchResponse extends JsonSerializableType
      * @param array{
      *   results: array<Call>,
      *   errors: array<CallBatchError>,
+     *   subscriptionLimits?: ?SubscriptionLimits,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->subscriptionLimits = $values['subscriptionLimits'] ?? null;
         $this->results = $values['results'];
         $this->errors = $values['errors'];
     }

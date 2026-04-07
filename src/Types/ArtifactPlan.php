@@ -170,6 +170,34 @@ class ArtifactPlan extends JsonSerializableType
     public ?array $structuredOutputIds;
 
     /**
+     * This is an array of transient structured outputs to be calculated during the call.
+     * The outputs will be extracted and stored in `call.artifact.structuredOutputs` after the call is ended.
+     * Use this to provide inline structured output configurations instead of referencing existing ones via structuredOutputIds.
+     *
+     * @var ?array<CreateStructuredOutputDto> $structuredOutputs
+     */
+    #[JsonProperty('structuredOutputs'), ArrayType([CreateStructuredOutputDto::class])]
+    public ?array $structuredOutputs;
+
+    /**
+     * This is an array of scorecard IDs that will be evaluated based on the structured outputs extracted during the call.
+     * The scorecards will be evaluated and the results will be stored in `call.artifact.scorecards` after the call has ended.
+     *
+     * @var ?array<string> $scorecardIds
+     */
+    #[JsonProperty('scorecardIds'), ArrayType(['string'])]
+    public ?array $scorecardIds;
+
+    /**
+     * This is the array of scorecards that will be evaluated based on the structured outputs extracted during the call.
+     * The scorecards will be evaluated and the results will be stored in `call.artifact.scorecards` after the call has ended.
+     *
+     * @var ?array<CreateScorecardDto> $scorecards
+     */
+    #[JsonProperty('scorecards'), ArrayType([CreateScorecardDto::class])]
+    public ?array $scorecards;
+
+    /**
      * This is the path where the call logs will be uploaded. This is only used if you have provided S3 or GCP credentials on the Provider Credentials page in the Dashboard.
      *
      * If credential.s3PathPrefix or credential.bucketPlan.path is set, this will append to it.
@@ -200,6 +228,9 @@ class ArtifactPlan extends JsonSerializableType
      *   transcriptPlan?: ?TranscriptPlan,
      *   recordingPath?: ?string,
      *   structuredOutputIds?: ?array<string>,
+     *   structuredOutputs?: ?array<CreateStructuredOutputDto>,
+     *   scorecardIds?: ?array<string>,
+     *   scorecards?: ?array<CreateScorecardDto>,
      *   loggingPath?: ?string,
      * } $values
      */
@@ -219,6 +250,9 @@ class ArtifactPlan extends JsonSerializableType
         $this->transcriptPlan = $values['transcriptPlan'] ?? null;
         $this->recordingPath = $values['recordingPath'] ?? null;
         $this->structuredOutputIds = $values['structuredOutputIds'] ?? null;
+        $this->structuredOutputs = $values['structuredOutputs'] ?? null;
+        $this->scorecardIds = $values['scorecardIds'] ?? null;
+        $this->scorecards = $values['scorecards'] ?? null;
         $this->loggingPath = $values['loggingPath'] ?? null;
     }
 

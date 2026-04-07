@@ -26,6 +26,12 @@ class TransferDestinationAssistant extends JsonSerializableType
     public string|CustomMessage|null $message;
 
     /**
+     * @var value-of<TransferDestinationAssistantType> $type
+     */
+    #[JsonProperty('type')]
+    public string $type;
+
+    /**
      * This is the mode to use for the transfer. Defaults to `rolling-history`.
      *
      * - `rolling-history`: This is the default mode. It keeps the entire conversation history and appends the new assistant's system message on transfer.
@@ -134,6 +140,7 @@ class TransferDestinationAssistant extends JsonSerializableType
 
     /**
      * @param array{
+     *   type: value-of<TransferDestinationAssistantType>,
      *   assistantName: string,
      *   message?: (
      *    string
@@ -147,6 +154,7 @@ class TransferDestinationAssistant extends JsonSerializableType
         array $values,
     ) {
         $this->message = $values['message'] ?? null;
+        $this->type = $values['type'];
         $this->transferMode = $values['transferMode'] ?? null;
         $this->assistantName = $values['assistantName'];
         $this->description = $values['description'] ?? null;

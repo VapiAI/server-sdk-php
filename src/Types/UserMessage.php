@@ -69,6 +69,12 @@ class UserMessage extends JsonSerializableType
     public ?array $metadata;
 
     /**
+     * @var ?string $speakerLabel Stable speaker label for diarized user speakers (e.g., "Speaker 1").
+     */
+    #[JsonProperty('speakerLabel')]
+    public ?string $speakerLabel;
+
+    /**
      * @param array{
      *   role: string,
      *   message: string,
@@ -80,6 +86,7 @@ class UserMessage extends JsonSerializableType
      *   detectedThreats?: ?array<string>,
      *   originalMessage?: ?string,
      *   metadata?: ?array<string, mixed>,
+     *   speakerLabel?: ?string,
      * } $values
      */
     public function __construct(
@@ -95,6 +102,7 @@ class UserMessage extends JsonSerializableType
         $this->detectedThreats = $values['detectedThreats'] ?? null;
         $this->originalMessage = $values['originalMessage'] ?? null;
         $this->metadata = $values['metadata'] ?? null;
+        $this->speakerLabel = $values['speakerLabel'] ?? null;
     }
 
     /**

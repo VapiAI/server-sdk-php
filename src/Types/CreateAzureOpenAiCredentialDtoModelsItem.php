@@ -4,6 +4,13 @@ namespace Vapi\Types;
 
 enum CreateAzureOpenAiCredentialDtoModelsItem: string
 {
+    case Gpt54 = "gpt-5.4";
+    case Gpt54Mini = "gpt-5.4-mini";
+    case Gpt54Nano = "gpt-5.4-nano";
+    case Gpt52 = "gpt-5.2";
+    case Gpt52Chat = "gpt-5.2-chat";
+    case Gpt51 = "gpt-5.1";
+    case Gpt51Chat = "gpt-5.1-chat";
     case Gpt5 = "gpt-5";
     case Gpt5Mini = "gpt-5-mini";
     case Gpt5Nano = "gpt-5-nano";

@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class GoHighLevelMcpCredential extends JsonSerializableType
 {
     /**
-     * @var 'ghl.oauth2-authorization' $provider
+     * @var value-of<GoHighLevelMcpCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class GoHighLevelMcpCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'ghl.oauth2-authorization',
+     *   provider: value-of<GoHighLevelMcpCredentialProvider>,
      *   authenticationSession: Oauth2AuthenticationSession,
      *   id: string,
      *   orgId: string,

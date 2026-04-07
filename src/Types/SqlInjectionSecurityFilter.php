@@ -8,14 +8,14 @@ use Vapi\Core\Json\JsonProperty;
 class SqlInjectionSecurityFilter extends JsonSerializableType
 {
     /**
-     * @var 'sql-injection' $type The type of security threat to filter.
+     * @var value-of<SqlInjectionSecurityFilterType> $type The type of security threat to filter.
      */
     #[JsonProperty('type')]
     public string $type;
 
     /**
      * @param array{
-     *   type: 'sql-injection',
+     *   type: value-of<SqlInjectionSecurityFilterType>,
      * } $values
      */
     public function __construct(

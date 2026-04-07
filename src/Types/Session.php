@@ -36,6 +36,18 @@ class Session extends JsonSerializableType
     public DateTime $updatedAt;
 
     /**
+     * @var ?float $cost This is the cost of the session in USD.
+     */
+    #[JsonProperty('cost')]
+    public ?float $cost;
+
+    /**
+     * @var ?array<SessionCostsItem> $costs These are the costs of individual components of the session in USD.
+     */
+    #[JsonProperty('costs'), ArrayType([SessionCostsItem::class])]
+    public ?array $costs;
+
+    /**
      * @var ?string $name This is a user-defined name for the session. Maximum length is 40 characters.
      */
     #[JsonProperty('name')]
@@ -67,6 +79,16 @@ class Session extends JsonSerializableType
      */
     #[JsonProperty('assistant')]
     public ?CreateAssistantDto $assistant;
+
+    /**
+     * These are the overrides for the assistant configuration.
+     * Use this to provide variable values and other overrides when using assistantId.
+     * Variable substitution will be applied to the assistant's messages and other text-based fields.
+     *
+     * @var ?AssistantOverrides $assistantOverrides
+     */
+    #[JsonProperty('assistantOverrides')]
+    public ?AssistantOverrides $assistantOverrides;
 
     /**
      * @var ?string $squadId This is the squad ID associated with this session. Use this when referencing an existing squad.
@@ -102,6 +124,12 @@ class Session extends JsonSerializableType
     public ?CreateCustomerDto $customer;
 
     /**
+     * @var ?string $customerId This is the customerId of the customer associated with this session.
+     */
+    #[JsonProperty('customerId')]
+    public ?string $customerId;
+
+    /**
      * @var ?string $phoneNumberId This is the ID of the phone number associated with this session.
      */
     #[JsonProperty('phoneNumberId')]
@@ -131,11 +159,14 @@ class Session extends JsonSerializableType
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
+     *   cost?: ?float,
+     *   costs?: ?array<SessionCostsItem>,
      *   name?: ?string,
      *   status?: ?value-of<SessionStatus>,
      *   expirationSeconds?: ?float,
      *   assistantId?: ?string,
      *   assistant?: ?CreateAssistantDto,
+     *   assistantOverrides?: ?AssistantOverrides,
      *   squadId?: ?string,
      *   squad?: ?CreateSquadDto,
      *   messages?: ?array<(
@@ -146,6 +177,7 @@ class Session extends JsonSerializableType
      *   |DeveloperMessage
      * )>,
      *   customer?: ?CreateCustomerDto,
+     *   customerId?: ?string,
      *   phoneNumberId?: ?string,
      *   phoneNumber?: ?ImportTwilioPhoneNumberDto,
      *   artifact?: ?Artifact,
@@ -158,15 +190,19 @@ class Session extends JsonSerializableType
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];
         $this->updatedAt = $values['updatedAt'];
+        $this->cost = $values['cost'] ?? null;
+        $this->costs = $values['costs'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->status = $values['status'] ?? null;
         $this->expirationSeconds = $values['expirationSeconds'] ?? null;
         $this->assistantId = $values['assistantId'] ?? null;
         $this->assistant = $values['assistant'] ?? null;
+        $this->assistantOverrides = $values['assistantOverrides'] ?? null;
         $this->squadId = $values['squadId'] ?? null;
         $this->squad = $values['squad'] ?? null;
         $this->messages = $values['messages'] ?? null;
         $this->customer = $values['customer'] ?? null;
+        $this->customerId = $values['customerId'] ?? null;
         $this->phoneNumberId = $values['phoneNumberId'] ?? null;
         $this->phoneNumber = $values['phoneNumber'] ?? null;
         $this->artifact = $values['artifact'] ?? null;

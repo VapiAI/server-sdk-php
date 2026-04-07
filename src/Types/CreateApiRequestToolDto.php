@@ -41,6 +41,18 @@ class CreateApiRequestToolDto extends JsonSerializableType
     public ?string $credentialId;
 
     /**
+     * @var ?array<string> $encryptedPaths This is the paths to encrypt in the request body if credentialId and encryptionPlan are defined.
+     */
+    #[JsonProperty('encryptedPaths'), ArrayType(['string'])]
+    public ?array $encryptedPaths;
+
+    /**
+     * @var ?array<ToolParameter> $parameters Static key-value pairs merged into the request body. Values support Liquid templates.
+     */
+    #[JsonProperty('parameters'), ArrayType([ToolParameter::class])]
+    public ?array $parameters;
+
+    /**
      * This is the name of the tool. This will be passed to the model.
      *
      * Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 40.
@@ -336,6 +348,8 @@ class CreateApiRequestToolDto extends JsonSerializableType
      *   messages?: ?array<CreateApiRequestToolDtoMessagesItem>,
      *   timeoutSeconds?: ?float,
      *   credentialId?: ?string,
+     *   encryptedPaths?: ?array<string>,
+     *   parameters?: ?array<ToolParameter>,
      *   name?: ?string,
      *   description?: ?string,
      *   body?: ?JsonSchema,
@@ -352,6 +366,8 @@ class CreateApiRequestToolDto extends JsonSerializableType
         $this->method = $values['method'];
         $this->timeoutSeconds = $values['timeoutSeconds'] ?? null;
         $this->credentialId = $values['credentialId'] ?? null;
+        $this->encryptedPaths = $values['encryptedPaths'] ?? null;
+        $this->parameters = $values['parameters'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->description = $values['description'] ?? null;
         $this->url = $values['url'];

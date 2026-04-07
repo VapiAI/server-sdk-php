@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class InworldCredential extends JsonSerializableType
 {
     /**
-     * @var 'inworld' $provider
+     * @var value-of<InworldCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class InworldCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'inworld',
+     *   provider: value-of<InworldCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

@@ -41,6 +41,18 @@ class UpdateApiRequestToolDto extends JsonSerializableType
     public ?string $credentialId;
 
     /**
+     * @var ?array<string> $encryptedPaths This is the paths to encrypt in the request body if credentialId and encryptionPlan are defined.
+     */
+    #[JsonProperty('encryptedPaths'), ArrayType(['string'])]
+    public ?array $encryptedPaths;
+
+    /**
+     * @var ?array<ToolParameter> $parameters Static key-value pairs merged into the request body. Values support Liquid templates.
+     */
+    #[JsonProperty('parameters'), ArrayType([ToolParameter::class])]
+    public ?array $parameters;
+
+    /**
      * This is the plan to reject a tool call based on the conversation state.
      *
      * // Example 1: Reject endCall if user didn't say goodbye
@@ -335,6 +347,8 @@ class UpdateApiRequestToolDto extends JsonSerializableType
      *   method?: ?value-of<UpdateApiRequestToolDtoMethod>,
      *   timeoutSeconds?: ?float,
      *   credentialId?: ?string,
+     *   encryptedPaths?: ?array<string>,
+     *   parameters?: ?array<ToolParameter>,
      *   rejectionPlan?: ?ToolRejectionPlan,
      *   name?: ?string,
      *   description?: ?string,
@@ -352,6 +366,8 @@ class UpdateApiRequestToolDto extends JsonSerializableType
         $this->method = $values['method'] ?? null;
         $this->timeoutSeconds = $values['timeoutSeconds'] ?? null;
         $this->credentialId = $values['credentialId'] ?? null;
+        $this->encryptedPaths = $values['encryptedPaths'] ?? null;
+        $this->parameters = $values['parameters'] ?? null;
         $this->rejectionPlan = $values['rejectionPlan'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->description = $values['description'] ?? null;

@@ -16,6 +16,7 @@ enum AnalyticsOperationColumn: string
     case CostBreakdownTtsCharacters = "costBreakdown.ttsCharacters";
     case CostBreakdownLlmPromptTokens = "costBreakdown.llmPromptTokens";
     case CostBreakdownLlmCompletionTokens = "costBreakdown.llmCompletionTokens";
+    case CostBreakdownLlmCachedPromptTokens = "costBreakdown.llmCachedPromptTokens";
     case Duration = "duration";
     case Concurrency = "concurrency";
     case MinutesUsed = "minutesUsed";

@@ -17,6 +17,12 @@ class TestSuiteTestVoice extends JsonSerializableType
     public array $scorers;
 
     /**
+     * @var value-of<TestSuiteTestVoiceType> $type This is the type of the test, which must be voice.
+     */
+    #[JsonProperty('type')]
+    public string $type;
+
+    /**
      * @var string $id This is the unique identifier for the test.
      */
     #[JsonProperty('id')]
@@ -67,6 +73,7 @@ class TestSuiteTestVoice extends JsonSerializableType
     /**
      * @param array{
      *   scorers: array<TestSuiteTestScorerAi>,
+     *   type: value-of<TestSuiteTestVoiceType>,
      *   id: string,
      *   testSuiteId: string,
      *   orgId: string,
@@ -81,6 +88,7 @@ class TestSuiteTestVoice extends JsonSerializableType
         array $values,
     ) {
         $this->scorers = $values['scorers'];
+        $this->type = $values['type'];
         $this->id = $values['id'];
         $this->testSuiteId = $values['testSuiteId'];
         $this->orgId = $values['orgId'];

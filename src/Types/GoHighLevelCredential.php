@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class GoHighLevelCredential extends JsonSerializableType
 {
     /**
-     * @var 'gohighlevel' $provider
+     * @var value-of<GoHighLevelCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class GoHighLevelCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'gohighlevel',
+     *   provider: value-of<GoHighLevelCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

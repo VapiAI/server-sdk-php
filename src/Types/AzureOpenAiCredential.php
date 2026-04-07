@@ -11,7 +11,7 @@ use Vapi\Core\Types\Date;
 class AzureOpenAiCredential extends JsonSerializableType
 {
     /**
-     * @var 'azure-openai' $provider
+     * @var value-of<AzureOpenAiCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -78,7 +78,7 @@ class AzureOpenAiCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'azure-openai',
+     *   provider: value-of<AzureOpenAiCredentialProvider>,
      *   region: value-of<AzureOpenAiCredentialRegion>,
      *   models: array<value-of<AzureOpenAiCredentialModelsItem>>,
      *   openAiKey: string,

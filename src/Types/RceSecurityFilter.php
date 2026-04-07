@@ -8,14 +8,14 @@ use Vapi\Core\Json\JsonProperty;
 class RceSecurityFilter extends JsonSerializableType
 {
     /**
-     * @var 'rce' $type The type of security threat to filter.
+     * @var value-of<RceSecurityFilterType> $type The type of security threat to filter.
      */
     #[JsonProperty('type')]
     public string $type;
 
     /**
      * @param array{
-     *   type: 'rce',
+     *   type: value-of<RceSecurityFilterType>,
      * } $values
      */
     public function __construct(

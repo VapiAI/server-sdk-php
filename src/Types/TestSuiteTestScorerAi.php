@@ -8,7 +8,7 @@ use Vapi\Core\Json\JsonProperty;
 class TestSuiteTestScorerAi extends JsonSerializableType
 {
     /**
-     * @var 'ai' $type This is the type of the scorer, which must be AI.
+     * @var value-of<TestSuiteTestScorerAiType> $type This is the type of the scorer, which must be AI.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -21,7 +21,7 @@ class TestSuiteTestScorerAi extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'ai',
+     *   type: value-of<TestSuiteTestScorerAiType>,
      *   rubric: string,
      * } $values
      */

@@ -24,6 +24,11 @@ enum InworldVoiceVoiceId: string
     case Timothy = "Timothy";
     case Wendy = "Wendy";
     case Dominus = "Dominus";
+    case Hana = "Hana";
+    case Clive = "Clive";
+    case Carter = "Carter";
+    case Blake = "Blake";
+    case Luna = "Luna";
     case Yichen = "Yichen";
     case Xiaoyin = "Xiaoyin";
     case Xinyi = "Xinyi";
@@ -54,4 +59,14 @@ enum InworldVoiceVoiceId: string
     case Lupita = "Lupita";
     case Miguel = "Miguel";
     case Rafael = "Rafael";
+    case Svetlana = "Svetlana";
+    case Elena = "Elena";
+    case Dmitry = "Dmitry";
+    case Nikolai = "Nikolai";
+    case Riya = "Riya";
+    case Manoj = "Manoj";
+    case Yael = "Yael";
+    case Oren = "Oren";
+    case Nour = "Nour";
+    case Omar = "Omar";
 }

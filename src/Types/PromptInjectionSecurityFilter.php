@@ -8,14 +8,14 @@ use Vapi\Core\Json\JsonProperty;
 class PromptInjectionSecurityFilter extends JsonSerializableType
 {
     /**
-     * @var 'prompt-injection' $type The type of security threat to filter.
+     * @var value-of<PromptInjectionSecurityFilterType> $type The type of security threat to filter.
      */
     #[JsonProperty('type')]
     public string $type;
 
     /**
      * @param array{
-     *   type: 'prompt-injection',
+     *   type: value-of<PromptInjectionSecurityFilterType>,
      * } $values
      */
     public function __construct(

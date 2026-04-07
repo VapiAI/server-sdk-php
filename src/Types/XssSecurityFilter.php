@@ -8,14 +8,14 @@ use Vapi\Core\Json\JsonProperty;
 class XssSecurityFilter extends JsonSerializableType
 {
     /**
-     * @var 'xss' $type The type of security threat to filter.
+     * @var value-of<XssSecurityFilterType> $type The type of security threat to filter.
      */
     #[JsonProperty('type')]
     public string $type;
 
     /**
      * @param array{
-     *   type: 'xss',
+     *   type: value-of<XssSecurityFilterType>,
      * } $values
      */
     public function __construct(

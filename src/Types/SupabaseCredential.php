@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class SupabaseCredential extends JsonSerializableType
 {
     /**
-     * @var 'supabase' $provider This is for supabase storage.
+     * @var value-of<SupabaseCredentialProvider> $provider This is for supabase storage.
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -59,7 +59,7 @@ class SupabaseCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'supabase',
+     *   provider: value-of<SupabaseCredentialProvider>,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,

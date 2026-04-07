@@ -14,7 +14,7 @@ class ClientMessageMetadata extends JsonSerializableType
     public ?ClientMessageMetadataPhoneNumber $phoneNumber;
 
     /**
-     * @var 'metadata' $type This is the type of the message. "metadata" is sent to forward metadata to the client.
+     * @var value-of<ClientMessageMetadataType> $type This is the type of the message. "metadata" is sent to forward metadata to the client.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -51,7 +51,7 @@ class ClientMessageMetadata extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'metadata',
+     *   type: value-of<ClientMessageMetadataType>,
      *   metadata: string,
      *   phoneNumber?: ?ClientMessageMetadataPhoneNumber,
      *   timestamp?: ?float,

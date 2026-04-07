@@ -4,6 +4,7 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
+use Vapi\Core\Types\Union;
 
 class TransferAssistant extends JsonSerializableType
 {
@@ -20,6 +21,18 @@ class TransferAssistant extends JsonSerializableType
     public TransferAssistantModel $model;
 
     /**
+     * @var ?TransferAssistantVoice $voice These are the options for the transfer assistant's voice.
+     */
+    #[JsonProperty('voice')]
+    public ?TransferAssistantVoice $voice;
+
+    /**
+     * @var ?TransferAssistantTranscriber $transcriber These are the options for the transfer assistant's transcriber.
+     */
+    #[JsonProperty('transcriber')]
+    public ?TransferAssistantTranscriber $transcriber;
+
+    /**
      * This is the first message that the transfer assistant will say.
      * This can also be a URL to a custom audio file.
      *
@@ -29,6 +42,30 @@ class TransferAssistant extends JsonSerializableType
      */
     #[JsonProperty('firstMessage')]
     public ?string $firstMessage;
+
+    /**
+     * This is the background sound in the transfer assistant call. Default for phone calls is 'office' and default for web calls is 'off'.
+     * You can also provide a custom sound by providing a URL to an audio file.
+     *
+     * @var (
+     *    value-of<TransferAssistantBackgroundSoundZero>
+     *   |string
+     * )|null $backgroundSound
+     */
+    #[JsonProperty('backgroundSound'), Union('string', 'null')]
+    public string|null $backgroundSound;
+
+    /**
+     * This is the plan for when the transfer assistant should start talking.
+     *
+     * You should configure this if the transfer assistant needs different endpointing behavior than the base assistant.
+     *
+     * If this is not set, the transfer assistant will inherit the start speaking plan from the base assistant.
+     *
+     * @var ?StartSpeakingPlan $startSpeakingPlan
+     */
+    #[JsonProperty('startSpeakingPlan')]
+    public ?StartSpeakingPlan $startSpeakingPlan;
 
     /**
      * This is the mode for the first message. Default is 'assistant-speaks-first'.
@@ -56,6 +93,24 @@ class TransferAssistant extends JsonSerializableType
     public ?float $maxDurationSeconds;
 
     /**
+     * This enables filtering of noise and background speech while the user is talking.
+     *
+     * Features:
+     * - Smart denoising using Krisp
+     * - Fourier denoising
+     *
+     * Smart denoising can be combined with or used independently of Fourier denoising.
+     *
+     * Order of precedence:
+     * - Smart denoising
+     * - Fourier denoising
+     *
+     * @var ?BackgroundSpeechDenoisingPlan $backgroundSpeechDenoisingPlan
+     */
+    #[JsonProperty('backgroundSpeechDenoisingPlan')]
+    public ?BackgroundSpeechDenoisingPlan $backgroundSpeechDenoisingPlan;
+
+    /**
      * This is the number of seconds of silence to wait before ending the call. Defaults to 30.
      *
      * @default 30
@@ -69,9 +124,17 @@ class TransferAssistant extends JsonSerializableType
      * @param array{
      *   model: TransferAssistantModel,
      *   name?: ?string,
+     *   voice?: ?TransferAssistantVoice,
+     *   transcriber?: ?TransferAssistantTranscriber,
      *   firstMessage?: ?string,
+     *   backgroundSound?: (
+     *    value-of<TransferAssistantBackgroundSoundZero>
+     *   |string
+     * )|null,
+     *   startSpeakingPlan?: ?StartSpeakingPlan,
      *   firstMessageMode?: ?value-of<TransferAssistantFirstMessageMode>,
      *   maxDurationSeconds?: ?float,
+     *   backgroundSpeechDenoisingPlan?: ?BackgroundSpeechDenoisingPlan,
      *   silenceTimeoutSeconds?: ?float,
      * } $values
      */
@@ -80,9 +143,14 @@ class TransferAssistant extends JsonSerializableType
     ) {
         $this->name = $values['name'] ?? null;
         $this->model = $values['model'];
+        $this->voice = $values['voice'] ?? null;
+        $this->transcriber = $values['transcriber'] ?? null;
         $this->firstMessage = $values['firstMessage'] ?? null;
+        $this->backgroundSound = $values['backgroundSound'] ?? null;
+        $this->startSpeakingPlan = $values['startSpeakingPlan'] ?? null;
         $this->firstMessageMode = $values['firstMessageMode'] ?? null;
         $this->maxDurationSeconds = $values['maxDurationSeconds'] ?? null;
+        $this->backgroundSpeechDenoisingPlan = $values['backgroundSpeechDenoisingPlan'] ?? null;
         $this->silenceTimeoutSeconds = $values['silenceTimeoutSeconds'] ?? null;
     }
 

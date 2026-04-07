@@ -62,6 +62,12 @@ class CostBreakdown extends JsonSerializableType
     public ?float $llmCompletionTokens;
 
     /**
+     * @var ?float $llmCachedPromptTokens This is the LLM cached prompt tokens used for the call.
+     */
+    #[JsonProperty('llmCachedPromptTokens')]
+    public ?float $llmCachedPromptTokens;
+
+    /**
      * @var ?float $ttsCharacters This is the TTS characters used for the call.
      */
     #[JsonProperty('ttsCharacters')]
@@ -84,6 +90,7 @@ class CostBreakdown extends JsonSerializableType
      *   total?: ?float,
      *   llmPromptTokens?: ?float,
      *   llmCompletionTokens?: ?float,
+     *   llmCachedPromptTokens?: ?float,
      *   ttsCharacters?: ?float,
      *   analysisCostBreakdown?: ?AnalysisCostBreakdown,
      * } $values
@@ -100,6 +107,7 @@ class CostBreakdown extends JsonSerializableType
         $this->total = $values['total'] ?? null;
         $this->llmPromptTokens = $values['llmPromptTokens'] ?? null;
         $this->llmCompletionTokens = $values['llmCompletionTokens'] ?? null;
+        $this->llmCachedPromptTokens = $values['llmCachedPromptTokens'] ?? null;
         $this->ttsCharacters = $values['ttsCharacters'] ?? null;
         $this->analysisCostBreakdown = $values['analysisCostBreakdown'] ?? null;
     }

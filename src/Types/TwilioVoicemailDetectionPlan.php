@@ -9,6 +9,12 @@ use Vapi\Core\Types\ArrayType;
 class TwilioVoicemailDetectionPlan extends JsonSerializableType
 {
     /**
+     * @var value-of<TwilioVoicemailDetectionPlanProvider> $provider This is the provider to use for voicemail detection.
+     */
+    #[JsonProperty('provider')]
+    public string $provider;
+
+    /**
      * These are the AMD messages from Twilio that are considered as voicemail. Default is ['machine_end_beep', 'machine_end_silence'].
      *
      * @default {Array} ['machine_end_beep', 'machine_end_silence']
@@ -96,6 +102,7 @@ class TwilioVoicemailDetectionPlan extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider: value-of<TwilioVoicemailDetectionPlanProvider>,
      *   voicemailDetectionTypes?: ?array<value-of<TwilioVoicemailDetectionPlanVoicemailDetectionTypesItem>>,
      *   enabled?: ?bool,
      *   machineDetectionTimeout?: ?float,
@@ -105,8 +112,9 @@ class TwilioVoicemailDetectionPlan extends JsonSerializableType
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
+        $this->provider = $values['provider'];
         $this->voicemailDetectionTypes = $values['voicemailDetectionTypes'] ?? null;
         $this->enabled = $values['enabled'] ?? null;
         $this->machineDetectionTimeout = $values['machineDetectionTimeout'] ?? null;

@@ -21,7 +21,7 @@ class GhlTool extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var 'ghl' $type The type of tool. "ghl" for GHL tool.
+     * @var value-of<GhlToolType> $type The type of tool. "ghl" for GHL tool.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -143,7 +143,7 @@ class GhlTool extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'ghl',
+     *   type: value-of<GhlToolType>,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,

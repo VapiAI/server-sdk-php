@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class GoogleCredential extends JsonSerializableType
 {
     /**
-     * @var 'google' $provider This is the key for Gemini in Google AI Studio. Get it from here: https://aistudio.google.com/app/apikey
+     * @var value-of<GoogleCredentialProvider> $provider This is the key for Gemini in Google AI Studio. Get it from here: https://aistudio.google.com/app/apikey
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class GoogleCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'google',
+     *   provider: value-of<GoogleCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

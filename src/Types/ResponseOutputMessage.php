@@ -21,7 +21,7 @@ class ResponseOutputMessage extends JsonSerializableType
     public array $content;
 
     /**
-     * @var 'assistant' $role The role of the output message
+     * @var value-of<ResponseOutputMessageRole> $role The role of the output message
      */
     #[JsonProperty('role')]
     public string $role;
@@ -33,7 +33,7 @@ class ResponseOutputMessage extends JsonSerializableType
     public string $status;
 
     /**
-     * @var 'message' $type The type of the output message
+     * @var value-of<ResponseOutputMessageType> $type The type of the output message
      */
     #[JsonProperty('type')]
     public string $type;
@@ -42,9 +42,9 @@ class ResponseOutputMessage extends JsonSerializableType
      * @param array{
      *   id: string,
      *   content: array<ResponseOutputText>,
-     *   role: 'assistant',
+     *   role: value-of<ResponseOutputMessageRole>,
      *   status: value-of<ResponseOutputMessageStatus>,
-     *   type: 'message',
+     *   type: value-of<ResponseOutputMessageType>,
      * } $values
      */
     public function __construct(

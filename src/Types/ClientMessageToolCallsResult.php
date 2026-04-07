@@ -15,7 +15,7 @@ class ClientMessageToolCallsResult extends JsonSerializableType
     public ?ClientMessageToolCallsResultPhoneNumber $phoneNumber;
 
     /**
-     * @var 'tool-calls-result' $type This is the type of the message. "tool-calls-result" is sent to forward the result of a tool call to the client.
+     * @var value-of<ClientMessageToolCallsResultType> $type This is the type of the message. "tool-calls-result" is sent to forward the result of a tool call to the client.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -52,7 +52,7 @@ class ClientMessageToolCallsResult extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'tool-calls-result',
+     *   type: value-of<ClientMessageToolCallsResultType>,
      *   toolCallResult: array<string, mixed>,
      *   phoneNumber?: ?ClientMessageToolCallsResultPhoneNumber,
      *   timestamp?: ?float,

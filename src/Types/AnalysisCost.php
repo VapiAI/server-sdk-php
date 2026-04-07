@@ -33,6 +33,12 @@ class AnalysisCost extends JsonSerializableType
     public float $completionTokens;
 
     /**
+     * @var ?float $cachedPromptTokens This is the number of cached prompt tokens used in the analysis. This is only applicable to certain providers (e.g., OpenAI, Azure OpenAI) that support prompt caching. Cached tokens are billed at a discounted rate.
+     */
+    #[JsonProperty('cachedPromptTokens')]
+    public ?float $cachedPromptTokens;
+
+    /**
      * @var float $cost This is the cost of the component in USD.
      */
     #[JsonProperty('cost')]
@@ -45,6 +51,7 @@ class AnalysisCost extends JsonSerializableType
      *   promptTokens: float,
      *   completionTokens: float,
      *   cost: float,
+     *   cachedPromptTokens?: ?float,
      * } $values
      */
     public function __construct(
@@ -54,6 +61,7 @@ class AnalysisCost extends JsonSerializableType
         $this->model = $values['model'];
         $this->promptTokens = $values['promptTokens'];
         $this->completionTokens = $values['completionTokens'];
+        $this->cachedPromptTokens = $values['cachedPromptTokens'] ?? null;
         $this->cost = $values['cost'];
     }
 

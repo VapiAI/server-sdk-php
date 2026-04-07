@@ -12,6 +12,7 @@ class CallHookAssistantSpeechInterruptedDoItem extends JsonSerializableType
      * @var (
      *    'say'
      *   |'tool'
+     *   |'message.add'
      *   |'_unknown'
      * ) $type
      */
@@ -21,6 +22,7 @@ class CallHookAssistantSpeechInterruptedDoItem extends JsonSerializableType
      * @var (
      *    SayHookAction
      *   |ToolCallHookAction
+     *   |MessageAddHookAction
      *   |mixed
      * ) $value
      */
@@ -31,11 +33,13 @@ class CallHookAssistantSpeechInterruptedDoItem extends JsonSerializableType
      *   type: (
      *    'say'
      *   |'tool'
+     *   |'message.add'
      *   |'_unknown'
      * ),
      *   value: (
      *    SayHookAction
      *   |ToolCallHookAction
+     *   |MessageAddHookAction
      *   |mixed
      * ),
      * } $values
@@ -68,6 +72,18 @@ class CallHookAssistantSpeechInterruptedDoItem extends JsonSerializableType
         return new CallHookAssistantSpeechInterruptedDoItem([
             'type' => 'tool',
             'value' => $tool,
+        ]);
+    }
+
+    /**
+     * @param MessageAddHookAction $messageAdd
+     * @return CallHookAssistantSpeechInterruptedDoItem
+     */
+    public static function messageAdd(MessageAddHookAction $messageAdd): CallHookAssistantSpeechInterruptedDoItem
+    {
+        return new CallHookAssistantSpeechInterruptedDoItem([
+            'type' => 'message.add',
+            'value' => $messageAdd,
         ]);
     }
 
@@ -116,6 +132,28 @@ class CallHookAssistantSpeechInterruptedDoItem extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isMessageAdd(): bool
+    {
+        return $this->value instanceof MessageAddHookAction && $this->type === 'message.add';
+    }
+
+    /**
+     * @return MessageAddHookAction
+     */
+    public function asMessageAdd(): MessageAddHookAction
+    {
+        if (!($this->value instanceof MessageAddHookAction && $this->type === 'message.add')) {
+            throw new Exception(
+                "Expected message.add; got " . $this->type . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -141,6 +179,10 @@ class CallHookAssistantSpeechInterruptedDoItem extends JsonSerializableType
                 break;
             case 'tool':
                 $value = $this->asTool()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'message.add':
+                $value = $this->asMessageAdd()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -196,6 +238,9 @@ class CallHookAssistantSpeechInterruptedDoItem extends JsonSerializableType
                 break;
             case 'tool':
                 $args['value'] = ToolCallHookAction::jsonDeserialize($data);
+                break;
+            case 'message.add':
+                $args['value'] = MessageAddHookAction::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

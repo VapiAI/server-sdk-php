@@ -32,7 +32,7 @@ class CreateToolTemplateDto extends JsonSerializableType
     public ?string $visibility;
 
     /**
-     * @var 'tool' $type
+     * @var value-of<CreateToolTemplateDtoType> $type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -51,7 +51,7 @@ class CreateToolTemplateDto extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'tool',
+     *   type: value-of<CreateToolTemplateDtoType>,
      *   details?: ?CreateToolTemplateDtoDetails,
      *   providerDetails?: ?CreateToolTemplateDtoProviderDetails,
      *   metadata?: ?ToolTemplateMetadata,

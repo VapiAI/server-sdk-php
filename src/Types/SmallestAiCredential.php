@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class SmallestAiCredential extends JsonSerializableType
 {
     /**
-     * @var 'smallest-ai' $provider
+     * @var value-of<SmallestAiCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class SmallestAiCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'smallest-ai',
+     *   provider: value-of<SmallestAiCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

@@ -35,6 +35,12 @@ class UpdateMcpToolDto extends JsonSerializableType
     public ?Server $server;
 
     /**
+     * @var ?array<McpToolMessages> $toolMessages Per-tool message overrides for individual tools loaded from the MCP server. Set messages to an empty array to suppress messages for a specific tool. Tools not listed here will use the default messages from the parent tool.
+     */
+    #[JsonProperty('toolMessages'), ArrayType([McpToolMessages::class])]
+    public ?array $toolMessages;
+
+    /**
      * This is the plan to reject a tool call based on the conversation state.
      *
      * // Example 1: Reject endCall if user didn't say goodbye
@@ -129,6 +135,7 @@ class UpdateMcpToolDto extends JsonSerializableType
      * @param array{
      *   messages?: ?array<UpdateMcpToolDtoMessagesItem>,
      *   server?: ?Server,
+     *   toolMessages?: ?array<McpToolMessages>,
      *   rejectionPlan?: ?ToolRejectionPlan,
      *   metadata?: ?McpToolMetadata,
      * } $values
@@ -138,6 +145,7 @@ class UpdateMcpToolDto extends JsonSerializableType
     ) {
         $this->messages = $values['messages'] ?? null;
         $this->server = $values['server'] ?? null;
+        $this->toolMessages = $values['toolMessages'] ?? null;
         $this->rejectionPlan = $values['rejectionPlan'] ?? null;
         $this->metadata = $values['metadata'] ?? null;
     }

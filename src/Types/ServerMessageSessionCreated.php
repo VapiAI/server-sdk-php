@@ -14,7 +14,7 @@ class ServerMessageSessionCreated extends JsonSerializableType
     public ?ServerMessageSessionCreatedPhoneNumber $phoneNumber;
 
     /**
-     * @var 'session.created' $type This is the type of the message. "session.created" is sent when a new session is created.
+     * @var value-of<ServerMessageSessionCreatedType> $type This is the type of the message. "session.created" is sent when a new session is created.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -67,7 +67,7 @@ class ServerMessageSessionCreated extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'session.created',
+     *   type: value-of<ServerMessageSessionCreatedType>,
      *   session: Session,
      *   phoneNumber?: ?ServerMessageSessionCreatedPhoneNumber,
      *   timestamp?: ?float,

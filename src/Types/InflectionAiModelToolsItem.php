@@ -12,6 +12,7 @@ class InflectionAiModelToolsItem extends JsonSerializableType
      * @var (
      *    'apiRequest'
      *   |'bash'
+     *   |'code'
      *   |'computer'
      *   |'dtmf'
      *   |'endCall'
@@ -30,6 +31,8 @@ class InflectionAiModelToolsItem extends JsonSerializableType
      *   |'sms'
      *   |'textEditor'
      *   |'transferCall'
+     *   |'sipRequest'
+     *   |'voicemail'
      *   |'_unknown'
      * ) $type
      */
@@ -39,6 +42,7 @@ class InflectionAiModelToolsItem extends JsonSerializableType
      * @var (
      *    CreateApiRequestToolDto
      *   |CreateBashToolDto
+     *   |CreateCodeToolDto
      *   |CreateComputerToolDto
      *   |CreateDtmfToolDto
      *   |CreateEndCallToolDto
@@ -57,6 +61,8 @@ class InflectionAiModelToolsItem extends JsonSerializableType
      *   |CreateSmsToolDto
      *   |CreateTextEditorToolDto
      *   |CreateTransferCallToolDto
+     *   |CreateSipRequestToolDto
+     *   |CreateVoicemailToolDto
      *   |mixed
      * ) $value
      */
@@ -67,6 +73,7 @@ class InflectionAiModelToolsItem extends JsonSerializableType
      *   type: (
      *    'apiRequest'
      *   |'bash'
+     *   |'code'
      *   |'computer'
      *   |'dtmf'
      *   |'endCall'
@@ -85,11 +92,14 @@ class InflectionAiModelToolsItem extends JsonSerializableType
      *   |'sms'
      *   |'textEditor'
      *   |'transferCall'
+     *   |'sipRequest'
+     *   |'voicemail'
      *   |'_unknown'
      * ),
      *   value: (
      *    CreateApiRequestToolDto
      *   |CreateBashToolDto
+     *   |CreateCodeToolDto
      *   |CreateComputerToolDto
      *   |CreateDtmfToolDto
      *   |CreateEndCallToolDto
@@ -108,6 +118,8 @@ class InflectionAiModelToolsItem extends JsonSerializableType
      *   |CreateSmsToolDto
      *   |CreateTextEditorToolDto
      *   |CreateTransferCallToolDto
+     *   |CreateSipRequestToolDto
+     *   |CreateVoicemailToolDto
      *   |mixed
      * ),
      * } $values
@@ -140,6 +152,18 @@ class InflectionAiModelToolsItem extends JsonSerializableType
         return new InflectionAiModelToolsItem([
             'type' => 'bash',
             'value' => $bash,
+        ]);
+    }
+
+    /**
+     * @param CreateCodeToolDto $code
+     * @return InflectionAiModelToolsItem
+     */
+    public static function code(CreateCodeToolDto $code): InflectionAiModelToolsItem
+    {
+        return new InflectionAiModelToolsItem([
+            'type' => 'code',
+            'value' => $code,
         ]);
     }
 
@@ -360,6 +384,30 @@ class InflectionAiModelToolsItem extends JsonSerializableType
     }
 
     /**
+     * @param CreateSipRequestToolDto $sipRequest
+     * @return InflectionAiModelToolsItem
+     */
+    public static function sipRequest(CreateSipRequestToolDto $sipRequest): InflectionAiModelToolsItem
+    {
+        return new InflectionAiModelToolsItem([
+            'type' => 'sipRequest',
+            'value' => $sipRequest,
+        ]);
+    }
+
+    /**
+     * @param CreateVoicemailToolDto $voicemail
+     * @return InflectionAiModelToolsItem
+     */
+    public static function voicemail(CreateVoicemailToolDto $voicemail): InflectionAiModelToolsItem
+    {
+        return new InflectionAiModelToolsItem([
+            'type' => 'voicemail',
+            'value' => $voicemail,
+        ]);
+    }
+
+    /**
      * @return bool
      */
     public function isApiRequest(): bool
@@ -397,6 +445,28 @@ class InflectionAiModelToolsItem extends JsonSerializableType
         if (!($this->value instanceof CreateBashToolDto && $this->type === 'bash')) {
             throw new Exception(
                 "Expected bash; got " . $this->type . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCode(): bool
+    {
+        return $this->value instanceof CreateCodeToolDto && $this->type === 'code';
+    }
+
+    /**
+     * @return CreateCodeToolDto
+     */
+    public function asCode(): CreateCodeToolDto
+    {
+        if (!($this->value instanceof CreateCodeToolDto && $this->type === 'code')) {
+            throw new Exception(
+                "Expected code; got " . $this->type . " with value of type " . get_debug_type($this->value),
             );
         }
 
@@ -800,6 +870,50 @@ class InflectionAiModelToolsItem extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isSipRequest(): bool
+    {
+        return $this->value instanceof CreateSipRequestToolDto && $this->type === 'sipRequest';
+    }
+
+    /**
+     * @return CreateSipRequestToolDto
+     */
+    public function asSipRequest(): CreateSipRequestToolDto
+    {
+        if (!($this->value instanceof CreateSipRequestToolDto && $this->type === 'sipRequest')) {
+            throw new Exception(
+                "Expected sipRequest; got " . $this->type . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVoicemail(): bool
+    {
+        return $this->value instanceof CreateVoicemailToolDto && $this->type === 'voicemail';
+    }
+
+    /**
+     * @return CreateVoicemailToolDto
+     */
+    public function asVoicemail(): CreateVoicemailToolDto
+    {
+        if (!($this->value instanceof CreateVoicemailToolDto && $this->type === 'voicemail')) {
+            throw new Exception(
+                "Expected voicemail; got " . $this->type . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -825,6 +939,10 @@ class InflectionAiModelToolsItem extends JsonSerializableType
                 break;
             case 'bash':
                 $value = $this->asBash()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'code':
+                $value = $this->asCode()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case 'computer':
@@ -899,6 +1017,14 @@ class InflectionAiModelToolsItem extends JsonSerializableType
                 $value = $this->asTransferCall()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
+            case 'sipRequest':
+                $value = $this->asSipRequest()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'voicemail':
+                $value = $this->asVoicemail()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
             case '_unknown':
             default:
                 if (is_null($this->value)) {
@@ -953,6 +1079,9 @@ class InflectionAiModelToolsItem extends JsonSerializableType
             case 'bash':
                 $args['value'] = CreateBashToolDto::jsonDeserialize($data);
                 break;
+            case 'code':
+                $args['value'] = CreateCodeToolDto::jsonDeserialize($data);
+                break;
             case 'computer':
                 $args['value'] = CreateComputerToolDto::jsonDeserialize($data);
                 break;
@@ -1006,6 +1135,12 @@ class InflectionAiModelToolsItem extends JsonSerializableType
                 break;
             case 'transferCall':
                 $args['value'] = CreateTransferCallToolDto::jsonDeserialize($data);
+                break;
+            case 'sipRequest':
+                $args['value'] = CreateSipRequestToolDto::jsonDeserialize($data);
+                break;
+            case 'voicemail':
+                $args['value'] = CreateVoicemailToolDto::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

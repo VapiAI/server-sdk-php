@@ -38,6 +38,18 @@ class FallbackCartesiaVoice extends JsonSerializableType
     public ?CartesiaExperimentalControls $experimentalControls;
 
     /**
+     * @var ?CartesiaGenerationConfig $generationConfig Generation config for fine-grained control of sonic-3 voice output (speed, volume, and experimental controls). Only available for sonic-3 model.
+     */
+    #[JsonProperty('generationConfig')]
+    public ?CartesiaGenerationConfig $generationConfig;
+
+    /**
+     * @var ?string $pronunciationDictId Pronunciation dictionary ID for sonic-3. Allows custom pronunciations for specific words. Only available for sonic-3 model.
+     */
+    #[JsonProperty('pronunciationDictId')]
+    public ?string $pronunciationDictId;
+
+    /**
      * @var ?ChunkPlan $chunkPlan This is the plan for chunking the model output before it is sent to the voice provider.
      */
     #[JsonProperty('chunkPlan')]
@@ -50,6 +62,8 @@ class FallbackCartesiaVoice extends JsonSerializableType
      *   model?: ?value-of<FallbackCartesiaVoiceModel>,
      *   language?: ?value-of<FallbackCartesiaVoiceLanguage>,
      *   experimentalControls?: ?CartesiaExperimentalControls,
+     *   generationConfig?: ?CartesiaGenerationConfig,
+     *   pronunciationDictId?: ?string,
      *   chunkPlan?: ?ChunkPlan,
      * } $values
      */
@@ -61,6 +75,8 @@ class FallbackCartesiaVoice extends JsonSerializableType
         $this->model = $values['model'] ?? null;
         $this->language = $values['language'] ?? null;
         $this->experimentalControls = $values['experimentalControls'] ?? null;
+        $this->generationConfig = $values['generationConfig'] ?? null;
+        $this->pronunciationDictId = $values['pronunciationDictId'] ?? null;
         $this->chunkPlan = $values['chunkPlan'] ?? null;
     }
 

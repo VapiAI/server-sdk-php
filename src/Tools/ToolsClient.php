@@ -2,25 +2,25 @@
 
 namespace Vapi\Tools;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Vapi\Core\Client\RawClient;
-use Vapi\Tools\Requests\ToolsListRequest;
-use Vapi\Tools\Types\ToolsListResponseItem;
+use Vapi\Tools\Requests\ListToolsRequest;
+use Vapi\Tools\Types\ListToolsResponseItem;
 use Vapi\Exceptions\VapiException;
 use Vapi\Exceptions\VapiApiException;
+use Vapi\Core\Json\JsonSerializer;
 use Vapi\Core\Json\JsonApiRequest;
 use Vapi\Environments;
 use Vapi\Core\Client\HttpMethod;
 use Vapi\Core\Json\JsonDecoder;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
-use Vapi\Tools\Types\ToolsCreateRequest;
-use Vapi\Tools\Types\ToolsCreateResponse;
-use Vapi\Tools\Types\ToolsGetResponse;
-use Vapi\Tools\Types\ToolsDeleteResponse;
-use Vapi\Tools\Types\ToolsUpdateRequest;
-use Vapi\Tools\Types\ToolsUpdateResponse;
+use Vapi\Tools\Types\CreateToolsRequest;
+use Vapi\Tools\Types\CreateToolsResponse;
+use Vapi\Tools\Types\GetToolsResponse;
+use Vapi\Tools\Types\DeleteToolsResponse;
+use Vapi\Tools\Requests\UpdateToolsRequest;
+use Vapi\Tools\Types\UpdateToolsResponse;
 
 class ToolsClient
 {
@@ -31,7 +31,7 @@ class ToolsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -59,7 +59,7 @@ class ToolsClient
     }
 
     /**
-     * @param ToolsListRequest $request
+     * @param ListToolsRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -68,11 +68,11 @@ class ToolsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return array<ToolsListResponseItem>
+     * @return ?array<ListToolsResponseItem>
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function list(ToolsListRequest $request = new ToolsListRequest(), ?array $options = null): array
+    public function list(ListToolsRequest $request = new ListToolsRequest(), ?array $options = null): ?array
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -80,28 +80,28 @@ class ToolsClient
             $query['limit'] = $request->limit;
         }
         if ($request->createdAtGt != null) {
-            $query['createdAtGt'] = $request->createdAtGt;
+            $query['createdAtGt'] = JsonSerializer::serializeDateTime($request->createdAtGt);
         }
         if ($request->createdAtLt != null) {
-            $query['createdAtLt'] = $request->createdAtLt;
+            $query['createdAtLt'] = JsonSerializer::serializeDateTime($request->createdAtLt);
         }
         if ($request->createdAtGe != null) {
-            $query['createdAtGe'] = $request->createdAtGe;
+            $query['createdAtGe'] = JsonSerializer::serializeDateTime($request->createdAtGe);
         }
         if ($request->createdAtLe != null) {
-            $query['createdAtLe'] = $request->createdAtLe;
+            $query['createdAtLe'] = JsonSerializer::serializeDateTime($request->createdAtLe);
         }
         if ($request->updatedAtGt != null) {
-            $query['updatedAtGt'] = $request->updatedAtGt;
+            $query['updatedAtGt'] = JsonSerializer::serializeDateTime($request->updatedAtGt);
         }
         if ($request->updatedAtLt != null) {
-            $query['updatedAtLt'] = $request->updatedAtLt;
+            $query['updatedAtLt'] = JsonSerializer::serializeDateTime($request->updatedAtLt);
         }
         if ($request->updatedAtGe != null) {
-            $query['updatedAtGe'] = $request->updatedAtGe;
+            $query['updatedAtGe'] = JsonSerializer::serializeDateTime($request->updatedAtGe);
         }
         if ($request->updatedAtLe != null) {
-            $query['updatedAtLe'] = $request->updatedAtLe;
+            $query['updatedAtLe'] = JsonSerializer::serializeDateTime($request->updatedAtLe);
         }
         try {
             $response = $this->client->sendRequest(
@@ -116,20 +116,13 @@ class ToolsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return JsonDecoder::decodeArray($json, [ToolsListResponseItem::class]); // @phpstan-ignore-line
+                if (empty($json)) {
+                    return null;
+                }
+                return JsonDecoder::decodeArray($json, [ListToolsResponseItem::class]); // @phpstan-ignore-line
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -141,7 +134,7 @@ class ToolsClient
     }
 
     /**
-     * @param ToolsCreateRequest $request
+     * @param CreateToolsRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -150,11 +143,11 @@ class ToolsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ToolsCreateResponse
+     * @return ?CreateToolsResponse
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function create(ToolsCreateRequest $request, ?array $options = null): ToolsCreateResponse
+    public function create(CreateToolsRequest $request, ?array $options = null): ?CreateToolsResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -170,20 +163,13 @@ class ToolsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return ToolsCreateResponse::fromJson($json);
+                if (empty($json)) {
+                    return null;
+                }
+                return CreateToolsResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -204,11 +190,11 @@ class ToolsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ToolsGetResponse
+     * @return ?GetToolsResponse
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function get(string $id, ?array $options = null): ToolsGetResponse
+    public function get(string $id, ?array $options = null): ?GetToolsResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -223,20 +209,13 @@ class ToolsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return ToolsGetResponse::fromJson($json);
+                if (empty($json)) {
+                    return null;
+                }
+                return GetToolsResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -257,11 +236,11 @@ class ToolsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ToolsDeleteResponse
+     * @return ?DeleteToolsResponse
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function delete(string $id, ?array $options = null): ToolsDeleteResponse
+    public function delete(string $id, ?array $options = null): ?DeleteToolsResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -276,20 +255,13 @@ class ToolsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return ToolsDeleteResponse::fromJson($json);
+                if (empty($json)) {
+                    return null;
+                }
+                return DeleteToolsResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -302,7 +274,7 @@ class ToolsClient
 
     /**
      * @param string $id
-     * @param ToolsUpdateRequest $request
+     * @param UpdateToolsRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -311,11 +283,11 @@ class ToolsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ToolsUpdateResponse
+     * @return ?UpdateToolsResponse
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function update(string $id, ToolsUpdateRequest $request, ?array $options = null): ToolsUpdateResponse
+    public function update(string $id, UpdateToolsRequest $request, ?array $options = null): ?UpdateToolsResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -324,27 +296,20 @@ class ToolsClient
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "tool/{$id}",
                     method: HttpMethod::PATCH,
-                    body: $request,
+                    body: $request->body,
                 ),
                 $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return ToolsUpdateResponse::fromJson($json);
+                if (empty($json)) {
+                    return null;
+                }
+                return UpdateToolsResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }

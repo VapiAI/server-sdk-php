@@ -19,7 +19,7 @@ class FunctionCallHookAction extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var 'function' $type The type of tool. "function" for Function tool.
+     * @var value-of<FunctionCallHookActionType> $type The type of tool. "function" for Function tool.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -53,6 +53,18 @@ class FunctionCallHookAction extends JsonSerializableType
      */
     #[JsonProperty('server')]
     public ?Server $server;
+
+    /**
+     * @var ?VariableExtractionPlan $variableExtractionPlan Plan to extract variables from the tool response
+     */
+    #[JsonProperty('variableExtractionPlan')]
+    public ?VariableExtractionPlan $variableExtractionPlan;
+
+    /**
+     * @var ?array<ToolParameter> $parameters Static key-value pairs merged into the request body. Values support Liquid templates.
+     */
+    #[JsonProperty('parameters'), ArrayType([ToolParameter::class])]
+    public ?array $parameters;
 
     /**
      * This is the plan to reject a tool call based on the conversation state.
@@ -147,10 +159,12 @@ class FunctionCallHookAction extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'function',
+     *   type: value-of<FunctionCallHookActionType>,
      *   messages?: ?array<FunctionCallHookActionMessagesItem>,
      *   async?: ?bool,
      *   server?: ?Server,
+     *   variableExtractionPlan?: ?VariableExtractionPlan,
+     *   parameters?: ?array<ToolParameter>,
      *   rejectionPlan?: ?ToolRejectionPlan,
      *   function?: ?OpenAiFunction,
      * } $values
@@ -162,6 +176,8 @@ class FunctionCallHookAction extends JsonSerializableType
         $this->type = $values['type'];
         $this->async = $values['async'] ?? null;
         $this->server = $values['server'] ?? null;
+        $this->variableExtractionPlan = $values['variableExtractionPlan'] ?? null;
+        $this->parameters = $values['parameters'] ?? null;
         $this->rejectionPlan = $values['rejectionPlan'] ?? null;
         $this->function = $values['function'] ?? null;
     }

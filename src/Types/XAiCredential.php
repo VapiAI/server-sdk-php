@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class XAiCredential extends JsonSerializableType
 {
     /**
-     * @var 'xai' $provider This is the api key for Grok in XAi's console. Get it from here: https://console.x.ai
+     * @var value-of<XAiCredentialProvider> $provider This is the api key for Grok in XAi's console. Get it from here: https://console.x.ai
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class XAiCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'xai',
+     *   provider: value-of<XAiCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

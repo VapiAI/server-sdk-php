@@ -41,6 +41,18 @@ class MinimaxVoice extends JsonSerializableType
     public ?string $emotion;
 
     /**
+     * Controls the granularity of subtitle/timing data returned by Minimax
+     * during synthesis. Set to 'word' to receive per-word timestamps in
+     * assistant.speechStarted events for karaoke-style caption rendering.
+     *
+     * @default "sentence"
+     *
+     * @var ?value-of<MinimaxVoiceSubtitleType> $subtitleType
+     */
+    #[JsonProperty('subtitleType')]
+    public ?string $subtitleType;
+
+    /**
      * Voice pitch adjustment. Range from -12 to 12 semitones.
      * @default 0
      *
@@ -103,6 +115,7 @@ class MinimaxVoice extends JsonSerializableType
      *   cachingEnabled?: ?bool,
      *   model?: ?value-of<MinimaxVoiceModel>,
      *   emotion?: ?string,
+     *   subtitleType?: ?value-of<MinimaxVoiceSubtitleType>,
      *   pitch?: ?float,
      *   speed?: ?float,
      *   volume?: ?float,
@@ -120,6 +133,7 @@ class MinimaxVoice extends JsonSerializableType
         $this->voiceId = $values['voiceId'];
         $this->model = $values['model'] ?? null;
         $this->emotion = $values['emotion'] ?? null;
+        $this->subtitleType = $values['subtitleType'] ?? null;
         $this->pitch = $values['pitch'] ?? null;
         $this->speed = $values['speed'] ?? null;
         $this->volume = $values['volume'] ?? null;

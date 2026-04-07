@@ -12,6 +12,7 @@ class AssistantCredentialsItem extends JsonSerializableType
      * @var (
      *    '11labs'
      *   |'anthropic'
+     *   |'anthropic-bedrock'
      *   |'anyscale'
      *   |'assembly-ai'
      *   |'azure-openai'
@@ -53,6 +54,7 @@ class AssistantCredentialsItem extends JsonSerializableType
      *   |'hume'
      *   |'mistral'
      *   |'speechmatics'
+     *   |'soniox'
      *   |'trieve'
      *   |'google.calendar.oauth2-client'
      *   |'google.calendar.oauth2-authorization'
@@ -61,6 +63,9 @@ class AssistantCredentialsItem extends JsonSerializableType
      *   |'ghl.oauth2-authorization'
      *   |'inworld'
      *   |'minimax'
+     *   |'wellsaid'
+     *   |'email'
+     *   |'slack-webhook'
      *   |'_unknown'
      * ) $provider
      */
@@ -70,6 +75,7 @@ class AssistantCredentialsItem extends JsonSerializableType
      * @var (
      *    CreateElevenLabsCredentialDto
      *   |CreateAnthropicCredentialDto
+     *   |CreateAnthropicBedrockCredentialDto
      *   |CreateAnyscaleCredentialDto
      *   |CreateAssemblyAiCredentialDto
      *   |CreateAzureOpenAiCredentialDto
@@ -111,6 +117,7 @@ class AssistantCredentialsItem extends JsonSerializableType
      *   |CreateHumeCredentialDto
      *   |CreateMistralCredentialDto
      *   |CreateSpeechmaticsCredentialDto
+     *   |CreateSonioxCredentialDto
      *   |CreateTrieveCredentialDto
      *   |CreateGoogleCalendarOAuth2ClientCredentialDto
      *   |CreateGoogleCalendarOAuth2AuthorizationCredentialDto
@@ -119,6 +126,9 @@ class AssistantCredentialsItem extends JsonSerializableType
      *   |CreateGoHighLevelMcpCredentialDto
      *   |CreateInworldCredentialDto
      *   |CreateMinimaxCredentialDto
+     *   |CreateWellSaidCredentialDto
+     *   |CreateEmailCredentialDto
+     *   |CreateSlackWebhookCredentialDto
      *   |mixed
      * ) $value
      */
@@ -129,6 +139,7 @@ class AssistantCredentialsItem extends JsonSerializableType
      *   provider: (
      *    '11labs'
      *   |'anthropic'
+     *   |'anthropic-bedrock'
      *   |'anyscale'
      *   |'assembly-ai'
      *   |'azure-openai'
@@ -170,6 +181,7 @@ class AssistantCredentialsItem extends JsonSerializableType
      *   |'hume'
      *   |'mistral'
      *   |'speechmatics'
+     *   |'soniox'
      *   |'trieve'
      *   |'google.calendar.oauth2-client'
      *   |'google.calendar.oauth2-authorization'
@@ -178,11 +190,15 @@ class AssistantCredentialsItem extends JsonSerializableType
      *   |'ghl.oauth2-authorization'
      *   |'inworld'
      *   |'minimax'
+     *   |'wellsaid'
+     *   |'email'
+     *   |'slack-webhook'
      *   |'_unknown'
      * ),
      *   value: (
      *    CreateElevenLabsCredentialDto
      *   |CreateAnthropicCredentialDto
+     *   |CreateAnthropicBedrockCredentialDto
      *   |CreateAnyscaleCredentialDto
      *   |CreateAssemblyAiCredentialDto
      *   |CreateAzureOpenAiCredentialDto
@@ -224,6 +240,7 @@ class AssistantCredentialsItem extends JsonSerializableType
      *   |CreateHumeCredentialDto
      *   |CreateMistralCredentialDto
      *   |CreateSpeechmaticsCredentialDto
+     *   |CreateSonioxCredentialDto
      *   |CreateTrieveCredentialDto
      *   |CreateGoogleCalendarOAuth2ClientCredentialDto
      *   |CreateGoogleCalendarOAuth2AuthorizationCredentialDto
@@ -232,6 +249,9 @@ class AssistantCredentialsItem extends JsonSerializableType
      *   |CreateGoHighLevelMcpCredentialDto
      *   |CreateInworldCredentialDto
      *   |CreateMinimaxCredentialDto
+     *   |CreateWellSaidCredentialDto
+     *   |CreateEmailCredentialDto
+     *   |CreateSlackWebhookCredentialDto
      *   |mixed
      * ),
      * } $values
@@ -264,6 +284,18 @@ class AssistantCredentialsItem extends JsonSerializableType
         return new AssistantCredentialsItem([
             'provider' => 'anthropic',
             'value' => $anthropic,
+        ]);
+    }
+
+    /**
+     * @param CreateAnthropicBedrockCredentialDto $anthropicBedrock
+     * @return AssistantCredentialsItem
+     */
+    public static function anthropicBedrock(CreateAnthropicBedrockCredentialDto $anthropicBedrock): AssistantCredentialsItem
+    {
+        return new AssistantCredentialsItem([
+            'provider' => 'anthropic-bedrock',
+            'value' => $anthropicBedrock,
         ]);
     }
 
@@ -760,6 +792,18 @@ class AssistantCredentialsItem extends JsonSerializableType
     }
 
     /**
+     * @param CreateSonioxCredentialDto $soniox
+     * @return AssistantCredentialsItem
+     */
+    public static function soniox(CreateSonioxCredentialDto $soniox): AssistantCredentialsItem
+    {
+        return new AssistantCredentialsItem([
+            'provider' => 'soniox',
+            'value' => $soniox,
+        ]);
+    }
+
+    /**
      * @param CreateTrieveCredentialDto $trieve
      * @return AssistantCredentialsItem
      */
@@ -856,6 +900,42 @@ class AssistantCredentialsItem extends JsonSerializableType
     }
 
     /**
+     * @param CreateWellSaidCredentialDto $wellsaid
+     * @return AssistantCredentialsItem
+     */
+    public static function wellsaid(CreateWellSaidCredentialDto $wellsaid): AssistantCredentialsItem
+    {
+        return new AssistantCredentialsItem([
+            'provider' => 'wellsaid',
+            'value' => $wellsaid,
+        ]);
+    }
+
+    /**
+     * @param CreateEmailCredentialDto $email
+     * @return AssistantCredentialsItem
+     */
+    public static function email(CreateEmailCredentialDto $email): AssistantCredentialsItem
+    {
+        return new AssistantCredentialsItem([
+            'provider' => 'email',
+            'value' => $email,
+        ]);
+    }
+
+    /**
+     * @param CreateSlackWebhookCredentialDto $slackWebhook
+     * @return AssistantCredentialsItem
+     */
+    public static function slackWebhook(CreateSlackWebhookCredentialDto $slackWebhook): AssistantCredentialsItem
+    {
+        return new AssistantCredentialsItem([
+            'provider' => 'slack-webhook',
+            'value' => $slackWebhook,
+        ]);
+    }
+
+    /**
      * @return bool
      */
     public function is_11Labs(): bool
@@ -893,6 +973,28 @@ class AssistantCredentialsItem extends JsonSerializableType
         if (!($this->value instanceof CreateAnthropicCredentialDto && $this->provider === 'anthropic')) {
             throw new Exception(
                 "Expected anthropic; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAnthropicBedrock(): bool
+    {
+        return $this->value instanceof CreateAnthropicBedrockCredentialDto && $this->provider === 'anthropic-bedrock';
+    }
+
+    /**
+     * @return CreateAnthropicBedrockCredentialDto
+     */
+    public function asAnthropicBedrock(): CreateAnthropicBedrockCredentialDto
+    {
+        if (!($this->value instanceof CreateAnthropicBedrockCredentialDto && $this->provider === 'anthropic-bedrock')) {
+            throw new Exception(
+                "Expected anthropic-bedrock; got " . $this->provider . " with value of type " . get_debug_type($this->value),
             );
         }
 
@@ -1804,6 +1906,28 @@ class AssistantCredentialsItem extends JsonSerializableType
     /**
      * @return bool
      */
+    public function isSoniox(): bool
+    {
+        return $this->value instanceof CreateSonioxCredentialDto && $this->provider === 'soniox';
+    }
+
+    /**
+     * @return CreateSonioxCredentialDto
+     */
+    public function asSoniox(): CreateSonioxCredentialDto
+    {
+        if (!($this->value instanceof CreateSonioxCredentialDto && $this->provider === 'soniox')) {
+            throw new Exception(
+                "Expected soniox; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
     public function isTrieve(): bool
     {
         return $this->value instanceof CreateTrieveCredentialDto && $this->provider === 'trieve';
@@ -1978,6 +2102,72 @@ class AssistantCredentialsItem extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isWellsaid(): bool
+    {
+        return $this->value instanceof CreateWellSaidCredentialDto && $this->provider === 'wellsaid';
+    }
+
+    /**
+     * @return CreateWellSaidCredentialDto
+     */
+    public function asWellsaid(): CreateWellSaidCredentialDto
+    {
+        if (!($this->value instanceof CreateWellSaidCredentialDto && $this->provider === 'wellsaid')) {
+            throw new Exception(
+                "Expected wellsaid; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEmail(): bool
+    {
+        return $this->value instanceof CreateEmailCredentialDto && $this->provider === 'email';
+    }
+
+    /**
+     * @return CreateEmailCredentialDto
+     */
+    public function asEmail(): CreateEmailCredentialDto
+    {
+        if (!($this->value instanceof CreateEmailCredentialDto && $this->provider === 'email')) {
+            throw new Exception(
+                "Expected email; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSlackWebhook(): bool
+    {
+        return $this->value instanceof CreateSlackWebhookCredentialDto && $this->provider === 'slack-webhook';
+    }
+
+    /**
+     * @return CreateSlackWebhookCredentialDto
+     */
+    public function asSlackWebhook(): CreateSlackWebhookCredentialDto
+    {
+        if (!($this->value instanceof CreateSlackWebhookCredentialDto && $this->provider === 'slack-webhook')) {
+            throw new Exception(
+                "Expected slack-webhook; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -2003,6 +2193,10 @@ class AssistantCredentialsItem extends JsonSerializableType
                 break;
             case 'anthropic':
                 $value = $this->asAnthropic()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'anthropic-bedrock':
+                $value = $this->asAnthropicBedrock()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case 'anyscale':
@@ -2169,6 +2363,10 @@ class AssistantCredentialsItem extends JsonSerializableType
                 $value = $this->asSpeechmatics()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
+            case 'soniox':
+                $value = $this->asSoniox()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
             case 'trieve':
                 $value = $this->asTrieve()->jsonSerialize();
                 $result = array_merge($value, $result);
@@ -2199,6 +2397,18 @@ class AssistantCredentialsItem extends JsonSerializableType
                 break;
             case 'minimax':
                 $value = $this->asMinimax()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'wellsaid':
+                $value = $this->asWellsaid()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'email':
+                $value = $this->asEmail()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'slack-webhook':
+                $value = $this->asSlackWebhook()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -2254,6 +2464,9 @@ class AssistantCredentialsItem extends JsonSerializableType
                 break;
             case 'anthropic':
                 $args['value'] = CreateAnthropicCredentialDto::jsonDeserialize($data);
+                break;
+            case 'anthropic-bedrock':
+                $args['value'] = CreateAnthropicBedrockCredentialDto::jsonDeserialize($data);
                 break;
             case 'anyscale':
                 $args['value'] = CreateAnyscaleCredentialDto::jsonDeserialize($data);
@@ -2378,6 +2591,9 @@ class AssistantCredentialsItem extends JsonSerializableType
             case 'speechmatics':
                 $args['value'] = CreateSpeechmaticsCredentialDto::jsonDeserialize($data);
                 break;
+            case 'soniox':
+                $args['value'] = CreateSonioxCredentialDto::jsonDeserialize($data);
+                break;
             case 'trieve':
                 $args['value'] = CreateTrieveCredentialDto::jsonDeserialize($data);
                 break;
@@ -2401,6 +2617,15 @@ class AssistantCredentialsItem extends JsonSerializableType
                 break;
             case 'minimax':
                 $args['value'] = CreateMinimaxCredentialDto::jsonDeserialize($data);
+                break;
+            case 'wellsaid':
+                $args['value'] = CreateWellSaidCredentialDto::jsonDeserialize($data);
+                break;
+            case 'email':
+                $args['value'] = CreateEmailCredentialDto::jsonDeserialize($data);
+                break;
+            case 'slack-webhook':
+                $args['value'] = CreateSlackWebhookCredentialDto::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class GroqCredential extends JsonSerializableType
 {
     /**
-     * @var 'groq' $provider
+     * @var value-of<GroqCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class GroqCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'groq',
+     *   provider: value-of<GroqCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

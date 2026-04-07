@@ -2,21 +2,22 @@
 
 namespace Vapi\StructuredOutputs;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Vapi\Core\Client\RawClient;
 use Vapi\StructuredOutputs\Requests\StructuredOutputControllerFindAllRequest;
 use Vapi\Types\StructuredOutputPaginatedResponse;
 use Vapi\Exceptions\VapiException;
 use Vapi\Exceptions\VapiApiException;
+use Vapi\Core\Json\JsonSerializer;
 use Vapi\Core\Json\JsonApiRequest;
 use Vapi\Environments;
 use Vapi\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
-use Vapi\StructuredOutputs\Requests\CreateStructuredOutputDto;
+use Vapi\Types\CreateStructuredOutputDto;
 use Vapi\Types\StructuredOutput;
 use Vapi\StructuredOutputs\Requests\UpdateStructuredOutputDto;
+use Vapi\StructuredOutputs\Requests\StructuredOutputRunDto;
 
 class StructuredOutputsClient
 {
@@ -27,7 +28,7 @@ class StructuredOutputsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -64,11 +65,11 @@ class StructuredOutputsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return StructuredOutputPaginatedResponse
+     * @return ?StructuredOutputPaginatedResponse
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function structuredOutputControllerFindAll(StructuredOutputControllerFindAllRequest $request = new StructuredOutputControllerFindAllRequest(), ?array $options = null): StructuredOutputPaginatedResponse
+    public function structuredOutputControllerFindAll(StructuredOutputControllerFindAllRequest $request = new StructuredOutputControllerFindAllRequest(), ?array $options = null): ?StructuredOutputPaginatedResponse
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -88,28 +89,28 @@ class StructuredOutputsClient
             $query['limit'] = $request->limit;
         }
         if ($request->createdAtGt != null) {
-            $query['createdAtGt'] = $request->createdAtGt;
+            $query['createdAtGt'] = JsonSerializer::serializeDateTime($request->createdAtGt);
         }
         if ($request->createdAtLt != null) {
-            $query['createdAtLt'] = $request->createdAtLt;
+            $query['createdAtLt'] = JsonSerializer::serializeDateTime($request->createdAtLt);
         }
         if ($request->createdAtGe != null) {
-            $query['createdAtGe'] = $request->createdAtGe;
+            $query['createdAtGe'] = JsonSerializer::serializeDateTime($request->createdAtGe);
         }
         if ($request->createdAtLe != null) {
-            $query['createdAtLe'] = $request->createdAtLe;
+            $query['createdAtLe'] = JsonSerializer::serializeDateTime($request->createdAtLe);
         }
         if ($request->updatedAtGt != null) {
-            $query['updatedAtGt'] = $request->updatedAtGt;
+            $query['updatedAtGt'] = JsonSerializer::serializeDateTime($request->updatedAtGt);
         }
         if ($request->updatedAtLt != null) {
-            $query['updatedAtLt'] = $request->updatedAtLt;
+            $query['updatedAtLt'] = JsonSerializer::serializeDateTime($request->updatedAtLt);
         }
         if ($request->updatedAtGe != null) {
-            $query['updatedAtGe'] = $request->updatedAtGe;
+            $query['updatedAtGe'] = JsonSerializer::serializeDateTime($request->updatedAtGe);
         }
         if ($request->updatedAtLe != null) {
-            $query['updatedAtLe'] = $request->updatedAtLe;
+            $query['updatedAtLe'] = JsonSerializer::serializeDateTime($request->updatedAtLe);
         }
         try {
             $response = $this->client->sendRequest(
@@ -124,20 +125,13 @@ class StructuredOutputsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return StructuredOutputPaginatedResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -158,11 +152,11 @@ class StructuredOutputsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return StructuredOutput
+     * @return ?StructuredOutput
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function structuredOutputControllerCreate(CreateStructuredOutputDto $request, ?array $options = null): StructuredOutput
+    public function structuredOutputControllerCreate(CreateStructuredOutputDto $request, ?array $options = null): ?StructuredOutput
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -178,20 +172,13 @@ class StructuredOutputsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return StructuredOutput::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -212,11 +199,11 @@ class StructuredOutputsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return StructuredOutput
+     * @return ?StructuredOutput
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function structuredOutputControllerFindOne(string $id, ?array $options = null): StructuredOutput
+    public function structuredOutputControllerFindOne(string $id, ?array $options = null): ?StructuredOutput
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -231,20 +218,13 @@ class StructuredOutputsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return StructuredOutput::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -265,11 +245,11 @@ class StructuredOutputsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return StructuredOutput
+     * @return ?StructuredOutput
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function structuredOutputControllerRemove(string $id, ?array $options = null): StructuredOutput
+    public function structuredOutputControllerRemove(string $id, ?array $options = null): ?StructuredOutput
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -284,20 +264,13 @@ class StructuredOutputsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return StructuredOutput::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -319,11 +292,11 @@ class StructuredOutputsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return StructuredOutput
+     * @return ?StructuredOutput
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function structuredOutputControllerUpdate(string $id, UpdateStructuredOutputDto $request, ?array $options = null): StructuredOutput
+    public function structuredOutputControllerUpdate(string $id, UpdateStructuredOutputDto $request, ?array $options = null): ?StructuredOutput
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -342,20 +315,60 @@ class StructuredOutputsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return StructuredOutput::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
+        } catch (ClientExceptionInterface $e) {
+            throw new VapiException(message: $e->getMessage(), previous: $e);
+        }
+        throw new VapiApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * @param StructuredOutputRunDto $request
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @return ?StructuredOutput
+     * @throws VapiException
+     * @throws VapiApiException
+     */
+    public function structuredOutputControllerRun(StructuredOutputRunDto $request, ?array $options = null): ?StructuredOutput
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
+                    path: "structured-output/run",
+                    method: HttpMethod::POST,
+                    body: $request,
+                ),
+                $options,
             );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
+                return StructuredOutput::fromJson($json);
+            }
+        } catch (JsonException $e) {
+            throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }

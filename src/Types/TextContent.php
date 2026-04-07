@@ -8,7 +8,7 @@ use Vapi\Core\Json\JsonProperty;
 class TextContent extends JsonSerializableType
 {
     /**
-     * @var 'text' $type
+     * @var value-of<TextContentType> $type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -27,7 +27,7 @@ class TextContent extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'text',
+     *   type: value-of<TextContentType>,
      *   text: string,
      *   language: value-of<TextContentLanguage>,
      * } $values

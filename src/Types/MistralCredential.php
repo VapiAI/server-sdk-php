@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class MistralCredential extends JsonSerializableType
 {
     /**
-     * @var 'mistral' $provider
+     * @var value-of<MistralCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class MistralCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'mistral',
+     *   provider: value-of<MistralCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

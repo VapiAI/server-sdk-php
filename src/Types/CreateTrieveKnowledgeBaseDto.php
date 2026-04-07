@@ -12,7 +12,7 @@ class CreateTrieveKnowledgeBaseDto extends JsonSerializableType
      *
      * To learn more about Trieve, visit https://trieve.ai.
      *
-     * @var 'trieve' $provider
+     * @var value-of<CreateTrieveKnowledgeBaseDtoProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -43,7 +43,7 @@ class CreateTrieveKnowledgeBaseDto extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'trieve',
+     *   provider: value-of<CreateTrieveKnowledgeBaseDtoProvider>,
      *   name?: ?string,
      *   searchPlan?: ?TrieveKnowledgeBaseSearchPlan,
      *   createPlan?: ?TrieveKnowledgeBaseImport,

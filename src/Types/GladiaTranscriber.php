@@ -99,7 +99,7 @@ class GladiaTranscriber extends JsonSerializableType
     public ?bool $receivePartialTranscripts;
 
     /**
-     * @var ?FallbackTranscriberPlan $fallbackPlan This is the plan for voice provider fallbacks in the event that the primary voice provider fails.
+     * @var ?FallbackTranscriberPlan $fallbackPlan This is the plan for transcriber provider fallbacks in the event that the primary transcriber provider fails.
      */
     #[JsonProperty('fallbackPlan')]
     public ?FallbackTranscriberPlan $fallbackPlan;

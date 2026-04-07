@@ -33,6 +33,22 @@ class TransferDestinationSip extends JsonSerializableType
     public string $sipUri;
 
     /**
+     * This is the caller ID to use when transferring the call to the `sipUri`.
+     *
+     * Usage:
+     * - If not provided, the caller ID will be determined by the SIP infrastructure.
+     * - Set to '{{customer.number}}' to always use the customer's number as the caller ID.
+     * - Set to '{{phoneNumber.number}}' to always use the phone number of the assistant as the caller ID.
+     * - Set to any E164 number to always use that number as the caller ID.
+     *
+     * Only applicable when `transferPlan.sipVerb='dial'`. Not applicable for SIP REFER.
+     *
+     * @var ?string $callerId
+     */
+    #[JsonProperty('callerId')]
+    public ?string $callerId;
+
+    /**
      * This configures how transfer is executed and the experience of the destination party receiving the call. Defaults to `blind-transfer`.
      *
      * @default `transferPlan.mode='blind-transfer'`
@@ -61,6 +77,7 @@ class TransferDestinationSip extends JsonSerializableType
      *    string
      *   |CustomMessage
      * )|null,
+     *   callerId?: ?string,
      *   transferPlan?: ?TransferPlan,
      *   sipHeaders?: ?array<string, mixed>,
      *   description?: ?string,
@@ -71,6 +88,7 @@ class TransferDestinationSip extends JsonSerializableType
     ) {
         $this->message = $values['message'] ?? null;
         $this->sipUri = $values['sipUri'];
+        $this->callerId = $values['callerId'] ?? null;
         $this->transferPlan = $values['transferPlan'] ?? null;
         $this->sipHeaders = $values['sipHeaders'] ?? null;
         $this->description = $values['description'] ?? null;

@@ -8,7 +8,7 @@ use Vapi\Core\Json\JsonProperty;
 class FallbackCartesiaTranscriber extends JsonSerializableType
 {
     /**
-     * @var ?'ink-whisper' $model
+     * @var ?value-of<FallbackCartesiaTranscriberModel> $model
      */
     #[JsonProperty('model')]
     public ?string $model;
@@ -21,7 +21,7 @@ class FallbackCartesiaTranscriber extends JsonSerializableType
 
     /**
      * @param array{
-     *   model?: ?'ink-whisper',
+     *   model?: ?value-of<FallbackCartesiaTranscriberModel>,
      *   language?: ?value-of<FallbackCartesiaTranscriberLanguage>,
      * } $values
      */

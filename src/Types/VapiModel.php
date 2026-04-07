@@ -41,7 +41,7 @@ class VapiModel extends JsonSerializableType
     public ?CreateCustomKnowledgeBaseDto $knowledgeBase;
 
     /**
-     * @var 'vapi' $provider
+     * @var value-of<VapiModelProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -102,7 +102,7 @@ class VapiModel extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'vapi',
+     *   provider: value-of<VapiModelProvider>,
      *   model: string,
      *   messages?: ?array<OpenAiMessage>,
      *   tools?: ?array<VapiModelToolsItem>,

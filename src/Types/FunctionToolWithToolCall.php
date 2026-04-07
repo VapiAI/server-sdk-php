@@ -49,6 +49,18 @@ class FunctionToolWithToolCall extends JsonSerializableType
     public ?Server $server;
 
     /**
+     * @var ?VariableExtractionPlan $variableExtractionPlan Plan to extract variables from the tool response
+     */
+    #[JsonProperty('variableExtractionPlan')]
+    public ?VariableExtractionPlan $variableExtractionPlan;
+
+    /**
+     * @var ?array<ToolParameter> $parameters Static key-value pairs merged into the request body. Values support Liquid templates.
+     */
+    #[JsonProperty('parameters'), ArrayType([ToolParameter::class])]
+    public ?array $parameters;
+
+    /**
      * @var ToolCall $toolCall
      */
     #[JsonProperty('toolCall')]
@@ -151,6 +163,8 @@ class FunctionToolWithToolCall extends JsonSerializableType
      *   messages?: ?array<FunctionToolWithToolCallMessagesItem>,
      *   async?: ?bool,
      *   server?: ?Server,
+     *   variableExtractionPlan?: ?VariableExtractionPlan,
+     *   parameters?: ?array<ToolParameter>,
      *   function?: ?OpenAiFunction,
      *   rejectionPlan?: ?ToolRejectionPlan,
      * } $values
@@ -161,6 +175,8 @@ class FunctionToolWithToolCall extends JsonSerializableType
         $this->messages = $values['messages'] ?? null;
         $this->async = $values['async'] ?? null;
         $this->server = $values['server'] ?? null;
+        $this->variableExtractionPlan = $values['variableExtractionPlan'] ?? null;
+        $this->parameters = $values['parameters'] ?? null;
         $this->toolCall = $values['toolCall'];
         $this->function = $values['function'] ?? null;
         $this->rejectionPlan = $values['rejectionPlan'] ?? null;

@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class MakeCredential extends JsonSerializableType
 {
     /**
-     * @var 'make' $provider
+     * @var value-of<MakeCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -65,7 +65,7 @@ class MakeCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'make',
+     *   provider: value-of<MakeCredentialProvider>,
      *   teamId: string,
      *   region: string,
      *   apiKey: string,

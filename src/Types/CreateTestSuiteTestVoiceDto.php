@@ -15,7 +15,7 @@ class CreateTestSuiteTestVoiceDto extends JsonSerializableType
     public array $scorers;
 
     /**
-     * @var 'voice' $type This is the type of the test, which must be voice.
+     * @var value-of<CreateTestSuiteTestVoiceDtoType> $type This is the type of the test, which must be voice.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -41,7 +41,7 @@ class CreateTestSuiteTestVoiceDto extends JsonSerializableType
     /**
      * @param array{
      *   scorers: array<TestSuiteTestScorerAi>,
-     *   type: 'voice',
+     *   type: value-of<CreateTestSuiteTestVoiceDtoType>,
      *   script: string,
      *   numAttempts?: ?float,
      *   name?: ?string,

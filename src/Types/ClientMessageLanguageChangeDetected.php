@@ -14,7 +14,7 @@ class ClientMessageLanguageChangeDetected extends JsonSerializableType
     public ?ClientMessageLanguageChangeDetectedPhoneNumber $phoneNumber;
 
     /**
-     * @var 'language-change-detected' $type This is the type of the message. "language-change-detected" is sent when the transcriber is automatically switched based on the detected language.
+     * @var value-of<ClientMessageLanguageChangeDetectedType> $type This is the type of the message. "language-change-detected" is sent when the transcriber is automatically switched based on the detected language.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -51,7 +51,7 @@ class ClientMessageLanguageChangeDetected extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'language-change-detected',
+     *   type: value-of<ClientMessageLanguageChangeDetectedType>,
      *   language: string,
      *   phoneNumber?: ?ClientMessageLanguageChangeDetectedPhoneNumber,
      *   timestamp?: ?float,

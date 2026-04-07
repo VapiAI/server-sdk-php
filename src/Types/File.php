@@ -11,7 +11,7 @@ use Vapi\Core\Types\Date;
 class File extends JsonSerializableType
 {
     /**
-     * @var ?'file' $object
+     * @var ?value-of<FileObject> $object
      */
     #[JsonProperty('object')]
     public ?string $object;
@@ -124,7 +124,7 @@ class File extends JsonSerializableType
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
-     *   object?: ?'file',
+     *   object?: ?value-of<FileObject>,
      *   status?: ?value-of<FileStatus>,
      *   name?: ?string,
      *   originalName?: ?string,

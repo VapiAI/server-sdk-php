@@ -43,6 +43,18 @@ class ApiRequestTool extends JsonSerializableType
     public ?string $credentialId;
 
     /**
+     * @var ?array<string> $encryptedPaths This is the paths to encrypt in the request body if credentialId and encryptionPlan are defined.
+     */
+    #[JsonProperty('encryptedPaths'), ArrayType(['string'])]
+    public ?array $encryptedPaths;
+
+    /**
+     * @var ?array<ToolParameter> $parameters Static key-value pairs merged into the request body. Values support Liquid templates.
+     */
+    #[JsonProperty('parameters'), ArrayType([ToolParameter::class])]
+    public ?array $parameters;
+
+    /**
      * @var string $id This is the unique identifier for the tool.
      */
     #[JsonProperty('id')]
@@ -366,6 +378,8 @@ class ApiRequestTool extends JsonSerializableType
      *   messages?: ?array<ApiRequestToolMessagesItem>,
      *   timeoutSeconds?: ?float,
      *   credentialId?: ?string,
+     *   encryptedPaths?: ?array<string>,
+     *   parameters?: ?array<ToolParameter>,
      *   rejectionPlan?: ?ToolRejectionPlan,
      *   name?: ?string,
      *   description?: ?string,
@@ -382,6 +396,8 @@ class ApiRequestTool extends JsonSerializableType
         $this->method = $values['method'];
         $this->timeoutSeconds = $values['timeoutSeconds'] ?? null;
         $this->credentialId = $values['credentialId'] ?? null;
+        $this->encryptedPaths = $values['encryptedPaths'] ?? null;
+        $this->parameters = $values['parameters'] ?? null;
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];

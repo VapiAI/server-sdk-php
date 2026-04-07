@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class DeepInfraCredential extends JsonSerializableType
 {
     /**
-     * @var 'deepinfra' $provider
+     * @var value-of<DeepInfraCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class DeepInfraCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'deepinfra',
+     *   provider: value-of<DeepInfraCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

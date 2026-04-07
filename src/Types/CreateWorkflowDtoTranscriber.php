@@ -26,6 +26,7 @@ class CreateWorkflowDtoTranscriber extends JsonSerializableType
      *   |'talkscriber'
      *   |'openai'
      *   |'cartesia'
+     *   |'soniox'
      *   |'_unknown'
      * ) $provider
      */
@@ -44,6 +45,7 @@ class CreateWorkflowDtoTranscriber extends JsonSerializableType
      *   |TalkscriberTranscriber
      *   |OpenAiTranscriber
      *   |CartesiaTranscriber
+     *   |SonioxTranscriber
      *   |mixed
      * ) $value
      */
@@ -63,6 +65,7 @@ class CreateWorkflowDtoTranscriber extends JsonSerializableType
      *   |'talkscriber'
      *   |'openai'
      *   |'cartesia'
+     *   |'soniox'
      *   |'_unknown'
      * ),
      *   value: (
@@ -77,6 +80,7 @@ class CreateWorkflowDtoTranscriber extends JsonSerializableType
      *   |TalkscriberTranscriber
      *   |OpenAiTranscriber
      *   |CartesiaTranscriber
+     *   |SonioxTranscriber
      *   |mixed
      * ),
      * } $values
@@ -217,6 +221,18 @@ class CreateWorkflowDtoTranscriber extends JsonSerializableType
         return new CreateWorkflowDtoTranscriber([
             'provider' => 'cartesia',
             'value' => $cartesia,
+        ]);
+    }
+
+    /**
+     * @param SonioxTranscriber $soniox
+     * @return CreateWorkflowDtoTranscriber
+     */
+    public static function soniox(SonioxTranscriber $soniox): CreateWorkflowDtoTranscriber
+    {
+        return new CreateWorkflowDtoTranscriber([
+            'provider' => 'soniox',
+            'value' => $soniox,
         ]);
     }
 
@@ -463,6 +479,28 @@ class CreateWorkflowDtoTranscriber extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isSoniox(): bool
+    {
+        return $this->value instanceof SonioxTranscriber && $this->provider === 'soniox';
+    }
+
+    /**
+     * @return SonioxTranscriber
+     */
+    public function asSoniox(): SonioxTranscriber
+    {
+        if (!($this->value instanceof SonioxTranscriber && $this->provider === 'soniox')) {
+            throw new Exception(
+                "Expected soniox; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -524,6 +562,10 @@ class CreateWorkflowDtoTranscriber extends JsonSerializableType
                 break;
             case 'cartesia':
                 $value = $this->asCartesia()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'soniox':
+                $value = $this->asSoniox()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -606,6 +648,9 @@ class CreateWorkflowDtoTranscriber extends JsonSerializableType
                 break;
             case 'cartesia':
                 $args['value'] = CartesiaTranscriber::jsonDeserialize($data);
+                break;
+            case 'soniox':
+                $args['value'] = SonioxTranscriber::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

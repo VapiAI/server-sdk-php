@@ -4,6 +4,7 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
+use Vapi\Core\Types\ArrayType;
 
 class FallbackVapiVoice extends JsonSerializableType
 {
@@ -30,6 +31,12 @@ class FallbackVapiVoice extends JsonSerializableType
     public ?float $speed;
 
     /**
+     * @var ?array<VapiPronunciationDictionaryLocator> $pronunciationDictionary List of pronunciation dictionary locators for custom word pronunciations.
+     */
+    #[JsonProperty('pronunciationDictionary'), ArrayType([VapiPronunciationDictionaryLocator::class])]
+    public ?array $pronunciationDictionary;
+
+    /**
      * @var ?ChunkPlan $chunkPlan This is the plan for chunking the model output before it is sent to the voice provider.
      */
     #[JsonProperty('chunkPlan')]
@@ -40,6 +47,7 @@ class FallbackVapiVoice extends JsonSerializableType
      *   voiceId: value-of<FallbackVapiVoiceVoiceId>,
      *   cachingEnabled?: ?bool,
      *   speed?: ?float,
+     *   pronunciationDictionary?: ?array<VapiPronunciationDictionaryLocator>,
      *   chunkPlan?: ?ChunkPlan,
      * } $values
      */
@@ -49,6 +57,7 @@ class FallbackVapiVoice extends JsonSerializableType
         $this->cachingEnabled = $values['cachingEnabled'] ?? null;
         $this->voiceId = $values['voiceId'];
         $this->speed = $values['speed'] ?? null;
+        $this->pronunciationDictionary = $values['pronunciationDictionary'] ?? null;
         $this->chunkPlan = $values['chunkPlan'] ?? null;
     }
 

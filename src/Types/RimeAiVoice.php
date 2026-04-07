@@ -59,6 +59,12 @@ class RimeAiVoice extends JsonSerializableType
     public ?string $inlineSpeedAlpha;
 
     /**
+     * @var ?value-of<RimeAiVoiceLanguage> $language Language for speech synthesis. Uses ISO 639 codes. Supported: en, es, de, fr, ar, hi, ja, he, pt, ta, si.
+     */
+    #[JsonProperty('language')]
+    public ?string $language;
+
+    /**
      * @var ?ChunkPlan $chunkPlan This is the plan for chunking the model output before it is sent to the voice provider.
      */
     #[JsonProperty('chunkPlan')]
@@ -83,6 +89,7 @@ class RimeAiVoice extends JsonSerializableType
      *   phonemizeBetweenBrackets?: ?bool,
      *   reduceLatency?: ?bool,
      *   inlineSpeedAlpha?: ?string,
+     *   language?: ?value-of<RimeAiVoiceLanguage>,
      *   chunkPlan?: ?ChunkPlan,
      *   fallbackPlan?: ?FallbackPlan,
      * } $values
@@ -98,6 +105,7 @@ class RimeAiVoice extends JsonSerializableType
         $this->phonemizeBetweenBrackets = $values['phonemizeBetweenBrackets'] ?? null;
         $this->reduceLatency = $values['reduceLatency'] ?? null;
         $this->inlineSpeedAlpha = $values['inlineSpeedAlpha'] ?? null;
+        $this->language = $values['language'] ?? null;
         $this->chunkPlan = $values['chunkPlan'] ?? null;
         $this->fallbackPlan = $values['fallbackPlan'] ?? null;
     }

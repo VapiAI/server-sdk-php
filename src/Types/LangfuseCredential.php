@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class LangfuseCredential extends JsonSerializableType
 {
     /**
-     * @var 'langfuse' $provider
+     * @var value-of<LangfuseCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -65,7 +65,7 @@ class LangfuseCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'langfuse',
+     *   provider: value-of<LangfuseCredentialProvider>,
      *   publicKey: string,
      *   apiKey: string,
      *   apiUrl: string,

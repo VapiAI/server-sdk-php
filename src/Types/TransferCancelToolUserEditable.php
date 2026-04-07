@@ -19,7 +19,7 @@ class TransferCancelToolUserEditable extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var 'transferCancel' $type The type of tool. "transferCancel" for Transfer Cancel tool. This tool can only be used during warm-transfer-experimental by the transfer assistant to cancel an ongoing transfer and return the call back to the original assistant when the transfer cannot be completed.
+     * @var value-of<TransferCancelToolUserEditableType> $type The type of tool. "transferCancel" for Transfer Cancel tool. This tool can only be used during warm-transfer-experimental by the transfer assistant to cancel an ongoing transfer and return the call back to the original assistant when the transfer cannot be completed.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -111,7 +111,7 @@ class TransferCancelToolUserEditable extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'transferCancel',
+     *   type: value-of<TransferCancelToolUserEditableType>,
      *   messages?: ?array<TransferCancelToolUserEditableMessagesItem>,
      *   rejectionPlan?: ?ToolRejectionPlan,
      * } $values

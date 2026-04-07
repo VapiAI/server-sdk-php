@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class OpenAiCredential extends JsonSerializableType
 {
     /**
-     * @var 'openai' $provider
+     * @var value-of<OpenAiCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class OpenAiCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'openai',
+     *   provider: value-of<OpenAiCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

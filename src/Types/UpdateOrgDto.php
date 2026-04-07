@@ -8,8 +8,8 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateOrgDto extends JsonSerializableType
 {
     /**
-     * When this is enabled, no logs, recordings, or transcriptions will be stored. At the end of the call, you will still receive an end-of-call-report message to store on your server. Defaults to false.
-     * When HIPAA is enabled, only OpenAI/Custom LLM or Azure Providers will be available for LLM and Voice respectively.
+     * When this is enabled, logs, recordings, and transcriptions will be stored in HIPAA-compliant storage. Defaults to false.
+     * When HIPAA is enabled, only HIPAA-compliant providers will be available for LLM, Voice, and Transcriber respectively.
      * This is due to the compliance requirements of HIPAA. Other providers may not meet these requirements.
      *
      * @var ?bool $hipaaEnabled

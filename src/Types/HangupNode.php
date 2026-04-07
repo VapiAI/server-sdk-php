@@ -9,7 +9,7 @@ use Vapi\Core\Types\ArrayType;
 class HangupNode extends JsonSerializableType
 {
     /**
-     * @var 'hangup' $type
+     * @var value-of<HangupNodeType> $type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -34,7 +34,7 @@ class HangupNode extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'hangup',
+     *   type: value-of<HangupNodeType>,
      *   name: string,
      *   isStart?: ?bool,
      *   metadata?: ?array<string, mixed>,

@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class GcpCredential extends JsonSerializableType
 {
     /**
-     * @var 'gcp' $provider
+     * @var value-of<GcpCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -75,7 +75,7 @@ class GcpCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'gcp',
+     *   provider: value-of<GcpCredentialProvider>,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,

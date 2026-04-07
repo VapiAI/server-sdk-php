@@ -14,7 +14,7 @@ class ServerMessageAssistantRequest extends JsonSerializableType
     public ?ServerMessageAssistantRequestPhoneNumber $phoneNumber;
 
     /**
-     * @var 'assistant-request' $type This is the type of the message. "assistant-request" is sent to fetch assistant configuration for an incoming call.
+     * @var value-of<ServerMessageAssistantRequestType> $type This is the type of the message. "assistant-request" is sent to fetch assistant configuration for an incoming call.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -61,7 +61,7 @@ class ServerMessageAssistantRequest extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'assistant-request',
+     *   type: value-of<ServerMessageAssistantRequestType>,
      *   phoneNumber?: ?ServerMessageAssistantRequestPhoneNumber,
      *   timestamp?: ?float,
      *   artifact?: ?Artifact,

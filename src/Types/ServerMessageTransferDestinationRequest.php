@@ -14,7 +14,7 @@ class ServerMessageTransferDestinationRequest extends JsonSerializableType
     public ?ServerMessageTransferDestinationRequestPhoneNumber $phoneNumber;
 
     /**
-     * @var 'transfer-destination-request' $type This is the type of the message. "transfer-destination-request" is sent when the model is requesting transfer but destination is unknown.
+     * @var value-of<ServerMessageTransferDestinationRequestType> $type This is the type of the message. "transfer-destination-request" is sent when the model is requesting transfer but destination is unknown.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -61,7 +61,7 @@ class ServerMessageTransferDestinationRequest extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'transfer-destination-request',
+     *   type: value-of<ServerMessageTransferDestinationRequestType>,
      *   phoneNumber?: ?ServerMessageTransferDestinationRequestPhoneNumber,
      *   timestamp?: ?float,
      *   artifact?: ?Artifact,

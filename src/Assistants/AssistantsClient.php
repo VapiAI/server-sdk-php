@@ -2,18 +2,18 @@
 
 namespace Vapi\Assistants;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Vapi\Core\Client\RawClient;
-use Vapi\Assistants\Requests\AssistantsListRequest;
+use Vapi\Assistants\Requests\ListAssistantsRequest;
 use Vapi\Types\Assistant;
 use Vapi\Exceptions\VapiException;
 use Vapi\Exceptions\VapiApiException;
+use Vapi\Core\Json\JsonSerializer;
 use Vapi\Core\Json\JsonApiRequest;
 use Vapi\Environments;
 use Vapi\Core\Client\HttpMethod;
 use Vapi\Core\Json\JsonDecoder;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Vapi\Types\CreateAssistantDto;
 use Vapi\Assistants\Requests\UpdateAssistantDto;
@@ -27,7 +27,7 @@ class AssistantsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -55,7 +55,7 @@ class AssistantsClient
     }
 
     /**
-     * @param AssistantsListRequest $request
+     * @param ListAssistantsRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -64,11 +64,11 @@ class AssistantsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return array<Assistant>
+     * @return ?array<Assistant>
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function list(AssistantsListRequest $request = new AssistantsListRequest(), ?array $options = null): array
+    public function list(ListAssistantsRequest $request = new ListAssistantsRequest(), ?array $options = null): ?array
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -76,28 +76,28 @@ class AssistantsClient
             $query['limit'] = $request->limit;
         }
         if ($request->createdAtGt != null) {
-            $query['createdAtGt'] = $request->createdAtGt;
+            $query['createdAtGt'] = JsonSerializer::serializeDateTime($request->createdAtGt);
         }
         if ($request->createdAtLt != null) {
-            $query['createdAtLt'] = $request->createdAtLt;
+            $query['createdAtLt'] = JsonSerializer::serializeDateTime($request->createdAtLt);
         }
         if ($request->createdAtGe != null) {
-            $query['createdAtGe'] = $request->createdAtGe;
+            $query['createdAtGe'] = JsonSerializer::serializeDateTime($request->createdAtGe);
         }
         if ($request->createdAtLe != null) {
-            $query['createdAtLe'] = $request->createdAtLe;
+            $query['createdAtLe'] = JsonSerializer::serializeDateTime($request->createdAtLe);
         }
         if ($request->updatedAtGt != null) {
-            $query['updatedAtGt'] = $request->updatedAtGt;
+            $query['updatedAtGt'] = JsonSerializer::serializeDateTime($request->updatedAtGt);
         }
         if ($request->updatedAtLt != null) {
-            $query['updatedAtLt'] = $request->updatedAtLt;
+            $query['updatedAtLt'] = JsonSerializer::serializeDateTime($request->updatedAtLt);
         }
         if ($request->updatedAtGe != null) {
-            $query['updatedAtGe'] = $request->updatedAtGe;
+            $query['updatedAtGe'] = JsonSerializer::serializeDateTime($request->updatedAtGe);
         }
         if ($request->updatedAtLe != null) {
-            $query['updatedAtLe'] = $request->updatedAtLe;
+            $query['updatedAtLe'] = JsonSerializer::serializeDateTime($request->updatedAtLe);
         }
         try {
             $response = $this->client->sendRequest(
@@ -112,20 +112,13 @@ class AssistantsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return JsonDecoder::decodeArray($json, [Assistant::class]); // @phpstan-ignore-line
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -146,11 +139,11 @@ class AssistantsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Assistant
+     * @return ?Assistant
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function create(CreateAssistantDto $request, ?array $options = null): Assistant
+    public function create(CreateAssistantDto $request, ?array $options = null): ?Assistant
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -166,20 +159,13 @@ class AssistantsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Assistant::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -200,11 +186,11 @@ class AssistantsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Assistant
+     * @return ?Assistant
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function get(string $id, ?array $options = null): Assistant
+    public function get(string $id, ?array $options = null): ?Assistant
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -219,20 +205,13 @@ class AssistantsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Assistant::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -253,11 +232,11 @@ class AssistantsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Assistant
+     * @return ?Assistant
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function delete(string $id, ?array $options = null): Assistant
+    public function delete(string $id, ?array $options = null): ?Assistant
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -272,20 +251,13 @@ class AssistantsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Assistant::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -307,11 +279,11 @@ class AssistantsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Assistant
+     * @return ?Assistant
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function update(string $id, UpdateAssistantDto $request = new UpdateAssistantDto(), ?array $options = null): Assistant
+    public function update(string $id, UpdateAssistantDto $request = new UpdateAssistantDto(), ?array $options = null): ?Assistant
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -327,20 +299,13 @@ class AssistantsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Assistant::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }

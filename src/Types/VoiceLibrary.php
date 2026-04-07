@@ -77,6 +77,12 @@ class VoiceLibrary extends JsonSerializableType
     public ?string $previewUrl;
 
     /**
+     * @var ?float $sortOrder The sort order of the voice for display purposes. Lower values appear first.
+     */
+    #[JsonProperty('sortOrder')]
+    public ?float $sortOrder;
+
+    /**
      * @var ?string $description The description of the voice.
      */
     #[JsonProperty('description')]
@@ -143,6 +149,7 @@ class VoiceLibrary extends JsonSerializableType
      *   gender?: ?value-of<VoiceLibraryGender>,
      *   accent?: ?string,
      *   previewUrl?: ?string,
+     *   sortOrder?: ?float,
      *   description?: ?string,
      *   credentialId?: ?string,
      * } $values
@@ -161,6 +168,7 @@ class VoiceLibrary extends JsonSerializableType
         $this->gender = $values['gender'] ?? null;
         $this->accent = $values['accent'] ?? null;
         $this->previewUrl = $values['previewUrl'] ?? null;
+        $this->sortOrder = $values['sortOrder'] ?? null;
         $this->description = $values['description'] ?? null;
         $this->credentialId = $values['credentialId'] ?? null;
         $this->id = $values['id'];

@@ -8,7 +8,7 @@ use Vapi\Core\Json\JsonProperty;
 class TransferHookAction extends JsonSerializableType
 {
     /**
-     * @var 'transfer' $type This is the type of action - must be "transfer"
+     * @var value-of<TransferHookActionType> $type This is the type of action - must be "transfer"
      */
     #[JsonProperty('type')]
     public string $type;
@@ -21,7 +21,7 @@ class TransferHookAction extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'transfer',
+     *   type: value-of<TransferHookActionType>,
      *   destination?: ?TransferHookActionDestination,
      * } $values
      */

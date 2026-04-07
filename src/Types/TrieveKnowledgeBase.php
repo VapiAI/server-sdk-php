@@ -12,7 +12,7 @@ class TrieveKnowledgeBase extends JsonSerializableType
      *
      * To learn more about Trieve, visit https://trieve.ai.
      *
-     * @var 'trieve' $provider
+     * @var value-of<TrieveKnowledgeBaseProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -55,7 +55,7 @@ class TrieveKnowledgeBase extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'trieve',
+     *   provider: value-of<TrieveKnowledgeBaseProvider>,
      *   id: string,
      *   orgId: string,
      *   name?: ?string,

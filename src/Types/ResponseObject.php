@@ -15,7 +15,7 @@ class ResponseObject extends JsonSerializableType
     public string $id;
 
     /**
-     * @var 'response' $object The object type
+     * @var value-of<ResponseObjectObject> $object The object type
      */
     #[JsonProperty('object')]
     public string $object;
@@ -47,7 +47,7 @@ class ResponseObject extends JsonSerializableType
     /**
      * @param array{
      *   id: string,
-     *   object: 'response',
+     *   object: value-of<ResponseObjectObject>,
      *   createdAt: float,
      *   status: value-of<ResponseObjectStatus>,
      *   output: array<ResponseOutputMessage>,

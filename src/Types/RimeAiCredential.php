@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class RimeAiCredential extends JsonSerializableType
 {
     /**
-     * @var 'rime-ai' $provider
+     * @var value-of<RimeAiCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class RimeAiCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'rime-ai',
+     *   provider: value-of<RimeAiCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

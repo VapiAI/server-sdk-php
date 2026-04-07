@@ -17,6 +17,7 @@ class ConversationNodeModel extends JsonSerializableType
      * @var (
      *    'openai'
      *   |'anthropic'
+     *   |'anthropic-bedrock'
      *   |'google'
      *   |'custom-llm'
      *   |'_unknown'
@@ -28,6 +29,7 @@ class ConversationNodeModel extends JsonSerializableType
      * @var (
      *    WorkflowOpenAiModel
      *   |WorkflowAnthropicModel
+     *   |WorkflowAnthropicBedrockModel
      *   |WorkflowGoogleModel
      *   |WorkflowCustomModel
      *   |mixed
@@ -40,6 +42,7 @@ class ConversationNodeModel extends JsonSerializableType
      *   provider: (
      *    'openai'
      *   |'anthropic'
+     *   |'anthropic-bedrock'
      *   |'google'
      *   |'custom-llm'
      *   |'_unknown'
@@ -47,6 +50,7 @@ class ConversationNodeModel extends JsonSerializableType
      *   value: (
      *    WorkflowOpenAiModel
      *   |WorkflowAnthropicModel
+     *   |WorkflowAnthropicBedrockModel
      *   |WorkflowGoogleModel
      *   |WorkflowCustomModel
      *   |mixed
@@ -81,6 +85,18 @@ class ConversationNodeModel extends JsonSerializableType
         return new ConversationNodeModel([
             'provider' => 'anthropic',
             'value' => $anthropic,
+        ]);
+    }
+
+    /**
+     * @param WorkflowAnthropicBedrockModel $anthropicBedrock
+     * @return ConversationNodeModel
+     */
+    public static function anthropicBedrock(WorkflowAnthropicBedrockModel $anthropicBedrock): ConversationNodeModel
+    {
+        return new ConversationNodeModel([
+            'provider' => 'anthropic-bedrock',
+            'value' => $anthropicBedrock,
         ]);
     }
 
@@ -146,6 +162,28 @@ class ConversationNodeModel extends JsonSerializableType
         if (!($this->value instanceof WorkflowAnthropicModel && $this->provider === 'anthropic')) {
             throw new Exception(
                 "Expected anthropic; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAnthropicBedrock(): bool
+    {
+        return $this->value instanceof WorkflowAnthropicBedrockModel && $this->provider === 'anthropic-bedrock';
+    }
+
+    /**
+     * @return WorkflowAnthropicBedrockModel
+     */
+    public function asAnthropicBedrock(): WorkflowAnthropicBedrockModel
+    {
+        if (!($this->value instanceof WorkflowAnthropicBedrockModel && $this->provider === 'anthropic-bedrock')) {
+            throw new Exception(
+                "Expected anthropic-bedrock; got " . $this->provider . " with value of type " . get_debug_type($this->value),
             );
         }
 
@@ -224,6 +262,10 @@ class ConversationNodeModel extends JsonSerializableType
                 $value = $this->asAnthropic()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
+            case 'anthropic-bedrock':
+                $value = $this->asAnthropicBedrock()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
             case 'google':
                 $value = $this->asGoogle()->jsonSerialize();
                 $result = array_merge($value, $result);
@@ -285,6 +327,9 @@ class ConversationNodeModel extends JsonSerializableType
                 break;
             case 'anthropic':
                 $args['value'] = WorkflowAnthropicModel::jsonDeserialize($data);
+                break;
+            case 'anthropic-bedrock':
+                $args['value'] = WorkflowAnthropicBedrockModel::jsonDeserialize($data);
                 break;
             case 'google':
                 $args['value'] = WorkflowGoogleModel::jsonDeserialize($data);

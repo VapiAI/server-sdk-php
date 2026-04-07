@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class CustomCredential extends JsonSerializableType
 {
     /**
-     * @var 'custom-credential' $provider
+     * @var value-of<CustomCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -20,6 +20,12 @@ class CustomCredential extends JsonSerializableType
      */
     #[JsonProperty('authenticationPlan')]
     public CustomCredentialAuthenticationPlan $authenticationPlan;
+
+    /**
+     * @var ?CustomCredentialEncryptionPlan $encryptionPlan This is the encryption plan for encrypting sensitive data. Currently supports public-key encryption.
+     */
+    #[JsonProperty('encryptionPlan')]
+    public ?CustomCredentialEncryptionPlan $encryptionPlan;
 
     /**
      * @var string $id This is the unique identifier for the credential.
@@ -59,13 +65,14 @@ class CustomCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'custom-credential',
+     *   provider: value-of<CustomCredentialProvider>,
      *   authenticationPlan: CustomCredentialAuthenticationPlan,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
      *   authenticationSession: Oauth2AuthenticationSession,
+     *   encryptionPlan?: ?CustomCredentialEncryptionPlan,
      *   name?: ?string,
      * } $values
      */
@@ -74,6 +81,7 @@ class CustomCredential extends JsonSerializableType
     ) {
         $this->provider = $values['provider'];
         $this->authenticationPlan = $values['authenticationPlan'];
+        $this->encryptionPlan = $values['encryptionPlan'] ?? null;
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];

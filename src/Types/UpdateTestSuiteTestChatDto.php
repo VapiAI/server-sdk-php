@@ -15,7 +15,7 @@ class UpdateTestSuiteTestChatDto extends JsonSerializableType
     public ?array $scorers;
 
     /**
-     * @var ?'chat' $type This is the type of the test, which must be chat.
+     * @var ?value-of<UpdateTestSuiteTestChatDtoType> $type This is the type of the test, which must be chat.
      */
     #[JsonProperty('type')]
     public ?string $type;
@@ -41,7 +41,7 @@ class UpdateTestSuiteTestChatDto extends JsonSerializableType
     /**
      * @param array{
      *   scorers?: ?array<TestSuiteTestScorerAi>,
-     *   type?: ?'chat',
+     *   type?: ?value-of<UpdateTestSuiteTestChatDtoType>,
      *   name?: ?string,
      *   script?: ?string,
      *   numAttempts?: ?float,

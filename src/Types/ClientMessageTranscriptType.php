@@ -2,8 +2,8 @@
 
 namespace Vapi\Types;
 
-enum ClientMessageTranscriptType
- : string {
+enum ClientMessageTranscriptType: string
+{
     case Transcript = "transcript";
     case TranscriptTranscriptTypeFinal = "transcript[transcriptType=\"final\"]";
 }

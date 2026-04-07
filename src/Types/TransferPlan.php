@@ -65,6 +65,18 @@ class TransferPlan extends JsonSerializableType
     public ?array $sipVerb;
 
     /**
+     * This sets the timeout for the dial operation in seconds. This is the duration the call will ring before timing out.
+     *
+     * Only applicable when `sipVerb='dial'`. Not applicable for SIP REFER or BYE.
+     *
+     * @default 60
+     *
+     * @var ?float $dialTimeout
+     */
+    #[JsonProperty('dialTimeout')]
+    public ?float $dialTimeout;
+
+    /**
      * This is the URL to an audio file played while the customer is on hold during transfer.
      *
      * Usage:
@@ -93,6 +105,21 @@ class TransferPlan extends JsonSerializableType
      */
     #[JsonProperty('transferCompleteAudioUrl')]
     public ?string $transferCompleteAudioUrl;
+
+    /**
+     * This is the plan for manipulating the message context before initiating the warm transfer.
+     * Usage:
+     * - Used only when `mode` is `warm-transfer-experimental`.
+     * - These messages will automatically be added to the transferAssistant's system message.
+     * - If 'none', we will not add any transcript to the transferAssistant's system message.
+     * - If you want to provide your own messages, use transferAssistant.model.messages instead.
+     *
+     * @default { type: 'all' }
+     *
+     * @var ?TransferPlanContextEngineeringPlan $contextEngineeringPlan
+     */
+    #[JsonProperty('contextEngineeringPlan')]
+    public ?TransferPlanContextEngineeringPlan $contextEngineeringPlan;
 
     /**
      * This is the TwiML instructions to execute on the destination call leg before connecting the customer.
@@ -156,8 +183,10 @@ class TransferPlan extends JsonSerializableType
      * )|null,
      *   timeout?: ?float,
      *   sipVerb?: ?array<string, mixed>,
+     *   dialTimeout?: ?float,
      *   holdAudioUrl?: ?string,
      *   transferCompleteAudioUrl?: ?string,
+     *   contextEngineeringPlan?: ?TransferPlanContextEngineeringPlan,
      *   twiml?: ?string,
      *   summaryPlan?: ?SummaryPlan,
      *   sipHeadersInReferToEnabled?: ?bool,
@@ -171,8 +200,10 @@ class TransferPlan extends JsonSerializableType
         $this->message = $values['message'] ?? null;
         $this->timeout = $values['timeout'] ?? null;
         $this->sipVerb = $values['sipVerb'] ?? null;
+        $this->dialTimeout = $values['dialTimeout'] ?? null;
         $this->holdAudioUrl = $values['holdAudioUrl'] ?? null;
         $this->transferCompleteAudioUrl = $values['transferCompleteAudioUrl'] ?? null;
+        $this->contextEngineeringPlan = $values['contextEngineeringPlan'] ?? null;
         $this->twiml = $values['twiml'] ?? null;
         $this->summaryPlan = $values['summaryPlan'] ?? null;
         $this->sipHeadersInReferToEnabled = $values['sipHeadersInReferToEnabled'] ?? null;

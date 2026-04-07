@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class PlayHtCredential extends JsonSerializableType
 {
     /**
-     * @var 'playht' $provider
+     * @var value-of<PlayHtCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -59,7 +59,7 @@ class PlayHtCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'playht',
+     *   provider: value-of<PlayHtCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

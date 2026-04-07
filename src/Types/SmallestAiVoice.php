@@ -23,7 +23,7 @@ class SmallestAiVoice extends JsonSerializableType
     public string $voiceId;
 
     /**
-     * @var ?'lightning' $model Smallest AI voice model to use. Defaults to 'lightning' when not specified.
+     * @var ?value-of<SmallestAiVoiceModel> $model Smallest AI voice model to use. Defaults to 'lightning' when not specified.
      */
     #[JsonProperty('model')]
     public ?string $model;
@@ -53,7 +53,7 @@ class SmallestAiVoice extends JsonSerializableType
      *   |string
      * ),
      *   cachingEnabled?: ?bool,
-     *   model?: ?'lightning',
+     *   model?: ?value-of<SmallestAiVoiceModel>,
      *   speed?: ?float,
      *   chunkPlan?: ?ChunkPlan,
      *   fallbackPlan?: ?FallbackPlan,

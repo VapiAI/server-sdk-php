@@ -20,7 +20,7 @@ class ServerMessageHang extends JsonSerializableType
      * - the tool call is still waiting for a response from your server
      * - etc.
      *
-     * @var 'hang' $type
+     * @var value-of<ServerMessageHangType> $type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -67,7 +67,7 @@ class ServerMessageHang extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'hang',
+     *   type: value-of<ServerMessageHangType>,
      *   phoneNumber?: ?ServerMessageHangPhoneNumber,
      *   timestamp?: ?float,
      *   artifact?: ?Artifact,

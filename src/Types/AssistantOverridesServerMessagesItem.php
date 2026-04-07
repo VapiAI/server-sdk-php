@@ -2,8 +2,10 @@
 
 namespace Vapi\Types;
 
-enum AssistantOverridesServerMessagesItem
- : string {
+enum AssistantOverridesServerMessagesItem: string
+{
+    case AssistantStarted = "assistant.started";
+    case AssistantSpeechStarted = "assistant.speechStarted";
     case ConversationUpdate = "conversation-update";
     case EndOfCallReport = "end-of-call-report";
     case FunctionCall = "function-call";

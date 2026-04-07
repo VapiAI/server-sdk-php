@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class AssemblyAiCredential extends JsonSerializableType
 {
     /**
-     * @var 'assembly-ai' $provider
+     * @var value-of<AssemblyAiCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class AssemblyAiCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'assembly-ai',
+     *   provider: value-of<AssemblyAiCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

@@ -11,7 +11,7 @@ use Vapi\Core\Types\ArrayType;
 class ByoSipTrunkCredential extends JsonSerializableType
 {
     /**
-     * @var ?'byo-sip-trunk' $provider This can be used to bring your own SIP trunks or to connect to a Carrier.
+     * @var ?value-of<ByoSipTrunkCredentialProvider> $provider This can be used to bring your own SIP trunks or to connect to a Carrier.
      */
     #[JsonProperty('provider')]
     public ?string $provider;
@@ -96,7 +96,7 @@ class ByoSipTrunkCredential extends JsonSerializableType
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
      *   gateways: array<SipTrunkGateway>,
-     *   provider?: ?'byo-sip-trunk',
+     *   provider?: ?value-of<ByoSipTrunkCredentialProvider>,
      *   name?: ?string,
      *   outboundAuthenticationPlan?: ?SipTrunkOutboundAuthenticationPlan,
      *   outboundLeadingPlusEnabled?: ?bool,

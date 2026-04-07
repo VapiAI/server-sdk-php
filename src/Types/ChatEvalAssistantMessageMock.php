@@ -9,6 +9,16 @@ use Vapi\Core\Types\ArrayType;
 class ChatEvalAssistantMessageMock extends JsonSerializableType
 {
     /**
+     * This is the role of the message author.
+     * For a mock assistant message, the role is always 'assistant'
+     * @default 'assistant'
+     *
+     * @var value-of<ChatEvalAssistantMessageMockRole> $role
+     */
+    #[JsonProperty('role')]
+    public string $role;
+
+    /**
      * This is the content of the assistant message.
      * This is the message that the assistant would have sent.
      *
@@ -25,13 +35,15 @@ class ChatEvalAssistantMessageMock extends JsonSerializableType
 
     /**
      * @param array{
+     *   role: value-of<ChatEvalAssistantMessageMockRole>,
      *   content?: ?string,
      *   toolCalls?: ?array<ChatEvalAssistantMessageMockToolCall>,
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
+        $this->role = $values['role'];
         $this->content = $values['content'] ?? null;
         $this->toolCalls = $values['toolCalls'] ?? null;
     }

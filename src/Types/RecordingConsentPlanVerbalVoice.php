@@ -24,6 +24,7 @@ class RecordingConsentPlanVerbalVoice extends JsonSerializableType
      *   |'neuphonic'
      *   |'openai'
      *   |'playht'
+     *   |'wellsaid'
      *   |'rime-ai'
      *   |'smallest-ai'
      *   |'tavus'
@@ -48,6 +49,7 @@ class RecordingConsentPlanVerbalVoice extends JsonSerializableType
      *   |NeuphonicVoice
      *   |OpenAiVoice
      *   |PlayHtVoice
+     *   |WellSaidVoice
      *   |RimeAiVoice
      *   |SmallestAiVoice
      *   |TavusVoice
@@ -73,6 +75,7 @@ class RecordingConsentPlanVerbalVoice extends JsonSerializableType
      *   |'neuphonic'
      *   |'openai'
      *   |'playht'
+     *   |'wellsaid'
      *   |'rime-ai'
      *   |'smallest-ai'
      *   |'tavus'
@@ -93,6 +96,7 @@ class RecordingConsentPlanVerbalVoice extends JsonSerializableType
      *   |NeuphonicVoice
      *   |OpenAiVoice
      *   |PlayHtVoice
+     *   |WellSaidVoice
      *   |RimeAiVoice
      *   |SmallestAiVoice
      *   |TavusVoice
@@ -228,6 +232,18 @@ class RecordingConsentPlanVerbalVoice extends JsonSerializableType
         return new RecordingConsentPlanVerbalVoice([
             'provider' => 'playht',
             'value' => $playht,
+        ]);
+    }
+
+    /**
+     * @param WellSaidVoice $wellsaid
+     * @return RecordingConsentPlanVerbalVoice
+     */
+    public static function wellsaid(WellSaidVoice $wellsaid): RecordingConsentPlanVerbalVoice
+    {
+        return new RecordingConsentPlanVerbalVoice([
+            'provider' => 'wellsaid',
+            'value' => $wellsaid,
         ]);
     }
 
@@ -538,6 +554,28 @@ class RecordingConsentPlanVerbalVoice extends JsonSerializableType
     /**
      * @return bool
      */
+    public function isWellsaid(): bool
+    {
+        return $this->value instanceof WellSaidVoice && $this->provider === 'wellsaid';
+    }
+
+    /**
+     * @return WellSaidVoice
+     */
+    public function asWellsaid(): WellSaidVoice
+    {
+        if (!($this->value instanceof WellSaidVoice && $this->provider === 'wellsaid')) {
+            throw new Exception(
+                "Expected wellsaid; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
     public function isRimeAi(): bool
     {
         return $this->value instanceof RimeAiVoice && $this->provider === 'rime-ai';
@@ -749,6 +787,10 @@ class RecordingConsentPlanVerbalVoice extends JsonSerializableType
                 $value = $this->asPlayht()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
+            case 'wellsaid':
+                $value = $this->asWellsaid()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
             case 'rime-ai':
                 $value = $this->asRimeAi()->jsonSerialize();
                 $result = array_merge($value, $result);
@@ -854,6 +896,9 @@ class RecordingConsentPlanVerbalVoice extends JsonSerializableType
                 break;
             case 'playht':
                 $args['value'] = PlayHtVoice::jsonDeserialize($data);
+                break;
+            case 'wellsaid':
+                $args['value'] = WellSaidVoice::jsonDeserialize($data);
                 break;
             case 'rime-ai':
                 $args['value'] = RimeAiVoice::jsonDeserialize($data);

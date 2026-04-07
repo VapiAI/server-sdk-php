@@ -21,7 +21,7 @@ class ResponseOutputText extends JsonSerializableType
     public string $text;
 
     /**
-     * @var 'output_text' $type The type of the output text
+     * @var value-of<ResponseOutputTextType> $type The type of the output text
      */
     #[JsonProperty('type')]
     public string $type;
@@ -30,7 +30,7 @@ class ResponseOutputText extends JsonSerializableType
      * @param array{
      *   annotations: array<array<string, mixed>>,
      *   text: string,
-     *   type: 'output_text',
+     *   type: value-of<ResponseOutputTextType>,
      * } $values
      */
     public function __construct(

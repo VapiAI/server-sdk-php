@@ -32,7 +32,7 @@ class ResponseTextDeltaEvent extends JsonSerializableType
     public float $outputIndex;
 
     /**
-     * @var 'response.output_text.delta' $type Event type
+     * @var value-of<ResponseTextDeltaEventType> $type Event type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -43,7 +43,7 @@ class ResponseTextDeltaEvent extends JsonSerializableType
      *   delta: string,
      *   itemId: string,
      *   outputIndex: float,
-     *   type: 'response.output_text.delta',
+     *   type: value-of<ResponseTextDeltaEventType>,
      * } $values
      */
     public function __construct(

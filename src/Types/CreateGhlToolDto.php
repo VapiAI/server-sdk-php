@@ -19,7 +19,7 @@ class CreateGhlToolDto extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var 'ghl' $type The type of tool. "ghl" for GHL tool.
+     * @var value-of<CreateGhlToolDtoType> $type The type of tool. "ghl" for GHL tool.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -117,7 +117,7 @@ class CreateGhlToolDto extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'ghl',
+     *   type: value-of<CreateGhlToolDtoType>,
      *   metadata: GhlToolMetadata,
      *   messages?: ?array<CreateGhlToolDtoMessagesItem>,
      *   rejectionPlan?: ?ToolRejectionPlan,

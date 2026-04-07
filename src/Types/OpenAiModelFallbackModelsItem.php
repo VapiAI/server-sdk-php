@@ -4,7 +4,15 @@ namespace Vapi\Types;
 
 enum OpenAiModelFallbackModelsItem: string
 {
+    case Gpt54 = "gpt-5.4";
+    case Gpt54Mini = "gpt-5.4-mini";
+    case Gpt54Nano = "gpt-5.4-nano";
+    case Gpt52 = "gpt-5.2";
+    case Gpt52ChatLatest = "gpt-5.2-chat-latest";
+    case Gpt51 = "gpt-5.1";
+    case Gpt51ChatLatest = "gpt-5.1-chat-latest";
     case Gpt5 = "gpt-5";
+    case Gpt5ChatLatest = "gpt-5-chat-latest";
     case Gpt5Mini = "gpt-5-mini";
     case Gpt5Nano = "gpt-5-nano";
     case Gpt4120250414 = "gpt-4.1-2025-04-14";
@@ -23,6 +31,7 @@ enum OpenAiModelFallbackModelsItem: string
     case Gpt4ORealtimePreview20241217 = "gpt-4o-realtime-preview-2024-12-17";
     case Gpt4OMiniRealtimePreview20241217 = "gpt-4o-mini-realtime-preview-2024-12-17";
     case GptRealtime20250828 = "gpt-realtime-2025-08-28";
+    case GptRealtimeMini20251215 = "gpt-realtime-mini-2025-12-15";
     case Gpt4OMini20240718 = "gpt-4o-mini-2024-07-18";
     case Gpt4OMini = "gpt-4o-mini";
     case Gpt4O = "gpt-4o";
@@ -47,12 +56,20 @@ enum OpenAiModelFallbackModelsItem: string
     case Gpt4120250414Westus3 = "gpt-4.1-2025-04-14:westus3";
     case Gpt4120250414Northcentralus = "gpt-4.1-2025-04-14:northcentralus";
     case Gpt4120250414Southcentralus = "gpt-4.1-2025-04-14:southcentralus";
+    case Gpt4120250414Westeurope = "gpt-4.1-2025-04-14:westeurope";
+    case Gpt4120250414Germanywestcentral = "gpt-4.1-2025-04-14:germanywestcentral";
+    case Gpt4120250414Polandcentral = "gpt-4.1-2025-04-14:polandcentral";
+    case Gpt4120250414Spaincentral = "gpt-4.1-2025-04-14:spaincentral";
     case Gpt41Mini20250414Westus = "gpt-4.1-mini-2025-04-14:westus";
     case Gpt41Mini20250414Eastus2 = "gpt-4.1-mini-2025-04-14:eastus2";
     case Gpt41Mini20250414Eastus = "gpt-4.1-mini-2025-04-14:eastus";
     case Gpt41Mini20250414Westus3 = "gpt-4.1-mini-2025-04-14:westus3";
     case Gpt41Mini20250414Northcentralus = "gpt-4.1-mini-2025-04-14:northcentralus";
     case Gpt41Mini20250414Southcentralus = "gpt-4.1-mini-2025-04-14:southcentralus";
+    case Gpt41Mini20250414Westeurope = "gpt-4.1-mini-2025-04-14:westeurope";
+    case Gpt41Mini20250414Germanywestcentral = "gpt-4.1-mini-2025-04-14:germanywestcentral";
+    case Gpt41Mini20250414Polandcentral = "gpt-4.1-mini-2025-04-14:polandcentral";
+    case Gpt41Mini20250414Spaincentral = "gpt-4.1-mini-2025-04-14:spaincentral";
     case Gpt41Nano20250414Westus = "gpt-4.1-nano-2025-04-14:westus";
     case Gpt41Nano20250414Eastus2 = "gpt-4.1-nano-2025-04-14:eastus2";
     case Gpt41Nano20250414Westus3 = "gpt-4.1-nano-2025-04-14:westus3";
@@ -64,6 +81,10 @@ enum OpenAiModelFallbackModelsItem: string
     case Gpt4O20241120Eastus = "gpt-4o-2024-11-20:eastus";
     case Gpt4O20241120Westus3 = "gpt-4o-2024-11-20:westus3";
     case Gpt4O20241120Southcentralus = "gpt-4o-2024-11-20:southcentralus";
+    case Gpt4O20241120Westeurope = "gpt-4o-2024-11-20:westeurope";
+    case Gpt4O20241120Germanywestcentral = "gpt-4o-2024-11-20:germanywestcentral";
+    case Gpt4O20241120Polandcentral = "gpt-4o-2024-11-20:polandcentral";
+    case Gpt4O20241120Spaincentral = "gpt-4o-2024-11-20:spaincentral";
     case Gpt4O20240806Westus = "gpt-4o-2024-08-06:westus";
     case Gpt4O20240806Westus3 = "gpt-4o-2024-08-06:westus3";
     case Gpt4O20240806Eastus = "gpt-4o-2024-08-06:eastus";
@@ -86,7 +107,7 @@ enum OpenAiModelFallbackModelsItem: string
     case Gpt40125PreviewEastus = "gpt-4-0125-preview:eastus";
     case Gpt40125PreviewNorthcentralus = "gpt-4-0125-preview:northcentralus";
     case Gpt40125PreviewSouthcentralus = "gpt-4-0125-preview:southcentralus";
-    case Gpt41106PreviewAustralia = "gpt-4-1106-preview:australia";
+    case Gpt41106PreviewAustraliaeast = "gpt-4-1106-preview:australiaeast";
     case Gpt41106PreviewCanadaeast = "gpt-4-1106-preview:canadaeast";
     case Gpt41106PreviewFrance = "gpt-4-1106-preview:france";
     case Gpt41106PreviewIndia = "gpt-4-1106-preview:india";

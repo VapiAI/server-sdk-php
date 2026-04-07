@@ -19,6 +19,12 @@ class CreateHandoffToolDto extends JsonSerializableType
     public ?array $messages;
 
     /**
+     * @var ?string $defaultResult This is the default local tool result message used when no runtime handoff result override is returned.
+     */
+    #[JsonProperty('defaultResult')]
+    public ?string $defaultResult;
+
+    /**
      * These are the destinations that the call can be handed off to.
      *
      * Usage:
@@ -386,6 +392,7 @@ class CreateHandoffToolDto extends JsonSerializableType
     /**
      * @param array{
      *   messages?: ?array<CreateHandoffToolDtoMessagesItem>,
+     *   defaultResult?: ?string,
      *   destinations?: ?array<CreateHandoffToolDtoDestinationsItem>,
      *   function?: ?OpenAiFunction,
      *   rejectionPlan?: ?ToolRejectionPlan,
@@ -395,6 +402,7 @@ class CreateHandoffToolDto extends JsonSerializableType
         array $values = [],
     ) {
         $this->messages = $values['messages'] ?? null;
+        $this->defaultResult = $values['defaultResult'] ?? null;
         $this->destinations = $values['destinations'] ?? null;
         $this->function = $values['function'] ?? null;
         $this->rejectionPlan = $values['rejectionPlan'] ?? null;

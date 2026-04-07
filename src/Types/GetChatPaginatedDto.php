@@ -10,10 +10,22 @@ use Vapi\Core\Types\Date;
 class GetChatPaginatedDto extends JsonSerializableType
 {
     /**
+     * @var ?string $id This is the unique identifier for the chat to filter by.
+     */
+    #[JsonProperty('id')]
+    public ?string $id;
+
+    /**
      * @var ?string $assistantId This is the unique identifier for the assistant that will be used for the chat.
      */
     #[JsonProperty('assistantId')]
     public ?string $assistantId;
+
+    /**
+     * @var ?string $assistantIdAny Filter by multiple assistant IDs. Provide as comma-separated values.
+     */
+    #[JsonProperty('assistantIdAny')]
+    public ?string $assistantIdAny;
 
     /**
      * @var ?string $squadId This is the unique identifier for the squad that will be used for the chat.
@@ -22,16 +34,16 @@ class GetChatPaginatedDto extends JsonSerializableType
     public ?string $squadId;
 
     /**
-     * @var ?string $workflowId This is the unique identifier for the workflow that will be used for the chat.
-     */
-    #[JsonProperty('workflowId')]
-    public ?string $workflowId;
-
-    /**
      * @var ?string $sessionId This is the unique identifier for the session that will be used for the chat.
      */
     #[JsonProperty('sessionId')]
     public ?string $sessionId;
+
+    /**
+     * @var ?string $previousChatId This is the unique identifier for the previous chat to filter by.
+     */
+    #[JsonProperty('previousChatId')]
+    public ?string $previousChatId;
 
     /**
      * @var ?float $page This is the page number to return. Defaults to 1.
@@ -101,10 +113,12 @@ class GetChatPaginatedDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   id?: ?string,
      *   assistantId?: ?string,
+     *   assistantIdAny?: ?string,
      *   squadId?: ?string,
-     *   workflowId?: ?string,
      *   sessionId?: ?string,
+     *   previousChatId?: ?string,
      *   page?: ?float,
      *   sortOrder?: ?value-of<GetChatPaginatedDtoSortOrder>,
      *   limit?: ?float,
@@ -121,10 +135,12 @@ class GetChatPaginatedDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->id = $values['id'] ?? null;
         $this->assistantId = $values['assistantId'] ?? null;
+        $this->assistantIdAny = $values['assistantIdAny'] ?? null;
         $this->squadId = $values['squadId'] ?? null;
-        $this->workflowId = $values['workflowId'] ?? null;
         $this->sessionId = $values['sessionId'] ?? null;
+        $this->previousChatId = $values['previousChatId'] ?? null;
         $this->page = $values['page'] ?? null;
         $this->sortOrder = $values['sortOrder'] ?? null;
         $this->limit = $values['limit'] ?? null;

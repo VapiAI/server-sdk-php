@@ -19,7 +19,7 @@ class CreateOutputToolDto extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var 'output' $type The type of tool. "output" for Output tool.
+     * @var value-of<CreateOutputToolDtoType> $type The type of tool. "output" for Output tool.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -111,7 +111,7 @@ class CreateOutputToolDto extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'output',
+     *   type: value-of<CreateOutputToolDtoType>,
      *   messages?: ?array<CreateOutputToolDtoMessagesItem>,
      *   rejectionPlan?: ?ToolRejectionPlan,
      * } $values

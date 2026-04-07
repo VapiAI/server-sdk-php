@@ -19,6 +19,12 @@ class CreateDtmfToolDto extends JsonSerializableType
     public ?array $messages;
 
     /**
+     * @var ?bool $sipInfoDtmfEnabled This enables sending DTMF tones via SIP INFO messages instead of RFC 2833 (RTP events). When enabled, DTMF digits will be sent using the SIP INFO method, which can be more reliable in some network configurations. Only relevant when using the `vapi.sip` transport.
+     */
+    #[JsonProperty('sipInfoDtmfEnabled')]
+    public ?bool $sipInfoDtmfEnabled;
+
+    /**
      * This is the plan to reject a tool call based on the conversation state.
      *
      * // Example 1: Reject endCall if user didn't say goodbye
@@ -106,6 +112,7 @@ class CreateDtmfToolDto extends JsonSerializableType
     /**
      * @param array{
      *   messages?: ?array<CreateDtmfToolDtoMessagesItem>,
+     *   sipInfoDtmfEnabled?: ?bool,
      *   rejectionPlan?: ?ToolRejectionPlan,
      * } $values
      */
@@ -113,6 +120,7 @@ class CreateDtmfToolDto extends JsonSerializableType
         array $values = [],
     ) {
         $this->messages = $values['messages'] ?? null;
+        $this->sipInfoDtmfEnabled = $values['sipInfoDtmfEnabled'] ?? null;
         $this->rejectionPlan = $values['rejectionPlan'] ?? null;
     }
 

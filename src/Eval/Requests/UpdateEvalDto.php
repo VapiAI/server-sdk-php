@@ -6,11 +6,13 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Types\ChatEvalAssistantMessageMock;
 use Vapi\Types\ChatEvalSystemMessageMock;
 use Vapi\Types\ChatEvalToolResponseMessageMock;
+use Vapi\Types\ChatEvalToolResponseMessageEvaluation;
 use Vapi\Types\ChatEvalUserMessageMock;
 use Vapi\Types\ChatEvalAssistantMessageEvaluation;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
+use Vapi\Eval\Types\UpdateEvalDtoType;
 
 class UpdateEvalDto extends JsonSerializableType
 {
@@ -25,11 +27,12 @@ class UpdateEvalDto extends JsonSerializableType
      *    ChatEvalAssistantMessageMock
      *   |ChatEvalSystemMessageMock
      *   |ChatEvalToolResponseMessageMock
+     *   |ChatEvalToolResponseMessageEvaluation
      *   |ChatEvalUserMessageMock
      *   |ChatEvalAssistantMessageEvaluation
      * )> $messages
      */
-    #[JsonProperty('messages'), ArrayType([new Union(ChatEvalAssistantMessageMock::class, ChatEvalSystemMessageMock::class, ChatEvalToolResponseMessageMock::class, ChatEvalUserMessageMock::class, ChatEvalAssistantMessageEvaluation::class)])]
+    #[JsonProperty('messages'), ArrayType([new Union(ChatEvalAssistantMessageMock::class, ChatEvalSystemMessageMock::class, ChatEvalToolResponseMessageMock::class, ChatEvalToolResponseMessageEvaluation::class, ChatEvalUserMessageMock::class, ChatEvalAssistantMessageEvaluation::class)])]
     public ?array $messages;
 
     /**
@@ -54,7 +57,7 @@ class UpdateEvalDto extends JsonSerializableType
      * This is the type of the eval.
      * Currently it is fixed to `chat.mockConversation`.
      *
-     * @var ?'chat.mockConversation' $type
+     * @var ?value-of<UpdateEvalDtoType> $type
      */
     #[JsonProperty('type')]
     public ?string $type;
@@ -65,12 +68,13 @@ class UpdateEvalDto extends JsonSerializableType
      *    ChatEvalAssistantMessageMock
      *   |ChatEvalSystemMessageMock
      *   |ChatEvalToolResponseMessageMock
+     *   |ChatEvalToolResponseMessageEvaluation
      *   |ChatEvalUserMessageMock
      *   |ChatEvalAssistantMessageEvaluation
      * )>,
      *   name?: ?string,
      *   description?: ?string,
-     *   type?: ?'chat.mockConversation',
+     *   type?: ?value-of<UpdateEvalDtoType>,
      * } $values
      */
     public function __construct(

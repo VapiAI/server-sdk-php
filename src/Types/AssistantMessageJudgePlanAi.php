@@ -23,14 +23,38 @@ class AssistantMessageJudgePlanAi extends JsonSerializableType
     public AssistantMessageJudgePlanAiModel $model;
 
     /**
+     * This is the type of the judge plan.
+     * Use 'ai' to evaluate the assistant message content using LLM-as-a-judge.
+     * @default 'ai'
+     *
+     * @var value-of<AssistantMessageJudgePlanAiType> $type
+     */
+    #[JsonProperty('type')]
+    public string $type;
+
+    /**
+     * This is the flag to enable automatically adding the liquid variable {{messages}} to the model's messages array
+     * This is only applicable if the user has not provided any messages in the model's messages array
+     * @default true
+     *
+     * @var ?bool $autoIncludeMessageHistory
+     */
+    #[JsonProperty('autoIncludeMessageHistory')]
+    public ?bool $autoIncludeMessageHistory;
+
+    /**
      * @param array{
      *   model: AssistantMessageJudgePlanAiModel,
+     *   type: value-of<AssistantMessageJudgePlanAiType>,
+     *   autoIncludeMessageHistory?: ?bool,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
         $this->model = $values['model'];
+        $this->type = $values['type'];
+        $this->autoIncludeMessageHistory = $values['autoIncludeMessageHistory'] ?? null;
     }
 
     /**

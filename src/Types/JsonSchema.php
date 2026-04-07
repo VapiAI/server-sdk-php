@@ -25,23 +25,15 @@ class JsonSchema extends JsonSerializableType
     public string $type;
 
     /**
-     * This is required if the type is "array". This is the schema of the items in the array.
-     *
-     * This is of type JsonSchema. However, Swagger doesn't support circular references.
-     *
-     * @var ?array<string, mixed> $items
+     * @var ?JsonSchema $items This is required if the type is "array". This is the schema of the items in the array. This is a recursive reference to JsonSchema.
      */
-    #[JsonProperty('items'), ArrayType(['string' => 'mixed'])]
-    public ?array $items;
+    #[JsonProperty('items')]
+    public ?JsonSchema $items;
 
     /**
-     * This is required if the type is "object". This specifies the properties of the object.
-     *
-     * This is a map of string to JsonSchema. However, Swagger doesn't support circular references.
-     *
-     * @var ?array<string, mixed> $properties
+     * @var ?array<string, JsonSchema> $properties This is required if the type is "object". This specifies the properties of the object. This is a map of property names to JsonSchema objects.
      */
-    #[JsonProperty('properties'), ArrayType(['string' => 'mixed'])]
+    #[JsonProperty('properties'), ArrayType(['string' => JsonSchema::class])]
     public ?array $properties;
 
     /**
@@ -95,8 +87,8 @@ class JsonSchema extends JsonSerializableType
     /**
      * @param array{
      *   type: value-of<JsonSchemaType>,
-     *   items?: ?array<string, mixed>,
-     *   properties?: ?array<string, mixed>,
+     *   items?: ?JsonSchema,
+     *   properties?: ?array<string, JsonSchema>,
      *   description?: ?string,
      *   pattern?: ?string,
      *   format?: ?value-of<JsonSchemaFormat>,

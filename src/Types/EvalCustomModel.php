@@ -48,9 +48,24 @@ class EvalCustomModel extends JsonSerializableType
     public ?float $maxTokens;
 
     /**
+     * These are the messages which will instruct the AI Judge on how to evaluate the assistant message.
+     * The LLM-Judge must respond with "pass" or "fail" to indicate if the assistant message passes the eval.
+     *
+     * To access the messages in the mock conversation, use the LiquidJS variable `{{messages}}`.
+     * The assistant message to be evaluated will be passed as the last message in the `messages` array and can be accessed using `{{messages[-1]}}`.
+     *
+     * It is recommended to use the system message to instruct the LLM how to evaluate the assistant message, and then use the first user message to pass the assistant message to be evaluated.
+     *
+     * @var array<array<string, mixed>> $messages
+     */
+    #[JsonProperty('messages'), ArrayType([['string' => 'mixed']])]
+    public array $messages;
+
+    /**
      * @param array{
      *   url: string,
      *   model: string,
+     *   messages: array<array<string, mixed>>,
      *   headers?: ?array<string, mixed>,
      *   timeoutSeconds?: ?float,
      *   temperature?: ?float,
@@ -66,6 +81,7 @@ class EvalCustomModel extends JsonSerializableType
         $this->model = $values['model'];
         $this->temperature = $values['temperature'] ?? null;
         $this->maxTokens = $values['maxTokens'] ?? null;
+        $this->messages = $values['messages'];
     }
 
     /**

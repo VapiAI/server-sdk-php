@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class DeepgramCredential extends JsonSerializableType
 {
     /**
-     * @var 'deepgram' $provider
+     * @var value-of<DeepgramCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -59,7 +59,7 @@ class DeepgramCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'deepgram',
+     *   provider: value-of<DeepgramCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

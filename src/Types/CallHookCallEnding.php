@@ -9,15 +9,15 @@ use Vapi\Core\Types\ArrayType;
 class CallHookCallEnding extends JsonSerializableType
 {
     /**
-     * @var 'call.ending' $on This is the event that triggers this hook
+     * @var value-of<CallHookCallEndingOn> $on This is the event that triggers this hook
      */
     #[JsonProperty('on')]
     public string $on;
 
     /**
-     * @var array<ToolCallHookAction> $do This is the set of actions to perform when the hook triggers
+     * @var array<CallHookCallEndingDoItem> $do This is the set of actions to perform when the hook triggers
      */
-    #[JsonProperty('do'), ArrayType([ToolCallHookAction::class])]
+    #[JsonProperty('do'), ArrayType([CallHookCallEndingDoItem::class])]
     public array $do;
 
     /**
@@ -28,8 +28,8 @@ class CallHookCallEnding extends JsonSerializableType
 
     /**
      * @param array{
-     *   on: 'call.ending',
-     *   do: array<ToolCallHookAction>,
+     *   on: value-of<CallHookCallEndingOn>,
+     *   do: array<CallHookCallEndingDoItem>,
      *   filters?: ?array<CallHookFilter>,
      * } $values
      */

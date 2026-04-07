@@ -9,7 +9,7 @@ use Vapi\Core\Types\ArrayType;
 class TrieveKnowledgeBaseCreate extends JsonSerializableType
 {
     /**
-     * @var 'create' $type This is to create a new dataset on Trieve.
+     * @var value-of<TrieveKnowledgeBaseCreateType> $type This is to create a new dataset on Trieve.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -22,7 +22,7 @@ class TrieveKnowledgeBaseCreate extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'create',
+     *   type: value-of<TrieveKnowledgeBaseCreateType>,
      *   chunkPlans: array<TrieveKnowledgeBaseChunkPlan>,
      * } $values
      */

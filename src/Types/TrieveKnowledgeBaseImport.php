@@ -8,7 +8,7 @@ use Vapi\Core\Json\JsonProperty;
 class TrieveKnowledgeBaseImport extends JsonSerializableType
 {
     /**
-     * @var 'import' $type This is to import an existing dataset from Trieve.
+     * @var value-of<TrieveKnowledgeBaseImportType> $type This is to import an existing dataset from Trieve.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -21,7 +21,7 @@ class TrieveKnowledgeBaseImport extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'import',
+     *   type: value-of<TrieveKnowledgeBaseImportType>,
      *   providerId: string,
      * } $values
      */

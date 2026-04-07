@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class GoogleCalendarOAuth2ClientCredential extends JsonSerializableType
 {
     /**
-     * @var 'google.calendar.oauth2-client' $provider
+     * @var value-of<GoogleCalendarOAuth2ClientCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -47,7 +47,7 @@ class GoogleCalendarOAuth2ClientCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'google.calendar.oauth2-client',
+     *   provider: value-of<GoogleCalendarOAuth2ClientCredentialProvider>,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,

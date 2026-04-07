@@ -9,7 +9,7 @@ use Vapi\Core\Types\ArrayType;
 class CallHookFilter extends JsonSerializableType
 {
     /**
-     * @var 'oneOf' $type This is the type of filter - currently only "oneOf" is supported
+     * @var value-of<CallHookFilterType> $type This is the type of filter - currently only "oneOf" is supported
      */
     #[JsonProperty('type')]
     public string $type;
@@ -28,7 +28,7 @@ class CallHookFilter extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'oneOf',
+     *   type: value-of<CallHookFilterType>,
      *   key: string,
      *   oneOf: array<string>,
      * } $values

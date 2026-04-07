@@ -1,0 +1,138 @@
+<?php
+
+namespace Vapi\Types;
+
+use Vapi\Core\Json\JsonSerializableType;
+use Vapi\Core\Json\JsonProperty;
+use Vapi\Core\Types\ArrayType;
+use Vapi\Core\Types\Union;
+use DateTime;
+use Vapi\Core\Types\Date;
+
+class LineInsight extends JsonSerializableType
+{
+    /**
+     * @var ?string $name This is the name of the Insight.
+     */
+    #[JsonProperty('name')]
+    public ?string $name;
+
+    /**
+     * Formulas are mathematical expressions applied on the data returned by the queries to transform them before being used to create the insight.
+     * The formulas needs to be a valid mathematical expression, supported by MathJS - https://mathjs.org/docs/expressions/syntax.html
+     * A formula is created by using the query names as the variable.
+     * The formulas must contain at least one query name in the LiquidJS format {{query_name}} or {{['query name']}} which will be substituted with the query result.
+     * For example, if you have 2 queries, 'Was Booking Made' and 'Average Call Duration', you can create a formula like this:
+     * ```
+     * {{['Query 1']}} / {{['Query 2']}} * 100
+     * ```
+     *
+     * ```
+     * ({{[Query 1]}} * 10) + {{[Query 2]}}
+     * ```
+     * This will take the
+     *
+     * You can also use the query names as the variable in the formula.
+     *
+     * @var ?array<InsightFormula> $formulas
+     */
+    #[JsonProperty('formulas'), ArrayType([InsightFormula::class])]
+    public ?array $formulas;
+
+    /**
+     * @var ?LineInsightMetadata $metadata This is the metadata for the insight.
+     */
+    #[JsonProperty('metadata')]
+    public ?LineInsightMetadata $metadata;
+
+    /**
+     * @var ?InsightTimeRangeWithStep $timeRange
+     */
+    #[JsonProperty('timeRange')]
+    public ?InsightTimeRangeWithStep $timeRange;
+
+    /**
+     * This is the group by column for the insight when table is `call`.
+     * These are the columns to group the results by.
+     * All results are grouped by the time range step by default.
+     *
+     * @var ?value-of<LineInsightGroupBy> $groupBy
+     */
+    #[JsonProperty('groupBy')]
+    public ?string $groupBy;
+
+    /**
+     * @var array<(
+     *    JsonQueryOnCallTableWithStringTypeColumn
+     *   |JsonQueryOnCallTableWithNumberTypeColumn
+     *   |JsonQueryOnCallTableWithStructuredOutputColumn
+     * )> $queries These are the queries to run to generate the insight.
+     */
+    #[JsonProperty('queries'), ArrayType([new Union(JsonQueryOnCallTableWithStringTypeColumn::class, JsonQueryOnCallTableWithNumberTypeColumn::class, JsonQueryOnCallTableWithStructuredOutputColumn::class)])]
+    public array $queries;
+
+    /**
+     * @var string $id This is the unique identifier for the Insight.
+     */
+    #[JsonProperty('id')]
+    public string $id;
+
+    /**
+     * @var string $orgId This is the unique identifier for the org that this Insight belongs to.
+     */
+    #[JsonProperty('orgId')]
+    public string $orgId;
+
+    /**
+     * @var DateTime $createdAt This is the ISO 8601 date-time string of when the Insight was created.
+     */
+    #[JsonProperty('createdAt'), Date(Date::TYPE_DATETIME)]
+    public DateTime $createdAt;
+
+    /**
+     * @var DateTime $updatedAt This is the ISO 8601 date-time string of when the Insight was last updated.
+     */
+    #[JsonProperty('updatedAt'), Date(Date::TYPE_DATETIME)]
+    public DateTime $updatedAt;
+
+    /**
+     * @param array{
+     *   queries: array<(
+     *    JsonQueryOnCallTableWithStringTypeColumn
+     *   |JsonQueryOnCallTableWithNumberTypeColumn
+     *   |JsonQueryOnCallTableWithStructuredOutputColumn
+     * )>,
+     *   id: string,
+     *   orgId: string,
+     *   createdAt: DateTime,
+     *   updatedAt: DateTime,
+     *   name?: ?string,
+     *   formulas?: ?array<InsightFormula>,
+     *   metadata?: ?LineInsightMetadata,
+     *   timeRange?: ?InsightTimeRangeWithStep,
+     *   groupBy?: ?value-of<LineInsightGroupBy>,
+     * } $values
+     */
+    public function __construct(
+        array $values,
+    ) {
+        $this->name = $values['name'] ?? null;
+        $this->formulas = $values['formulas'] ?? null;
+        $this->metadata = $values['metadata'] ?? null;
+        $this->timeRange = $values['timeRange'] ?? null;
+        $this->groupBy = $values['groupBy'] ?? null;
+        $this->queries = $values['queries'];
+        $this->id = $values['id'];
+        $this->orgId = $values['orgId'];
+        $this->createdAt = $values['createdAt'];
+        $this->updatedAt = $values['updatedAt'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
+}

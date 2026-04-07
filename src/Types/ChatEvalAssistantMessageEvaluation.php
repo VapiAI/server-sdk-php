@@ -12,7 +12,7 @@ class ChatEvalAssistantMessageEvaluation extends JsonSerializableType
      * For an assistant message evaluation, the role is always 'assistant'
      * @default 'assistant'
      *
-     * @var 'assistant' $role
+     * @var value-of<ChatEvalAssistantMessageEvaluationRole> $role
      */
     #[JsonProperty('role')]
     public string $role;
@@ -37,7 +37,7 @@ class ChatEvalAssistantMessageEvaluation extends JsonSerializableType
 
     /**
      * @param array{
-     *   role: 'assistant',
+     *   role: value-of<ChatEvalAssistantMessageEvaluationRole>,
      *   judgePlan: ChatEvalAssistantMessageEvaluationJudgePlan,
      *   continuePlan?: ?AssistantMessageEvaluationContinuePlan,
      * } $values

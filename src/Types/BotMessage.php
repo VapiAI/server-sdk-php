@@ -50,12 +50,6 @@ class BotMessage extends JsonSerializableType
     public ?float $duration;
 
     /**
-     * @var ?string $speakerLabel Stable speaker label for diarized user speakers (e.g., "Speaker 1").
-     */
-    #[JsonProperty('speakerLabel')]
-    public ?string $speakerLabel;
-
-    /**
      * @param array{
      *   role: string,
      *   message: string,
@@ -64,7 +58,6 @@ class BotMessage extends JsonSerializableType
      *   secondsFromStart: float,
      *   source?: ?string,
      *   duration?: ?float,
-     *   speakerLabel?: ?string,
      * } $values
      */
     public function __construct(
@@ -77,7 +70,6 @@ class BotMessage extends JsonSerializableType
         $this->secondsFromStart = $values['secondsFromStart'];
         $this->source = $values['source'] ?? null;
         $this->duration = $values['duration'] ?? null;
-        $this->speakerLabel = $values['speakerLabel'] ?? null;
     }
 
     /**

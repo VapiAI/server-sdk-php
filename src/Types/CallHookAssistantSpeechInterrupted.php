@@ -9,7 +9,7 @@ use Vapi\Core\Types\ArrayType;
 class CallHookAssistantSpeechInterrupted extends JsonSerializableType
 {
     /**
-     * @var 'assistant.speech.interrupted' $on This is the event that triggers this hook
+     * @var value-of<CallHookAssistantSpeechInterruptedOn> $on This is the event that triggers this hook
      */
     #[JsonProperty('on')]
     public string $on;
@@ -22,7 +22,7 @@ class CallHookAssistantSpeechInterrupted extends JsonSerializableType
 
     /**
      * @param array{
-     *   on: 'assistant.speech.interrupted',
+     *   on: value-of<CallHookAssistantSpeechInterruptedOn>,
      *   do: array<CallHookAssistantSpeechInterruptedDoItem>,
      * } $values
      */

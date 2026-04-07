@@ -31,7 +31,7 @@ class StartSpeakingPlan extends JsonSerializableType
     /**
      * @var (
      *    bool
-     *   |'livekit'
+     *   |value-of<StartSpeakingPlanSmartEndpointingEnabledOne>
      * )|null $smartEndpointingEnabled
      */
     #[JsonProperty('smartEndpointingEnabled'), Union('bool', 'string', 'null')]
@@ -96,7 +96,7 @@ class StartSpeakingPlan extends JsonSerializableType
      *   waitSeconds?: ?float,
      *   smartEndpointingEnabled?: (
      *    bool
-     *   |'livekit'
+     *   |value-of<StartSpeakingPlanSmartEndpointingEnabledOne>
      * )|null,
      *   smartEndpointingPlan?: (
      *    VapiSmartEndpointingPlan

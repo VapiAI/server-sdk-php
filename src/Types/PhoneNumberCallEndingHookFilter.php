@@ -9,13 +9,13 @@ use Vapi\Core\Types\ArrayType;
 class PhoneNumberCallEndingHookFilter extends JsonSerializableType
 {
     /**
-     * @var 'oneOf' $type This is the type of filter - currently only "oneOf" is supported
+     * @var value-of<PhoneNumberCallEndingHookFilterType> $type This is the type of filter - currently only "oneOf" is supported
      */
     #[JsonProperty('type')]
     public string $type;
 
     /**
-     * @var 'call.endedReason' $key This is the key to filter on - only "call.endedReason" is allowed for phone number call ending hooks
+     * @var value-of<PhoneNumberCallEndingHookFilterKey> $key This is the key to filter on - only "call.endedReason" is allowed for phone number call ending hooks
      */
     #[JsonProperty('key')]
     public string $key;
@@ -28,8 +28,8 @@ class PhoneNumberCallEndingHookFilter extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'oneOf',
-     *   key: 'call.endedReason',
+     *   type: value-of<PhoneNumberCallEndingHookFilterType>,
+     *   key: value-of<PhoneNumberCallEndingHookFilterKey>,
      *   oneOf: array<value-of<PhoneNumberCallEndingHookFilterOneOfItem>>,
      * } $values
      */

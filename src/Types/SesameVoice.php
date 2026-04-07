@@ -20,7 +20,7 @@ class SesameVoice extends JsonSerializableType
     public string $voiceId;
 
     /**
-     * @var 'csm-1b' $model This is the model that will be used.
+     * @var value-of<SesameVoiceModel> $model This is the model that will be used.
      */
     #[JsonProperty('model')]
     public string $model;
@@ -40,7 +40,7 @@ class SesameVoice extends JsonSerializableType
     /**
      * @param array{
      *   voiceId: string,
-     *   model: 'csm-1b',
+     *   model: value-of<SesameVoiceModel>,
      *   cachingEnabled?: ?bool,
      *   chunkPlan?: ?ChunkPlan,
      *   fallbackPlan?: ?FallbackPlan,

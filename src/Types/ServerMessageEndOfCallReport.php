@@ -17,7 +17,7 @@ class ServerMessageEndOfCallReport extends JsonSerializableType
     public ?ServerMessageEndOfCallReportPhoneNumber $phoneNumber;
 
     /**
-     * @var 'end-of-call-report' $type This is the type of the message. "end-of-call-report" is sent when the call ends and post-processing is complete.
+     * @var value-of<ServerMessageEndOfCallReportType> $type This is the type of the message. "end-of-call-report" is sent when the call ends and post-processing is complete.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -39,6 +39,15 @@ class ServerMessageEndOfCallReport extends JsonSerializableType
      */
     #[JsonProperty('costs'), ArrayType([ServerMessageEndOfCallReportCostsItem::class])]
     public ?array $costs;
+
+    /**
+     * This is the destination the call was transferred to, if the call was forwarded.
+     * This can also be found at `call.destination` on GET /call/:id.
+     *
+     * @var ?ServerMessageEndOfCallReportDestination $destination
+     */
+    #[JsonProperty('destination')]
+    public ?ServerMessageEndOfCallReportDestination $destination;
 
     /**
      * @var ?float $timestamp This is the timestamp of the message.
@@ -102,13 +111,14 @@ class ServerMessageEndOfCallReport extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'end-of-call-report',
+     *   type: value-of<ServerMessageEndOfCallReportType>,
      *   endedReason: value-of<ServerMessageEndOfCallReportEndedReason>,
      *   artifact: Artifact,
      *   analysis: Analysis,
      *   phoneNumber?: ?ServerMessageEndOfCallReportPhoneNumber,
      *   cost?: ?float,
      *   costs?: ?array<ServerMessageEndOfCallReportCostsItem>,
+     *   destination?: ?ServerMessageEndOfCallReportDestination,
      *   timestamp?: ?float,
      *   assistant?: ?CreateAssistantDto,
      *   customer?: ?CreateCustomerDto,
@@ -127,6 +137,7 @@ class ServerMessageEndOfCallReport extends JsonSerializableType
         $this->endedReason = $values['endedReason'];
         $this->cost = $values['cost'] ?? null;
         $this->costs = $values['costs'] ?? null;
+        $this->destination = $values['destination'] ?? null;
         $this->timestamp = $values['timestamp'] ?? null;
         $this->artifact = $values['artifact'];
         $this->assistant = $values['assistant'] ?? null;

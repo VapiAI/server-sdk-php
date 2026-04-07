@@ -41,7 +41,7 @@ class InflectionAiModel extends JsonSerializableType
     public ?CreateCustomKnowledgeBaseDto $knowledgeBase;
 
     /**
-     * @var 'inflection_3_pi' $model This is the name of the model. Ex. cognitivecomputations/dolphin-mixtral-8x7b
+     * @var value-of<InflectionAiModelModel> $model This is the name of the model. Ex. cognitivecomputations/dolphin-mixtral-8x7b
      */
     #[JsonProperty('model')]
     public string $model;
@@ -84,7 +84,7 @@ class InflectionAiModel extends JsonSerializableType
 
     /**
      * @param array{
-     *   model: 'inflection_3_pi',
+     *   model: value-of<InflectionAiModelModel>,
      *   messages?: ?array<OpenAiMessage>,
      *   tools?: ?array<InflectionAiModelToolsItem>,
      *   toolIds?: ?array<string>,

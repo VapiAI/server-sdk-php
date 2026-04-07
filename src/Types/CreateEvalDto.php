@@ -20,11 +20,12 @@ class CreateEvalDto extends JsonSerializableType
      *    ChatEvalAssistantMessageMock
      *   |ChatEvalSystemMessageMock
      *   |ChatEvalToolResponseMessageMock
+     *   |ChatEvalToolResponseMessageEvaluation
      *   |ChatEvalUserMessageMock
      *   |ChatEvalAssistantMessageEvaluation
      * )> $messages
      */
-    #[JsonProperty('messages'), ArrayType([new Union(ChatEvalAssistantMessageMock::class, ChatEvalSystemMessageMock::class, ChatEvalToolResponseMessageMock::class, ChatEvalUserMessageMock::class, ChatEvalAssistantMessageEvaluation::class)])]
+    #[JsonProperty('messages'), ArrayType([new Union(ChatEvalAssistantMessageMock::class, ChatEvalSystemMessageMock::class, ChatEvalToolResponseMessageMock::class, ChatEvalToolResponseMessageEvaluation::class, ChatEvalUserMessageMock::class, ChatEvalAssistantMessageEvaluation::class)])]
     public array $messages;
 
     /**
@@ -49,7 +50,7 @@ class CreateEvalDto extends JsonSerializableType
      * This is the type of the eval.
      * Currently it is fixed to `chat.mockConversation`.
      *
-     * @var 'chat.mockConversation' $type
+     * @var value-of<CreateEvalDtoType> $type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -60,10 +61,11 @@ class CreateEvalDto extends JsonSerializableType
      *    ChatEvalAssistantMessageMock
      *   |ChatEvalSystemMessageMock
      *   |ChatEvalToolResponseMessageMock
+     *   |ChatEvalToolResponseMessageEvaluation
      *   |ChatEvalUserMessageMock
      *   |ChatEvalAssistantMessageEvaluation
      * )>,
-     *   type: 'chat.mockConversation',
+     *   type: value-of<CreateEvalDtoType>,
      *   name?: ?string,
      *   description?: ?string,
      * } $values

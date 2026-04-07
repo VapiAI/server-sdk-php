@@ -4,6 +4,7 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
+use Vapi\Core\Types\ArrayType;
 
 class CredentialWebhookDto extends JsonSerializableType
 {
@@ -74,6 +75,12 @@ class CredentialWebhookDto extends JsonSerializableType
     public ?CredentialSessionError $error;
 
     /**
+     * @var ?array<string, mixed> $tags
+     */
+    #[JsonProperty('tags'), ArrayType(['string' => 'mixed'])]
+    public ?array $tags;
+
+    /**
      * @param array{
      *   type: value-of<CredentialWebhookDtoType>,
      *   operation: value-of<CredentialWebhookDtoOperation>,
@@ -86,6 +93,7 @@ class CredentialWebhookDto extends JsonSerializableType
      *   success: bool,
      *   endUser: CredentialEndUser,
      *   error?: ?CredentialSessionError,
+     *   tags?: ?array<string, mixed>,
      * } $values
      */
     public function __construct(
@@ -102,6 +110,7 @@ class CredentialWebhookDto extends JsonSerializableType
         $this->success = $values['success'];
         $this->endUser = $values['endUser'];
         $this->error = $values['error'] ?? null;
+        $this->tags = $values['tags'] ?? null;
     }
 
     /**

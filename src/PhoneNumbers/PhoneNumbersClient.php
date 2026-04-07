@@ -2,27 +2,27 @@
 
 namespace Vapi\PhoneNumbers;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Vapi\Core\Client\RawClient;
-use Vapi\PhoneNumbers\Requests\PhoneNumbersListRequest;
-use Vapi\PhoneNumbers\Types\PhoneNumbersListResponseItem;
+use Vapi\PhoneNumbers\Requests\ListPhoneNumbersRequest;
+use Vapi\PhoneNumbers\Types\ListPhoneNumbersResponseItem;
 use Vapi\Exceptions\VapiException;
 use Vapi\Exceptions\VapiApiException;
+use Vapi\Core\Json\JsonSerializer;
 use Vapi\Core\Json\JsonApiRequest;
 use Vapi\Environments;
 use Vapi\Core\Client\HttpMethod;
 use Vapi\Core\Json\JsonDecoder;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
-use Vapi\PhoneNumbers\Types\PhoneNumbersCreateRequest;
-use Vapi\PhoneNumbers\Types\PhoneNumbersCreateResponse;
+use Vapi\PhoneNumbers\Types\CreatePhoneNumbersRequest;
+use Vapi\PhoneNumbers\Types\CreatePhoneNumbersResponse;
 use Vapi\PhoneNumbers\Requests\PhoneNumberControllerFindAllPaginatedRequest;
 use Vapi\Types\PhoneNumberPaginatedResponse;
-use Vapi\PhoneNumbers\Types\PhoneNumbersGetResponse;
-use Vapi\PhoneNumbers\Types\PhoneNumbersDeleteResponse;
-use Vapi\PhoneNumbers\Types\PhoneNumbersUpdateRequest;
-use Vapi\PhoneNumbers\Types\PhoneNumbersUpdateResponse;
+use Vapi\PhoneNumbers\Types\GetPhoneNumbersResponse;
+use Vapi\PhoneNumbers\Types\DeletePhoneNumbersResponse;
+use Vapi\PhoneNumbers\Requests\UpdatePhoneNumbersRequest;
+use Vapi\PhoneNumbers\Types\UpdatePhoneNumbersResponse;
 
 class PhoneNumbersClient
 {
@@ -33,7 +33,7 @@ class PhoneNumbersClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -61,7 +61,7 @@ class PhoneNumbersClient
     }
 
     /**
-     * @param PhoneNumbersListRequest $request
+     * @param ListPhoneNumbersRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -70,11 +70,11 @@ class PhoneNumbersClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return array<PhoneNumbersListResponseItem>
+     * @return ?array<ListPhoneNumbersResponseItem>
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function list(PhoneNumbersListRequest $request = new PhoneNumbersListRequest(), ?array $options = null): array
+    public function list(ListPhoneNumbersRequest $request = new ListPhoneNumbersRequest(), ?array $options = null): ?array
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -82,28 +82,28 @@ class PhoneNumbersClient
             $query['limit'] = $request->limit;
         }
         if ($request->createdAtGt != null) {
-            $query['createdAtGt'] = $request->createdAtGt;
+            $query['createdAtGt'] = JsonSerializer::serializeDateTime($request->createdAtGt);
         }
         if ($request->createdAtLt != null) {
-            $query['createdAtLt'] = $request->createdAtLt;
+            $query['createdAtLt'] = JsonSerializer::serializeDateTime($request->createdAtLt);
         }
         if ($request->createdAtGe != null) {
-            $query['createdAtGe'] = $request->createdAtGe;
+            $query['createdAtGe'] = JsonSerializer::serializeDateTime($request->createdAtGe);
         }
         if ($request->createdAtLe != null) {
-            $query['createdAtLe'] = $request->createdAtLe;
+            $query['createdAtLe'] = JsonSerializer::serializeDateTime($request->createdAtLe);
         }
         if ($request->updatedAtGt != null) {
-            $query['updatedAtGt'] = $request->updatedAtGt;
+            $query['updatedAtGt'] = JsonSerializer::serializeDateTime($request->updatedAtGt);
         }
         if ($request->updatedAtLt != null) {
-            $query['updatedAtLt'] = $request->updatedAtLt;
+            $query['updatedAtLt'] = JsonSerializer::serializeDateTime($request->updatedAtLt);
         }
         if ($request->updatedAtGe != null) {
-            $query['updatedAtGe'] = $request->updatedAtGe;
+            $query['updatedAtGe'] = JsonSerializer::serializeDateTime($request->updatedAtGe);
         }
         if ($request->updatedAtLe != null) {
-            $query['updatedAtLe'] = $request->updatedAtLe;
+            $query['updatedAtLe'] = JsonSerializer::serializeDateTime($request->updatedAtLe);
         }
         try {
             $response = $this->client->sendRequest(
@@ -118,20 +118,13 @@ class PhoneNumbersClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return JsonDecoder::decodeArray($json, [PhoneNumbersListResponseItem::class]); // @phpstan-ignore-line
+                if (empty($json)) {
+                    return null;
+                }
+                return JsonDecoder::decodeArray($json, [ListPhoneNumbersResponseItem::class]); // @phpstan-ignore-line
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -143,7 +136,7 @@ class PhoneNumbersClient
     }
 
     /**
-     * @param PhoneNumbersCreateRequest $request
+     * @param CreatePhoneNumbersRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -152,11 +145,11 @@ class PhoneNumbersClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return PhoneNumbersCreateResponse
+     * @return ?CreatePhoneNumbersResponse
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function create(PhoneNumbersCreateRequest $request, ?array $options = null): PhoneNumbersCreateResponse
+    public function create(CreatePhoneNumbersRequest $request, ?array $options = null): ?CreatePhoneNumbersResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -172,20 +165,13 @@ class PhoneNumbersClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return PhoneNumbersCreateResponse::fromJson($json);
+                if (empty($json)) {
+                    return null;
+                }
+                return CreatePhoneNumbersResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -206,11 +192,11 @@ class PhoneNumbersClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return PhoneNumberPaginatedResponse
+     * @return ?PhoneNumberPaginatedResponse
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function phoneNumberControllerFindAllPaginated(PhoneNumberControllerFindAllPaginatedRequest $request = new PhoneNumberControllerFindAllPaginatedRequest(), ?array $options = null): PhoneNumberPaginatedResponse
+    public function phoneNumberControllerFindAllPaginated(PhoneNumberControllerFindAllPaginatedRequest $request = new PhoneNumberControllerFindAllPaginatedRequest(), ?array $options = null): ?PhoneNumberPaginatedResponse
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -227,28 +213,28 @@ class PhoneNumbersClient
             $query['limit'] = $request->limit;
         }
         if ($request->createdAtGt != null) {
-            $query['createdAtGt'] = $request->createdAtGt;
+            $query['createdAtGt'] = JsonSerializer::serializeDateTime($request->createdAtGt);
         }
         if ($request->createdAtLt != null) {
-            $query['createdAtLt'] = $request->createdAtLt;
+            $query['createdAtLt'] = JsonSerializer::serializeDateTime($request->createdAtLt);
         }
         if ($request->createdAtGe != null) {
-            $query['createdAtGe'] = $request->createdAtGe;
+            $query['createdAtGe'] = JsonSerializer::serializeDateTime($request->createdAtGe);
         }
         if ($request->createdAtLe != null) {
-            $query['createdAtLe'] = $request->createdAtLe;
+            $query['createdAtLe'] = JsonSerializer::serializeDateTime($request->createdAtLe);
         }
         if ($request->updatedAtGt != null) {
-            $query['updatedAtGt'] = $request->updatedAtGt;
+            $query['updatedAtGt'] = JsonSerializer::serializeDateTime($request->updatedAtGt);
         }
         if ($request->updatedAtLt != null) {
-            $query['updatedAtLt'] = $request->updatedAtLt;
+            $query['updatedAtLt'] = JsonSerializer::serializeDateTime($request->updatedAtLt);
         }
         if ($request->updatedAtGe != null) {
-            $query['updatedAtGe'] = $request->updatedAtGe;
+            $query['updatedAtGe'] = JsonSerializer::serializeDateTime($request->updatedAtGe);
         }
         if ($request->updatedAtLe != null) {
-            $query['updatedAtLe'] = $request->updatedAtLe;
+            $query['updatedAtLe'] = JsonSerializer::serializeDateTime($request->updatedAtLe);
         }
         try {
             $response = $this->client->sendRequest(
@@ -263,20 +249,13 @@ class PhoneNumbersClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return PhoneNumberPaginatedResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -297,11 +276,11 @@ class PhoneNumbersClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return PhoneNumbersGetResponse
+     * @return ?GetPhoneNumbersResponse
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function get(string $id, ?array $options = null): PhoneNumbersGetResponse
+    public function get(string $id, ?array $options = null): ?GetPhoneNumbersResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -316,20 +295,13 @@ class PhoneNumbersClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return PhoneNumbersGetResponse::fromJson($json);
+                if (empty($json)) {
+                    return null;
+                }
+                return GetPhoneNumbersResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -350,11 +322,11 @@ class PhoneNumbersClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return PhoneNumbersDeleteResponse
+     * @return ?DeletePhoneNumbersResponse
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function delete(string $id, ?array $options = null): PhoneNumbersDeleteResponse
+    public function delete(string $id, ?array $options = null): ?DeletePhoneNumbersResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -369,20 +341,13 @@ class PhoneNumbersClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return PhoneNumbersDeleteResponse::fromJson($json);
+                if (empty($json)) {
+                    return null;
+                }
+                return DeletePhoneNumbersResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }
@@ -395,7 +360,7 @@ class PhoneNumbersClient
 
     /**
      * @param string $id
-     * @param PhoneNumbersUpdateRequest $request
+     * @param UpdatePhoneNumbersRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -404,11 +369,11 @@ class PhoneNumbersClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return PhoneNumbersUpdateResponse
+     * @return ?UpdatePhoneNumbersResponse
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function update(string $id, PhoneNumbersUpdateRequest $request, ?array $options = null): PhoneNumbersUpdateResponse
+    public function update(string $id, UpdatePhoneNumbersRequest $request, ?array $options = null): ?UpdatePhoneNumbersResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -417,27 +382,20 @@ class PhoneNumbersClient
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "phone-number/{$id}",
                     method: HttpMethod::PATCH,
-                    body: $request,
+                    body: $request->body,
                 ),
                 $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return PhoneNumbersUpdateResponse::fromJson($json);
+                if (empty($json)) {
+                    return null;
+                }
+                return UpdatePhoneNumbersResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new VapiException(message: $e->getMessage(), previous: $e);
-            }
-            throw new VapiApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }

@@ -73,9 +73,10 @@ class WorkflowUserEditable extends JsonSerializableType
      *   |CallHookAssistantSpeechInterrupted
      *   |CallHookCustomerSpeechInterrupted
      *   |CallHookCustomerSpeechTimeout
+     *   |CallHookModelResponseTimeout
      * )> $hooks This is a set of actions that will be performed on certain events.
      */
-    #[JsonProperty('hooks'), ArrayType([new Union(CallHookCallEnding::class, CallHookAssistantSpeechInterrupted::class, CallHookCustomerSpeechInterrupted::class, CallHookCustomerSpeechTimeout::class)])]
+    #[JsonProperty('hooks'), ArrayType([new Union(CallHookCallEnding::class, CallHookAssistantSpeechInterrupted::class, CallHookCustomerSpeechInterrupted::class, CallHookCustomerSpeechTimeout::class, CallHookModelResponseTimeout::class)])]
     public ?array $hooks;
 
     /**
@@ -85,10 +86,16 @@ class WorkflowUserEditable extends JsonSerializableType
     public ?array $credentials;
 
     /**
-     * @var ?WorkflowUserEditableVoicemailDetection $voicemailDetection This is the voicemail detection plan for the workflow.
+     * @var (
+     *    value-of<WorkflowUserEditableVoicemailDetectionZero>
+     *   |GoogleVoicemailDetectionPlan
+     *   |OpenAiVoicemailDetectionPlan
+     *   |TwilioVoicemailDetectionPlan
+     *   |VapiVoicemailDetectionPlan
+     * )|null $voicemailDetection This is the voicemail detection plan for the workflow.
      */
-    #[JsonProperty('voicemailDetection')]
-    public ?WorkflowUserEditableVoicemailDetection $voicemailDetection;
+    #[JsonProperty('voicemailDetection'), Union('string', GoogleVoicemailDetectionPlan::class, OpenAiVoicemailDetectionPlan::class, TwilioVoicemailDetectionPlan::class, VapiVoicemailDetectionPlan::class, 'null')]
+    public string|GoogleVoicemailDetectionPlan|OpenAiVoicemailDetectionPlan|TwilioVoicemailDetectionPlan|VapiVoicemailDetectionPlan|null $voicemailDetection;
 
     /**
      * This is the maximum duration of the call in seconds.
@@ -249,9 +256,16 @@ class WorkflowUserEditable extends JsonSerializableType
      *   |CallHookAssistantSpeechInterrupted
      *   |CallHookCustomerSpeechInterrupted
      *   |CallHookCustomerSpeechTimeout
+     *   |CallHookModelResponseTimeout
      * )>,
      *   credentials?: ?array<WorkflowUserEditableCredentialsItem>,
-     *   voicemailDetection?: ?WorkflowUserEditableVoicemailDetection,
+     *   voicemailDetection?: (
+     *    value-of<WorkflowUserEditableVoicemailDetectionZero>
+     *   |GoogleVoicemailDetectionPlan
+     *   |OpenAiVoicemailDetectionPlan
+     *   |TwilioVoicemailDetectionPlan
+     *   |VapiVoicemailDetectionPlan
+     * )|null,
      *   maxDurationSeconds?: ?float,
      *   globalPrompt?: ?string,
      *   server?: ?Server,

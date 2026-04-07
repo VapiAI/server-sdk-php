@@ -16,6 +16,7 @@ class HandoffDestinationAssistantContextEngineeringPlan extends JsonSerializable
      *    'lastNMessages'
      *   |'none'
      *   |'all'
+     *   |'userAndAssistantMessages'
      *   |'_unknown'
      * ) $type
      */
@@ -26,6 +27,7 @@ class HandoffDestinationAssistantContextEngineeringPlan extends JsonSerializable
      *    ContextEngineeringPlanLastNMessages
      *   |ContextEngineeringPlanNone
      *   |ContextEngineeringPlanAll
+     *   |ContextEngineeringPlanUserAndAssistantMessages
      *   |mixed
      * ) $value
      */
@@ -37,12 +39,14 @@ class HandoffDestinationAssistantContextEngineeringPlan extends JsonSerializable
      *    'lastNMessages'
      *   |'none'
      *   |'all'
+     *   |'userAndAssistantMessages'
      *   |'_unknown'
      * ),
      *   value: (
      *    ContextEngineeringPlanLastNMessages
      *   |ContextEngineeringPlanNone
      *   |ContextEngineeringPlanAll
+     *   |ContextEngineeringPlanUserAndAssistantMessages
      *   |mixed
      * ),
      * } $values
@@ -87,6 +91,18 @@ class HandoffDestinationAssistantContextEngineeringPlan extends JsonSerializable
         return new HandoffDestinationAssistantContextEngineeringPlan([
             'type' => 'all',
             'value' => $all,
+        ]);
+    }
+
+    /**
+     * @param ContextEngineeringPlanUserAndAssistantMessages $userAndAssistantMessages
+     * @return HandoffDestinationAssistantContextEngineeringPlan
+     */
+    public static function userAndAssistantMessages(ContextEngineeringPlanUserAndAssistantMessages $userAndAssistantMessages): HandoffDestinationAssistantContextEngineeringPlan
+    {
+        return new HandoffDestinationAssistantContextEngineeringPlan([
+            'type' => 'userAndAssistantMessages',
+            'value' => $userAndAssistantMessages,
         ]);
     }
 
@@ -157,6 +173,28 @@ class HandoffDestinationAssistantContextEngineeringPlan extends JsonSerializable
     }
 
     /**
+     * @return bool
+     */
+    public function isUserAndAssistantMessages(): bool
+    {
+        return $this->value instanceof ContextEngineeringPlanUserAndAssistantMessages && $this->type === 'userAndAssistantMessages';
+    }
+
+    /**
+     * @return ContextEngineeringPlanUserAndAssistantMessages
+     */
+    public function asUserAndAssistantMessages(): ContextEngineeringPlanUserAndAssistantMessages
+    {
+        if (!($this->value instanceof ContextEngineeringPlanUserAndAssistantMessages && $this->type === 'userAndAssistantMessages')) {
+            throw new Exception(
+                "Expected userAndAssistantMessages; got " . $this->type . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -186,6 +224,10 @@ class HandoffDestinationAssistantContextEngineeringPlan extends JsonSerializable
                 break;
             case 'all':
                 $value = $this->asAll()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'userAndAssistantMessages':
+                $value = $this->asUserAndAssistantMessages()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -244,6 +286,9 @@ class HandoffDestinationAssistantContextEngineeringPlan extends JsonSerializable
                 break;
             case 'all':
                 $args['value'] = ContextEngineeringPlanAll::jsonDeserialize($data);
+                break;
+            case 'userAndAssistantMessages':
+                $args['value'] = ContextEngineeringPlanUserAndAssistantMessages::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

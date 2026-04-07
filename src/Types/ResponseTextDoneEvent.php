@@ -32,7 +32,7 @@ class ResponseTextDoneEvent extends JsonSerializableType
     public string $text;
 
     /**
-     * @var 'response.output_text.done' $type Event type
+     * @var value-of<ResponseTextDoneEventType> $type Event type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -43,7 +43,7 @@ class ResponseTextDoneEvent extends JsonSerializableType
      *   itemId: string,
      *   outputIndex: float,
      *   text: string,
-     *   type: 'response.output_text.done',
+     *   type: value-of<ResponseTextDoneEventType>,
      * } $values
      */
     public function __construct(

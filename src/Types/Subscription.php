@@ -132,6 +132,24 @@ class Subscription extends JsonSerializableType
     public ?bool $hipaaEnabled;
 
     /**
+     * This is the ZDR enabled flag for the subscription. It determines whether orgs under this
+     * subscription have the option to enable ZDR.
+     *
+     * @var ?bool $zdrEnabled
+     */
+    #[JsonProperty('zdrEnabled')]
+    public ?bool $zdrEnabled;
+
+    /**
+     * This is the data retention enabled flag for the subscription. It determines whether orgs under this
+     * subscription have the option to enable data retention.
+     *
+     * @var ?bool $dataRetentionEnabled
+     */
+    #[JsonProperty('dataRetentionEnabled')]
+    public ?bool $dataRetentionEnabled;
+
+    /**
      * @var ?string $hipaaCommonPaperAgreementId This is the ID for the Common Paper agreement outlining the HIPAA contract.
      */
     #[JsonProperty('hipaaCommonPaperAgreementId')]
@@ -295,6 +313,8 @@ class Subscription extends JsonSerializableType
      *   slackSupportEnabled?: ?bool,
      *   slackChannelId?: ?string,
      *   hipaaEnabled?: ?bool,
+     *   zdrEnabled?: ?bool,
+     *   dataRetentionEnabled?: ?bool,
      *   hipaaCommonPaperAgreementId?: ?string,
      *   stripePaymentMethodFingerprint?: ?string,
      *   stripeCustomerEmail?: ?string,
@@ -341,6 +361,8 @@ class Subscription extends JsonSerializableType
         $this->slackSupportEnabled = $values['slackSupportEnabled'] ?? null;
         $this->slackChannelId = $values['slackChannelId'] ?? null;
         $this->hipaaEnabled = $values['hipaaEnabled'] ?? null;
+        $this->zdrEnabled = $values['zdrEnabled'] ?? null;
+        $this->dataRetentionEnabled = $values['dataRetentionEnabled'] ?? null;
         $this->hipaaCommonPaperAgreementId = $values['hipaaCommonPaperAgreementId'] ?? null;
         $this->stripePaymentMethodFingerprint = $values['stripePaymentMethodFingerprint'] ?? null;
         $this->stripeCustomerEmail = $values['stripeCustomerEmail'] ?? null;

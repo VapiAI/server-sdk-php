@@ -19,7 +19,7 @@ class ComputerToolWithToolCall extends JsonSerializableType
     public ?array $messages;
 
     /**
-     * @var 'computer_20241022' $subType The sub type of tool.
+     * @var value-of<ComputerToolWithToolCallSubType> $subType The sub type of tool.
      */
     #[JsonProperty('subType')]
     public string $subType;
@@ -47,7 +47,7 @@ class ComputerToolWithToolCall extends JsonSerializableType
     public ToolCall $toolCall;
 
     /**
-     * @var 'computer' $name The name of the tool, fixed to 'computer'
+     * @var value-of<ComputerToolWithToolCallName> $name The name of the tool, fixed to 'computer'
      */
     #[JsonProperty('name')]
     public string $name;
@@ -157,9 +157,9 @@ class ComputerToolWithToolCall extends JsonSerializableType
 
     /**
      * @param array{
-     *   subType: 'computer_20241022',
+     *   subType: value-of<ComputerToolWithToolCallSubType>,
      *   toolCall: ToolCall,
-     *   name: 'computer',
+     *   name: value-of<ComputerToolWithToolCallName>,
      *   displayWidthPx: float,
      *   displayHeightPx: float,
      *   messages?: ?array<ComputerToolWithToolCallMessagesItem>,

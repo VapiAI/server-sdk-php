@@ -8,7 +8,7 @@ use Vapi\Core\Json\JsonProperty;
 class TransportConfigurationTwilio extends JsonSerializableType
 {
     /**
-     * @var 'twilio' $provider
+     * @var value-of<TransportConfigurationTwilioProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -56,7 +56,7 @@ class TransportConfigurationTwilio extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'twilio',
+     *   provider: value-of<TransportConfigurationTwilioProvider>,
      *   timeout?: ?float,
      *   record?: ?bool,
      *   recordingChannels?: ?value-of<TransportConfigurationTwilioRecordingChannels>,

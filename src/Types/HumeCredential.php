@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class HumeCredential extends JsonSerializableType
 {
     /**
-     * @var 'hume' $provider
+     * @var value-of<HumeCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class HumeCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'hume',
+     *   provider: value-of<HumeCredentialProvider>,
      *   apiKey: string,
      *   id: string,
      *   orgId: string,

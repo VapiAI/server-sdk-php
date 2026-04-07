@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class WebhookCredential extends JsonSerializableType
 {
     /**
-     * @var 'webhook' $provider
+     * @var value-of<WebhookCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -59,7 +59,7 @@ class WebhookCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'webhook',
+     *   provider: value-of<WebhookCredentialProvider>,
      *   authenticationPlan: WebhookCredentialAuthenticationPlan,
      *   id: string,
      *   orgId: string,

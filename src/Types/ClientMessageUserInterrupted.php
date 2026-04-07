@@ -14,10 +14,19 @@ class ClientMessageUserInterrupted extends JsonSerializableType
     public ?ClientMessageUserInterruptedPhoneNumber $phoneNumber;
 
     /**
-     * @var 'user-interrupted' $type This is the type of the message. "user-interrupted" is sent when the user interrupts the assistant.
+     * @var value-of<ClientMessageUserInterruptedType> $type This is the type of the message. "user-interrupted" is sent when the user interrupts the assistant.
      */
     #[JsonProperty('type')]
     public string $type;
+
+    /**
+     * This is the turnId of the LLM response that was interrupted. Matches the turnId
+     * on model-output messages so clients can discard the interrupted turn's tokens.
+     *
+     * @var ?string $turnId
+     */
+    #[JsonProperty('turnId')]
+    public ?string $turnId;
 
     /**
      * @var ?float $timestamp This is the timestamp of the message.
@@ -45,8 +54,9 @@ class ClientMessageUserInterrupted extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'user-interrupted',
+     *   type: value-of<ClientMessageUserInterruptedType>,
      *   phoneNumber?: ?ClientMessageUserInterruptedPhoneNumber,
+     *   turnId?: ?string,
      *   timestamp?: ?float,
      *   call?: ?Call,
      *   customer?: ?CreateCustomerDto,
@@ -58,6 +68,7 @@ class ClientMessageUserInterrupted extends JsonSerializableType
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
         $this->type = $values['type'];
+        $this->turnId = $values['turnId'] ?? null;
         $this->timestamp = $values['timestamp'] ?? null;
         $this->call = $values['call'] ?? null;
         $this->customer = $values['customer'] ?? null;

@@ -15,7 +15,7 @@ class ServerMessageHandoffDestinationRequest extends JsonSerializableType
     public ?ServerMessageHandoffDestinationRequestPhoneNumber $phoneNumber;
 
     /**
-     * @var 'handoff-destination-request' $type This is the type of the message. "handoff-destination-request" is sent when the model is requesting handoff but destination is unknown.
+     * @var value-of<ServerMessageHandoffDestinationRequestType> $type This is the type of the message. "handoff-destination-request" is sent when the model is requesting handoff but destination is unknown.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -68,7 +68,7 @@ class ServerMessageHandoffDestinationRequest extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'handoff-destination-request',
+     *   type: value-of<ServerMessageHandoffDestinationRequestType>,
      *   parameters: array<string, mixed>,
      *   phoneNumber?: ?ServerMessageHandoffDestinationRequestPhoneNumber,
      *   timestamp?: ?float,

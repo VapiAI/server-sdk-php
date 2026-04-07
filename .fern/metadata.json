@@ -1,0 +1,11 @@
+{
+  "cliVersion": "4.62.4",
+  "generatorName": "fernapi/fern-php-sdk",
+  "generatorVersion": "2.2.6",
+  "generatorConfig": {
+    "namespace": "Vapi",
+    "client-class-name": "VapiClient"
+  },
+  "originGitCommit": "7353542e713a4907a187bb55b184fb955cb6c5e9",
+  "sdkVersion": "1.0.0"
+}

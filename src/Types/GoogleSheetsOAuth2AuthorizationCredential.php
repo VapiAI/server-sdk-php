@@ -10,7 +10,7 @@ use Vapi\Core\Types\Date;
 class GoogleSheetsOAuth2AuthorizationCredential extends JsonSerializableType
 {
     /**
-     * @var 'google.sheets.oauth2-authorization' $provider
+     * @var value-of<GoogleSheetsOAuth2AuthorizationCredentialProvider> $provider
      */
     #[JsonProperty('provider')]
     public string $provider;
@@ -53,7 +53,7 @@ class GoogleSheetsOAuth2AuthorizationCredential extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: 'google.sheets.oauth2-authorization',
+     *   provider: value-of<GoogleSheetsOAuth2AuthorizationCredentialProvider>,
      *   authorizationId: string,
      *   id: string,
      *   orgId: string,

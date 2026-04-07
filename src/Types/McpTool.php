@@ -37,6 +37,12 @@ class McpTool extends JsonSerializableType
     public ?Server $server;
 
     /**
+     * @var ?array<McpToolMessages> $toolMessages Per-tool message overrides for individual tools loaded from the MCP server. Set messages to an empty array to suppress messages for a specific tool. Tools not listed here will use the default messages from the parent tool.
+     */
+    #[JsonProperty('toolMessages'), ArrayType([McpToolMessages::class])]
+    public ?array $toolMessages;
+
+    /**
      * @var string $id This is the unique identifier for the tool.
      */
     #[JsonProperty('id')]
@@ -159,6 +165,7 @@ class McpTool extends JsonSerializableType
      *   updatedAt: DateTime,
      *   messages?: ?array<McpToolMessagesItem>,
      *   server?: ?Server,
+     *   toolMessages?: ?array<McpToolMessages>,
      *   rejectionPlan?: ?ToolRejectionPlan,
      *   metadata?: ?McpToolMetadata,
      * } $values
@@ -168,6 +175,7 @@ class McpTool extends JsonSerializableType
     ) {
         $this->messages = $values['messages'] ?? null;
         $this->server = $values['server'] ?? null;
+        $this->toolMessages = $values['toolMessages'] ?? null;
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];

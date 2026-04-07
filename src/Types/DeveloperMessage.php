@@ -9,7 +9,7 @@ use Vapi\Core\Types\ArrayType;
 class DeveloperMessage extends JsonSerializableType
 {
     /**
-     * @var 'developer' $role This is the role of the message author
+     * @var value-of<DeveloperMessageRole> $role This is the role of the message author
      */
     #[JsonProperty('role')]
     public string $role;
@@ -34,7 +34,7 @@ class DeveloperMessage extends JsonSerializableType
 
     /**
      * @param array{
-     *   role: 'developer',
+     *   role: value-of<DeveloperMessageRole>,
      *   content: string,
      *   name?: ?string,
      *   metadata?: ?array<string, mixed>,

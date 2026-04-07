@@ -19,7 +19,7 @@ class GoHighLevelCalendarEventCreateToolWithToolCall extends JsonSerializableTyp
     public ?array $messages;
 
     /**
-     * @var 'gohighlevel.calendar.event.create' $type The type of tool. "gohighlevel.calendar.event.create" for GoHighLevel Calendar Event Create tool.
+     * @var value-of<GoHighLevelCalendarEventCreateToolWithToolCallType> $type The type of tool. "gohighlevel.calendar.event.create" for GoHighLevel Calendar Event Create tool.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -117,7 +117,7 @@ class GoHighLevelCalendarEventCreateToolWithToolCall extends JsonSerializableTyp
 
     /**
      * @param array{
-     *   type: 'gohighlevel.calendar.event.create',
+     *   type: value-of<GoHighLevelCalendarEventCreateToolWithToolCallType>,
      *   toolCall: ToolCall,
      *   messages?: ?array<GoHighLevelCalendarEventCreateToolWithToolCallMessagesItem>,
      *   rejectionPlan?: ?ToolRejectionPlan,

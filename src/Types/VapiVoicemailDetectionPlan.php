@@ -24,6 +24,12 @@ class VapiVoicemailDetectionPlan extends JsonSerializableType
     public ?float $beepMaxAwaitSeconds;
 
     /**
+     * @var value-of<VapiVoicemailDetectionPlanProvider> $provider This is the provider to use for voicemail detection.
+     */
+    #[JsonProperty('provider')]
+    public string $provider;
+
+    /**
      * @var ?VoicemailDetectionBackoffPlan $backoffPlan This is the backoff plan for the voicemail detection.
      */
     #[JsonProperty('backoffPlan')]
@@ -42,15 +48,17 @@ class VapiVoicemailDetectionPlan extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider: value-of<VapiVoicemailDetectionPlanProvider>,
      *   beepMaxAwaitSeconds?: ?float,
      *   backoffPlan?: ?VoicemailDetectionBackoffPlan,
      *   type?: ?value-of<VapiVoicemailDetectionPlanType>,
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
         $this->beepMaxAwaitSeconds = $values['beepMaxAwaitSeconds'] ?? null;
+        $this->provider = $values['provider'];
         $this->backoffPlan = $values['backoffPlan'] ?? null;
         $this->type = $values['type'] ?? null;
     }

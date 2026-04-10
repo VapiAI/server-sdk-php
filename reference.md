@@ -13,7 +13,9 @@
 <dd>
 
 ```php
-$client->assistants->list($request): ?array;
+$client->assistants->list(
+    new ListAssistantsRequest([]),
+);
 ```
 </dd>
 </dl>
@@ -117,7 +119,9 @@ $client->assistants->list($request): ?array;
 <dd>
 
 ```php
-$client->assistants->create($request): ?Assistant;
+$client->assistants->create(
+    new CreateAssistantDto([]),
+);
 ```
 </dd>
 </dl>
@@ -157,7 +161,9 @@ $client->assistants->create($request): ?Assistant;
 <dd>
 
 ```php
-$client->assistants->get($id): ?Assistant;
+$client->assistants->get(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -197,7 +203,9 @@ $client->assistants->get($id): ?Assistant;
 <dd>
 
 ```php
-$client->assistants->delete($id): ?Assistant;
+$client->assistants->delete(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -237,7 +245,10 @@ $client->assistants->delete($id): ?Assistant;
 <dd>
 
 ```php
-$client->assistants->update($id, $request): ?Assistant;
+$client->assistants->update(
+    'id',
+    new UpdateAssistantDto([]),
+);
 ```
 </dd>
 </dl>
@@ -612,7 +623,9 @@ The order of precedence is:
 <dd>
 
 ```php
-$client->squads->list($request): ?array;
+$client->squads->list(
+    new ListSquadsRequest([]),
+);
 ```
 </dd>
 </dl>
@@ -716,7 +729,13 @@ $client->squads->list($request): ?array;
 <dd>
 
 ```php
-$client->squads->create($request): ?Squad;
+$client->squads->create(
+    new CreateSquadDto([
+        'members' => [
+            new SquadMemberDto([]),
+        ],
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -756,7 +775,9 @@ $client->squads->create($request): ?Squad;
 <dd>
 
 ```php
-$client->squads->get($id): ?Squad;
+$client->squads->get(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -796,7 +817,9 @@ $client->squads->get($id): ?Squad;
 <dd>
 
 ```php
-$client->squads->delete($id): ?Squad;
+$client->squads->delete(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -836,7 +859,14 @@ $client->squads->delete($id): ?Squad;
 <dd>
 
 ```php
-$client->squads->update($id, $request): ?Squad;
+$client->squads->update(
+    'id',
+    new UpdateSquadDto([
+        'members' => [
+            new SquadMemberDto([]),
+        ],
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -909,7 +939,9 @@ Both `membersOverrides` and `members[n].assistantOverrides` can be used together
 <dd>
 
 ```php
-$client->calls->list($request): ?array;
+$client->calls->list(
+    new ListCallsRequest([]),
+);
 ```
 </dd>
 </dl>
@@ -1041,7 +1073,9 @@ Only relevant for `outboundPhoneCall` and `inboundPhoneCall` type.
 <dd>
 
 ```php
-$client->calls->create($request): Call|CallBatchResponse|null;
+$client->calls->create(
+    new CreateCallDto([]),
+);
 ```
 </dd>
 </dl>
@@ -1274,7 +1308,9 @@ Only relevant for `outboundPhoneCall` and `inboundPhoneCall` type.
 <dd>
 
 ```php
-$client->calls->get($id): ?Call;
+$client->calls->get(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -1314,7 +1350,10 @@ $client->calls->get($id): ?Call;
 <dd>
 
 ```php
-$client->calls->delete($id, $request): ?Call;
+$client->calls->delete(
+    'id',
+    new DeleteCallDto([]),
+);
 ```
 </dd>
 </dl>
@@ -1367,7 +1406,10 @@ It may take up to a few hours to complete the bulk delete, and will be asynchron
 <dd>
 
 ```php
-$client->calls->update($id, $request): ?Call;
+$client->calls->update(
+    'id',
+    new UpdateCallDto([]),
+);
 ```
 </dd>
 </dl>
@@ -1416,7 +1458,11 @@ $client->calls->update($id, $request): ?Call;
 <dd>
 
 ```php
-$client->chats->list($request): ?ChatPaginatedResponse;
+$client->chats->list(
+    new ListChatsRequest([
+        'assistantIdAny' => 'assistant-1,assistant-2,assistant-3',
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -1598,7 +1644,11 @@ Creates a new chat with optional SMS delivery via transport field. Requires at l
 <dd>
 
 ```php
-$client->chats->create($request): Chat|CreateChatStreamResponse|null;
+$client->chats->create(
+    new CreateChatDto([
+        'input' => 'input',
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -1740,7 +1790,9 @@ Cannot specify both sessionId and transport fields (phoneNumberId/customer) toge
 <dd>
 
 ```php
-$client->chats->get($id): ?Chat;
+$client->chats->get(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -1780,7 +1832,9 @@ $client->chats->get($id): ?Chat;
 <dd>
 
 ```php
-$client->chats->delete($id): ?Chat;
+$client->chats->delete(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -1820,7 +1874,11 @@ $client->chats->delete($id): ?Chat;
 <dd>
 
 ```php
-$client->chats->createResponse($request): ResponseObject|ResponseTextDeltaEvent|ResponseTextDoneEvent|ResponseCompletedEvent|ResponseErrorEvent|null;
+$client->chats->createResponse(
+    new OpenAiResponsesRequest([
+        'input' => 'input',
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -1960,7 +2018,9 @@ Cannot specify both sessionId and transport fields (phoneNumberId/customer) toge
 <dd>
 
 ```php
-$client->campaigns->campaignControllerFindAll($request): ?CampaignPaginatedResponse;
+$client->campaigns->campaignControllerFindAll(
+    new CampaignControllerFindAllRequest([]),
+);
 ```
 </dd>
 </dl>
@@ -2096,7 +2156,11 @@ $client->campaigns->campaignControllerFindAll($request): ?CampaignPaginatedRespo
 <dd>
 
 ```php
-$client->campaigns->campaignControllerCreate($request): ?Campaign;
+$client->campaigns->campaignControllerCreate(
+    new CreateCampaignDto([
+        'name' => 'Q2 Sales Campaign',
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -2192,7 +2256,9 @@ $client->campaigns->campaignControllerCreate($request): ?Campaign;
 <dd>
 
 ```php
-$client->campaigns->campaignControllerFindOne($id): ?Campaign;
+$client->campaigns->campaignControllerFindOne(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -2232,7 +2298,9 @@ $client->campaigns->campaignControllerFindOne($id): ?Campaign;
 <dd>
 
 ```php
-$client->campaigns->campaignControllerRemove($id): ?Campaign;
+$client->campaigns->campaignControllerRemove(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -2272,7 +2340,10 @@ $client->campaigns->campaignControllerRemove($id): ?Campaign;
 <dd>
 
 ```php
-$client->campaigns->campaignControllerUpdate($id, $request): ?Campaign;
+$client->campaigns->campaignControllerUpdate(
+    'id',
+    new UpdateCampaignDto([]),
+);
 ```
 </dd>
 </dl>
@@ -2397,7 +2468,12 @@ When set to 'ended', it will delete all scheduled calls. Calls in progress will 
 <dd>
 
 ```php
-$client->sessions->list($request): ?SessionPaginatedResponse;
+$client->sessions->list(
+    new ListSessionsRequest([
+        'assistantIdAny' => 'assistant-1,assistant-2,assistant-3',
+        'customerNumberAny' => '+1234567890,+0987654321',
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -2662,7 +2738,9 @@ This allows customization of the assistant's behavior for individual customers i
 <dd>
 
 ```php
-$client->sessions->create($request): ?Session;
+$client->sessions->create(
+    new CreateSessionDto([]),
+);
 ```
 </dd>
 </dl>
@@ -2808,7 +2886,9 @@ If squadId is provided, this will be ignored.
 <dd>
 
 ```php
-$client->sessions->get($id): ?Session;
+$client->sessions->get(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -2848,7 +2928,9 @@ $client->sessions->get($id): ?Session;
 <dd>
 
 ```php
-$client->sessions->delete($id): ?Session;
+$client->sessions->delete(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -2888,7 +2970,10 @@ $client->sessions->delete($id): ?Session;
 <dd>
 
 ```php
-$client->sessions->update($id, $request): ?Session;
+$client->sessions->update(
+    'id',
+    new UpdateSessionDto([]),
+);
 ```
 </dd>
 </dl>
@@ -2961,7 +3046,9 @@ $client->sessions->update($id, $request): ?Session;
 <dd>
 
 ```php
-$client->phoneNumbers->list($request): ?array;
+$client->phoneNumbers->list(
+    new ListPhoneNumbersRequest([]),
+);
 ```
 </dd>
 </dl>
@@ -3065,7 +3152,11 @@ $client->phoneNumbers->list($request): ?array;
 <dd>
 
 ```php
-$client->phoneNumbers->create($request): ?CreatePhoneNumbersResponse;
+$client->phoneNumbers->create(
+    CreatePhoneNumbersRequest::byoPhoneNumber(new CreateByoPhoneNumberDto([
+        'credentialId' => 'credentialId',
+    ])),
+);
 ```
 </dd>
 </dl>
@@ -3105,7 +3196,9 @@ $client->phoneNumbers->create($request): ?CreatePhoneNumbersResponse;
 <dd>
 
 ```php
-$client->phoneNumbers->phoneNumberControllerFindAllPaginated($request): ?PhoneNumberPaginatedResponse;
+$client->phoneNumbers->phoneNumberControllerFindAllPaginated(
+    new PhoneNumberControllerFindAllPaginatedRequest([]),
+);
 ```
 </dd>
 </dl>
@@ -3233,7 +3326,9 @@ $client->phoneNumbers->phoneNumberControllerFindAllPaginated($request): ?PhoneNu
 <dd>
 
 ```php
-$client->phoneNumbers->get($id): ?GetPhoneNumbersResponse;
+$client->phoneNumbers->get(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -3273,7 +3368,9 @@ $client->phoneNumbers->get($id): ?GetPhoneNumbersResponse;
 <dd>
 
 ```php
-$client->phoneNumbers->delete($id): ?DeletePhoneNumbersResponse;
+$client->phoneNumbers->delete(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -3313,7 +3410,12 @@ $client->phoneNumbers->delete($id): ?DeletePhoneNumbersResponse;
 <dd>
 
 ```php
-$client->phoneNumbers->update($id, $request): ?UpdatePhoneNumbersResponse;
+$client->phoneNumbers->update(
+    'id',
+    new UpdatePhoneNumbersRequest([
+        'body' => UpdatePhoneNumbersRequestBody::byoPhoneNumber(new UpdateByoPhoneNumberDto([])),
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -3362,7 +3464,9 @@ $client->phoneNumbers->update($id, $request): ?UpdatePhoneNumbersResponse;
 <dd>
 
 ```php
-$client->tools->list($request): ?array;
+$client->tools->list(
+    new ListToolsRequest([]),
+);
 ```
 </dd>
 </dl>
@@ -3466,7 +3570,12 @@ $client->tools->list($request): ?array;
 <dd>
 
 ```php
-$client->tools->create($request): ?CreateToolsResponse;
+$client->tools->create(
+    CreateToolsRequest::apiRequest(new CreateApiRequestToolDto([
+        'method' => CreateApiRequestToolDtoMethod::Post->value,
+        'url' => 'url',
+    ])),
+);
 ```
 </dd>
 </dl>
@@ -3506,7 +3615,9 @@ $client->tools->create($request): ?CreateToolsResponse;
 <dd>
 
 ```php
-$client->tools->get($id): ?GetToolsResponse;
+$client->tools->get(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -3546,7 +3657,9 @@ $client->tools->get($id): ?GetToolsResponse;
 <dd>
 
 ```php
-$client->tools->delete($id): ?DeleteToolsResponse;
+$client->tools->delete(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -3586,7 +3699,12 @@ $client->tools->delete($id): ?DeleteToolsResponse;
 <dd>
 
 ```php
-$client->tools->update($id, $request): ?UpdateToolsResponse;
+$client->tools->update(
+    'id',
+    new UpdateToolsRequest([
+        'body' => UpdateToolsRequestBody::apiRequest(new UpdateApiRequestToolDto([])),
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -3635,7 +3753,7 @@ $client->tools->update($id, $request): ?UpdateToolsResponse;
 <dd>
 
 ```php
-$client->files->list(): ?array;
+$client->files->list();
 ```
 </dd>
 </dl>
@@ -3660,7 +3778,11 @@ $client->files->list(): ?array;
 <dd>
 
 ```php
-$client->files->create($request): ?File;
+$client->files->create(
+    new CreateFileDto([
+        'file' => File::createFromString("example_file", "example_file"),
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -3685,7 +3807,9 @@ $client->files->create($request): ?File;
 <dd>
 
 ```php
-$client->files->get($id): ?File;
+$client->files->get(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -3725,7 +3849,9 @@ $client->files->get($id): ?File;
 <dd>
 
 ```php
-$client->files->delete($id): ?File;
+$client->files->delete(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -3765,7 +3891,10 @@ $client->files->delete($id): ?File;
 <dd>
 
 ```php
-$client->files->update($id, $request): ?File;
+$client->files->update(
+    'id',
+    new UpdateFileDto([]),
+);
 ```
 </dd>
 </dl>
@@ -3814,7 +3943,9 @@ $client->files->update($id, $request): ?File;
 <dd>
 
 ```php
-$client->structuredOutputs->structuredOutputControllerFindAll($request): ?StructuredOutputPaginatedResponse;
+$client->structuredOutputs->structuredOutputControllerFindAll(
+    new StructuredOutputControllerFindAllRequest([]),
+);
 ```
 </dd>
 </dl>
@@ -3950,7 +4081,14 @@ $client->structuredOutputs->structuredOutputControllerFindAll($request): ?Struct
 <dd>
 
 ```php
-$client->structuredOutputs->structuredOutputControllerCreate($request): ?StructuredOutput;
+$client->structuredOutputs->structuredOutputControllerCreate(
+    new CreateStructuredOutputDto([
+        'name' => 'name',
+        'schema' => new JsonSchema([
+            'type' => JsonSchemaType::String->value,
+        ]),
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -3990,7 +4128,9 @@ $client->structuredOutputs->structuredOutputControllerCreate($request): ?Structu
 <dd>
 
 ```php
-$client->structuredOutputs->structuredOutputControllerFindOne($id): ?StructuredOutput;
+$client->structuredOutputs->structuredOutputControllerFindOne(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -4030,7 +4170,9 @@ $client->structuredOutputs->structuredOutputControllerFindOne($id): ?StructuredO
 <dd>
 
 ```php
-$client->structuredOutputs->structuredOutputControllerRemove($id): ?StructuredOutput;
+$client->structuredOutputs->structuredOutputControllerRemove(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -4070,7 +4212,12 @@ $client->structuredOutputs->structuredOutputControllerRemove($id): ?StructuredOu
 <dd>
 
 ```php
-$client->structuredOutputs->structuredOutputControllerUpdate($id, $request): ?StructuredOutput;
+$client->structuredOutputs->structuredOutputControllerUpdate(
+    'id',
+    new UpdateStructuredOutputDto([
+        'schemaOverride' => 'schemaOverride',
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -4242,7 +4389,13 @@ Defines the structure and validation rules for the data that will be extracted. 
 <dd>
 
 ```php
-$client->structuredOutputs->structuredOutputControllerRun($request): ?StructuredOutput;
+$client->structuredOutputs->structuredOutputControllerRun(
+    new StructuredOutputRunDto([
+        'callIds' => [
+            'callIds',
+        ],
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -4319,7 +4472,9 @@ If preview is false, up to 100 callIds may be provided.
 <dd>
 
 ```php
-$client->insight->insightControllerFindAll($request): ?InsightPaginatedResponse;
+$client->insight->insightControllerFindAll(
+    new InsightControllerFindAllRequest([]),
+);
 ```
 </dd>
 </dl>
@@ -4447,7 +4602,18 @@ $client->insight->insightControllerFindAll($request): ?InsightPaginatedResponse;
 <dd>
 
 ```php
-$client->insight->insightControllerCreate($request): ?InsightControllerCreateResponse;
+$client->insight->insightControllerCreate(
+    InsightControllerCreateRequest::bar(new CreateBarInsightFromCallTableDto([
+        'queries' => [
+            new JsonQueryOnCallTableWithStringTypeColumn([
+                'type' => JsonQueryOnCallTableWithStringTypeColumnType::VapiqlJson->value,
+                'table' => JsonQueryOnCallTableWithStringTypeColumnTable::Call->value,
+                'column' => JsonQueryOnCallTableWithStringTypeColumnColumn::Id->value,
+                'operation' => JsonQueryOnCallTableWithStringTypeColumnOperation::Count->value,
+            ]),
+        ],
+    ])),
+);
 ```
 </dd>
 </dl>
@@ -4487,7 +4653,9 @@ $client->insight->insightControllerCreate($request): ?InsightControllerCreateRes
 <dd>
 
 ```php
-$client->insight->insightControllerFindOne($id): ?InsightControllerFindOneResponse;
+$client->insight->insightControllerFindOne(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -4527,7 +4695,9 @@ $client->insight->insightControllerFindOne($id): ?InsightControllerFindOneRespon
 <dd>
 
 ```php
-$client->insight->insightControllerRemove($id): ?InsightControllerRemoveResponse;
+$client->insight->insightControllerRemove(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -4567,7 +4737,12 @@ $client->insight->insightControllerRemove($id): ?InsightControllerRemoveResponse
 <dd>
 
 ```php
-$client->insight->insightControllerUpdate($id, $request): ?InsightControllerUpdateResponse;
+$client->insight->insightControllerUpdate(
+    'id',
+    new InsightControllerUpdateRequest([
+        'body' => InsightControllerUpdateRequestBody::bar(new UpdateBarInsightFromCallTableDto([])),
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -4615,7 +4790,10 @@ $client->insight->insightControllerUpdate($id, $request): ?InsightControllerUpda
 <dd>
 
 ```php
-$client->insight->insightControllerRun($id, $request): ?InsightRunResponse;
+$client->insight->insightControllerRun(
+    'id',
+    new InsightRunDto([]),
+);
 ```
 </dd>
 </dl>
@@ -4679,7 +4857,18 @@ For Pie and Text Insights, step will be ignored even if provided.
 <dd>
 
 ```php
-$client->insight->insightControllerPreview($request): ?InsightRunResponse;
+$client->insight->insightControllerPreview(
+    InsightControllerPreviewRequest::bar(new CreateBarInsightFromCallTableDto([
+        'queries' => [
+            new JsonQueryOnCallTableWithStringTypeColumn([
+                'type' => JsonQueryOnCallTableWithStringTypeColumnType::VapiqlJson->value,
+                'table' => JsonQueryOnCallTableWithStringTypeColumnTable::Call->value,
+                'column' => JsonQueryOnCallTableWithStringTypeColumnColumn::Id->value,
+                'operation' => JsonQueryOnCallTableWithStringTypeColumnOperation::Count->value,
+            ]),
+        ],
+    ])),
+);
 ```
 </dd>
 </dl>
@@ -4720,7 +4909,9 @@ $client->insight->insightControllerPreview($request): ?InsightRunResponse;
 <dd>
 
 ```php
-$client->eval->evalControllerGetPaginated($request): ?EvalPaginatedResponse;
+$client->eval->evalControllerGetPaginated(
+    new EvalControllerGetPaginatedRequest([]),
+);
 ```
 </dd>
 </dl>
@@ -4848,7 +5039,16 @@ $client->eval->evalControllerGetPaginated($request): ?EvalPaginatedResponse;
 <dd>
 
 ```php
-$client->eval->evalControllerCreate($request): ?Eval_;
+$client->eval->evalControllerCreate(
+    new CreateEvalDto([
+        'messages' => [
+            new ChatEvalAssistantMessageMock([
+                'role' => ChatEvalAssistantMessageMockRole::Assistant->value,
+            ]),
+        ],
+        'type' => CreateEvalDtoType::ChatMockConversation->value,
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -4888,7 +5088,9 @@ $client->eval->evalControllerCreate($request): ?Eval_;
 <dd>
 
 ```php
-$client->eval->evalControllerGet($id): ?Eval_;
+$client->eval->evalControllerGet(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -4928,7 +5130,9 @@ $client->eval->evalControllerGet($id): ?Eval_;
 <dd>
 
 ```php
-$client->eval->evalControllerRemove($id): ?Eval_;
+$client->eval->evalControllerRemove(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -4968,7 +5172,10 @@ $client->eval->evalControllerRemove($id): ?Eval_;
 <dd>
 
 ```php
-$client->eval->evalControllerUpdate($id, $request): ?Eval_;
+$client->eval->evalControllerUpdate(
+    'id',
+    new UpdateEvalDto([]),
+);
 ```
 </dd>
 </dl>
@@ -5055,7 +5262,9 @@ Currently it is fixed to `chat.mockConversation`.
 <dd>
 
 ```php
-$client->eval->evalControllerGetRun($id): ?EvalRun;
+$client->eval->evalControllerGetRun(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -5095,7 +5304,9 @@ $client->eval->evalControllerGetRun($id): ?EvalRun;
 <dd>
 
 ```php
-$client->eval->evalControllerRemoveRun($id): ?EvalRun;
+$client->eval->evalControllerRemoveRun(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -5135,7 +5346,9 @@ $client->eval->evalControllerRemoveRun($id): ?EvalRun;
 <dd>
 
 ```php
-$client->eval->evalControllerGetRunsPaginated($request): ?EvalRunPaginatedResponse;
+$client->eval->evalControllerGetRunsPaginated(
+    new EvalControllerGetRunsPaginatedRequest([]),
+);
 ```
 </dd>
 </dl>
@@ -5263,7 +5476,12 @@ $client->eval->evalControllerGetRunsPaginated($request): ?EvalRunPaginatedRespon
 <dd>
 
 ```php
-$client->eval->evalControllerRun($request): ?array;
+$client->eval->evalControllerRun(
+    new CreateEvalRunDto([
+        'target' => CreateEvalRunDtoTarget::assistant(new EvalRunTargetAssistant([])),
+        'type' => CreateEvalRunDtoType::Eval_->value,
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -5331,7 +5549,9 @@ Currently it is fixed to `eval`.
 <dd>
 
 ```php
-$client->observabilityScorecard->scorecardControllerGet($id): ?Scorecard;
+$client->observabilityScorecard->scorecardControllerGet(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -5371,7 +5591,9 @@ $client->observabilityScorecard->scorecardControllerGet($id): ?Scorecard;
 <dd>
 
 ```php
-$client->observabilityScorecard->scorecardControllerRemove($id): ?Scorecard;
+$client->observabilityScorecard->scorecardControllerRemove(
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -5411,7 +5633,10 @@ $client->observabilityScorecard->scorecardControllerRemove($id): ?Scorecard;
 <dd>
 
 ```php
-$client->observabilityScorecard->scorecardControllerUpdate($id, $request): ?Scorecard;
+$client->observabilityScorecard->scorecardControllerUpdate(
+    'id',
+    new UpdateScorecardDto([]),
+);
 ```
 </dd>
 </dl>
@@ -5489,7 +5714,9 @@ When linked to assistants, this scorecard will be available for evaluation durin
 <dd>
 
 ```php
-$client->observabilityScorecard->scorecardControllerGetPaginated($request): ?ScorecardPaginatedResponse;
+$client->observabilityScorecard->scorecardControllerGetPaginated(
+    new ScorecardControllerGetPaginatedRequest([]),
+);
 ```
 </dd>
 </dl>
@@ -5617,7 +5844,20 @@ $client->observabilityScorecard->scorecardControllerGetPaginated($request): ?Sco
 <dd>
 
 ```php
-$client->observabilityScorecard->scorecardControllerCreate($request): ?Scorecard;
+$client->observabilityScorecard->scorecardControllerCreate(
+    new CreateScorecardDto([
+        'metrics' => [
+            new ScorecardMetric([
+                'structuredOutputId' => 'structuredOutputId',
+                'conditions' => [
+                    [
+                        'key' => "value",
+                    ],
+                ],
+            ]),
+        ],
+    ]),
+);
 ```
 </dd>
 </dl>
@@ -5658,7 +5898,11 @@ $client->observabilityScorecard->scorecardControllerCreate($request): ?Scorecard
 <dd>
 
 ```php
-$client->providerResources->providerResourceControllerGetProviderResourcesPaginated($provider, $resourceName, $request): ?ProviderResourcePaginatedResponse;
+$client->providerResources->providerResourceControllerGetProviderResourcesPaginated(
+    ProviderResourceControllerGetProviderResourcesPaginatedRequestProvider::Cartesia->value,
+    ProviderResourceControllerGetProviderResourcesPaginatedRequestResourceName::PronunciationDictionary->value,
+    new ProviderResourceControllerGetProviderResourcesPaginatedRequest([]),
+);
 ```
 </dd>
 </dl>
@@ -5810,7 +6054,10 @@ $client->providerResources->providerResourceControllerGetProviderResourcesPagina
 <dd>
 
 ```php
-$client->providerResources->providerResourceControllerCreateProviderResource($provider, $resourceName): ?ProviderResource;
+$client->providerResources->providerResourceControllerCreateProviderResource(
+    ProviderResourceControllerCreateProviderResourceRequestProvider::Cartesia->value,
+    ProviderResourceControllerCreateProviderResourceRequestResourceName::PronunciationDictionary->value,
+);
 ```
 </dd>
 </dl>
@@ -5858,7 +6105,11 @@ $client->providerResources->providerResourceControllerCreateProviderResource($pr
 <dd>
 
 ```php
-$client->providerResources->providerResourceControllerGetProviderResource($provider, $resourceName, $id): ?ProviderResource;
+$client->providerResources->providerResourceControllerGetProviderResource(
+    ProviderResourceControllerGetProviderResourceRequestProvider::Cartesia->value,
+    ProviderResourceControllerGetProviderResourceRequestResourceName::PronunciationDictionary->value,
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -5914,7 +6165,11 @@ $client->providerResources->providerResourceControllerGetProviderResource($provi
 <dd>
 
 ```php
-$client->providerResources->providerResourceControllerDeleteProviderResource($provider, $resourceName, $id): ?ProviderResource;
+$client->providerResources->providerResourceControllerDeleteProviderResource(
+    ProviderResourceControllerDeleteProviderResourceRequestProvider::Cartesia->value,
+    ProviderResourceControllerDeleteProviderResourceRequestResourceName::PronunciationDictionary->value,
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -5970,7 +6225,11 @@ $client->providerResources->providerResourceControllerDeleteProviderResource($pr
 <dd>
 
 ```php
-$client->providerResources->providerResourceControllerUpdateProviderResource($provider, $resourceName, $id): ?ProviderResource;
+$client->providerResources->providerResourceControllerUpdateProviderResource(
+    ProviderResourceControllerUpdateProviderResourceRequestProvider::Cartesia->value,
+    ProviderResourceControllerUpdateProviderResourceRequestResourceName::PronunciationDictionary->value,
+    'id',
+);
 ```
 </dd>
 </dl>
@@ -6027,7 +6286,22 @@ $client->providerResources->providerResourceControllerUpdateProviderResource($pr
 <dd>
 
 ```php
-$client->analytics->get($request): ?array;
+$client->analytics->get(
+    new AnalyticsQueryDto([
+        'queries' => [
+            new AnalyticsQuery([
+                'table' => AnalyticsQueryTable::Call->value,
+                'name' => 'name',
+                'operations' => [
+                    new AnalyticsOperation([
+                        'operation' => AnalyticsOperationOperation::Sum->value,
+                        'column' => AnalyticsOperationColumn::Id->value,
+                    ]),
+                ],
+            ]),
+        ],
+    ]),
+);
 ```
 </dd>
 </dl>

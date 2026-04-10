@@ -1,3 +1,14 @@
+## 1.0.1 - 2026-04-10
+* style: use string interpolation in JsonException messages
+* Replace string concatenation with double-quoted string interpolation
+* in error messages thrown by JsonDecoder, JsonDeserializer, and
+* JsonSerializer. The resulting messages are identical at runtime.
+* Key changes:
+* Replace `"..." . $json` with `"...$json"` in JsonDecoder error messages
+* Replace `"..." . $type` with `"...$type"` in JsonDeserializer error message
+* Replace `"..." . $unionType` with `"...$unionType"` in JsonSerializer error message
+* 🌿 Generated with Fern
+
 ## 1.0.0 - 2026-04-07
 * Several public classes have been removed in this release. The following types no longer exist and must be migrated:
 * `UpdateAssistantDtoVoicemailDetection` and `AssistantOverridesVoicemailDetection` — removed voicemail detection union type classes; consult the updated API types for replacements.

@@ -1,3 +1,7 @@
+## 1.1.0 - 2026-04-22
+### Added
+* **`Call::$subscriptionLimits`** — new optional `SubscriptionLimits` field on `Call` that exposes the organization's concurrency and subscription limits at the time of the call.
+
 ## 1.0.1 - 2026-04-10
 * style: use string interpolation in JsonException messages
 * Replace string concatenation with double-quoted string interpolation

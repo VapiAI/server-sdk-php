@@ -331,6 +331,12 @@ class Call extends JsonSerializableType
     public ?array $transport;
 
     /**
+     * @var ?SubscriptionLimits $subscriptionLimits These are the subscription limits for the org at the time of the call. Includes concurrency limit information.
+     */
+    #[JsonProperty('subscriptionLimits')]
+    public ?SubscriptionLimits $subscriptionLimits;
+
+    /**
      * @param array{
      *   id: string,
      *   orgId: string,
@@ -378,6 +384,7 @@ class Call extends JsonSerializableType
      *   name?: ?string,
      *   schedulePlan?: ?SchedulePlan,
      *   transport?: ?array<string, mixed>,
+     *   subscriptionLimits?: ?SubscriptionLimits,
      * } $values
      */
     public function __construct(
@@ -423,6 +430,7 @@ class Call extends JsonSerializableType
         $this->name = $values['name'] ?? null;
         $this->schedulePlan = $values['schedulePlan'] ?? null;
         $this->transport = $values['transport'] ?? null;
+        $this->subscriptionLimits = $values['subscriptionLimits'] ?? null;
     }
 
     /**

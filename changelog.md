@@ -1,3 +1,8 @@
+## 2.0.0 - 2026-06-24
+### Breaking Changes
+* **`CartesiaExperimentalControlsSpeedZero`** has been renamed to `CartesiaSpeedControlZero`. Update any references to this enum in your code to use the new name.
+* **`FallbackAzureVoiceVoiceIdZero`** has been renamed to `FallbackAzureVoiceIdZero`. Update any references to this enum in your code to use the new name.
+
 ## 1.1.0 - 2026-04-22
 ### Added
 * **`Call::$subscriptionLimits`** — new optional `SubscriptionLimits` field on `Call` that exposes the organization's concurrency and subscription limits at the time of the call.

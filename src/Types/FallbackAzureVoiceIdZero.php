@@ -2,7 +2,7 @@
 
 namespace Vapi\Types;
 
-enum FallbackAzureVoiceVoiceIdZero: string
+enum FallbackAzureVoiceIdZero: string
 {
     case Andrew = "andrew";
     case Brian = "brian";

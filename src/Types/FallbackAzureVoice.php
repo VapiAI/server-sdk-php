@@ -15,7 +15,7 @@ class FallbackAzureVoice extends JsonSerializableType
 
     /**
      * @var (
-     *    value-of<FallbackAzureVoiceVoiceIdZero>
+     *    value-of<FallbackAzureVoiceIdZero>
      *   |string
      * ) $voiceId This is the provider-specific ID that will be used.
      */
@@ -43,7 +43,7 @@ class FallbackAzureVoice extends JsonSerializableType
     /**
      * @param array{
      *   voiceId: (
-     *    value-of<FallbackAzureVoiceVoiceIdZero>
+     *    value-of<FallbackAzureVoiceIdZero>
      *   |string
      * ),
      *   cachingEnabled?: ?bool,

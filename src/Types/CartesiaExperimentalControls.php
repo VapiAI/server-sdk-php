@@ -10,7 +10,7 @@ class CartesiaExperimentalControls extends JsonSerializableType
 {
     /**
      * @var (
-     *    value-of<CartesiaExperimentalControlsSpeedZero>
+     *    value-of<CartesiaSpeedControlZero>
      *   |float
      * )|null $speed
      */
@@ -26,7 +26,7 @@ class CartesiaExperimentalControls extends JsonSerializableType
     /**
      * @param array{
      *   speed?: (
-     *    value-of<CartesiaExperimentalControlsSpeedZero>
+     *    value-of<CartesiaSpeedControlZero>
      *   |float
      * )|null,
      *   emotion?: ?value-of<CartesiaExperimentalControlsEmotion>,

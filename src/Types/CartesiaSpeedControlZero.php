@@ -2,7 +2,7 @@
 
 namespace Vapi\Types;
 
-enum CartesiaExperimentalControlsSpeedZero: string
+enum CartesiaSpeedControlZero: string
 {
     case Slowest = "slowest";
     case Slow = "slow";

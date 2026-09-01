@@ -54,10 +54,10 @@ class CreateByoPhoneNumberDto extends JsonSerializableType
      *
      * You can add the SIP trunk or Carrier credential in the Provider Credentials page on the Dashboard to get the credentialId.
      *
-     * @var string $credentialId
+     * @var ?string $credentialId
      */
     #[JsonProperty('credentialId')]
-    public string $credentialId;
+    public ?string $credentialId;
 
     /**
      * @var ?string $name This is the name of the phone number. This is just for your own reference.
@@ -111,7 +111,7 @@ class CreateByoPhoneNumberDto extends JsonSerializableType
 
     /**
      * @param array{
-     *   credentialId: string,
+     *   credentialId?: ?string,
      *   fallbackDestination?: ?CreateByoPhoneNumberDtoFallbackDestination,
      *   hooks?: ?array<CreateByoPhoneNumberDtoHooksItem>,
      *   numberE164CheckEnabled?: ?bool,
@@ -130,7 +130,7 @@ class CreateByoPhoneNumberDto extends JsonSerializableType
         $this->hooks = $values['hooks'] ?? null;
         $this->numberE164CheckEnabled = $values['numberE164CheckEnabled'] ?? null;
         $this->number = $values['number'] ?? null;
-        $this->credentialId = $values['credentialId'];
+        $this->credentialId = $values['credentialId'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->assistantId = $values['assistantId'] ?? null;
         $this->workflowId = $values['workflowId'] ?? null;

@@ -8,10 +8,10 @@ use Vapi\Core\Json\JsonProperty;
 class CreateCustomLlmCredentialDto extends JsonSerializableType
 {
     /**
-     * @var string $apiKey This is not returned in the API.
+     * @var ?string $apiKey This is not returned in the API.
      */
     #[JsonProperty('apiKey')]
-    public string $apiKey;
+    public ?string $apiKey;
 
     /**
      * @var ?OAuth2AuthenticationPlan $authenticationPlan This is the authentication plan. Currently supports OAuth2 RFC 6749. To use Bearer authentication, use apiKey
@@ -27,7 +27,7 @@ class CreateCustomLlmCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
-     *   apiKey: string,
+     *   apiKey?: ?string,
      *   authenticationPlan?: ?OAuth2AuthenticationPlan,
      *   name?: ?string,
      * } $values
@@ -35,7 +35,7 @@ class CreateCustomLlmCredentialDto extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->apiKey = $values['apiKey'];
+        $this->apiKey = $values['apiKey'] ?? null;
         $this->authenticationPlan = $values['authenticationPlan'] ?? null;
         $this->name = $values['name'] ?? null;
     }

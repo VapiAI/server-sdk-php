@@ -16,10 +16,10 @@ class OpenRouterCredential extends JsonSerializableType
     public string $provider;
 
     /**
-     * @var string $apiKey This is not returned in the API.
+     * @var ?string $apiKey This is not returned in the API.
      */
     #[JsonProperty('apiKey')]
-    public string $apiKey;
+    public ?string $apiKey;
 
     /**
      * @var string $id This is the unique identifier for the credential.
@@ -54,7 +54,7 @@ class OpenRouterCredential extends JsonSerializableType
     /**
      * @param array{
      *   provider: value-of<OpenRouterCredentialProvider>,
-     *   apiKey: string,
+     *   apiKey?: ?string,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,
@@ -66,7 +66,7 @@ class OpenRouterCredential extends JsonSerializableType
         array $values,
     ) {
         $this->provider = $values['provider'];
-        $this->apiKey = $values['apiKey'];
+        $this->apiKey = $values['apiKey'] ?? null;
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];

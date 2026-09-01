@@ -20,10 +20,10 @@ class CreateMakeCredentialDto extends JsonSerializableType
     public string $region;
 
     /**
-     * @var string $apiKey This is not returned in the API.
+     * @var ?string $apiKey This is not returned in the API.
      */
     #[JsonProperty('apiKey')]
-    public string $apiKey;
+    public ?string $apiKey;
 
     /**
      * @var ?string $name This is the name of credential. This is just for your reference.
@@ -35,7 +35,7 @@ class CreateMakeCredentialDto extends JsonSerializableType
      * @param array{
      *   teamId: string,
      *   region: string,
-     *   apiKey: string,
+     *   apiKey?: ?string,
      *   name?: ?string,
      * } $values
      */
@@ -44,7 +44,7 @@ class CreateMakeCredentialDto extends JsonSerializableType
     ) {
         $this->teamId = $values['teamId'];
         $this->region = $values['region'];
-        $this->apiKey = $values['apiKey'];
+        $this->apiKey = $values['apiKey'] ?? null;
         $this->name = $values['name'] ?? null;
     }
 

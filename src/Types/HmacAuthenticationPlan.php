@@ -8,10 +8,10 @@ use Vapi\Core\Json\JsonProperty;
 class HmacAuthenticationPlan extends JsonSerializableType
 {
     /**
-     * @var string $secretKey This is the HMAC secret key used to sign requests.
+     * @var ?string $secretKey This is the HMAC secret key used to sign requests.
      */
     #[JsonProperty('secretKey')]
-    public string $secretKey;
+    public ?string $secretKey;
 
     /**
      * @var value-of<HmacAuthenticationPlanAlgorithm> $algorithm This is the HMAC algorithm to use for signing.
@@ -69,7 +69,7 @@ class HmacAuthenticationPlan extends JsonSerializableType
 
     /**
      * @param array{
-     *   secretKey: string,
+     *   secretKey?: ?string,
      *   algorithm: value-of<HmacAuthenticationPlanAlgorithm>,
      *   signatureHeader?: ?string,
      *   timestampHeader?: ?string,
@@ -84,7 +84,7 @@ class HmacAuthenticationPlan extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->secretKey = $values['secretKey'];
+        $this->secretKey = $values['secretKey'] ?? null;
         $this->algorithm = $values['algorithm'];
         $this->signatureHeader = $values['signatureHeader'] ?? null;
         $this->timestampHeader = $values['timestampHeader'] ?? null;

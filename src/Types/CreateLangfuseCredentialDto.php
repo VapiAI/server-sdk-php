@@ -14,10 +14,10 @@ class CreateLangfuseCredentialDto extends JsonSerializableType
     public string $publicKey;
 
     /**
-     * @var string $apiKey The secret key for Langfuse project. Eg: sk-lf-... .This is not returned in the API.
+     * @var ?string $apiKey The secret key for Langfuse project. Eg: sk-lf-... .This is not returned in the API.
      */
     #[JsonProperty('apiKey')]
-    public string $apiKey;
+    public ?string $apiKey;
 
     /**
      * @var string $apiUrl The host URL for Langfuse project. Eg: https://cloud.langfuse.com
@@ -34,7 +34,7 @@ class CreateLangfuseCredentialDto extends JsonSerializableType
     /**
      * @param array{
      *   publicKey: string,
-     *   apiKey: string,
+     *   apiKey?: ?string,
      *   apiUrl: string,
      *   name?: ?string,
      * } $values
@@ -43,7 +43,7 @@ class CreateLangfuseCredentialDto extends JsonSerializableType
         array $values,
     ) {
         $this->publicKey = $values['publicKey'];
-        $this->apiKey = $values['apiKey'];
+        $this->apiKey = $values['apiKey'] ?? null;
         $this->apiUrl = $values['apiUrl'];
         $this->name = $values['name'] ?? null;
     }

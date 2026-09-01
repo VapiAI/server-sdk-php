@@ -20,15 +20,15 @@ class SipAuthentication extends JsonSerializableType
     public string $username;
 
     /**
-     * @var string $password This will be expected to generate the `response` field of the `authorization` header of the SIP INVITE, through digest authentication.
+     * @var ?string $password This will be expected to generate the `response` field of the `authorization` header of the SIP INVITE, through digest authentication.
      */
     #[JsonProperty('password')]
-    public string $password;
+    public ?string $password;
 
     /**
      * @param array{
      *   username: string,
-     *   password: string,
+     *   password?: ?string,
      *   realm?: ?string,
      * } $values
      */
@@ -37,7 +37,7 @@ class SipAuthentication extends JsonSerializableType
     ) {
         $this->realm = $values['realm'] ?? null;
         $this->username = $values['username'];
-        $this->password = $values['password'];
+        $this->password = $values['password'] ?? null;
     }
 
     /**

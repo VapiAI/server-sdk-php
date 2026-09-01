@@ -26,10 +26,10 @@ class OAuth2AuthenticationPlan extends JsonSerializableType
     public string $clientId;
 
     /**
-     * @var string $clientSecret This is the OAuth2 client secret.
+     * @var ?string $clientSecret This is the OAuth2 client secret.
      */
     #[JsonProperty('clientSecret')]
-    public string $clientSecret;
+    public ?string $clientSecret;
 
     /**
      * @var ?string $scope This is the scope of the OAuth2 token.
@@ -42,7 +42,7 @@ class OAuth2AuthenticationPlan extends JsonSerializableType
      *   type: value-of<OAuth2AuthenticationPlanType>,
      *   url: string,
      *   clientId: string,
-     *   clientSecret: string,
+     *   clientSecret?: ?string,
      *   scope?: ?string,
      * } $values
      */
@@ -52,7 +52,7 @@ class OAuth2AuthenticationPlan extends JsonSerializableType
         $this->type = $values['type'];
         $this->url = $values['url'];
         $this->clientId = $values['clientId'];
-        $this->clientSecret = $values['clientSecret'];
+        $this->clientSecret = $values['clientSecret'] ?? null;
         $this->scope = $values['scope'] ?? null;
     }
 

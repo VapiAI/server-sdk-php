@@ -16,10 +16,10 @@ class CustomLlmCredential extends JsonSerializableType
     public string $provider;
 
     /**
-     * @var string $apiKey This is not returned in the API.
+     * @var ?string $apiKey This is not returned in the API.
      */
     #[JsonProperty('apiKey')]
-    public string $apiKey;
+    public ?string $apiKey;
 
     /**
      * @var ?OAuth2AuthenticationPlan $authenticationPlan This is the authentication plan. Currently supports OAuth2 RFC 6749. To use Bearer authentication, use apiKey
@@ -66,7 +66,7 @@ class CustomLlmCredential extends JsonSerializableType
     /**
      * @param array{
      *   provider: value-of<CustomLlmCredentialProvider>,
-     *   apiKey: string,
+     *   apiKey?: ?string,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,
@@ -80,7 +80,7 @@ class CustomLlmCredential extends JsonSerializableType
         array $values,
     ) {
         $this->provider = $values['provider'];
-        $this->apiKey = $values['apiKey'];
+        $this->apiKey = $values['apiKey'] ?? null;
         $this->authenticationPlan = $values['authenticationPlan'] ?? null;
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];

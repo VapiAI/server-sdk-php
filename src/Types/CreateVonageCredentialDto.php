@@ -8,16 +8,16 @@ use Vapi\Core\Json\JsonProperty;
 class CreateVonageCredentialDto extends JsonSerializableType
 {
     /**
-     * @var string $apiSecret This is not returned in the API.
+     * @var ?string $apiSecret This is not returned in the API.
      */
     #[JsonProperty('apiSecret')]
-    public string $apiSecret;
+    public ?string $apiSecret;
 
     /**
-     * @var string $apiKey
+     * @var ?string $apiKey
      */
     #[JsonProperty('apiKey')]
-    public string $apiKey;
+    public ?string $apiKey;
 
     /**
      * @var ?string $name This is the name of credential. This is just for your reference.
@@ -27,16 +27,16 @@ class CreateVonageCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
-     *   apiSecret: string,
-     *   apiKey: string,
+     *   apiSecret?: ?string,
+     *   apiKey?: ?string,
      *   name?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->apiSecret = $values['apiSecret'];
-        $this->apiKey = $values['apiKey'];
+        $this->apiSecret = $values['apiSecret'] ?? null;
+        $this->apiKey = $values['apiKey'] ?? null;
         $this->name = $values['name'] ?? null;
     }
 

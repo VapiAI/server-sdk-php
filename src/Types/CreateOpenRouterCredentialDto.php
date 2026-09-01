@@ -8,10 +8,10 @@ use Vapi\Core\Json\JsonProperty;
 class CreateOpenRouterCredentialDto extends JsonSerializableType
 {
     /**
-     * @var string $apiKey This is not returned in the API.
+     * @var ?string $apiKey This is not returned in the API.
      */
     #[JsonProperty('apiKey')]
-    public string $apiKey;
+    public ?string $apiKey;
 
     /**
      * @var ?string $name This is the name of credential. This is just for your reference.
@@ -21,14 +21,14 @@ class CreateOpenRouterCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
-     *   apiKey: string,
+     *   apiKey?: ?string,
      *   name?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->apiKey = $values['apiKey'];
+        $this->apiKey = $values['apiKey'] ?? null;
         $this->name = $values['name'] ?? null;
     }
 

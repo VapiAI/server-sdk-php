@@ -22,10 +22,10 @@ class VonageCredential extends JsonSerializableType
     public string $provider;
 
     /**
-     * @var string $apiSecret This is not returned in the API.
+     * @var ?string $apiSecret This is not returned in the API.
      */
     #[JsonProperty('apiSecret')]
-    public string $apiSecret;
+    public ?string $apiSecret;
 
     /**
      * @var string $id This is the unique identifier for the credential.
@@ -68,22 +68,22 @@ class VonageCredential extends JsonSerializableType
     public ?string $name;
 
     /**
-     * @var string $apiKey
+     * @var ?string $apiKey
      */
     #[JsonProperty('apiKey')]
-    public string $apiKey;
+    public ?string $apiKey;
 
     /**
      * @param array{
      *   vonageApplicationPrivateKey: string,
      *   provider: value-of<VonageCredentialProvider>,
-     *   apiSecret: string,
+     *   apiSecret?: ?string,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
      *   vonageApplicationId: string,
-     *   apiKey: string,
+     *   apiKey?: ?string,
      *   name?: ?string,
      * } $values
      */
@@ -92,14 +92,14 @@ class VonageCredential extends JsonSerializableType
     ) {
         $this->vonageApplicationPrivateKey = $values['vonageApplicationPrivateKey'];
         $this->provider = $values['provider'];
-        $this->apiSecret = $values['apiSecret'];
+        $this->apiSecret = $values['apiSecret'] ?? null;
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];
         $this->updatedAt = $values['updatedAt'];
         $this->vonageApplicationId = $values['vonageApplicationId'];
         $this->name = $values['name'] ?? null;
-        $this->apiKey = $values['apiKey'];
+        $this->apiKey = $values['apiKey'] ?? null;
     }
 
     /**

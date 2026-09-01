@@ -8,10 +8,10 @@ use Vapi\Core\Json\JsonProperty;
 class CreateInworldCredentialDto extends JsonSerializableType
 {
     /**
-     * @var string $apiKey This is the Inworld Basic (Base64) authentication token. This is not returned in the API.
+     * @var ?string $apiKey This is the Inworld Basic (Base64) authentication token. This is not returned in the API.
      */
     #[JsonProperty('apiKey')]
-    public string $apiKey;
+    public ?string $apiKey;
 
     /**
      * @var ?string $name This is the name of credential. This is just for your reference.
@@ -21,14 +21,14 @@ class CreateInworldCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
-     *   apiKey: string,
+     *   apiKey?: ?string,
      *   name?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->apiKey = $values['apiKey'];
+        $this->apiKey = $values['apiKey'] ?? null;
         $this->name = $values['name'] ?? null;
     }
 

@@ -34,10 +34,10 @@ class CreateVonagePhoneNumberDto extends JsonSerializableType
     public string $number;
 
     /**
-     * @var string $credentialId This is the credential you added in dashboard.vapi.ai/keys. This is used to configure the number to send inbound calls to Vapi, make outbound calls and do live call updates like transfers and hangups.
+     * @var ?string $credentialId This is the credential you added in dashboard.vapi.ai/keys. This is used to configure the number to send inbound calls to Vapi, make outbound calls and do live call updates like transfers and hangups.
      */
     #[JsonProperty('credentialId')]
-    public string $credentialId;
+    public ?string $credentialId;
 
     /**
      * @var ?string $name This is the name of the phone number. This is just for your own reference.
@@ -92,7 +92,7 @@ class CreateVonagePhoneNumberDto extends JsonSerializableType
     /**
      * @param array{
      *   number: string,
-     *   credentialId: string,
+     *   credentialId?: ?string,
      *   fallbackDestination?: ?CreateVonagePhoneNumberDtoFallbackDestination,
      *   hooks?: ?array<CreateVonagePhoneNumberDtoHooksItem>,
      *   name?: ?string,
@@ -108,7 +108,7 @@ class CreateVonagePhoneNumberDto extends JsonSerializableType
         $this->fallbackDestination = $values['fallbackDestination'] ?? null;
         $this->hooks = $values['hooks'] ?? null;
         $this->number = $values['number'];
-        $this->credentialId = $values['credentialId'];
+        $this->credentialId = $values['credentialId'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->assistantId = $values['assistantId'] ?? null;
         $this->workflowId = $values['workflowId'] ?? null;

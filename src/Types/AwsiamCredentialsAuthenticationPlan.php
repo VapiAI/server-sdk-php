@@ -14,22 +14,22 @@ class AwsiamCredentialsAuthenticationPlan extends JsonSerializableType
     public string $awsAccessKeyId;
 
     /**
-     * @var string $awsSecretAccessKey AWS Secret Access Key. This is not returned in the API.
+     * @var ?string $awsSecretAccessKey AWS Secret Access Key. This is not returned in the API.
      */
     #[JsonProperty('awsSecretAccessKey')]
-    public string $awsSecretAccessKey;
+    public ?string $awsSecretAccessKey;
 
     /**
      * @param array{
      *   awsAccessKeyId: string,
-     *   awsSecretAccessKey: string,
+     *   awsSecretAccessKey?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
         $this->awsAccessKeyId = $values['awsAccessKeyId'];
-        $this->awsSecretAccessKey = $values['awsSecretAccessKey'];
+        $this->awsSecretAccessKey = $values['awsSecretAccessKey'] ?? null;
     }
 
     /**

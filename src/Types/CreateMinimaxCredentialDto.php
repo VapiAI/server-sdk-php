@@ -8,10 +8,10 @@ use Vapi\Core\Json\JsonProperty;
 class CreateMinimaxCredentialDto extends JsonSerializableType
 {
     /**
-     * @var string $apiKey This is not returned in the API.
+     * @var ?string $apiKey This is not returned in the API.
      */
     #[JsonProperty('apiKey')]
-    public string $apiKey;
+    public ?string $apiKey;
 
     /**
      * @var string $groupId This is the Minimax Group ID.
@@ -27,7 +27,7 @@ class CreateMinimaxCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
-     *   apiKey: string,
+     *   apiKey?: ?string,
      *   groupId: string,
      *   name?: ?string,
      * } $values
@@ -35,7 +35,7 @@ class CreateMinimaxCredentialDto extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->apiKey = $values['apiKey'];
+        $this->apiKey = $values['apiKey'] ?? null;
         $this->groupId = $values['groupId'];
         $this->name = $values['name'] ?? null;
     }

@@ -14,10 +14,10 @@ class CreateS3CredentialDto extends JsonSerializableType
     public string $awsAccessKeyId;
 
     /**
-     * @var string $awsSecretAccessKey AWS access key secret. This is not returned in the API.
+     * @var ?string $awsSecretAccessKey AWS access key secret. This is not returned in the API.
      */
     #[JsonProperty('awsSecretAccessKey')]
-    public string $awsSecretAccessKey;
+    public ?string $awsSecretAccessKey;
 
     /**
      * @var string $region AWS region in which the S3 bucket is located.
@@ -52,7 +52,7 @@ class CreateS3CredentialDto extends JsonSerializableType
     /**
      * @param array{
      *   awsAccessKeyId: string,
-     *   awsSecretAccessKey: string,
+     *   awsSecretAccessKey?: ?string,
      *   region: string,
      *   s3BucketName: string,
      *   s3PathPrefix: string,
@@ -64,7 +64,7 @@ class CreateS3CredentialDto extends JsonSerializableType
         array $values,
     ) {
         $this->awsAccessKeyId = $values['awsAccessKeyId'];
-        $this->awsSecretAccessKey = $values['awsSecretAccessKey'];
+        $this->awsSecretAccessKey = $values['awsSecretAccessKey'] ?? null;
         $this->region = $values['region'];
         $this->s3BucketName = $values['s3BucketName'];
         $this->s3PathPrefix = $values['s3PathPrefix'];

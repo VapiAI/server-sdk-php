@@ -8,10 +8,10 @@ use Vapi\Core\Json\JsonProperty;
 class CreatePlayHtCredentialDto extends JsonSerializableType
 {
     /**
-     * @var string $apiKey This is not returned in the API.
+     * @var ?string $apiKey This is not returned in the API.
      */
     #[JsonProperty('apiKey')]
-    public string $apiKey;
+    public ?string $apiKey;
 
     /**
      * @var string $userId
@@ -27,7 +27,7 @@ class CreatePlayHtCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
-     *   apiKey: string,
+     *   apiKey?: ?string,
      *   userId: string,
      *   name?: ?string,
      * } $values
@@ -35,7 +35,7 @@ class CreatePlayHtCredentialDto extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->apiKey = $values['apiKey'];
+        $this->apiKey = $values['apiKey'] ?? null;
         $this->userId = $values['userId'];
         $this->name = $values['name'] ?? null;
     }

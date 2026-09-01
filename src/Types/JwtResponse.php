@@ -9,10 +9,10 @@ use Vapi\Core\Types\ArrayType;
 class JwtResponse extends JsonSerializableType
 {
     /**
-     * @var string $accessToken
+     * @var ?string $accessToken
      */
     #[JsonProperty('accessToken')]
-    public string $accessToken;
+    public ?string $accessToken;
 
     /**
      * @var array<string, mixed> $aud
@@ -22,14 +22,14 @@ class JwtResponse extends JsonSerializableType
 
     /**
      * @param array{
-     *   accessToken: string,
+     *   accessToken?: ?string,
      *   aud: array<string, mixed>,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->accessToken = $values['accessToken'];
+        $this->accessToken = $values['accessToken'] ?? null;
         $this->aud = $values['aud'];
     }
 

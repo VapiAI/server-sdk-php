@@ -8,10 +8,10 @@ use Vapi\Core\Json\JsonProperty;
 class BearerAuthenticationPlan extends JsonSerializableType
 {
     /**
-     * @var string $token This is the bearer token value.
+     * @var ?string $token This is the bearer token value.
      */
     #[JsonProperty('token')]
-    public string $token;
+    public ?string $token;
 
     /**
      * @var ?string $headerName This is the header name where the bearer token will be sent. Defaults to 'Authorization'.
@@ -27,7 +27,7 @@ class BearerAuthenticationPlan extends JsonSerializableType
 
     /**
      * @param array{
-     *   token: string,
+     *   token?: ?string,
      *   headerName?: ?string,
      *   bearerPrefixEnabled?: ?bool,
      * } $values
@@ -35,7 +35,7 @@ class BearerAuthenticationPlan extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->token = $values['token'];
+        $this->token = $values['token'] ?? null;
         $this->headerName = $values['headerName'] ?? null;
         $this->bearerPrefixEnabled = $values['bearerPrefixEnabled'] ?? null;
     }

@@ -8,10 +8,10 @@ use Vapi\Core\Json\JsonProperty;
 class CreateDeepgramCredentialDto extends JsonSerializableType
 {
     /**
-     * @var string $apiKey This is not returned in the API.
+     * @var ?string $apiKey This is not returned in the API.
      */
     #[JsonProperty('apiKey')]
-    public string $apiKey;
+    public ?string $apiKey;
 
     /**
      * @var ?string $apiUrl This can be used to point to an onprem Deepgram instance. Defaults to api.deepgram.com.
@@ -27,7 +27,7 @@ class CreateDeepgramCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
-     *   apiKey: string,
+     *   apiKey?: ?string,
      *   apiUrl?: ?string,
      *   name?: ?string,
      * } $values
@@ -35,7 +35,7 @@ class CreateDeepgramCredentialDto extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->apiKey = $values['apiKey'];
+        $this->apiKey = $values['apiKey'] ?? null;
         $this->apiUrl = $values['apiUrl'] ?? null;
         $this->name = $values['name'] ?? null;
     }

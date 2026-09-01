@@ -8,20 +8,20 @@ use Vapi\Core\Json\JsonProperty;
 class CredentialSessionResponse extends JsonSerializableType
 {
     /**
-     * @var string $sessionToken
+     * @var ?string $sessionToken
      */
     #[JsonProperty('sessionToken')]
-    public string $sessionToken;
+    public ?string $sessionToken;
 
     /**
      * @param array{
-     *   sessionToken: string,
+     *   sessionToken?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->sessionToken = $values['sessionToken'];
+        $this->sessionToken = $values['sessionToken'] ?? null;
     }
 
     /**

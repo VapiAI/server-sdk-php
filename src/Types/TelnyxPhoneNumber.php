@@ -116,10 +116,10 @@ class TelnyxPhoneNumber extends JsonSerializableType
     public string $number;
 
     /**
-     * @var string $credentialId This is the credential you added in dashboard.vapi.ai/keys. This is used to configure the number to send inbound calls to Vapi, make outbound calls and do live call updates like transfers and hangups.
+     * @var ?string $credentialId This is the credential you added in dashboard.vapi.ai/keys. This is used to configure the number to send inbound calls to Vapi, make outbound calls and do live call updates like transfers and hangups.
      */
     #[JsonProperty('credentialId')]
-    public string $credentialId;
+    public ?string $credentialId;
 
     /**
      * @param array{
@@ -128,7 +128,7 @@ class TelnyxPhoneNumber extends JsonSerializableType
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
      *   number: string,
-     *   credentialId: string,
+     *   credentialId?: ?string,
      *   fallbackDestination?: ?TelnyxPhoneNumberFallbackDestination,
      *   hooks?: ?array<TelnyxPhoneNumberHooksItem>,
      *   status?: ?value-of<TelnyxPhoneNumberStatus>,
@@ -155,7 +155,7 @@ class TelnyxPhoneNumber extends JsonSerializableType
         $this->squadId = $values['squadId'] ?? null;
         $this->server = $values['server'] ?? null;
         $this->number = $values['number'];
-        $this->credentialId = $values['credentialId'];
+        $this->credentialId = $values['credentialId'] ?? null;
     }
 
     /**

@@ -54,10 +54,10 @@ class GcpKey extends JsonSerializableType
     public string $authUri;
 
     /**
-     * @var string $tokenUri This is the URI for the auth provider's token endpoint.
+     * @var ?string $tokenUri This is the URI for the auth provider's token endpoint.
      */
     #[JsonProperty('tokenUri')]
-    public string $tokenUri;
+    public ?string $tokenUri;
 
     /**
      * @var string $authProviderX509CertUrl This is the URL of the public x509 certificate for the auth provider.
@@ -86,7 +86,7 @@ class GcpKey extends JsonSerializableType
      *   clientEmail: string,
      *   clientId: string,
      *   authUri: string,
-     *   tokenUri: string,
+     *   tokenUri?: ?string,
      *   authProviderX509CertUrl: string,
      *   clientX509CertUrl: string,
      *   universeDomain: string,
@@ -102,7 +102,7 @@ class GcpKey extends JsonSerializableType
         $this->clientEmail = $values['clientEmail'];
         $this->clientId = $values['clientId'];
         $this->authUri = $values['authUri'];
-        $this->tokenUri = $values['tokenUri'];
+        $this->tokenUri = $values['tokenUri'] ?? null;
         $this->authProviderX509CertUrl = $values['authProviderX509CertUrl'];
         $this->clientX509CertUrl = $values['clientX509CertUrl'];
         $this->universeDomain = $values['universeDomain'];

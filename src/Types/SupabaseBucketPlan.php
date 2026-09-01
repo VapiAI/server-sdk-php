@@ -39,10 +39,10 @@ class SupabaseBucketPlan extends JsonSerializableType
      * This is the Supabase S3 Secret Access Key.
      * The user creates this in the Supabase project Storage settings along with the access key id
      *
-     * @var string $secretAccessKey
+     * @var ?string $secretAccessKey
      */
     #[JsonProperty('secretAccessKey')]
-    public string $secretAccessKey;
+    public ?string $secretAccessKey;
 
     /**
      * This is the Supabase S3 Bucket Name.
@@ -71,7 +71,7 @@ class SupabaseBucketPlan extends JsonSerializableType
      *   region: value-of<SupabaseBucketPlanRegion>,
      *   url: string,
      *   accessKeyId: string,
-     *   secretAccessKey: string,
+     *   secretAccessKey?: ?string,
      *   name: string,
      *   path?: ?string,
      * } $values
@@ -82,7 +82,7 @@ class SupabaseBucketPlan extends JsonSerializableType
         $this->region = $values['region'];
         $this->url = $values['url'];
         $this->accessKeyId = $values['accessKeyId'];
-        $this->secretAccessKey = $values['secretAccessKey'];
+        $this->secretAccessKey = $values['secretAccessKey'] ?? null;
         $this->name = $values['name'];
         $this->path = $values['path'] ?? null;
     }

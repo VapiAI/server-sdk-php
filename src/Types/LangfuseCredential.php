@@ -22,10 +22,10 @@ class LangfuseCredential extends JsonSerializableType
     public string $publicKey;
 
     /**
-     * @var string $apiKey The secret key for Langfuse project. Eg: sk-lf-... .This is not returned in the API.
+     * @var ?string $apiKey The secret key for Langfuse project. Eg: sk-lf-... .This is not returned in the API.
      */
     #[JsonProperty('apiKey')]
-    public string $apiKey;
+    public ?string $apiKey;
 
     /**
      * @var string $apiUrl The host URL for Langfuse project. Eg: https://cloud.langfuse.com
@@ -67,7 +67,7 @@ class LangfuseCredential extends JsonSerializableType
      * @param array{
      *   provider: value-of<LangfuseCredentialProvider>,
      *   publicKey: string,
-     *   apiKey: string,
+     *   apiKey?: ?string,
      *   apiUrl: string,
      *   id: string,
      *   orgId: string,
@@ -81,7 +81,7 @@ class LangfuseCredential extends JsonSerializableType
     ) {
         $this->provider = $values['provider'];
         $this->publicKey = $values['publicKey'];
-        $this->apiKey = $values['apiKey'];
+        $this->apiKey = $values['apiKey'] ?? null;
         $this->apiUrl = $values['apiUrl'];
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];

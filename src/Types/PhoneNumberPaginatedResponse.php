@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A paginated collection of phone numbers and metadata describing the result set.
+ */
 class PhoneNumberPaginatedResponse extends JsonSerializableType
 {
     /**

@@ -15,6 +15,17 @@ class ServerMessageToolCalls extends JsonSerializableType
     public ?ServerMessageToolCallsPhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var ?value-of<ServerMessageToolCallsType> $type This is the type of the message. "tool-calls" is sent to call a tool.
      */
     #[JsonProperty('type')]
@@ -77,6 +88,7 @@ class ServerMessageToolCalls extends JsonSerializableType
      *   toolWithToolCallList: array<ServerMessageToolCallsToolWithToolCallListItem>,
      *   toolCallList: array<ToolCall>,
      *   phoneNumber?: ?ServerMessageToolCallsPhoneNumber,
+     *   assistantVersion?: ?string,
      *   type?: ?value-of<ServerMessageToolCallsType>,
      *   timestamp?: ?float,
      *   artifact?: ?Artifact,
@@ -90,6 +102,7 @@ class ServerMessageToolCalls extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'] ?? null;
         $this->toolWithToolCallList = $values['toolWithToolCallList'];
         $this->timestamp = $values['timestamp'] ?? null;

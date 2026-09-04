@@ -7,13 +7,14 @@ use Vapi\StructuredOutputs\Types\UpdateStructuredOutputDtoType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\StructuredOutputs\Types\UpdateStructuredOutputDtoModel;
 use Vapi\Types\ComplianceOverride;
+use Vapi\StructuredOutputs\Types\UpdateStructuredOutputDtoConditionsItem;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Types\JsonSchema;
 
 class UpdateStructuredOutputDto extends JsonSerializableType
 {
     /**
-     * @var string $schemaOverride
+     * @var string $schemaOverride Set to the string `true` to allow changing the schema's top-level type. Other values do not enable schema type changes.
      */
     public string $schemaOverride;
 
@@ -70,6 +71,12 @@ class UpdateStructuredOutputDto extends JsonSerializableType
      */
     #[JsonProperty('compliancePlan')]
     public ?ComplianceOverride $compliancePlan;
+
+    /**
+     * @var ?array<UpdateStructuredOutputDtoConditionsItem> $conditions These are the conditions that gate the execution of this structured output. Every condition must pass for the structured output to run (AND semantics). When omitted or empty, no user-defined conditions gate this output. Send null to clear a previously saved gate.
+     */
+    #[JsonProperty('conditions'), ArrayType([UpdateStructuredOutputDtoConditionsItem::class])]
+    public ?array $conditions;
 
     /**
      * @var ?string $name This is the name of the structured output.
@@ -130,6 +137,7 @@ class UpdateStructuredOutputDto extends JsonSerializableType
      *   regex?: ?string,
      *   model?: ?UpdateStructuredOutputDtoModel,
      *   compliancePlan?: ?ComplianceOverride,
+     *   conditions?: ?array<UpdateStructuredOutputDtoConditionsItem>,
      *   name?: ?string,
      *   description?: ?string,
      *   assistantIds?: ?array<string>,
@@ -145,6 +153,7 @@ class UpdateStructuredOutputDto extends JsonSerializableType
         $this->regex = $values['regex'] ?? null;
         $this->model = $values['model'] ?? null;
         $this->compliancePlan = $values['compliancePlan'] ?? null;
+        $this->conditions = $values['conditions'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->description = $values['description'] ?? null;
         $this->assistantIds = $values['assistantIds'] ?? null;

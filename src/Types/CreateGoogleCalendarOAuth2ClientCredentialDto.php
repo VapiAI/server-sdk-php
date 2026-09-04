@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * OAuth 2.0 client credential for Google Calendar integrations.
+ */
 class CreateGoogleCalendarOAuth2ClientCredentialDto extends JsonSerializableType
 {
     /**

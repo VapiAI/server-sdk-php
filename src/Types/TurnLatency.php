@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Model, voice, transcription, endpointing, and total latency measurements for a conversation turn.
+ */
 class TurnLatency extends JsonSerializableType
 {
     /**

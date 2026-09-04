@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Azure Blob Storage container configuration for call artifacts, including its connection string, container name, and storage path.
+ */
 class AzureBlobStorageBucketPlan extends JsonSerializableType
 {
     /**

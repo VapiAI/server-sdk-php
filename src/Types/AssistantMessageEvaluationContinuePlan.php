@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Controls how an evaluation proceeds after judging an assistant message, including failure handling and optional message overrides.
+ */
 class AssistantMessageEvaluationContinuePlan extends JsonSerializableType
 {
     /**

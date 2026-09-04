@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Controls artifacts generated and stored for calls, including recordings, packet captures, logs, transcripts, structured outputs, scorecards, and custom storage paths.
+ */
 class ArtifactPlan extends JsonSerializableType
 {
     /**
@@ -42,6 +45,8 @@ class ArtifactPlan extends JsonSerializableType
      * Usage:
      * - Set to false if you have custom storage configured but want to store recordings on Vapi's storage for this assistant.
      * - Set to true (or leave unset) to use your custom storage for recordings when available.
+     *
+     * If your organization has ZDR (zero data retention) or PCI enabled, recordings are never written to Vapi storage. In that case, false means "do not use my custom storage", so nothing is stored at all.
      *
      * @default true
      *
@@ -105,6 +110,8 @@ class ArtifactPlan extends JsonSerializableType
      * - Set to false if you have custom storage configured but want to store packet captures on Vapi's storage for this assistant.
      * - Set to true (or leave unset) to use your custom storage for packet captures when available.
      *
+     * If your organization has ZDR (zero data retention) or PCI enabled, packet captures are never written to Vapi storage. In that case, false means "do not use my custom storage", so nothing is stored at all.
+     *
      * @default true
      *
      * @var ?bool $pcapUseCustomStorageEnabled
@@ -130,6 +137,8 @@ class ArtifactPlan extends JsonSerializableType
      * Usage:
      * - Set to false if you have custom storage configured but want to store logs on Vapi's storage for this assistant.
      * - Set to true (or leave unset) to use your custom storage for logs when available.
+     *
+     * If your organization has ZDR (zero data retention) or PCI enabled, logs are never written to Vapi storage. In that case, false means "do not use my custom storage", so nothing is stored at all.
      *
      * @default true
      *

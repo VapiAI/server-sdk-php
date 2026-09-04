@@ -9,14 +9,16 @@ use Vapi\Core\Types\ArrayType;
 class UpdateCodeToolDto extends JsonSerializableType
 {
     /**
-     * These are the messages that will be spoken to the user as the tool is running.
-     *
-     * For some tools, this is auto-filled based on special fields like `tool.destinations`. For others like the function tool, these can be custom configured.
-     *
-     * @var ?array<UpdateCodeToolDtoMessagesItem> $messages
+     * @var ?array<UpdateCodeToolDtoMessagesItem> $messages Messages spoken while the tool is running. Multiple request-start messages are variants. For request-response-delayed, same timing means variants and different timings mean staged updates.
      */
     #[JsonProperty('messages'), ArrayType([UpdateCodeToolDtoMessagesItem::class])]
     public ?array $messages;
+
+    /**
+     * @var ?value-of<UpdateCodeToolDtoType> $type The type of tool. "code" for Code tool.
+     */
+    #[JsonProperty('type')]
+    public ?string $type;
 
     /**
      * This determines if the tool is async.
@@ -182,6 +184,7 @@ class UpdateCodeToolDto extends JsonSerializableType
     /**
      * @param array{
      *   messages?: ?array<UpdateCodeToolDtoMessagesItem>,
+     *   type?: ?value-of<UpdateCodeToolDtoType>,
      *   async?: ?bool,
      *   server?: ?Server,
      *   code?: ?string,
@@ -197,6 +200,7 @@ class UpdateCodeToolDto extends JsonSerializableType
         array $values = [],
     ) {
         $this->messages = $values['messages'] ?? null;
+        $this->type = $values['type'] ?? null;
         $this->async = $values['async'] ?? null;
         $this->server = $values['server'] ?? null;
         $this->code = $values['code'] ?? null;

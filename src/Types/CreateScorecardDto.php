@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration used to create a scorecard containing evaluation metrics, scoring conditions, and optional assistant associations.
+ */
 class CreateScorecardDto extends JsonSerializableType
 {
     /**

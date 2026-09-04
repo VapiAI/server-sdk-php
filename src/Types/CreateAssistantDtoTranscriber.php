@@ -25,6 +25,8 @@ class CreateAssistantDtoTranscriber extends JsonSerializableType
      *   |'openai'
      *   |'cartesia'
      *   |'soniox'
+     *   |'xai'
+     *   |'vapi'
      *   |'_unknown'
      * ) $provider
      */
@@ -44,6 +46,8 @@ class CreateAssistantDtoTranscriber extends JsonSerializableType
      *   |OpenAiTranscriber
      *   |CartesiaTranscriber
      *   |SonioxTranscriber
+     *   |XaiTranscriber
+     *   |VapiTranscriber
      *   |mixed
      * ) $value
      */
@@ -64,6 +68,8 @@ class CreateAssistantDtoTranscriber extends JsonSerializableType
      *   |'openai'
      *   |'cartesia'
      *   |'soniox'
+     *   |'xai'
+     *   |'vapi'
      *   |'_unknown'
      * ),
      *   value: (
@@ -79,6 +85,8 @@ class CreateAssistantDtoTranscriber extends JsonSerializableType
      *   |OpenAiTranscriber
      *   |CartesiaTranscriber
      *   |SonioxTranscriber
+     *   |XaiTranscriber
+     *   |VapiTranscriber
      *   |mixed
      * ),
      * } $values
@@ -231,6 +239,30 @@ class CreateAssistantDtoTranscriber extends JsonSerializableType
         return new CreateAssistantDtoTranscriber([
             'provider' => 'soniox',
             'value' => $soniox,
+        ]);
+    }
+
+    /**
+     * @param XaiTranscriber $xai
+     * @return CreateAssistantDtoTranscriber
+     */
+    public static function xai(XaiTranscriber $xai): CreateAssistantDtoTranscriber
+    {
+        return new CreateAssistantDtoTranscriber([
+            'provider' => 'xai',
+            'value' => $xai,
+        ]);
+    }
+
+    /**
+     * @param VapiTranscriber $vapi
+     * @return CreateAssistantDtoTranscriber
+     */
+    public static function vapi(VapiTranscriber $vapi): CreateAssistantDtoTranscriber
+    {
+        return new CreateAssistantDtoTranscriber([
+            'provider' => 'vapi',
+            'value' => $vapi,
         ]);
     }
 
@@ -499,6 +531,50 @@ class CreateAssistantDtoTranscriber extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isXai(): bool
+    {
+        return $this->value instanceof XaiTranscriber && $this->provider === 'xai';
+    }
+
+    /**
+     * @return XaiTranscriber
+     */
+    public function asXai(): XaiTranscriber
+    {
+        if (!($this->value instanceof XaiTranscriber && $this->provider === 'xai')) {
+            throw new Exception(
+                "Expected xai; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVapi(): bool
+    {
+        return $this->value instanceof VapiTranscriber && $this->provider === 'vapi';
+    }
+
+    /**
+     * @return VapiTranscriber
+     */
+    public function asVapi(): VapiTranscriber
+    {
+        if (!($this->value instanceof VapiTranscriber && $this->provider === 'vapi')) {
+            throw new Exception(
+                "Expected vapi; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -564,6 +640,14 @@ class CreateAssistantDtoTranscriber extends JsonSerializableType
                 break;
             case 'soniox':
                 $value = $this->asSoniox()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'xai':
+                $value = $this->asXai()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'vapi':
+                $value = $this->asVapi()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -649,6 +733,12 @@ class CreateAssistantDtoTranscriber extends JsonSerializableType
                 break;
             case 'soniox':
                 $args['value'] = SonioxTranscriber::jsonDeserialize($data);
+                break;
+            case 'xai':
+                $args['value'] = XaiTranscriber::jsonDeserialize($data);
+                break;
+            case 'vapi':
+                $args['value'] = VapiTranscriber::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

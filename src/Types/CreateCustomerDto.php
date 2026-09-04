@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Customer details used for call delivery and assistant personalization, including phone or SIP destination, contact identifiers, extension, and assistant overrides.
+ */
 class CreateCustomerDto extends JsonSerializableType
 {
     /**
@@ -37,6 +40,16 @@ class CreateCustomerDto extends JsonSerializableType
      */
     #[JsonProperty('assistantOverrides')]
     public ?AssistantOverrides $assistantOverrides;
+
+    /**
+     * These are the overrides applied when the call targets a `squadId`. Mirrors
+     * the call-level `squadOverrides` — use this instead of `assistantOverrides`
+     * when the campaign or call is squad-based.
+     *
+     * @var ?AssistantOverrides $squadOverrides
+     */
+    #[JsonProperty('squadOverrides')]
+    public ?AssistantOverrides $squadOverrides;
 
     /**
      * @var ?string $number This is the number of the customer.
@@ -77,6 +90,7 @@ class CreateCustomerDto extends JsonSerializableType
      *   numberE164CheckEnabled?: ?bool,
      *   extension?: ?string,
      *   assistantOverrides?: ?AssistantOverrides,
+     *   squadOverrides?: ?AssistantOverrides,
      *   number?: ?string,
      *   sipUri?: ?string,
      *   name?: ?string,
@@ -90,6 +104,7 @@ class CreateCustomerDto extends JsonSerializableType
         $this->numberE164CheckEnabled = $values['numberE164CheckEnabled'] ?? null;
         $this->extension = $values['extension'] ?? null;
         $this->assistantOverrides = $values['assistantOverrides'] ?? null;
+        $this->squadOverrides = $values['squadOverrides'] ?? null;
         $this->number = $values['number'] ?? null;
         $this->sipUri = $values['sipUri'] ?? null;
         $this->name = $values['name'] ?? null;

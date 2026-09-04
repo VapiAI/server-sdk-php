@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * An entry in the call message history that records the result and metadata for a completed tool call.
+ */
 class ToolCallResultMessage extends JsonSerializableType
 {
     /**
@@ -51,6 +54,15 @@ class ToolCallResultMessage extends JsonSerializableType
     public ?array $metadata;
 
     /**
+     * Warnings raised for this tool call result, e.g. when the response is
+     * larger than recommended for voice AI context windows.
+     *
+     * @var ?array<ToolCallResultMessageWarning> $warnings
+     */
+    #[JsonProperty('warnings'), ArrayType([ToolCallResultMessageWarning::class])]
+    public ?array $warnings;
+
+    /**
      * @param array{
      *   role: string,
      *   toolCallId: string,
@@ -59,6 +71,7 @@ class ToolCallResultMessage extends JsonSerializableType
      *   time: float,
      *   secondsFromStart: float,
      *   metadata?: ?array<string, mixed>,
+     *   warnings?: ?array<ToolCallResultMessageWarning>,
      * } $values
      */
     public function __construct(
@@ -71,6 +84,7 @@ class ToolCallResultMessage extends JsonSerializableType
         $this->time = $values['time'];
         $this->secondsFromStart = $values['secondsFromStart'];
         $this->metadata = $values['metadata'] ?? null;
+        $this->warnings = $values['warnings'] ?? null;
     }
 
     /**

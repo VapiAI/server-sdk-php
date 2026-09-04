@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Anthropic model configuration for an LLM judge, including its messages, generation settings, and optional extended thinking.
+ */
 class EvalAnthropicModel extends JsonSerializableType
 {
     /**

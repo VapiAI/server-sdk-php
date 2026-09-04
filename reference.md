@@ -4,6 +4,20 @@
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns assistants for the authenticated organization. Filter results by creation or update timestamps and limit the number returned.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -110,6 +124,20 @@ $client->assistants->list(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a reusable assistant configuration containing the model, voice, transcriber, tools, prompts, and call behavior.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -148,9 +176,67 @@ $client->assistants->create(
 </dl>
 </details>
 
+<details><summary><code>$client-&gt;assistants-&gt;assistantControllerValidateBackgroundSoundUrl($request) -> ?BackgroundSoundUrlValidationResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->assistants->assistantControllerValidateBackgroundSoundUrl(
+    new ValidateBackgroundSoundUrlDto([
+        'url' => 'https://example.com/my-sound.mp3',
+    ]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$url:** `string` — This is the background sound URL to validate. The server performs a ranged request and checks that the URL serves a live media file.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>$client-&gt;assistants-&gt;get($id) -> ?Assistant</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the assistant identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -178,7 +264,7 @@ $client->assistants->get(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the assistant.
     
 </dd>
 </dl>
@@ -193,6 +279,20 @@ $client->assistants->get(
 <details><summary><code>$client-&gt;assistants-&gt;delete($id) -> ?Assistant</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the assistant identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -220,7 +320,7 @@ $client->assistants->delete(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the assistant.
     
 </dd>
 </dl>
@@ -235,6 +335,20 @@ $client->assistants->delete(
 <details><summary><code>$client-&gt;assistants-&gt;update($id, $request) -> ?Assistant</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the specified fields of the assistant identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -263,7 +377,7 @@ $client->assistants->update(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the assistant.
     
 </dd>
 </dl>
@@ -307,7 +421,7 @@ If unspecified, assistant will wait for user to speak and use the model to respo
 <dl>
 <dd>
 
-**$firstMessageInterruptionsEnabled:** `?bool` 
+**$firstMessageInterruptionsEnabled:** `?bool` — Set to `true` to allow the user to interrupt the assistant while it speaks the first message. Default is `false`.
     
 </dd>
 </dl>
@@ -474,7 +588,7 @@ If unspecified, it will hang up without saying anything.
 <dl>
 <dd>
 
-**$compliancePlan:** `?CompliancePlan` 
+**$compliancePlan:** `?CompliancePlan` — Compliance settings for the assistant, including HIPAA and PCI behavior, security filtering, and recording consent.
     
 </dd>
 </dl>
@@ -597,7 +711,7 @@ The order of precedence is:
 <dl>
 <dd>
 
-**$keypadInputPlan:** `?KeypadInputPlan` 
+**$keypadInputPlan:** `?KeypadInputPlan` — Configuration for collecting and processing DTMF keypad input during calls.
     
 </dd>
 </dl>
@@ -613,6 +727,20 @@ The order of precedence is:
 <details><summary><code>$client-&gt;squads-&gt;list($request) -> ?array</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns squads for the authenticated organization. Filter results by creation or update timestamps and limit the number returned.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -636,6 +764,14 @@ $client->squads->list(
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**$idAny:** `?string` — Return only squads matching the provided ids
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -720,6 +856,20 @@ $client->squads->list(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a squad that coordinates multiple assistants and their handoffs during a conversation.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -766,6 +916,20 @@ $client->squads->create(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the squad identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -792,7 +956,7 @@ $client->squads->get(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the squad.
     
 </dd>
 </dl>
@@ -807,6 +971,20 @@ $client->squads->get(
 <details><summary><code>$client-&gt;squads-&gt;delete($id) -> ?Squad</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the squad identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -834,7 +1012,7 @@ $client->squads->delete(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the squad.
     
 </dd>
 </dl>
@@ -849,6 +1027,20 @@ $client->squads->delete(
 <details><summary><code>$client-&gt;squads-&gt;update($id, $request) -> ?Squad</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the specified fields of the squad identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -881,7 +1073,7 @@ $client->squads->update(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the squad.
     
 </dd>
 </dl>
@@ -929,6 +1121,20 @@ Both `membersOverrides` and `members[n].assistantOverrides` can be used together
 <details><summary><code>$client-&gt;calls-&gt;list($request) -> ?array</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns calls for the authenticated organization. Filter results by call ID, assistant ID, phone number ID, or creation and update timestamps.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -1064,6 +1270,20 @@ Only relevant for `outboundPhoneCall` and `inboundPhoneCall` type.
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a call using an assistant or squad. The request can reference saved resources or include transient configurations.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -1090,6 +1310,25 @@ $client->calls->create(
 <dl>
 <dd>
 
+**$assistantVersion:** `?string` 
+
+This is the assistant version to use for this call. Supported only with
+direct `assistantId`. Omit to follow the latest version.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$transport:** `?CreateCallDtoTransport` — This is the transport of the call.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **$customers:** `?array` 
 
 This is used to issue batch calls to multiple customers.
@@ -1111,14 +1350,6 @@ Only relevant for `outboundPhoneCall`. To call a single customer, use `customer`
 <dd>
 
 **$schedulePlan:** `?SchedulePlan` — This is the schedule plan of the call.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**$transport:** `?array` — This is the transport of the call.
     
 </dd>
 </dl>
@@ -1299,6 +1530,20 @@ Only relevant for `outboundPhoneCall` and `inboundPhoneCall` type.
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the call identified by its ID, including its status, configuration, and available call data.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -1325,7 +1570,7 @@ $client->calls->get(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the call.
     
 </dd>
 </dl>
@@ -1340,6 +1585,20 @@ $client->calls->get(
 <details><summary><code>$client-&gt;calls-&gt;delete($id, $request) -> ?Call</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the call identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -1397,6 +1656,20 @@ It may take up to a few hours to complete the bulk delete, and will be asynchron
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the call identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -1424,7 +1697,7 @@ $client->calls->update(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the call.
     
 </dd>
 </dl>
@@ -1433,6 +1706,300 @@ $client->calls->update(
 <dd>
 
 **$name:** `?string` — This is the name of the call. This is just for your own reference.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;calls-&gt;callArtifactControllerMonoRecordingDownload($id)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->calls->callArtifactControllerMonoRecordingDownload(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — Call ID
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;calls-&gt;callArtifactControllerStereoRecordingDownload($id)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->calls->callArtifactControllerStereoRecordingDownload(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — Call ID
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;calls-&gt;callArtifactControllerVideoRecordingDownload($id)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->calls->callArtifactControllerVideoRecordingDownload(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — Call ID
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;calls-&gt;callArtifactControllerCustomerRecordingDownload($id)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->calls->callArtifactControllerCustomerRecordingDownload(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — Call ID
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;calls-&gt;callArtifactControllerAssistantRecordingDownload($id)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->calls->callArtifactControllerAssistantRecordingDownload(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — Call ID
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;calls-&gt;callArtifactControllerPcapDownload($id)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->calls->callArtifactControllerPcapDownload(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — Call ID
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;calls-&gt;callArtifactControllerCallLogsDownload($id)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->calls->callArtifactControllerCallLogsDownload(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — Call ID
     
 </dd>
 </dl>
@@ -1525,6 +2092,14 @@ $client->chats->list(
 <dl>
 <dd>
 
+**$idAny:** `?string` — Filter by multiple chat IDs. Provide as comma-separated values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **$page:** `?float` — This is the page number to return. Defaults to 1.
     
 </dd>
@@ -1534,6 +2109,14 @@ $client->chats->list(
 <dd>
 
 **$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
     
 </dd>
 </dl>
@@ -2009,6 +2592,20 @@ Cannot specify both sessionId and transport fields (phoneNumberId/customer) toge
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns outbound calling campaigns for the authenticated organization. Filter results by campaign ID, status, or creation and update timestamps.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -2035,7 +2632,7 @@ $client->campaigns->campaignControllerFindAll(
 <dl>
 <dd>
 
-**$id:** `?string` 
+**$id:** `?string` — Filters campaigns by ID.
     
 </dd>
 </dl>
@@ -2043,7 +2640,7 @@ $client->campaigns->campaignControllerFindAll(
 <dl>
 <dd>
 
-**$status:** `?string` 
+**$status:** `?string` — Filters campaigns by status.
     
 </dd>
 </dl>
@@ -2060,6 +2657,14 @@ $client->campaigns->campaignControllerFindAll(
 <dd>
 
 **$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
     
 </dd>
 </dl>
@@ -2147,6 +2752,20 @@ $client->campaigns->campaignControllerFindAll(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an outbound calling campaign that calls a set of customers.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -2175,7 +2794,49 @@ $client->campaigns->campaignControllerCreate(
 <dl>
 <dd>
 
-**$name:** `string` — This is the name of the campaign. This is just for your own reference.
+**$request:** `CreateCampaignDto` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;campaigns-&gt;campaignControllerFindAllV2($request) -> ?CampaignSummaryPaginatedResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->campaigns->campaignControllerFindAllV2(
+    new CampaignControllerFindAllV2Request([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `?string` 
     
 </dd>
 </dl>
@@ -2183,7 +2844,7 @@ $client->campaigns->campaignControllerCreate(
 <dl>
 <dd>
 
-**$assistantId:** `?string` — This is the assistant ID that will be used for the campaign calls. Note: Only one of assistantId, workflowId, or squadId can be used.
+**$status:** `?string` 
     
 </dd>
 </dl>
@@ -2191,7 +2852,13 @@ $client->campaigns->campaignControllerCreate(
 <dl>
 <dd>
 
-**$workflowId:** `?string` — This is the workflow ID that will be used for the campaign calls. Note: Only one of assistantId, workflowId, or squadId can be used.
+**$includeCounters:** `?bool` 
+
+When true, every campaign in the response includes `contactCounters` and
+`callMetrics`. These are aggregate queries over contacts and events —
+batched across the page, so the cost is three queries per request rather
+than three per campaign, but still opt-in rather than paid for on every
+read. Defaults to false.
     
 </dd>
 </dl>
@@ -2199,7 +2866,7 @@ $client->campaigns->campaignControllerCreate(
 <dl>
 <dd>
 
-**$squadId:** `?string` — This is the squad ID that will be used for the campaign calls. Note: Only one of assistantId, workflowId, or squadId can be used.
+**$page:** `?float` — This is the page number to return. Defaults to 1.
     
 </dd>
 </dl>
@@ -2207,7 +2874,7 @@ $client->campaigns->campaignControllerCreate(
 <dl>
 <dd>
 
-**$phoneNumberId:** `?string` — This is the phone number ID that will be used for the campaign calls. Required if dialPlan is not provided. Note: phoneNumberId and dialPlan are mutually exclusive.
+**$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
     
 </dd>
 </dl>
@@ -2215,7 +2882,7 @@ $client->campaigns->campaignControllerCreate(
 <dl>
 <dd>
 
-**$dialPlan:** `?array` — This is a list of dial entries, each specifying a phone number and the customers to call using that number. Use this when you want different phone numbers to call different sets of customers. Note: phoneNumberId and dialPlan are mutually exclusive.
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
     
 </dd>
 </dl>
@@ -2223,7 +2890,7 @@ $client->campaigns->campaignControllerCreate(
 <dl>
 <dd>
 
-**$schedulePlan:** `?SchedulePlan` — This is the schedule plan for the campaign. Calls will start at startedAt and continue until your organization’s concurrency limit is reached. Any remaining calls will be retried for up to one hour as capacity becomes available. After that hour or after latestAt, whichever comes first, any calls that couldn’t be placed won’t be retried.
+**$limit:** `?float` — This is the maximum number of items to return. Defaults to 100.
     
 </dd>
 </dl>
@@ -2231,7 +2898,257 @@ $client->campaigns->campaignControllerCreate(
 <dl>
 <dd>
 
-**$customers:** `?array` — These are the customers that will be called in the campaign. Required if dialPlan is not provided.
+**$createdAtGt:** `?DateTime` — This will return items where the createdAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLt:** `?DateTime` — This will return items where the createdAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtGe:** `?DateTime` — This will return items where the createdAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLe:** `?DateTime` — This will return items where the createdAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGt:** `?DateTime` — This will return items where the updatedAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLt:** `?DateTime` — This will return items where the updatedAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGe:** `?DateTime` — This will return items where the updatedAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLe:** `?DateTime` — This will return items where the updatedAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;campaigns-&gt;campaignControllerCreateV2($request) -> ?Campaign</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->campaigns->campaignControllerCreateV2(
+    new CreateCampaignDto([
+        'name' => 'Q2 Sales Campaign',
+    ]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$request:** `CreateCampaignDto` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;campaigns-&gt;campaignControllerFindOneV2($id, $request) -> ?CampaignSummary</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->campaigns->campaignControllerFindOneV2(
+    'id',
+    new CampaignControllerFindOneV2Request([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier for the resource.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$includeCounters:** `?bool` 
+
+When true, the response includes `contactCounters` and `callMetrics`.
+These are aggregate queries over the campaign's contacts and events, so
+they are opt-in rather than paid for on every read. Defaults to false.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;campaigns-&gt;campaignControllerRemoveV2($id) -> ?Campaign</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->campaigns->campaignControllerRemoveV2(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier for the resource.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;campaigns-&gt;campaignControllerUpdateV2($id, $request) -> ?Campaign</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->campaigns->campaignControllerUpdateV2(
+    'id',
+    new CampaignControllerUpdateV2Request([
+        'body' => new UpdateCampaignDto([]),
+    ]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier for the resource.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$request:** `UpdateCampaignDto` 
     
 </dd>
 </dl>
@@ -2246,6 +3163,20 @@ $client->campaigns->campaignControllerCreate(
 <details><summary><code>$client-&gt;campaigns-&gt;campaignControllerFindOne($id) -> ?Campaign</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the outbound calling campaign identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -2273,7 +3204,7 @@ $client->campaigns->campaignControllerFindOne(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the campaign.
     
 </dd>
 </dl>
@@ -2288,6 +3219,20 @@ $client->campaigns->campaignControllerFindOne(
 <details><summary><code>$client-&gt;campaigns-&gt;campaignControllerRemove($id) -> ?Campaign</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the outbound calling campaign identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -2315,7 +3260,7 @@ $client->campaigns->campaignControllerRemove(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the campaign.
     
 </dd>
 </dl>
@@ -2331,6 +3276,20 @@ $client->campaigns->campaignControllerRemove(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the outbound calling campaign identified by its ID. Campaigns can be ended by updating their status to `ended`.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -2342,7 +3301,9 @@ $client->campaigns->campaignControllerRemove(
 ```php
 $client->campaigns->campaignControllerUpdate(
     'id',
-    new UpdateCampaignDto([]),
+    new CampaignControllerUpdateRequest([
+        'body' => new UpdateCampaignDto([]),
+    ]),
 );
 ```
 </dd>
@@ -2358,7 +3319,7 @@ $client->campaigns->campaignControllerUpdate(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the campaign.
     
 </dd>
 </dl>
@@ -2366,71 +3327,50 @@ $client->campaigns->campaignControllerUpdate(
 <dl>
 <dd>
 
-**$name:** `?string` — This is the name of the campaign. This is just for your own reference.
+**$request:** `UpdateCampaignDto` 
     
 </dd>
 </dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;campaigns-&gt;campaignControllerGetCampaignV2Contacts($id, $request) -> ?CampaignContactPaginatedResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
 
 <dl>
 <dd>
 
-**$assistantId:** `?string` 
+<dl>
+<dd>
 
-This is the assistant ID that will be used for the campaign calls.
-Can only be updated if campaign is not in progress or has ended.
-    
+```php
+$client->campaigns->campaignControllerGetCampaignV2Contacts(
+    'id',
+    new CampaignControllerGetCampaignV2ContactsRequest([]),
+);
+```
 </dd>
 </dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
 
 <dl>
 <dd>
 
-**$workflowId:** `?string` 
-
-This is the workflow ID that will be used for the campaign calls.
-Can only be updated if campaign is not in progress or has ended.
-    
-</dd>
-</dl>
-
 <dl>
 <dd>
 
-**$squadId:** `?string` 
-
-This is the squad ID that will be used for the campaign calls.
-Can only be updated if campaign is not in progress or has ended.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**$phoneNumberId:** `?string` 
-
-This is the phone number ID that will be used for the campaign calls.
-Can only be updated if campaign is not in progress or has ended.
-Note: `phoneNumberId` and `dialPlan` are mutually exclusive.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**$dialPlan:** `?array` — This is a list of dial entries, each specifying a phone number and the customers to call using that number. Can only be updated if campaign is not in progress or has ended. Note: phoneNumberId and dialPlan are mutually exclusive.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**$schedulePlan:** `?SchedulePlan` 
-
-This is the schedule plan for the campaign.
-Can only be updated if campaign is not in progress or has ended.
+**$id:** `string` — The unique identifier for the resource.
     
 </dd>
 </dl>
@@ -2440,9 +3380,43 @@ Can only be updated if campaign is not in progress or has ended.
 
 **$status:** `?string` 
 
-This is the status of the campaign.
-Can only be updated to 'ended' if you want to end the campaign.
-When set to 'ended', it will delete all scheduled calls. Calls in progress will be allowed to complete.
+This is the status to filter contacts by. Pass once or multiple times to
+filter on any of the provided statuses.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$limit:** `?float` — This is the maximum number of contacts to return. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` 
+
+This is the column to sort by. Defaults to `position` — the order contacts
+were uploaded, which is also dial order.
+
+`status` sorts by the enum's declaration order rather than alphabetically,
+which means it reads as a lifecycle: pending, dispatched, completed,
+failed, skipped, predial-failed.
+
+Only columns on `campaign_contact` are sortable. Call-level values such as
+cost or duration live on the call and are attached after this query, so
+sorting by them here would only reorder the current page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$page:** `?float` — This is the page number to return. Defaults to 1.
     
 </dd>
 </dl>
@@ -2577,6 +3551,18 @@ This allows customization of the assistant's behavior for individual customers i
 <dl>
 <dd>
 
+**$squadOverrides:** `?string` 
+
+These are the overrides applied when the call targets a `squadId`. Mirrors
+the call-level `squadOverrides` — use this instead of `assistantOverrides`
+when the campaign or call is squad-based.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **$number:** `?string` — This is the number of the customer.
     
 </dd>
@@ -2617,6 +3603,14 @@ This allows customization of the assistant's behavior for individual customers i
 <dl>
 <dd>
 
+**$idAny:** `?string` — Filter by multiple session IDs. Provide as comma-separated values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **$phoneNumberId:** `?string` — This will return sessions with the specified phoneNumberId.
     
 </dd>
@@ -2642,6 +3636,14 @@ This allows customization of the assistant's behavior for individual customers i
 <dd>
 
 **$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
     
 </dd>
 </dl>
@@ -2903,7 +3905,7 @@ $client->sessions->get(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier for the resource.
     
 </dd>
 </dl>
@@ -2945,7 +3947,7 @@ $client->sessions->delete(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier for the resource.
     
 </dd>
 </dl>
@@ -2988,7 +3990,7 @@ $client->sessions->update(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier for the resource.
     
 </dd>
 </dl>
@@ -3036,6 +4038,20 @@ $client->sessions->update(
 <details><summary><code>$client-&gt;phoneNumbers-&gt;list($request) -> ?array</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns phone numbers for the authenticated organization. Filter results by creation or update timestamps and limit the number returned.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3143,6 +4159,20 @@ $client->phoneNumbers->list(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a Vapi phone number or imports a phone number from a supported provider, including Twilio, Vonage, Telnyx, or a bring-your-own provider.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -3187,6 +4217,20 @@ $client->phoneNumbers->create(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a paginated list of phone numbers for the authenticated organization. Search by name, number, or SIP URI using a partial, case-insensitive match, and filter by creation or update timestamps.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -3230,6 +4274,14 @@ $client->phoneNumbers->phoneNumberControllerFindAllPaginated(
 <dd>
 
 **$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
     
 </dd>
 </dl>
@@ -3317,6 +4369,20 @@ $client->phoneNumbers->phoneNumberControllerFindAllPaginated(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the phone number resource identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -3343,7 +4409,7 @@ $client->phoneNumbers->get(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the phone number.
     
 </dd>
 </dl>
@@ -3358,6 +4424,20 @@ $client->phoneNumbers->get(
 <details><summary><code>$client-&gt;phoneNumbers-&gt;delete($id) -> ?DeletePhoneNumbersResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the phone number resource identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3385,7 +4465,7 @@ $client->phoneNumbers->delete(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the phone number.
     
 </dd>
 </dl>
@@ -3400,6 +4480,20 @@ $client->phoneNumbers->delete(
 <details><summary><code>$client-&gt;phoneNumbers-&gt;update($id, $request) -> ?UpdatePhoneNumbersResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the specified fields of the phone number resource identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3430,7 +4524,7 @@ $client->phoneNumbers->update(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the phone number.
     
 </dd>
 </dl>
@@ -3454,6 +4548,20 @@ $client->phoneNumbers->update(
 <details><summary><code>$client-&gt;tools-&gt;list($request) -> ?array</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns reusable tools for the authenticated organization. Filter results by creation or update timestamps and limit the number returned.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3561,6 +4669,20 @@ $client->tools->list(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a reusable tool that assistants can invoke during conversations.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -3606,6 +4728,20 @@ $client->tools->create(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the tool identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -3632,7 +4768,7 @@ $client->tools->get(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the tool.
     
 </dd>
 </dl>
@@ -3647,6 +4783,20 @@ $client->tools->get(
 <details><summary><code>$client-&gt;tools-&gt;delete($id) -> ?DeleteToolsResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the tool identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3674,7 +4824,7 @@ $client->tools->delete(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the tool.
     
 </dd>
 </dl>
@@ -3689,6 +4839,20 @@ $client->tools->delete(
 <details><summary><code>$client-&gt;tools-&gt;update($id, $request) -> ?UpdateToolsResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the specified fields of the tool identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3719,7 +4883,7 @@ $client->tools->update(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the tool.
     
 </dd>
 </dl>
@@ -3740,9 +4904,23 @@ $client->tools->update(
 </details>
 
 ## Files
-<details><summary><code>$client-&gt;files-&gt;list() -> ?array</code></summary>
+<details><summary><code>$client-&gt;files-&gt;list($request) -> ?array</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns files uploaded to the authenticated organization.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3753,8 +4931,27 @@ $client->tools->update(
 <dd>
 
 ```php
-$client->files->list();
+$client->files->list(
+    new ListFilesRequest([
+        'purpose' => 'purpose',
+    ]),
+);
 ```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$purpose:** `string` 
+    
 </dd>
 </dl>
 </dd>
@@ -3768,6 +4965,20 @@ $client->files->list();
 <details><summary><code>$client-&gt;files-&gt;create($request) -> ?File</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Uploads a file for use with a Vapi knowledge base.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3798,6 +5009,20 @@ $client->files->create(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the uploaded file identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -3824,7 +5049,7 @@ $client->files->get(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the file.
     
 </dd>
 </dl>
@@ -3839,6 +5064,20 @@ $client->files->get(
 <details><summary><code>$client-&gt;files-&gt;delete($id) -> ?File</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the uploaded file identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3866,7 +5105,7 @@ $client->files->delete(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the file.
     
 </dd>
 </dl>
@@ -3881,6 +5120,20 @@ $client->files->delete(
 <details><summary><code>$client-&gt;files-&gt;update($id, $request) -> ?File</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the name of the uploaded file identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3909,7 +5162,7 @@ $client->files->update(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the file.
     
 </dd>
 </dl>
@@ -3929,10 +5182,459 @@ $client->files->update(
 </dl>
 </details>
 
+## KnowledgeBasesV2
+<details><summary><code>$client-&gt;knowledgeBasesV2-&gt;knowledgeBaseV2ControllerFindAll($request) -> ?array</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->knowledgeBasesV2->knowledgeBaseV2ControllerFindAll(
+    new KnowledgeBaseV2ControllerFindAllRequest([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$limit:** `?float` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;knowledgeBasesV2-&gt;knowledgeBaseV2ControllerCreate($request) -> ?KnowledgeBaseV2</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->knowledgeBasesV2->knowledgeBaseV2ControllerCreate(
+    new CreateKnowledgeBaseV2Dto([
+        'name' => 'name',
+    ]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$name:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$description:** `?string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;knowledgeBasesV2-&gt;knowledgeBaseV2ControllerFilesGet($id) -> ?array</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->knowledgeBasesV2->knowledgeBaseV2ControllerFilesGet(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier for the resource.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;knowledgeBasesV2-&gt;knowledgeBaseV2ControllerFileAttach($id, $request) -> ?KnowledgeBaseV2File</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->knowledgeBasesV2->knowledgeBaseV2ControllerFileAttach(
+    'id',
+    new AttachKnowledgeBaseV2FileDto([
+        'fileId' => 'fileId',
+    ]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier for the resource.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$fileId:** `string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;knowledgeBasesV2-&gt;knowledgeBaseV2ControllerFileDetach($id, $fileId) -> ?KnowledgeBaseV2File</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->knowledgeBasesV2->knowledgeBaseV2ControllerFileDetach(
+    'id',
+    'fileId',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier for the resource.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$fileId:** `string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;knowledgeBasesV2-&gt;knowledgeBaseV2ControllerFileRetry($id, $fileId) -> ?KnowledgeBaseV2File</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->knowledgeBasesV2->knowledgeBaseV2ControllerFileRetry(
+    'id',
+    'fileId',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier for the resource.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$fileId:** `string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;knowledgeBasesV2-&gt;knowledgeBaseV2ControllerFindOne($id) -> ?KnowledgeBaseV2WithFiles</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->knowledgeBasesV2->knowledgeBaseV2ControllerFindOne(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier for the resource.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;knowledgeBasesV2-&gt;knowledgeBaseV2ControllerRemove($id) -> ?KnowledgeBaseV2</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->knowledgeBasesV2->knowledgeBaseV2ControllerRemove(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier for the resource.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;knowledgeBasesV2-&gt;knowledgeBaseV2ControllerUpdate($id, $request) -> ?KnowledgeBaseV2</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->knowledgeBasesV2->knowledgeBaseV2ControllerUpdate(
+    'id',
+    new UpdateKnowledgeBaseV2Dto([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier for the resource.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$name:** `?string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$description:** `?string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## StructuredOutputs
 <details><summary><code>$client-&gt;structuredOutputs-&gt;structuredOutputControllerFindAll($request) -> ?StructuredOutputPaginatedResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns structured-output definitions for the authenticated organization. Filter results by ID, name, or creation and update timestamps.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3985,6 +5687,14 @@ $client->structuredOutputs->structuredOutputControllerFindAll(
 <dd>
 
 **$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
     
 </dd>
 </dl>
@@ -4072,6 +5782,20 @@ $client->structuredOutputs->structuredOutputControllerFindAll(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a reusable definition for extracting validated data from conversations using an AI model or regular expression.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -4119,6 +5843,20 @@ $client->structuredOutputs->structuredOutputControllerCreate(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the structured-output definition identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -4145,7 +5883,7 @@ $client->structuredOutputs->structuredOutputControllerFindOne(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the structured output.
     
 </dd>
 </dl>
@@ -4160,6 +5898,20 @@ $client->structuredOutputs->structuredOutputControllerFindOne(
 <details><summary><code>$client-&gt;structuredOutputs-&gt;structuredOutputControllerRemove($id) -> ?StructuredOutput</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the structured-output definition identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4187,7 +5939,7 @@ $client->structuredOutputs->structuredOutputControllerRemove(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the structured output.
     
 </dd>
 </dl>
@@ -4202,6 +5954,20 @@ $client->structuredOutputs->structuredOutputControllerRemove(
 <details><summary><code>$client-&gt;structuredOutputs-&gt;structuredOutputControllerUpdate($id, $request) -> ?StructuredOutput</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the structured-output definition identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4232,7 +5998,7 @@ $client->structuredOutputs->structuredOutputControllerUpdate(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the structured output.
     
 </dd>
 </dl>
@@ -4240,7 +6006,7 @@ $client->structuredOutputs->structuredOutputControllerUpdate(
 <dl>
 <dd>
 
-**$schemaOverride:** `string` 
+**$schemaOverride:** `string` — Set to the string `true` to allow changing the schema's top-level type. Other values do not enable schema type changes.
     
 </dd>
 </dl>
@@ -4303,6 +6069,14 @@ If messages or required fields are not specified, the default system and user pr
 <dd>
 
 **$compliancePlan:** `?ComplianceOverride` — Compliance configuration for this output. Only enable overrides if no sensitive data will be stored.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$conditions:** `?array` — These are the conditions that gate the execution of this structured output. Every condition must pass for the structured output to run (AND semantics). When omitted or empty, no user-defined conditions gate this output. Send null to clear a previously saved gate.
     
 </dd>
 </dl>
@@ -4376,9 +6150,23 @@ Defines the structure and validation rules for the data that will be extracted. 
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;structuredOutputs-&gt;structuredOutputControllerRun($request) -> ?StructuredOutput</code></summary>
+<details><summary><code>$client-&gt;structuredOutputs-&gt;structuredOutputControllerRun($request) -> StructuredOutputControllerRunResponseZero|StructuredOutputRerunResponse|null</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Runs a saved or transient structured-output definition against one or more calls, optionally returning a preview without updating call artifacts.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4458,10 +6246,2709 @@ If preview is false, up to 100 callIds may be provided.
 </dl>
 </details>
 
+## SimulationPersonalities
+<details><summary><code>$client-&gt;simulationPersonalities-&gt;personalityControllerFindAll($request) -> ?array</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the personalities for the authenticated organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationPersonalities->personalityControllerFindAll(
+    new PersonalityControllerFindAllRequest([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$page:** `?float` — This is the page number to return. Defaults to 1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$limit:** `?float` — This is the maximum number of items to return. Defaults to 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtGt:** `?DateTime` — This will return items where the createdAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLt:** `?DateTime` — This will return items where the createdAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtGe:** `?DateTime` — This will return items where the createdAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLe:** `?DateTime` — This will return items where the createdAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGt:** `?DateTime` — This will return items where the updatedAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLt:** `?DateTime` — This will return items where the updatedAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGe:** `?DateTime` — This will return items where the updatedAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLe:** `?DateTime` — This will return items where the updatedAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationPersonalities-&gt;personalityControllerCreate($request) -> ?Personality</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a personality, the AI tester's configuration used in simulations.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationPersonalities->personalityControllerCreate(
+    new CreatePersonalityDto([
+        'name' => 'name',
+        'assistant' => new CreateAssistantDto([]),
+    ]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$request:** `CreatePersonalityDto` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationPersonalities-&gt;personalityControllerFindOne($id) -> ?Personality</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the specified personality.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationPersonalities->personalityControllerFindOne(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the personality.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationPersonalities-&gt;personalityControllerRemove($id) -> ?Personality</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the specified personality.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationPersonalities->personalityControllerRemove(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the personality.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationPersonalities-&gt;personalityControllerUpdate($id, $request) -> ?Personality</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the specified personality. Changes apply to future runs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationPersonalities->personalityControllerUpdate(
+    'id',
+    new UpdatePersonalityDto([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the personality.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$name:** `?string` — This is the name of the personality.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$assistant:** `?CreateAssistantDto` — This is the full assistant configuration for this personality.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$path:** `?string` 
+
+Optional folder path for organizing personalities.
+Supports up to 3 levels (e.g., "dept/feature/variant").
+Set to null to remove from folder.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## SimulationScenarios
+<details><summary><code>$client-&gt;simulationScenarios-&gt;scenarioControllerFindAll($request) -> ?array</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the scenarios for the authenticated organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationScenarios->scenarioControllerFindAll(
+    new ScenarioControllerFindAllRequest([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$idAny:** `?string` — Return only scenarios matching the provided ids
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$name:** `?string` — Search by scenario name
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$page:** `?float` — This is the page number to return. Defaults to 1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$limit:** `?float` — This is the maximum number of items to return. Defaults to 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtGt:** `?DateTime` — This will return items where the createdAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLt:** `?DateTime` — This will return items where the createdAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtGe:** `?DateTime` — This will return items where the createdAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLe:** `?DateTime` — This will return items where the createdAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGt:** `?DateTime` — This will return items where the updatedAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLt:** `?DateTime` — This will return items where the updatedAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGe:** `?DateTime` — This will return items where the updatedAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLe:** `?DateTime` — This will return items where the updatedAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationScenarios-&gt;scenarioControllerCreate($request) -> ?Scenario</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a scenario, the AI tester's intent plus the success criteria that score a run.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationScenarios->scenarioControllerCreate(
+    new CreateScenarioDto([
+        'name' => 'Health Enrollment - Eligible Path',
+        'instructions' => 'You are calling to enroll in the Twin Health program. Confirm your identity when asked.',
+        'evaluations' => [
+            new EvaluationPlanItem([
+                'comparator' => EvaluationPlanItemComparator::EqualTo->value,
+                'value' => 1.1,
+            ]),
+        ],
+    ]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$request:** `CreateScenarioDto` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationScenarios-&gt;scenarioControllerFindOne($id) -> ?Scenario</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the specified scenario.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationScenarios->scenarioControllerFindOne(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the scenario.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationScenarios-&gt;scenarioControllerRemove($id) -> ?Scenario</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the specified scenario.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationScenarios->scenarioControllerRemove(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the scenario.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationScenarios-&gt;scenarioControllerUpdate($id, $request) -> ?Scenario</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the specified scenario.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationScenarios->scenarioControllerUpdate(
+    'id',
+    new UpdateScenarioDto([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the scenario.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$name:** `?string` — This is the name of the scenario.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$instructions:** `?string` — This is the script/instructions for the tester to follow during the simulation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$evaluations:** `?array` 
+
+This is the structured output-based evaluation plan for the simulation.
+Each item defines a structured output to extract and evaluate against an expected value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$hooks:** `?array` — Hooks to run on simulation lifecycle events
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$targetOverrides:** `?AssistantOverrides` — Overrides to inject into the simulated target assistant or squad
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$toolMocks:** `?array` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$path:** `?string` 
+
+Optional folder path for organizing scenarios.
+Supports up to 3 levels (e.g., "dept/feature/variant").
+Set to null to remove from folder.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## SimulationRuns
+<details><summary><code>$client-&gt;simulationRuns-&gt;simulationRunControllerFindAll($request) -> array|SimulationRunsPaginatedResponse|null</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the simulation runs for the authenticated organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationRuns->simulationRunControllerFindAll(
+    new SimulationRunControllerFindAllRequest([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$status:** `?string` — Filter by status
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$filterStatus:** `?string` — Filter by aggregate run result status
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$targetType:** `?string` — Filter by target type
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$targetId:** `?string` — Filter by target id
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$page:** `?float` — This is the page number to return. Defaults to 1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$limit:** `?float` — This is the maximum number of items to return. Defaults to 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtGt:** `?DateTime` — This will return items where the createdAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLt:** `?DateTime` — This will return items where the createdAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtGe:** `?DateTime` — This will return items where the createdAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLe:** `?DateTime` — This will return items where the createdAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGt:** `?DateTime` — This will return items where the updatedAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLt:** `?DateTime` — This will return items where the updatedAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGe:** `?DateTime` — This will return items where the updatedAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLe:** `?DateTime` — This will return items where the updatedAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationRuns-&gt;simulationRunControllerCreate($request) -> ?CreateSimulationRunResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Starts a simulation run against a target assistant or squad.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationRuns->simulationRunControllerCreate(
+    new CreateSimulationRunDto([
+        'simulations' => [
+            CreateSimulationRunDtoSimulationsItem::simulation(new SimulationRunSimulationEntry([])),
+        ],
+        'target' => CreateSimulationRunDtoTarget::assistant(new SimulationRunTargetAssistant([])),
+    ]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$simulations:** `array` — Array of simulations and/or suites to run
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$target:** `CreateSimulationRunDtoTarget` — Target to test against
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$iterations:** `?float` — Number of times to run each simulation (default: 1)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$transport:** `?SimulationRunTransportConfiguration` — Transport configuration for the simulation runs
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationRuns-&gt;simulationRunControllerFindOne($id) -> ?SimulationRun</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the specified simulation run, including its status and item counts.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationRuns->simulationRunControllerFindOne(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the simulation run.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationRuns-&gt;simulationRunControllerCancelGroup($id) -> ?SimulationRun</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancels the specified simulation run.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationRuns->simulationRunControllerCancelGroup(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the simulation run.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationRuns-&gt;simulationRunControllerFindItems($id, $request) -> ?array</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the run items for the specified simulation run.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationRuns->simulationRunControllerFindItems(
+    'id',
+    new SimulationRunControllerFindItemsRequest([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the simulation run.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$simulationId:** `?string` — Filters run items to a specific simulation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$runId:** `?string` — Filters run items to a specific run.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$status:** `?string` — Filters run items by status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$page:** `?float` — This is the page number to return. Defaults to 1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$limit:** `?float` — This is the maximum number of items to return. Defaults to 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtGt:** `?DateTime` — This will return items where the createdAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLt:** `?DateTime` — This will return items where the createdAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtGe:** `?DateTime` — This will return items where the createdAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLe:** `?DateTime` — This will return items where the createdAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGt:** `?DateTime` — This will return items where the updatedAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLt:** `?DateTime` — This will return items where the updatedAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGe:** `?DateTime` — This will return items where the updatedAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLe:** `?DateTime` — This will return items where the updatedAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationRuns-&gt;simulationRunControllerFindItem($id, $itemId) -> ?SimulationRunItem</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the specified run item, including its evaluation results and the ID of the call that ran it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationRuns->simulationRunControllerFindItem(
+    'id',
+    'itemId',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the simulation run.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$itemId:** `string` — The unique identifier of the run item.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationRuns-&gt;simulationRunControllerCancelItem($id, $itemId) -> ?SimulationRunItem</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancels the specified run item.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationRuns->simulationRunControllerCancelItem(
+    'id',
+    'itemId',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the simulation run.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$itemId:** `string` — The unique identifier of the run item.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationRuns-&gt;simulationRunControllerGenerateSuggestions($id, $itemId, $request)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generates AI suggestions for improving the assistant or squad's system prompt, tools, and scenarios, based on the specified run item.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationRuns->simulationRunControllerGenerateSuggestions(
+    'id',
+    'itemId',
+    new SimulationRunControllerGenerateSuggestionsRequest([
+        'force' => 'force',
+    ]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the simulation run.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$itemId:** `string` — The unique identifier of the run item.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$force:** `string` — Set to the string `true` to regenerate improvement suggestions even if they already exist.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$persist:** `?string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## SimulationSuites
+<details><summary><code>$client-&gt;simulationSuites-&gt;simulationSuiteControllerFindAll($request) -> ?array</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the simulation suites for the authenticated organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationSuites->simulationSuiteControllerFindAll(
+    new SimulationSuiteControllerFindAllRequest([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$name:** `?string` — Search by simulation suite name
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$page:** `?float` — This is the page number to return. Defaults to 1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$limit:** `?float` — This is the maximum number of items to return. Defaults to 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtGt:** `?DateTime` — This will return items where the createdAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLt:** `?DateTime` — This will return items where the createdAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtGe:** `?DateTime` — This will return items where the createdAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLe:** `?DateTime` — This will return items where the createdAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGt:** `?DateTime` — This will return items where the updatedAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLt:** `?DateTime` — This will return items where the updatedAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGe:** `?DateTime` — This will return items where the updatedAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLe:** `?DateTime` — This will return items where the updatedAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationSuites-&gt;simulationSuiteControllerCreate($request) -> ?SimulationSuite</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a simulation suite, a group of simulations that run together.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationSuites->simulationSuiteControllerCreate(
+    new CreateSimulationSuiteDto([
+        'name' => 'Checkout Flow Tests',
+        'simulationIds' => [
+            'simulationIds',
+        ],
+    ]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$name:** `string` — The display name of the suite.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$slackWebhookUrl:** `?string` — A Slack incoming-webhook URL notified when the suite runs.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$simulationIds:** `array` — The IDs of the simulations included in the suite.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$targetAssignments:** `?array` — The assistants or squads the suite's simulations run against.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$path:** `?string` 
+
+Optional folder path for organizing simulation suites.
+Supports up to 3 levels (e.g., "dept/feature/variant").
+Maps to GitOps resource folder structure.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationSuites-&gt;simulationSuiteControllerDuplicate($id) -> ?SimulationSuite</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationSuites->simulationSuiteControllerDuplicate(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier for the resource.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationSuites-&gt;simulationSuiteControllerFindOne($id) -> ?SimulationSuite</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the specified simulation suite.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationSuites->simulationSuiteControllerFindOne(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the simulation suite.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationSuites-&gt;simulationSuiteControllerRemove($id) -> ?SimulationSuite</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the specified simulation suite.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationSuites->simulationSuiteControllerRemove(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the simulation suite.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulationSuites-&gt;simulationSuiteControllerUpdate($id, $request) -> ?SimulationSuite</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the specified simulation suite.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulationSuites->simulationSuiteControllerUpdate(
+    'id',
+    new UpdateSimulationSuiteDto([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the simulation suite.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$name:** `?string` — This is the name of the simulation suite.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$slackWebhookUrl:** `?string` — This is the Slack webhook URL for notifications.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$simulationIds:** `?array` — This is the list of simulation IDs to include in the suite (replaces existing).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$targetAssignments:** `?array` — Optional assistant or squad assignments (replaces existing).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$path:** `?string` 
+
+Optional folder path for organizing simulation suites.
+Supports up to 3 levels (e.g., "dept/feature/variant").
+Set to null to remove from folder.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Simulations
+<details><summary><code>$client-&gt;simulations-&gt;simulationGenerateControllerGenerate($request) -> ?GenerateScenariosResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generates scenarios for an assistant or squad by analyzing its configuration with AI.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulations->simulationGenerateControllerGenerate(
+    new GenerateScenariosDto([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$assistantId:** `?string` — ID of the assistant to generate scenarios for
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$squadId:** `?string` — ID of the squad to generate scenarios for
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulations-&gt;simulationControllerFindAll($request) -> ?array</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the simulations for the authenticated organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulations->simulationControllerFindAll(
+    new SimulationControllerFindAllRequest([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$idAny:** `?string` — Return only simulations matching the provided ids
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$standaloneOnly:** `?bool` — Only include simulations that are not part of a suite
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$page:** `?float` — This is the page number to return. Defaults to 1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$limit:** `?float` — This is the maximum number of items to return. Defaults to 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtGt:** `?DateTime` — This will return items where the createdAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLt:** `?DateTime` — This will return items where the createdAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtGe:** `?DateTime` — This will return items where the createdAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLe:** `?DateTime` — This will return items where the createdAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGt:** `?DateTime` — This will return items where the updatedAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLt:** `?DateTime` — This will return items where the updatedAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGe:** `?DateTime` — This will return items where the updatedAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLe:** `?DateTime` — This will return items where the updatedAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulations-&gt;simulationControllerCreate($request) -> ?Simulation</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a simulation by pairing a scenario with a personality.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulations->simulationControllerCreate(
+    new CreateSimulationDto([
+        'scenarioId' => 'scenarioId',
+        'personalityId' => 'personalityId',
+    ]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$name:** `?string` — Optional display name for the simulation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$scenarioId:** `string` — The ID of the scenario to run.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$personalityId:** `string` — The ID of the personality the AI tester uses.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$path:** `?string` 
+
+Optional folder path for organizing simulations.
+Supports up to 3 levels (e.g., "dept/feature/variant").
+Maps to GitOps resource folder structure.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulations-&gt;simulationControllerFindOne($id) -> ?Simulation</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the specified simulation.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulations->simulationControllerFindOne(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the simulation.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulations-&gt;simulationControllerRemove($id) -> ?Simulation</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the specified simulation.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulations->simulationControllerRemove(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the simulation.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulations-&gt;simulationControllerUpdate($id, $request) -> ?Simulation</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the specified simulation.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulations->simulationControllerUpdate(
+    'id',
+    new UpdateSimulationDto([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier of the simulation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$name:** `?string` — This is an optional friendly name for the simulation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$scenarioId:** `?string` — This is the ID of the scenario to use for this simulation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$personalityId:** `?string` — This is the ID of the personality to use for this simulation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$path:** `?string` 
+
+Optional folder path for organizing simulations.
+Supports up to 3 levels (e.g., "dept/feature/variant").
+Set to null to remove from folder.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;simulations-&gt;simulationControllerGetConcurrency() -> ?SimulationConcurrencyResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the organization's simulation concurrency limit, the number of active simulations, and how many more can start.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->simulations->simulationControllerGetConcurrency();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Insight
 <details><summary><code>$client-&gt;insight-&gt;insightControllerFindAll($request) -> ?InsightPaginatedResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns saved reporting insights for the authenticated organization. Filter results by ID or creation and update timestamps.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4489,7 +8976,7 @@ $client->insight->insightControllerFindAll(
 <dl>
 <dd>
 
-**$id:** `?string` 
+**$id:** `?string` — Filters reporting insights by ID.
     
 </dd>
 </dl>
@@ -4506,6 +8993,14 @@ $client->insight->insightControllerFindAll(
 <dd>
 
 **$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
     
 </dd>
 </dl>
@@ -4593,6 +9088,20 @@ $client->insight->insightControllerFindAll(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a saved reporting insight that queries call data and presents the results as a bar chart, pie chart, line chart, or text value.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -4644,6 +9153,20 @@ $client->insight->insightControllerCreate(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the reporting insight identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -4670,7 +9193,7 @@ $client->insight->insightControllerFindOne(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the reporting insight.
     
 </dd>
 </dl>
@@ -4685,6 +9208,20 @@ $client->insight->insightControllerFindOne(
 <details><summary><code>$client-&gt;insight-&gt;insightControllerRemove($id) -> ?InsightControllerRemoveResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the reporting insight identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4712,7 +9249,7 @@ $client->insight->insightControllerRemove(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the reporting insight.
     
 </dd>
 </dl>
@@ -4727,6 +9264,20 @@ $client->insight->insightControllerRemove(
 <details><summary><code>$client-&gt;insight-&gt;insightControllerUpdate($id, $request) -> ?InsightControllerUpdateResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the reporting insight identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4757,7 +9308,7 @@ $client->insight->insightControllerUpdate(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the reporting insight.
     
 </dd>
 </dl>
@@ -4780,6 +9331,20 @@ $client->insight->insightControllerUpdate(
 <details><summary><code>$client-&gt;insight-&gt;insightControllerRun($id, $request) -> ?InsightRunResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Runs a saved reporting insight, optionally overriding its time range and response format.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4808,7 +9373,7 @@ $client->insight->insightControllerRun(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the reporting insight.
     
 </dd>
 </dl>
@@ -4816,7 +9381,7 @@ $client->insight->insightControllerRun(
 <dl>
 <dd>
 
-**$formatPlan:** `?InsightRunFormatPlan` 
+**$formatPlan:** `?InsightRunFormatPlan` — Output-formatting instructions applied to the insight run.
     
 </dd>
 </dl>
@@ -4836,6 +9401,17 @@ For Pie and Text Insights, step will be ignored even if provided.
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**$assistantId:** `?string` 
+
+Optional runtime assistant scope for dashboards.
+This is applied to call-table queries without mutating the saved insight.
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -4847,6 +9423,20 @@ For Pie and Text Insights, step will be ignored even if provided.
 <details><summary><code>$client-&gt;insight-&gt;insightControllerPreview($request) -> ?InsightRunResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Runs an insight definition without first saving it, returning a preview of the resulting chart or text value.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4895,10 +9485,418 @@ $client->insight->insightControllerPreview(
 </dl>
 </details>
 
+## Board
+<details><summary><code>$client-&gt;board-&gt;boardControllerFindAll($request) -> ?BoardPaginatedResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->board->boardControllerFindAll(
+    new BoardControllerFindAllRequest([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$page:** `?float` — This is the page number to return. Defaults to 1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$limit:** `?float` — This is the maximum number of items to return. Defaults to 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtGt:** `?DateTime` — This will return items where the createdAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLt:** `?DateTime` — This will return items where the createdAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtGe:** `?DateTime` — This will return items where the createdAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$createdAtLe:** `?DateTime` — This will return items where the createdAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGt:** `?DateTime` — This will return items where the updatedAt is greater than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLt:** `?DateTime` — This will return items where the updatedAt is less than the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtGe:** `?DateTime` — This will return items where the updatedAt is greater than or equal to the specified value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$updatedAtLe:** `?DateTime` — This will return items where the updatedAt is less than or equal to the specified value.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;board-&gt;boardControllerCreate($request) -> ?Board</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->board->boardControllerCreate(
+    new CreateBoardDto([
+        'name' => 'name',
+        'layout' => new BoardLayout([
+            'columns' => 1.1,
+        ]),
+    ]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$items:** `?array` — This is the contents of the Board, which is an array of objects defining the type, contents, and position of the widgets on the Board.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$name:** `string` — This is the name of the Board.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$layout:** `BoardLayout` — This is the layout of the Board.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$timeRangeOverride:** `?InsightTimeRangeWithStep` 
+
+This is the timerange override for the board.
+By default, individual insights have their own timerange.
+This is a global override for the board which will be passed to all insights on the board.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;board-&gt;boardControllerMetricsOverviewEnsure() -> ?Board</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->board->boardControllerMetricsOverviewEnsure();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;board-&gt;boardControllerFindOne($id) -> ?Board</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->board->boardControllerFindOne(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier for the resource.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;board-&gt;boardControllerRemove($id) -> ?Board</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->board->boardControllerRemove(
+    'id',
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier for the resource.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>$client-&gt;board-&gt;boardControllerUpdate($id, $request) -> ?Board</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```php
+$client->board->boardControllerUpdate(
+    'id',
+    new UpdateBoardDto([]),
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**$id:** `string` — The unique identifier for the resource.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$items:** `?array` — This is the contents of the Board, which is an array of objects defining the type, contents, and position of the widgets on the Board.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$name:** `?string` — This is the name of the Board.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$layout:** `?BoardLayout` — This is the layout of the Board.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$timeRangeOverride:** `?InsightTimeRangeWithStep` 
+
+This is the timerange override for the board.
+By default, individual insights have their own timerange.
+This is a global override for the board which will be passed to all insights on the board.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Eval
 <details><summary><code>$client-&gt;eval-&gt;evalControllerGetPaginated($request) -> ?EvalPaginatedResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns eval definitions for the authenticated organization. Filter results by ID or creation and update timestamps.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4926,7 +9924,7 @@ $client->eval->evalControllerGetPaginated(
 <dl>
 <dd>
 
-**$id:** `?string` 
+**$id:** `?string` — Filters eval definitions by ID.
     
 </dd>
 </dl>
@@ -4943,6 +9941,14 @@ $client->eval->evalControllerGetPaginated(
 <dd>
 
 **$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
     
 </dd>
 </dl>
@@ -5030,6 +10036,20 @@ $client->eval->evalControllerGetPaginated(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a reusable eval that defines a mock conversation and checkpoints for evaluating assistant responses and tool calls.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -5079,6 +10099,20 @@ $client->eval->evalControllerCreate(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the eval definition identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -5105,7 +10139,7 @@ $client->eval->evalControllerGet(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the eval definition.
     
 </dd>
 </dl>
@@ -5120,6 +10154,20 @@ $client->eval->evalControllerGet(
 <details><summary><code>$client-&gt;eval-&gt;evalControllerRemove($id) -> ?Eval_</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the eval definition identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -5147,7 +10195,7 @@ $client->eval->evalControllerRemove(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the eval definition.
     
 </dd>
 </dl>
@@ -5162,6 +10210,20 @@ $client->eval->evalControllerRemove(
 <details><summary><code>$client-&gt;eval-&gt;evalControllerUpdate($id, $request) -> ?Eval_</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the eval definition identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -5190,7 +10252,7 @@ $client->eval->evalControllerUpdate(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the eval definition.
     
 </dd>
 </dl>
@@ -5253,6 +10315,20 @@ Currently it is fixed to `chat.mockConversation`.
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the eval run identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -5279,7 +10355,7 @@ $client->eval->evalControllerGetRun(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the eval run.
     
 </dd>
 </dl>
@@ -5294,6 +10370,20 @@ $client->eval->evalControllerGetRun(
 <details><summary><code>$client-&gt;eval-&gt;evalControllerRemoveRun($id) -> ?EvalRun</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the eval run identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -5321,7 +10411,7 @@ $client->eval->evalControllerRemoveRun(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the eval run.
     
 </dd>
 </dl>
@@ -5336,6 +10426,20 @@ $client->eval->evalControllerRemoveRun(
 <details><summary><code>$client-&gt;eval-&gt;evalControllerGetRunsPaginated($request) -> ?EvalRunPaginatedResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns eval runs for the authenticated organization. Filter results by ID or creation and update timestamps.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -5363,7 +10467,7 @@ $client->eval->evalControllerGetRunsPaginated(
 <dl>
 <dd>
 
-**$id:** `?string` 
+**$id:** `?string` — Filters eval runs by ID.
     
 </dd>
 </dl>
@@ -5380,6 +10484,14 @@ $client->eval->evalControllerGetRunsPaginated(
 <dd>
 
 **$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
     
 </dd>
 </dl>
@@ -5467,6 +10579,20 @@ $client->eval->evalControllerGetRunsPaginated(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Runs a saved or transient eval against an assistant or squad and creates an eval-run record containing the results.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -5540,6 +10666,20 @@ Currently it is fixed to `eval`.
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the scorecard identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -5566,7 +10706,7 @@ $client->observabilityScorecard->scorecardControllerGet(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the scorecard.
     
 </dd>
 </dl>
@@ -5581,6 +10721,20 @@ $client->observabilityScorecard->scorecardControllerGet(
 <details><summary><code>$client-&gt;observabilityScorecard-&gt;scorecardControllerRemove($id) -> ?Scorecard</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the scorecard identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -5608,7 +10762,7 @@ $client->observabilityScorecard->scorecardControllerRemove(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the scorecard.
     
 </dd>
 </dl>
@@ -5623,6 +10777,20 @@ $client->observabilityScorecard->scorecardControllerRemove(
 <details><summary><code>$client-&gt;observabilityScorecard-&gt;scorecardControllerUpdate($id, $request) -> ?Scorecard</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the scorecard identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -5651,7 +10819,7 @@ $client->observabilityScorecard->scorecardControllerUpdate(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the scorecard.
     
 </dd>
 </dl>
@@ -5705,6 +10873,20 @@ When linked to assistants, this scorecard will be available for evaluation durin
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns scorecards for the authenticated organization. Filter results by ID or creation and update timestamps.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -5731,7 +10913,7 @@ $client->observabilityScorecard->scorecardControllerGetPaginated(
 <dl>
 <dd>
 
-**$id:** `?string` 
+**$id:** `?string` — Filters scorecards by ID.
     
 </dd>
 </dl>
@@ -5748,6 +10930,14 @@ $client->observabilityScorecard->scorecardControllerGetPaginated(
 <dd>
 
 **$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
     
 </dd>
 </dl>
@@ -5835,6 +11025,20 @@ $client->observabilityScorecard->scorecardControllerGetPaginated(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a scorecard containing metrics, scoring conditions, and optional links to assistants whose calls should be evaluated.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -5848,12 +11052,15 @@ $client->observabilityScorecard->scorecardControllerCreate(
     new CreateScorecardDto([
         'metrics' => [
             new ScorecardMetric([
-                'structuredOutputId' => 'structuredOutputId',
                 'conditions' => [
-                    [
-                        'key' => "value",
-                    ],
+                    new NumberComparatorScorecardMetricCondition([
+                        'type' => NumberComparatorScorecardMetricConditionType::Comparator->value,
+                        'comparator' => NumberComparatorScorecardMetricConditionComparator::EqualTo->value,
+                        'value' => 1.1,
+                        'points' => 1.1,
+                    ]),
                 ],
+                'structuredOutputId' => 'structuredOutputId',
             ]),
         ],
     ]),
@@ -5888,6 +11095,20 @@ $client->observabilityScorecard->scorecardControllerCreate(
 <details><summary><code>$client-&gt;providerResources-&gt;providerResourceControllerGetProviderResourcesPaginated($provider, $resourceName, $request) -> ?ProviderResourcePaginatedResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a paginated list of provider resources for the authenticated organization. Filter pronunciation dictionaries by provider, resource ID, or creation and update timestamps.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -5933,7 +11154,7 @@ $client->providerResources->providerResourceControllerGetProviderResourcesPagina
 <dl>
 <dd>
 
-**$id:** `?string` 
+**$id:** `?string` — Filters provider resources by their resource ID.
     
 </dd>
 </dl>
@@ -5941,7 +11162,7 @@ $client->providerResources->providerResourceControllerGetProviderResourcesPagina
 <dl>
 <dd>
 
-**$resourceId:** `?string` 
+**$resourceId:** `?string` — Filters provider resources by their provider-specific resource ID.
     
 </dd>
 </dl>
@@ -5958,6 +11179,14 @@ $client->providerResources->providerResourceControllerGetProviderResourcesPagina
 <dd>
 
 **$sortOrder:** `?string` — This is the sort order for pagination. Defaults to 'DESC'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$sortBy:** `?string` — This is the column to sort by. Defaults to 'createdAt'.
     
 </dd>
 </dl>
@@ -6045,6 +11274,20 @@ $client->providerResources->providerResourceControllerGetProviderResourcesPagina
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a pronunciation-dictionary resource for a supported provider, currently Cartesia or ElevenLabs.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -6096,6 +11339,20 @@ $client->providerResources->providerResourceControllerCreateProviderResource(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the provider resource identified by its Vapi resource ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -6140,7 +11397,7 @@ $client->providerResources->providerResourceControllerGetProviderResource(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the provider resource.
     
 </dd>
 </dl>
@@ -6155,6 +11412,20 @@ $client->providerResources->providerResourceControllerGetProviderResource(
 <details><summary><code>$client-&gt;providerResources-&gt;providerResourceControllerDeleteProviderResource($provider, $resourceName, $id) -> ?ProviderResource</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the provider resource identified by its Vapi resource ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -6200,7 +11471,7 @@ $client->providerResources->providerResourceControllerDeleteProviderResource(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the provider resource.
     
 </dd>
 </dl>
@@ -6215,6 +11486,20 @@ $client->providerResources->providerResourceControllerDeleteProviderResource(
 <details><summary><code>$client-&gt;providerResources-&gt;providerResourceControllerUpdateProviderResource($provider, $resourceName, $id) -> ?ProviderResource</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the provider resource identified by its Vapi resource ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -6260,7 +11545,7 @@ $client->providerResources->providerResourceControllerUpdateProviderResource(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The unique identifier of the provider resource.
     
 </dd>
 </dl>
@@ -6276,6 +11561,20 @@ $client->providerResources->providerResourceControllerUpdateProviderResource(
 <details><summary><code>$client-&gt;analytics-&gt;get($request) -> ?array</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Runs one or more metric queries against call or subscription data using the requested time range, groupings, and aggregate operations.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 

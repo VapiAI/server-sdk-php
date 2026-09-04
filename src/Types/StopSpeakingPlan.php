@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Controls when the assistant stops speaking after a customer interruption, including word and voice thresholds, restart delay, and phrase exceptions.
+ */
 class StopSpeakingPlan extends JsonSerializableType
 {
     /**

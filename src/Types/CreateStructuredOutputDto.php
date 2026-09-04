@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration used to create a structured-output definition that extracts validated data from calls using an AI model or regular expression.
+ */
 class CreateStructuredOutputDto extends JsonSerializableType
 {
     /**
@@ -63,6 +66,12 @@ class CreateStructuredOutputDto extends JsonSerializableType
      */
     #[JsonProperty('compliancePlan')]
     public ?ComplianceOverride $compliancePlan;
+
+    /**
+     * @var ?array<CreateStructuredOutputDtoConditionsItem> $conditions These are the conditions that gate the execution of this structured output. Every condition must pass for the structured output to run (AND semantics). When omitted or empty, no user-defined conditions gate this output. Send null to clear a previously saved gate.
+     */
+    #[JsonProperty('conditions'), ArrayType([CreateStructuredOutputDtoConditionsItem::class])]
+    public ?array $conditions;
 
     /**
      * @var string $name This is the name of the structured output.
@@ -124,6 +133,7 @@ class CreateStructuredOutputDto extends JsonSerializableType
      *   regex?: ?string,
      *   model?: ?CreateStructuredOutputDtoModel,
      *   compliancePlan?: ?ComplianceOverride,
+     *   conditions?: ?array<CreateStructuredOutputDtoConditionsItem>,
      *   description?: ?string,
      *   assistantIds?: ?array<string>,
      *   workflowIds?: ?array<string>,
@@ -136,6 +146,7 @@ class CreateStructuredOutputDto extends JsonSerializableType
         $this->regex = $values['regex'] ?? null;
         $this->model = $values['model'] ?? null;
         $this->compliancePlan = $values['compliancePlan'] ?? null;
+        $this->conditions = $values['conditions'] ?? null;
         $this->name = $values['name'];
         $this->schema = $values['schema'];
         $this->description = $values['description'] ?? null;

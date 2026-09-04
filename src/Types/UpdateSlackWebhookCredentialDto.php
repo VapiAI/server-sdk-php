@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateSlackWebhookCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateSlackWebhookCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?string $webhookUrl Slack incoming webhook URL. See https://api.slack.com/messaging/webhooks for setup instructions. This is not returned in the API.
      */
     #[JsonProperty('webhookUrl')]
@@ -21,6 +27,7 @@ class UpdateSlackWebhookCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateSlackWebhookCredentialDtoProvider>,
      *   webhookUrl?: ?string,
      *   name?: ?string,
      * } $values
@@ -28,6 +35,7 @@ class UpdateSlackWebhookCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->webhookUrl = $values['webhookUrl'] ?? null;
         $this->name = $values['name'] ?? null;
     }

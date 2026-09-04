@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Enables or disables one regular-expression matching option for a text replacement.
+ */
 class RegexOption extends JsonSerializableType
 {
     /**

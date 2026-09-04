@@ -8,6 +8,9 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A Vapi-managed phone number or SIP URI, including its authentication, routing, hooks, server settings, and lifecycle metadata.
+ */
 class VapiPhoneNumber extends JsonSerializableType
 {
     /**

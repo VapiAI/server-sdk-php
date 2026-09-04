@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Generation controls for Cartesia Sonic 3 voices, including speed, volume, and accent localization.
+ */
 class CartesiaGenerationConfig extends JsonSerializableType
 {
     /**

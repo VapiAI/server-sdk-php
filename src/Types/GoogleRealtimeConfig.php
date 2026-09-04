@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Realtime Gemini generation and speech-output settings, including sampling, repetition penalties, and voice configuration.
+ */
 class GoogleRealtimeConfig extends JsonSerializableType
 {
     /**

@@ -4,6 +4,9 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 
+/**
+ * Excludes prior conversation messages when constructing context for a handoff.
+ */
 class ContextEngineeringPlanNone extends JsonSerializableType
 {
     /**

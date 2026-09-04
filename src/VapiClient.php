@@ -11,8 +11,15 @@ use Vapi\Sessions\SessionsClient;
 use Vapi\PhoneNumbers\PhoneNumbersClient;
 use Vapi\Tools\ToolsClient;
 use Vapi\Files\FilesClient;
+use Vapi\KnowledgeBasesV2\KnowledgeBasesV2Client;
 use Vapi\StructuredOutputs\StructuredOutputsClient;
+use Vapi\SimulationPersonalities\SimulationPersonalitiesClient;
+use Vapi\SimulationScenarios\SimulationScenariosClient;
+use Vapi\SimulationRuns\SimulationRunsClient;
+use Vapi\SimulationSuites\SimulationSuitesClient;
+use Vapi\Simulations\SimulationsClient;
 use Vapi\Insight\InsightClient;
+use Vapi\Board\BoardClient;
 use Vapi\Eval\EvalClient;
 use Vapi\ObservabilityScorecard\ObservabilityScorecardClient;
 use Vapi\ProviderResources\ProviderResourcesClient;
@@ -68,14 +75,49 @@ class VapiClient
     public FilesClient $files;
 
     /**
+     * @var KnowledgeBasesV2Client $knowledgeBasesV2
+     */
+    public KnowledgeBasesV2Client $knowledgeBasesV2;
+
+    /**
      * @var StructuredOutputsClient $structuredOutputs
      */
     public StructuredOutputsClient $structuredOutputs;
 
     /**
+     * @var SimulationPersonalitiesClient $simulationPersonalities
+     */
+    public SimulationPersonalitiesClient $simulationPersonalities;
+
+    /**
+     * @var SimulationScenariosClient $simulationScenarios
+     */
+    public SimulationScenariosClient $simulationScenarios;
+
+    /**
+     * @var SimulationRunsClient $simulationRuns
+     */
+    public SimulationRunsClient $simulationRuns;
+
+    /**
+     * @var SimulationSuitesClient $simulationSuites
+     */
+    public SimulationSuitesClient $simulationSuites;
+
+    /**
+     * @var SimulationsClient $simulations
+     */
+    public SimulationsClient $simulations;
+
+    /**
      * @var InsightClient $insight
      */
     public InsightClient $insight;
+
+    /**
+     * @var BoardClient $board
+     */
+    public BoardClient $board;
 
     /**
      * @var EvalClient $eval
@@ -131,8 +173,8 @@ class VapiClient
             'Authorization' => "Bearer $token",
             'X-Fern-Language' => 'PHP',
             'X-Fern-SDK-Name' => 'Vapi',
-            'X-Fern-SDK-Version' => '2.0.0',
-            'User-Agent' => 'vapi/vapi/2.0.0',
+            'X-Fern-SDK-Version' => '0.0.0-fern-placeholder',
+            'User-Agent' => 'vapi/vapi/0.0.0-fern-placeholder',
         ];
 
         $this->options = $options ?? [];
@@ -155,8 +197,15 @@ class VapiClient
         $this->phoneNumbers = new PhoneNumbersClient($this->client, $this->options);
         $this->tools = new ToolsClient($this->client, $this->options);
         $this->files = new FilesClient($this->client, $this->options);
+        $this->knowledgeBasesV2 = new KnowledgeBasesV2Client($this->client, $this->options);
         $this->structuredOutputs = new StructuredOutputsClient($this->client, $this->options);
+        $this->simulationPersonalities = new SimulationPersonalitiesClient($this->client, $this->options);
+        $this->simulationScenarios = new SimulationScenariosClient($this->client, $this->options);
+        $this->simulationRuns = new SimulationRunsClient($this->client, $this->options);
+        $this->simulationSuites = new SimulationSuitesClient($this->client, $this->options);
+        $this->simulations = new SimulationsClient($this->client, $this->options);
         $this->insight = new InsightClient($this->client, $this->options);
+        $this->board = new BoardClient($this->client, $this->options);
         $this->eval = new EvalClient($this->client, $this->options);
         $this->observabilityScorecard = new ObservabilityScorecardClient($this->client, $this->options);
         $this->providerResources = new ProviderResourcesClient($this->client, $this->options);

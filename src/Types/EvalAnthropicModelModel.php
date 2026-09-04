@@ -17,5 +17,6 @@ enum EvalAnthropicModelModel: string
     case ClaudeSonnet420250514 = "claude-sonnet-4-20250514";
     case ClaudeSonnet4520250929 = "claude-sonnet-4-5-20250929";
     case ClaudeSonnet46 = "claude-sonnet-4-6";
+    case ClaudeSonnet5 = "claude-sonnet-5";
     case ClaudeHaiku4520251001 = "claude-haiku-4-5-20251001";
 }

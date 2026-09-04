@@ -17,6 +17,7 @@ class HandoffDestinationSquadContextEngineeringPlan extends JsonSerializableType
      *   |'none'
      *   |'all'
      *   |'userAndAssistantMessages'
+     *   |'previousAssistantMessages'
      *   |'_unknown'
      * ) $type
      */
@@ -28,6 +29,7 @@ class HandoffDestinationSquadContextEngineeringPlan extends JsonSerializableType
      *   |ContextEngineeringPlanNone
      *   |ContextEngineeringPlanAll
      *   |ContextEngineeringPlanUserAndAssistantMessages
+     *   |ContextEngineeringPlanPreviousAssistantMessages
      *   |mixed
      * ) $value
      */
@@ -40,6 +42,7 @@ class HandoffDestinationSquadContextEngineeringPlan extends JsonSerializableType
      *   |'none'
      *   |'all'
      *   |'userAndAssistantMessages'
+     *   |'previousAssistantMessages'
      *   |'_unknown'
      * ),
      *   value: (
@@ -47,6 +50,7 @@ class HandoffDestinationSquadContextEngineeringPlan extends JsonSerializableType
      *   |ContextEngineeringPlanNone
      *   |ContextEngineeringPlanAll
      *   |ContextEngineeringPlanUserAndAssistantMessages
+     *   |ContextEngineeringPlanPreviousAssistantMessages
      *   |mixed
      * ),
      * } $values
@@ -103,6 +107,18 @@ class HandoffDestinationSquadContextEngineeringPlan extends JsonSerializableType
         return new HandoffDestinationSquadContextEngineeringPlan([
             'type' => 'userAndAssistantMessages',
             'value' => $userAndAssistantMessages,
+        ]);
+    }
+
+    /**
+     * @param ContextEngineeringPlanPreviousAssistantMessages $previousAssistantMessages
+     * @return HandoffDestinationSquadContextEngineeringPlan
+     */
+    public static function previousAssistantMessages(ContextEngineeringPlanPreviousAssistantMessages $previousAssistantMessages): HandoffDestinationSquadContextEngineeringPlan
+    {
+        return new HandoffDestinationSquadContextEngineeringPlan([
+            'type' => 'previousAssistantMessages',
+            'value' => $previousAssistantMessages,
         ]);
     }
 
@@ -195,6 +211,28 @@ class HandoffDestinationSquadContextEngineeringPlan extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isPreviousAssistantMessages(): bool
+    {
+        return $this->value instanceof ContextEngineeringPlanPreviousAssistantMessages && $this->type === 'previousAssistantMessages';
+    }
+
+    /**
+     * @return ContextEngineeringPlanPreviousAssistantMessages
+     */
+    public function asPreviousAssistantMessages(): ContextEngineeringPlanPreviousAssistantMessages
+    {
+        if (!($this->value instanceof ContextEngineeringPlanPreviousAssistantMessages && $this->type === 'previousAssistantMessages')) {
+            throw new Exception(
+                "Expected previousAssistantMessages; got " . $this->type . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -228,6 +266,10 @@ class HandoffDestinationSquadContextEngineeringPlan extends JsonSerializableType
                 break;
             case 'userAndAssistantMessages':
                 $value = $this->asUserAndAssistantMessages()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'previousAssistantMessages':
+                $value = $this->asPreviousAssistantMessages()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -289,6 +331,9 @@ class HandoffDestinationSquadContextEngineeringPlan extends JsonSerializableType
                 break;
             case 'userAndAssistantMessages':
                 $args['value'] = ContextEngineeringPlanUserAndAssistantMessages::jsonDeserialize($data);
+                break;
+            case 'previousAssistantMessages':
+                $args['value'] = ContextEngineeringPlanPreviousAssistantMessages::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

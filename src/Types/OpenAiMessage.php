@@ -5,16 +5,19 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * A conversation message represented in OpenAI chat format.
+ */
 class OpenAiMessage extends JsonSerializableType
 {
     /**
-     * @var ?string $content
+     * @var ?string $content Content of the conversation message.
      */
     #[JsonProperty('content')]
     public ?string $content;
 
     /**
-     * @var value-of<OpenAiMessageRole> $role
+     * @var value-of<OpenAiMessageRole> $role Role associated with the conversation message.
      */
     #[JsonProperty('role')]
     public string $role;

@@ -5,18 +5,11 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Function definition exposed to a language model, including its name, purpose, parameter schema, and strict-schema behavior.
+ */
 class OpenAiFunction extends JsonSerializableType
 {
-    /**
-     * This is a boolean that controls whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the parameters field. Only a subset of JSON Schema is supported when strict is true. Learn more about Structured Outputs in the [OpenAI guide](https://openai.com/index/introducing-structured-outputs-in-the-api/).
-     *
-     * @default false
-     *
-     * @var ?bool $strict
-     */
-    #[JsonProperty('strict')]
-    public ?bool $strict;
-
     /**
      * This is the the name of the function to be called.
      *
@@ -26,6 +19,16 @@ class OpenAiFunction extends JsonSerializableType
      */
     #[JsonProperty('name')]
     public string $name;
+
+    /**
+     * This is a boolean that controls whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the parameters field. Only a subset of JSON Schema is supported when strict is true. Learn more about Structured Outputs in the [OpenAI guide](https://openai.com/index/introducing-structured-outputs-in-the-api/).
+     *
+     * @default false
+     *
+     * @var ?bool $strict
+     */
+    #[JsonProperty('strict')]
+    public ?bool $strict;
 
     /**
      * @var ?string $description This is the description of what the function does, used by the AI to choose when and how to call the function.
@@ -56,8 +59,8 @@ class OpenAiFunction extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->strict = $values['strict'] ?? null;
         $this->name = $values['name'];
+        $this->strict = $values['strict'] ?? null;
         $this->description = $values['description'] ?? null;
         $this->parameters = $values['parameters'] ?? null;
     }

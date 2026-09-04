@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Runs configured actions when a call is ending, optionally only when its filters match.
+ */
 class CallHookCallEnding extends JsonSerializableType
 {
     /**

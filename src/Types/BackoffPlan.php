@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Controls retry behavior for failed server requests, including strategy, maximum retries, base delay, and status codes excluded from retries.
+ */
 class BackoffPlan extends JsonSerializableType
 {
     /**
@@ -29,16 +32,13 @@ class BackoffPlan extends JsonSerializableType
     public float $maxRetries;
 
     /**
-     * @var float $baseDelaySeconds This is the base delay in seconds. For linear backoff, this is the delay between each retry. For exponential backoff, this is the initial delay.
+     * @var float $baseDelaySeconds Base delay in seconds. For fixed backoff, this is the delay between retries. For exponential backoff, this is the initial delay.
      */
     #[JsonProperty('baseDelaySeconds')]
     public float $baseDelaySeconds;
 
     /**
-     * This is the excluded status codes. If the response status code is in this list, the request will not be retried.
-     * By default, the request will be retried for any non-2xx status code.
-     *
-     * @var ?array<array<string, mixed>> $excludedStatusCodes
+     * @var ?array<array<string, mixed>> $excludedStatusCodes HTTP status codes that should not trigger a retry. By default, any non-2xx status code not listed here can be retried.
      */
     #[JsonProperty('excludedStatusCodes'), ArrayType([['string' => 'mixed']])]
     public ?array $excludedStatusCodes;

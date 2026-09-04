@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Fallback configuration for synthesizing assistant speech with WellSaid, including voice and model selection, Speech Synthesis Markup Language support, voice libraries, chunking, and caching.
+ */
 class FallbackWellSaidVoice extends JsonSerializableType
 {
     /**

@@ -8,16 +8,19 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * An uploaded file record, including its processing status, storage details, extracted-text location, metadata, and lifecycle timestamps.
+ */
 class File extends JsonSerializableType
 {
     /**
-     * @var ?value-of<FileObject> $object
+     * @var ?value-of<FileObject> $object The object type. This is always `file`.
      */
     #[JsonProperty('object')]
     public ?string $object;
 
     /**
-     * @var ?value-of<FileStatus> $status
+     * @var ?value-of<FileStatus> $status The current processing status of the uploaded file.
      */
     #[JsonProperty('status')]
     public ?string $status;
@@ -29,67 +32,67 @@ class File extends JsonSerializableType
     public ?string $name;
 
     /**
-     * @var ?string $originalName
+     * @var ?string $originalName The original name of the uploaded file.
      */
     #[JsonProperty('originalName')]
     public ?string $originalName;
 
     /**
-     * @var ?float $bytes
+     * @var ?float $bytes The size of the uploaded file in bytes.
      */
     #[JsonProperty('bytes')]
     public ?float $bytes;
 
     /**
-     * @var ?string $purpose
+     * @var ?string $purpose The intended use assigned to the uploaded file.
      */
     #[JsonProperty('purpose')]
     public ?string $purpose;
 
     /**
-     * @var ?string $mimetype
+     * @var ?string $mimetype The MIME type of the uploaded file.
      */
     #[JsonProperty('mimetype')]
     public ?string $mimetype;
 
     /**
-     * @var ?string $key
+     * @var ?string $key The object-storage key for the uploaded file.
      */
     #[JsonProperty('key')]
     public ?string $key;
 
     /**
-     * @var ?string $path
+     * @var ?string $path The object-storage path for the uploaded file.
      */
     #[JsonProperty('path')]
     public ?string $path;
 
     /**
-     * @var ?string $bucket
+     * @var ?string $bucket The object-storage bucket containing the uploaded file.
      */
     #[JsonProperty('bucket')]
     public ?string $bucket;
 
     /**
-     * @var ?string $url
+     * @var ?string $url The URL used to access the uploaded file.
      */
     #[JsonProperty('url')]
     public ?string $url;
 
     /**
-     * @var ?string $parsedTextUrl
+     * @var ?string $parsedTextUrl The URL used to access text extracted from the file.
      */
     #[JsonProperty('parsedTextUrl')]
     public ?string $parsedTextUrl;
 
     /**
-     * @var ?float $parsedTextBytes
+     * @var ?float $parsedTextBytes The size of the extracted text in bytes.
      */
     #[JsonProperty('parsedTextBytes')]
     public ?float $parsedTextBytes;
 
     /**
-     * @var ?array<string, mixed> $metadata
+     * @var ?array<string, mixed> $metadata Additional metadata associated with the uploaded file.
      */
     #[JsonProperty('metadata'), ArrayType(['string' => 'mixed'])]
     public ?array $metadata;

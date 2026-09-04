@@ -8,6 +8,9 @@ use DateTime;
 use Vapi\Core\Types\Date;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A record of an eval execution, including its target, status, results, costs, completion details, and lifecycle timestamps.
+ */
 class EvalRun extends JsonSerializableType
 {
     /**
@@ -45,31 +48,31 @@ class EvalRun extends JsonSerializableType
     public EvalRunTarget $target;
 
     /**
-     * @var string $id
+     * @var string $id The unique identifier for the eval run.
      */
     #[JsonProperty('id')]
     public string $id;
 
     /**
-     * @var string $orgId
+     * @var string $orgId The unique identifier for the organization that owns the run.
      */
     #[JsonProperty('orgId')]
     public string $orgId;
 
     /**
-     * @var DateTime $createdAt
+     * @var DateTime $createdAt The ISO 8601 timestamp when the eval run was created.
      */
     #[JsonProperty('createdAt'), Date(Date::TYPE_DATETIME)]
     public DateTime $createdAt;
 
     /**
-     * @var DateTime $startedAt
+     * @var DateTime $startedAt The ISO 8601 timestamp when the eval run started.
      */
     #[JsonProperty('startedAt'), Date(Date::TYPE_DATETIME)]
     public DateTime $startedAt;
 
     /**
-     * @var DateTime $endedAt
+     * @var DateTime $endedAt The ISO 8601 timestamp when the eval run ended.
      */
     #[JsonProperty('endedAt'), Date(Date::TYPE_DATETIME)]
     public DateTime $endedAt;

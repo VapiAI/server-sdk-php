@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Destination configuration for sending Vapi alerts to an email address.
+ */
 class CreateEmailCredentialDto extends JsonSerializableType
 {
     /**

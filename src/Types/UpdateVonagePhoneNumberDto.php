@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Fields used to update a Vonage phone number, including its credential, number, routing, hooks, and server settings.
+ */
 class UpdateVonagePhoneNumberDto extends JsonSerializableType
 {
     /**

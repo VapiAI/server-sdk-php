@@ -6,19 +6,22 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\Union;
 
+/**
+ * Cartesia voice controls for speed and emotion.
+ */
 class CartesiaExperimentalControls extends JsonSerializableType
 {
     /**
      * @var (
      *    value-of<CartesiaSpeedControlZero>
      *   |float
-     * )|null $speed
+     * )|null $speed Speaking-speed control expressed as a preset or a value from -1 to 1.
      */
     #[JsonProperty('speed'), Union('string', 'float', 'null')]
     public string|float|null $speed;
 
     /**
-     * @var ?value-of<CartesiaExperimentalControlsEmotion> $emotion
+     * @var ?value-of<CartesiaExperimentalControlsEmotion> $emotion Emotion and intensity applied to the Cartesia voice.
      */
     #[JsonProperty('emotion')]
     public ?string $emotion;

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Organization concurrency limits and remaining concurrent call capacity.
+ */
 class SubscriptionLimits extends JsonSerializableType
 {
     /**

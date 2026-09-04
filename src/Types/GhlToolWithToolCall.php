@@ -9,11 +9,7 @@ use Vapi\Core\Types\ArrayType;
 class GhlToolWithToolCall extends JsonSerializableType
 {
     /**
-     * These are the messages that will be spoken to the user as the tool is running.
-     *
-     * For some tools, this is auto-filled based on special fields like `tool.destinations`. For others like the function tool, these can be custom configured.
-     *
-     * @var ?array<GhlToolWithToolCallMessagesItem> $messages
+     * @var ?array<GhlToolWithToolCallMessagesItem> $messages Messages spoken while the tool is running. Multiple request-start messages are variants. For request-response-delayed, same timing means variants and different timings mean staged updates.
      */
     #[JsonProperty('messages'), ArrayType([GhlToolWithToolCallMessagesItem::class])]
     public ?array $messages;

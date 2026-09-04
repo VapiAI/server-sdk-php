@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateCustomCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateCustomCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?UpdateCustomCredentialDtoAuthenticationPlan $authenticationPlan This is the authentication plan. Supports OAuth2 RFC 6749, HMAC signing, and Bearer authentication.
      */
     #[JsonProperty('authenticationPlan')]
@@ -27,6 +33,7 @@ class UpdateCustomCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateCustomCredentialDtoProvider>,
      *   authenticationPlan?: ?UpdateCustomCredentialDtoAuthenticationPlan,
      *   encryptionPlan?: ?UpdateCustomCredentialDtoEncryptionPlan,
      *   name?: ?string,
@@ -35,6 +42,7 @@ class UpdateCustomCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->authenticationPlan = $values['authenticationPlan'] ?? null;
         $this->encryptionPlan = $values['encryptionPlan'] ?? null;
         $this->name = $values['name'] ?? null;

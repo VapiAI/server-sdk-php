@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Controls post-call success evaluation, including the rubric, prompt messages, enablement, and request timeout.
+ */
 class SuccessEvaluationPlan extends JsonSerializableType
 {
     /**

@@ -4,6 +4,7 @@ namespace Vapi\StructuredOutputs\Requests;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\StructuredOutputs\Types\StructuredOutputControllerFindAllRequestSortOrder;
+use Vapi\StructuredOutputs\Types\StructuredOutputControllerFindAllRequestSortBy;
 use DateTime;
 
 class StructuredOutputControllerFindAllRequest extends JsonSerializableType
@@ -27,6 +28,11 @@ class StructuredOutputControllerFindAllRequest extends JsonSerializableType
      * @var ?value-of<StructuredOutputControllerFindAllRequestSortOrder> $sortOrder This is the sort order for pagination. Defaults to 'DESC'.
      */
     public ?string $sortOrder;
+
+    /**
+     * @var ?value-of<StructuredOutputControllerFindAllRequestSortBy> $sortBy This is the column to sort by. Defaults to 'createdAt'.
+     */
+    public ?string $sortBy;
 
     /**
      * @var ?float $limit This is the maximum number of items to return. Defaults to 100.
@@ -79,6 +85,7 @@ class StructuredOutputControllerFindAllRequest extends JsonSerializableType
      *   name?: ?string,
      *   page?: ?float,
      *   sortOrder?: ?value-of<StructuredOutputControllerFindAllRequestSortOrder>,
+     *   sortBy?: ?value-of<StructuredOutputControllerFindAllRequestSortBy>,
      *   limit?: ?float,
      *   createdAtGt?: ?DateTime,
      *   createdAtLt?: ?DateTime,
@@ -97,6 +104,7 @@ class StructuredOutputControllerFindAllRequest extends JsonSerializableType
         $this->name = $values['name'] ?? null;
         $this->page = $values['page'] ?? null;
         $this->sortOrder = $values['sortOrder'] ?? null;
+        $this->sortBy = $values['sortBy'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->createdAtGt = $values['createdAtGt'] ?? null;
         $this->createdAtLt = $values['createdAtLt'] ?? null;

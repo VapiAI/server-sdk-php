@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for importing a Twilio phone number into Vapi, including Twilio credentials, routing target, fallback destination, hooks, SMS, and server settings.
+ */
 class ImportTwilioPhoneNumberDto extends JsonSerializableType
 {
     /**

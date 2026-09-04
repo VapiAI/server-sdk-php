@@ -8,14 +8,19 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A reusable tool that hands a conversation to another assistant, squad, or dynamically selected destination.
+ */
 class HandoffTool extends JsonSerializableType
 {
     /**
-     * These are the messages that will be spoken to the user as the tool is running.
-     *
-     * For some tools, this is auto-filled based on special fields like `tool.destinations`. For others like the function tool, these can be custom configured.
-     *
-     * @var ?array<HandoffToolMessagesItem> $messages
+     * @var ?string $latestVersion
+     */
+    #[JsonProperty('latestVersion')]
+    public ?string $latestVersion;
+
+    /**
+     * @var ?array<HandoffToolMessagesItem> $messages Messages spoken while the tool is running. Multiple request-start messages are variants. For request-response-delayed, same timing means variants and different timings mean staged updates.
      */
     #[JsonProperty('messages'), ArrayType([HandoffToolMessagesItem::class])]
     public ?array $messages;
@@ -421,6 +426,7 @@ class HandoffTool extends JsonSerializableType
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
+     *   latestVersion?: ?string,
      *   messages?: ?array<HandoffToolMessagesItem>,
      *   defaultResult?: ?string,
      *   destinations?: ?array<HandoffToolDestinationsItem>,
@@ -431,6 +437,7 @@ class HandoffTool extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
+        $this->latestVersion = $values['latestVersion'] ?? null;
         $this->messages = $values['messages'] ?? null;
         $this->defaultResult = $values['defaultResult'] ?? null;
         $this->destinations = $values['destinations'] ?? null;

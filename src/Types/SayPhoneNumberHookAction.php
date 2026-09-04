@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * A phone-number hook action that speaks an exact message to the caller.
+ */
 class SayPhoneNumberHookAction extends JsonSerializableType
 {
     /**

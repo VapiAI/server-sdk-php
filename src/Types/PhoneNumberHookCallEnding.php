@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Runs configured transfer or message actions when a call ends with a matching assistant-request failure reason.
+ */
 class PhoneNumberHookCallEnding extends JsonSerializableType
 {
     /**

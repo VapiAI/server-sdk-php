@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for synthesizing assistant speech with Neuphonic, including voice and model selection, language, speed, chunking, caching, and fallback settings.
+ */
 class NeuphonicVoice extends JsonSerializableType
 {
     /**

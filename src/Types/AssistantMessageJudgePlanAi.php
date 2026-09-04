@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Evaluates an assistant message with an LLM judge and a configured evaluation model.
+ */
 class AssistantMessageJudgePlanAi extends JsonSerializableType
 {
     /**

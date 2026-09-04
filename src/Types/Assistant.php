@@ -9,6 +9,9 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A saved assistant configuration returned by the Vapi API. It defines how the assistant listens, reasons, speaks, handles conversations, sends events, and produces artifacts and analysis.
+ */
 class Assistant extends JsonSerializableType
 {
     /**
@@ -40,7 +43,7 @@ class Assistant extends JsonSerializableType
     public ?string $firstMessage;
 
     /**
-     * @var ?bool $firstMessageInterruptionsEnabled
+     * @var ?bool $firstMessageInterruptionsEnabled Set to `true` to allow the user to interrupt the assistant while it speaks the first message. Default is `false`.
      */
     #[JsonProperty('firstMessageInterruptionsEnabled')]
     public ?bool $firstMessageInterruptionsEnabled;
@@ -154,6 +157,17 @@ class Assistant extends JsonSerializableType
     public ?array $hooks;
 
     /**
+     * This is the latest version label (e.g. `v3`) of the assistant in the
+     * version history. `null` while the org is not yet
+     * onboarded to versioning, or for assistants that have not yet been
+     * published under it.
+     *
+     * @var ?string $latestVersion
+     */
+    #[JsonProperty('latestVersion')]
+    public ?string $latestVersion;
+
+    /**
      * This is the name of the assistant.
      *
      * This is required when you want to transfer between assistants in a call.
@@ -190,7 +204,7 @@ class Assistant extends JsonSerializableType
     public ?array $endCallPhrases;
 
     /**
-     * @var ?CompliancePlan $compliancePlan
+     * @var ?CompliancePlan $compliancePlan Compliance settings for the assistant, including HIPAA and PCI behavior, security filtering, and recording consent.
      */
     #[JsonProperty('compliancePlan')]
     public ?CompliancePlan $compliancePlan;
@@ -293,7 +307,7 @@ class Assistant extends JsonSerializableType
     public ?Server $server;
 
     /**
-     * @var ?KeypadInputPlan $keypadInputPlan
+     * @var ?KeypadInputPlan $keypadInputPlan Configuration for collecting and processing DTMF keypad input during calls.
      */
     #[JsonProperty('keypadInputPlan')]
     public ?KeypadInputPlan $keypadInputPlan;
@@ -359,6 +373,7 @@ class Assistant extends JsonSerializableType
      *   |CallHookCustomerSpeechTimeout
      *   |SessionCreatedHook
      * )>,
+     *   latestVersion?: ?string,
      *   name?: ?string,
      *   voicemailMessage?: ?string,
      *   endCallMessage?: ?string,
@@ -395,6 +410,7 @@ class Assistant extends JsonSerializableType
         $this->observabilityPlan = $values['observabilityPlan'] ?? null;
         $this->credentials = $values['credentials'] ?? null;
         $this->hooks = $values['hooks'] ?? null;
+        $this->latestVersion = $values['latestVersion'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->voicemailMessage = $values['voicemailMessage'] ?? null;
         $this->endCallMessage = $values['endCallMessage'] ?? null;

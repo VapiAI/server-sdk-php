@@ -18,6 +18,10 @@ use Vapi\Types\CreateStructuredOutputDto;
 use Vapi\Types\StructuredOutput;
 use Vapi\StructuredOutputs\Requests\UpdateStructuredOutputDto;
 use Vapi\StructuredOutputs\Requests\StructuredOutputRunDto;
+use Vapi\StructuredOutputs\Types\StructuredOutputControllerRunResponseZero;
+use Vapi\Types\StructuredOutputRerunResponse;
+use Vapi\Core\Json\JsonDecoder;
+use Vapi\Core\Types\Union;
 
 class StructuredOutputsClient
 {
@@ -56,6 +60,8 @@ class StructuredOutputsClient
     }
 
     /**
+     * Returns structured-output definitions for the authenticated organization. Filter results by ID, name, or creation and update timestamps.
+     *
      * @param StructuredOutputControllerFindAllRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -84,6 +90,9 @@ class StructuredOutputsClient
         }
         if ($request->sortOrder != null) {
             $query['sortOrder'] = $request->sortOrder;
+        }
+        if ($request->sortBy != null) {
+            $query['sortBy'] = $request->sortBy;
         }
         if ($request->limit != null) {
             $query['limit'] = $request->limit;
@@ -143,6 +152,8 @@ class StructuredOutputsClient
     }
 
     /**
+     * Creates a reusable definition for extracting validated data from conversations using an AI model or regular expression.
+     *
      * @param CreateStructuredOutputDto $request
      * @param ?array{
      *   baseUrl?: string,
@@ -190,7 +201,9 @@ class StructuredOutputsClient
     }
 
     /**
-     * @param string $id
+     * Returns the structured-output definition identified by its ID.
+     *
+     * @param string $id The unique identifier of the structured output.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -236,7 +249,9 @@ class StructuredOutputsClient
     }
 
     /**
-     * @param string $id
+     * Deletes the structured-output definition identified by its ID.
+     *
+     * @param string $id The unique identifier of the structured output.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -282,7 +297,9 @@ class StructuredOutputsClient
     }
 
     /**
-     * @param string $id
+     * Updates the structured-output definition identified by its ID.
+     *
+     * @param string $id The unique identifier of the structured output.
      * @param UpdateStructuredOutputDto $request
      * @param ?array{
      *   baseUrl?: string,
@@ -333,6 +350,8 @@ class StructuredOutputsClient
     }
 
     /**
+     * Runs a saved or transient structured-output definition against one or more calls, optionally returning a preview without updating call artifacts.
+     *
      * @param StructuredOutputRunDto $request
      * @param ?array{
      *   baseUrl?: string,
@@ -342,11 +361,14 @@ class StructuredOutputsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ?StructuredOutput
+     * @return (
+     *    StructuredOutputControllerRunResponseZero
+     *   |StructuredOutputRerunResponse
+     * )|null
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function structuredOutputControllerRun(StructuredOutputRunDto $request, ?array $options = null): ?StructuredOutput
+    public function structuredOutputControllerRun(StructuredOutputRunDto $request, ?array $options = null): StructuredOutputControllerRunResponseZero|StructuredOutputRerunResponse|null
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -365,7 +387,7 @@ class StructuredOutputsClient
                 if (empty($json)) {
                     return null;
                 }
-                return StructuredOutput::fromJson($json);
+                return JsonDecoder::decodeUnion($json, new Union(StructuredOutputControllerRunResponseZero::class, StructuredOutputRerunResponse::class)); // @phpstan-ignore-line
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

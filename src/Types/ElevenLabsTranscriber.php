@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for transcribing speech during assistant conversations with ElevenLabs, including model, language, speech thresholds, and fallback settings.
+ */
 class ElevenLabsTranscriber extends JsonSerializableType
 {
     /**

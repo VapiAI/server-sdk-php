@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Filters event data by comparing a boolean field with an expected value.
+ */
 class EventsTableBooleanCondition extends JsonSerializableType
 {
     /**

@@ -5,10 +5,13 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Network and routing settings for a SIP trunk gateway, including address, port, netmask, inbound and outbound use, signaling protocol, and OPTIONS health checks.
+ */
 class SipTrunkGateway extends JsonSerializableType
 {
     /**
-     * @var string $ip This is the address of the gateway. It can be an IPv4 address like 1.1.1.1 or a fully qualified domain name like my-sip-trunk.pstn.twilio.com.
+     * @var string $ip This is the address of the gateway. Inbound gateways require an IPv4 address like 1.1.1.1. Outbound-only gateways can also use a fully qualified domain name like my-sip-trunk.pstn.twilio.com.
      */
     #[JsonProperty('ip')]
     public string $ip;

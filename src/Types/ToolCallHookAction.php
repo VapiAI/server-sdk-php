@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * A hook action that invokes an inline tool or an existing tool when the hook triggers.
+ */
 class ToolCallHookAction extends JsonSerializableType
 {
     /**

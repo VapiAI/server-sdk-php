@@ -8,6 +8,15 @@ use Vapi\Core\Json\JsonProperty;
 class CreateWebCallDto extends JsonSerializableType
 {
     /**
+     * This is the assistant version to use for this call. Supported only with
+     * direct `assistantId`. Omit to follow the latest version.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var ?bool $roomDeleteOnUserLeaveEnabled
      */
     #[JsonProperty('roomDeleteOnUserLeaveEnabled')]
@@ -114,6 +123,7 @@ class CreateWebCallDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   assistantVersion?: ?string,
      *   roomDeleteOnUserLeaveEnabled?: ?bool,
      *   assistantId?: ?string,
      *   assistant?: ?CreateAssistantDto,
@@ -129,6 +139,7 @@ class CreateWebCallDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->roomDeleteOnUserLeaveEnabled = $values['roomDeleteOnUserLeaveEnabled'] ?? null;
         $this->assistantId = $values['assistantId'] ?? null;
         $this->assistant = $values['assistant'] ?? null;

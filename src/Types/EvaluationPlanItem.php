@@ -9,54 +9,41 @@ use Vapi\Core\Types\Union;
 class EvaluationPlanItem extends JsonSerializableType
 {
     /**
-     * This is the ID of an existing structured output to use for evaluation.
-     * Mutually exclusive with structuredOutput.
-     *
-     * @var ?string $structuredOutputId
+     * @var ?string $structuredOutputId The ID of an existing structured output to evaluate. Use this to reuse a structured output across scenarios. Provide either `structuredOutputId` or an inline `structuredOutput`.
      */
     #[JsonProperty('structuredOutputId')]
     public ?string $structuredOutputId;
 
     /**
-     * This is an inline structured output definition for evaluation.
-     * Mutually exclusive with structuredOutputId.
-     * Only primitive schema types (string, number, integer, boolean) are allowed.
-     *
-     * @var ?CreateStructuredOutputDto $structuredOutput
+     * @var ?CreateStructuredOutputDto $structuredOutput An inline structured output to evaluate, defined by its name and schema. Only primitive types (string, number, integer, boolean) are allowed. Provide either this or `structuredOutputId`.
      */
     #[JsonProperty('structuredOutput')]
     public ?CreateStructuredOutputDto $structuredOutput;
 
     /**
-     * This is the comparison operator to use when evaluating the extracted value against the expected value.
-     * Available operators depend on the structured output's schema type:
-     * - boolean: '=', '!='
-     * - string: '=', '!='
-     * - number/integer: '=', '!=', '>', '<', '>=', '<='
-     *
-     * @var value-of<EvaluationPlanItemComparator> $comparator
+     * @var ?string $path Optional dot-notation path to a primitive leaf when evaluating an object structured output.
+     */
+    #[JsonProperty('path')]
+    public ?string $path;
+
+    /**
+     * @var value-of<EvaluationPlanItemComparator> $comparator How the structured output value is compared against `value`. Available operators depend on the output type. Boolean and string support `=` and `!=`; number and integer support `=`, `!=`, `>`, `<`, `>=`, `<=`.
      */
     #[JsonProperty('comparator')]
     public string $comparator;
 
     /**
-     * This is the expected value to compare against the extracted structured output result.
-     * Type should match the structured output's schema type.
-     *
      * @var (
      *    float
      *   |string
      *   |bool
-     * ) $value
+     * ) $value The expected value the structured output is compared against. Its type should match the structured output's type, for example `true` for a boolean.
      */
     #[JsonProperty('value'), Union('float', 'string', 'bool')]
     public float|string|bool $value;
 
     /**
-     * This is whether this evaluation must pass for the simulation to pass.
-     * Defaults to true. If false, the result is informational only.
-     *
-     * @var ?bool $required
+     * @var ?bool $required Set to `false` to record this evaluation's result without requiring it to pass. Default is `true`.
      */
     #[JsonProperty('required')]
     public ?bool $required;
@@ -71,6 +58,7 @@ class EvaluationPlanItem extends JsonSerializableType
      * ),
      *   structuredOutputId?: ?string,
      *   structuredOutput?: ?CreateStructuredOutputDto,
+     *   path?: ?string,
      *   required?: ?bool,
      * } $values
      */
@@ -79,6 +67,7 @@ class EvaluationPlanItem extends JsonSerializableType
     ) {
         $this->structuredOutputId = $values['structuredOutputId'] ?? null;
         $this->structuredOutput = $values['structuredOutput'] ?? null;
+        $this->path = $values['path'] ?? null;
         $this->comparator = $values['comparator'];
         $this->value = $values['value'];
         $this->required = $values['required'] ?? null;

@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A message spoken by the assistant with optional language-specific content variants.
+ */
 class CustomMessage extends JsonSerializableType
 {
     /**

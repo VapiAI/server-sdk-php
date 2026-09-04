@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Matches a call field against one or more allowed values to determine whether a hook runs.
+ */
 class CallHookFilter extends JsonSerializableType
 {
     /**

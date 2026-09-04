@@ -29,7 +29,7 @@ class SimulationRunItem extends JsonSerializableType
     public string $simulationId;
 
     /**
-     * @var value-of<SimulationRunItemStatus> $status This is the current status of the run.
+     * @var value-of<SimulationRunItemStatus> $status The run item's current status.
      */
     #[JsonProperty('status')]
     public string $status;
@@ -65,13 +65,13 @@ class SimulationRunItem extends JsonSerializableType
     public ?DateTime $canceledAt;
 
     /**
-     * @var ?string $failureReason This is the reason for failure.
+     * @var ?string $failureReason Why the run item failed, when applicable.
      */
     #[JsonProperty('failureReason')]
     public ?string $failureReason;
 
     /**
-     * @var ?string $callId This is the ID of the target Vapi call (the assistant being tested).
+     * @var ?string $callId The ID of the call that ran this item.
      */
     #[JsonProperty('callId')]
     public ?string $callId;
@@ -101,7 +101,7 @@ class SimulationRunItem extends JsonSerializableType
     public ?array $hooks;
 
     /**
-     * @var ?float $iterationNumber This is the iteration number (1-indexed) when run with iterations > 1.
+     * @var ?float $iterationNumber Which iteration of the simulation this item represents.
      */
     #[JsonProperty('iterationNumber')]
     public ?float $iterationNumber;
@@ -113,13 +113,13 @@ class SimulationRunItem extends JsonSerializableType
     public ?string $sessionId;
 
     /**
-     * @var ?string $scenarioId This is the scenario ID at run creation time.
+     * @var ?string $scenarioId The ID of the scenario used for this run item.
      */
     #[JsonProperty('scenarioId')]
     public ?string $scenarioId;
 
     /**
-     * @var ?string $personalityId This is the personality ID at run creation time.
+     * @var ?string $personalityId The ID of the personality used for this run item.
      */
     #[JsonProperty('personalityId')]
     public ?string $personalityId;
@@ -131,13 +131,13 @@ class SimulationRunItem extends JsonSerializableType
     public ?SimulationRunItemMetadata $metadata;
 
     /**
-     * @var ?SimulationRunItemResults $results This is the results of the simulation run.
+     * @var ?SimulationRunItemResults $results The evaluation results for this run item.
      */
     #[JsonProperty('results')]
     public ?SimulationRunItemResults $results;
 
     /**
-     * @var ?SimulationRunItemImprovements $improvementSuggestions This is the AI-generated improvement suggestions for failed runs.
+     * @var ?SimulationRunItemImprovements $improvementSuggestions AI-generated suggestions for improving the assistant or squad's system prompt, tools, and scenarios after a failed run.
      */
     #[JsonProperty('improvementSuggestions')]
     public ?SimulationRunItemImprovements $improvementSuggestions;

@@ -22,6 +22,8 @@ enum CreateAzureCredentialDtoRegion: string
     case Spaincentral = "spaincentral";
     case Swedencentral = "swedencentral";
     case Switzerland = "switzerland";
+    case Switzerlandnorth = "switzerlandnorth";
+    case Switzerlandwest = "switzerlandwest";
     case Uaenorth = "uaenorth";
     case Uk = "uk";
     case Westeurope = "westeurope";

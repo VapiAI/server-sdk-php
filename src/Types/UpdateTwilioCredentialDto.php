@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateTwilioCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateTwilioCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?string $authToken This is not returned in the API.
      */
     #[JsonProperty('authToken')]
@@ -39,6 +45,7 @@ class UpdateTwilioCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateTwilioCredentialDtoProvider>,
      *   authToken?: ?string,
      *   apiKey?: ?string,
      *   apiSecret?: ?string,
@@ -49,6 +56,7 @@ class UpdateTwilioCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->authToken = $values['authToken'] ?? null;
         $this->apiKey = $values['apiKey'] ?? null;
         $this->apiSecret = $values['apiSecret'] ?? null;

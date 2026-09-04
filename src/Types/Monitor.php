@@ -6,10 +6,13 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Live monitoring data for a call, including attached monitor results and listening and control URLs.
+ */
 class Monitor extends JsonSerializableType
 {
     /**
-     * @var ?array<MonitorResult> $monitors
+     * @var ?array<MonitorResult> $monitors Results produced by monitors attached to the call.
      */
     #[JsonProperty('monitors'), ArrayType([MonitorResult::class])]
     public ?array $monitors;

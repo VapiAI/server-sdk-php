@@ -98,11 +98,17 @@ class ChatsClient
         if ($request->previousChatId != null) {
             $query['previousChatId'] = $request->previousChatId;
         }
+        if ($request->idAny != null) {
+            $query['idAny'] = $request->idAny;
+        }
         if ($request->page != null) {
             $query['page'] = $request->page;
         }
         if ($request->sortOrder != null) {
             $query['sortOrder'] = $request->sortOrder;
+        }
+        if ($request->sortBy != null) {
+            $query['sortBy'] = $request->sortBy;
         }
         if ($request->limit != null) {
             $query['limit'] = $request->limit;

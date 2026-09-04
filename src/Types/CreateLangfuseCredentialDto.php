@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for sending assistant call traces to a Langfuse project, including its public key, secret key, and host URL.
+ */
 class CreateLangfuseCredentialDto extends JsonSerializableType
 {
     /**

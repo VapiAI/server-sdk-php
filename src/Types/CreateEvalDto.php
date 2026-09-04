@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * Configuration used to create a reusable eval containing a mock conversation and checkpoints for assessing assistant responses and tool calls.
+ */
 class CreateEvalDto extends JsonSerializableType
 {
     /**

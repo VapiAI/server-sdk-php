@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Controls how model output is split into chunks before voice synthesis, including minimum length, punctuation boundaries, and formatting.
+ */
 class ChunkPlan extends JsonSerializableType
 {
     /**

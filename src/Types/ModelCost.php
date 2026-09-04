@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Language-model cost for a call, including model, token usage, and amount.
+ */
 class ModelCost extends JsonSerializableType
 {
     /**
@@ -43,6 +46,16 @@ class ModelCost extends JsonSerializableType
     public ?float $cachedPromptTokens;
 
     /**
+     * This is the number of reasoning tokens generated in the call. This is only applicable to reasoning models (e.g., OpenAI o-series, GPT-5) on providers that report them.
+     *
+     * This is a **subset of `completionTokens`**, not an addition to it: reasoning tokens are already counted in `completionTokens` and are already billed at the output-token rate. It is reported separately for visibility only and does not affect `cost`.
+     *
+     * @var ?float $reasoningTokens
+     */
+    #[JsonProperty('reasoningTokens')]
+    public ?float $reasoningTokens;
+
+    /**
      * @var float $cost This is the cost of the component in USD.
      */
     #[JsonProperty('cost')]
@@ -55,6 +68,7 @@ class ModelCost extends JsonSerializableType
      *   completionTokens: float,
      *   cost: float,
      *   cachedPromptTokens?: ?float,
+     *   reasoningTokens?: ?float,
      * } $values
      */
     public function __construct(
@@ -64,6 +78,7 @@ class ModelCost extends JsonSerializableType
         $this->promptTokens = $values['promptTokens'];
         $this->completionTokens = $values['completionTokens'];
         $this->cachedPromptTokens = $values['cachedPromptTokens'] ?? null;
+        $this->reasoningTokens = $values['reasoningTokens'] ?? null;
         $this->cost = $values['cost'];
     }
 

@@ -14,6 +14,17 @@ class ClientMessageCallDeleteFailed extends JsonSerializableType
     public ?ClientMessageCallDeleteFailedPhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var value-of<ClientMessageCallDeleteFailedType> $type This is the type of the message. "call.deleted" is sent when a call is deleted.
      */
     #[JsonProperty('type')]
@@ -47,6 +58,7 @@ class ClientMessageCallDeleteFailed extends JsonSerializableType
      * @param array{
      *   type: value-of<ClientMessageCallDeleteFailedType>,
      *   phoneNumber?: ?ClientMessageCallDeleteFailedPhoneNumber,
+     *   assistantVersion?: ?string,
      *   timestamp?: ?float,
      *   call?: ?Call,
      *   customer?: ?CreateCustomerDto,
@@ -57,6 +69,7 @@ class ClientMessageCallDeleteFailed extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->timestamp = $values['timestamp'] ?? null;
         $this->call = $values['call'] ?? null;

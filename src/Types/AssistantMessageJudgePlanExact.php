@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Evaluates an assistant message using case-insensitive exact content matching and expected tool calls.
+ */
 class AssistantMessageJudgePlanExact extends JsonSerializableType
 {
     /**

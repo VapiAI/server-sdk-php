@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Runs configured actions when the customer does not speak before the configured timeout, with support for trigger limits and named instances.
+ */
 class CallHookCustomerSpeechTimeout extends JsonSerializableType
 {
     /**
@@ -21,7 +24,7 @@ class CallHookCustomerSpeechTimeout extends JsonSerializableType
     public array $do;
 
     /**
-     * @var ?CustomerSpeechTimeoutOptions $options This is the set of filters that must match for the hook to trigger
+     * @var ?CustomerSpeechTimeoutOptions $options Controls the speech timeout, maximum trigger count, and counter reset behavior for this hook.
      */
     #[JsonProperty('options')]
     public ?CustomerSpeechTimeoutOptions $options;

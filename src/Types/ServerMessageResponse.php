@@ -21,10 +21,11 @@ class ServerMessageResponse extends JsonSerializableType
      *   |ServerMessageResponseTransferDestinationRequest
      *   |ServerMessageResponseVoiceRequest
      *   |ServerMessageResponseCallEndpointingRequest
+     *   |ServerMessageResponseCampaignPredial
      * ) $messageResponse
      */
-    #[JsonProperty('messageResponse'), Union(ServerMessageResponseAssistantRequest::class, ServerMessageResponseHandoffDestinationRequest::class, ServerMessageResponseKnowledgeBaseRequest::class, ServerMessageResponseToolCalls::class, ServerMessageResponseTransferDestinationRequest::class, ServerMessageResponseVoiceRequest::class, ServerMessageResponseCallEndpointingRequest::class)]
-    public ServerMessageResponseAssistantRequest|ServerMessageResponseHandoffDestinationRequest|ServerMessageResponseKnowledgeBaseRequest|ServerMessageResponseToolCalls|ServerMessageResponseTransferDestinationRequest|ServerMessageResponseVoiceRequest|ServerMessageResponseCallEndpointingRequest $messageResponse;
+    #[JsonProperty('messageResponse'), Union(ServerMessageResponseAssistantRequest::class, ServerMessageResponseHandoffDestinationRequest::class, ServerMessageResponseKnowledgeBaseRequest::class, ServerMessageResponseToolCalls::class, ServerMessageResponseTransferDestinationRequest::class, ServerMessageResponseVoiceRequest::class, ServerMessageResponseCallEndpointingRequest::class, ServerMessageResponseCampaignPredial::class)]
+    public ServerMessageResponseAssistantRequest|ServerMessageResponseHandoffDestinationRequest|ServerMessageResponseKnowledgeBaseRequest|ServerMessageResponseToolCalls|ServerMessageResponseTransferDestinationRequest|ServerMessageResponseVoiceRequest|ServerMessageResponseCallEndpointingRequest|ServerMessageResponseCampaignPredial $messageResponse;
 
     /**
      * @param array{
@@ -36,6 +37,7 @@ class ServerMessageResponse extends JsonSerializableType
      *   |ServerMessageResponseTransferDestinationRequest
      *   |ServerMessageResponseVoiceRequest
      *   |ServerMessageResponseCallEndpointingRequest
+     *   |ServerMessageResponseCampaignPredial
      * ),
      * } $values
      */

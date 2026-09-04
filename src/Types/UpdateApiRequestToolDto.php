@@ -6,20 +6,29 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Fields used to update an API-request tool, including its URL, HTTP method, authentication, request data, retries, and response handling.
+ */
 class UpdateApiRequestToolDto extends JsonSerializableType
 {
     /**
-     * These are the messages that will be spoken to the user as the tool is running.
-     *
-     * For some tools, this is auto-filled based on special fields like `tool.destinations`. For others like the function tool, these can be custom configured.
-     *
-     * @var ?array<UpdateApiRequestToolDtoMessagesItem> $messages
+     * @var ?array<UpdateApiRequestToolDtoMessagesItem> $messages Messages spoken while the tool is running. Multiple request-start messages are variants. For request-response-delayed, same timing means variants and different timings mean staged updates.
      */
     #[JsonProperty('messages'), ArrayType([UpdateApiRequestToolDtoMessagesItem::class])]
     public ?array $messages;
 
     /**
-     * @var ?value-of<UpdateApiRequestToolDtoMethod> $method
+     * This is the name of the tool. This will be passed to the model.
+     *
+     * Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 40.
+     *
+     * @var ?string $name
+     */
+    #[JsonProperty('name')]
+    public ?string $name;
+
+    /**
+     * @var ?value-of<UpdateApiRequestToolDtoMethod> $method The HTTP method used for the API request.
      */
     #[JsonProperty('method')]
     public ?string $method;
@@ -136,16 +145,6 @@ class UpdateApiRequestToolDto extends JsonSerializableType
      */
     #[JsonProperty('rejectionPlan')]
     public ?ToolRejectionPlan $rejectionPlan;
-
-    /**
-     * This is the name of the tool. This will be passed to the model.
-     *
-     * Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 40.
-     *
-     * @var ?string $name
-     */
-    #[JsonProperty('name')]
-    public ?string $name;
 
     /**
      * @var ?string $description This is the description of the tool. This will be passed to the model.
@@ -344,13 +343,13 @@ class UpdateApiRequestToolDto extends JsonSerializableType
     /**
      * @param array{
      *   messages?: ?array<UpdateApiRequestToolDtoMessagesItem>,
+     *   name?: ?string,
      *   method?: ?value-of<UpdateApiRequestToolDtoMethod>,
      *   timeoutSeconds?: ?float,
      *   credentialId?: ?string,
      *   encryptedPaths?: ?array<string>,
      *   parameters?: ?array<ToolParameter>,
      *   rejectionPlan?: ?ToolRejectionPlan,
-     *   name?: ?string,
      *   description?: ?string,
      *   url?: ?string,
      *   body?: ?JsonSchema,
@@ -363,13 +362,13 @@ class UpdateApiRequestToolDto extends JsonSerializableType
         array $values = [],
     ) {
         $this->messages = $values['messages'] ?? null;
+        $this->name = $values['name'] ?? null;
         $this->method = $values['method'] ?? null;
         $this->timeoutSeconds = $values['timeoutSeconds'] ?? null;
         $this->credentialId = $values['credentialId'] ?? null;
         $this->encryptedPaths = $values['encryptedPaths'] ?? null;
         $this->parameters = $values['parameters'] ?? null;
         $this->rejectionPlan = $values['rejectionPlan'] ?? null;
-        $this->name = $values['name'] ?? null;
         $this->description = $values['description'] ?? null;
         $this->url = $values['url'] ?? null;
         $this->body = $values['body'] ?? null;

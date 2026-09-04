@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Controls whether the call transcript is stored and the speaker names used in the transcript.
+ */
 class TranscriptPlan extends JsonSerializableType
 {
     /**

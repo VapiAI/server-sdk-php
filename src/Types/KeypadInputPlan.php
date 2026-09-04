@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Controls collection of dual-tone multi-frequency (DTMF) keypad input, including enablement, processing timeout, and delimiters.
+ */
 class KeypadInputPlan extends JsonSerializableType
 {
     /**

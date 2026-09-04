@@ -4,10 +4,13 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
+use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
-use Vapi\Core\Types\ArrayType;
 
+/**
+ * A saved structured-output definition containing its extraction schema, execution method, model or regular expression, linked resources, and lifecycle metadata.
+ */
 class StructuredOutput extends JsonSerializableType
 {
     /**
@@ -63,6 +66,12 @@ class StructuredOutput extends JsonSerializableType
      */
     #[JsonProperty('compliancePlan')]
     public ?ComplianceOverride $compliancePlan;
+
+    /**
+     * @var ?array<StructuredOutputConditionsItem> $conditions These are the conditions that gate the execution of this structured output. Every condition must pass for the structured output to run (AND semantics). When omitted or empty, no user-defined conditions gate this output. Send null to clear a previously saved gate.
+     */
+    #[JsonProperty('conditions'), ArrayType([StructuredOutputConditionsItem::class])]
+    public ?array $conditions;
 
     /**
      * @var string $id This is the unique identifier for the structured output.
@@ -152,6 +161,7 @@ class StructuredOutput extends JsonSerializableType
      *   regex?: ?string,
      *   model?: ?StructuredOutputModel,
      *   compliancePlan?: ?ComplianceOverride,
+     *   conditions?: ?array<StructuredOutputConditionsItem>,
      *   description?: ?string,
      *   assistantIds?: ?array<string>,
      *   workflowIds?: ?array<string>,
@@ -164,6 +174,7 @@ class StructuredOutput extends JsonSerializableType
         $this->regex = $values['regex'] ?? null;
         $this->model = $values['model'] ?? null;
         $this->compliancePlan = $values['compliancePlan'] ?? null;
+        $this->conditions = $values['conditions'] ?? null;
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];

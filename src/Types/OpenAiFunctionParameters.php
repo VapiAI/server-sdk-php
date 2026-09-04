@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * JSON object schema defining the properties accepted by a function and which properties are required.
+ */
 class OpenAiFunctionParameters extends JsonSerializableType
 {
     /**

@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * Configuration used to create a bar-chart insight from call data using metric queries, formulas, grouping, and a stepped time range.
+ */
 class CreateBarInsightFromCallTableDto extends JsonSerializableType
 {
     /**
@@ -44,7 +47,7 @@ class CreateBarInsightFromCallTableDto extends JsonSerializableType
     public ?BarInsightMetadata $metadata;
 
     /**
-     * @var ?InsightTimeRangeWithStep $timeRange
+     * @var ?InsightTimeRangeWithStep $timeRange The time range and interval used to aggregate the bar-chart data.
      */
     #[JsonProperty('timeRange')]
     public ?InsightTimeRangeWithStep $timeRange;

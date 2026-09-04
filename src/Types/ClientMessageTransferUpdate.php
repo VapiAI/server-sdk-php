@@ -15,6 +15,17 @@ class ClientMessageTransferUpdate extends JsonSerializableType
     public ?ClientMessageTransferUpdatePhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var value-of<ClientMessageTransferUpdateType> $type This is the type of the message. "transfer-update" is sent whenever a transfer happens.
      */
     #[JsonProperty('type')]
@@ -78,6 +89,7 @@ class ClientMessageTransferUpdate extends JsonSerializableType
      * @param array{
      *   type: value-of<ClientMessageTransferUpdateType>,
      *   phoneNumber?: ?ClientMessageTransferUpdatePhoneNumber,
+     *   assistantVersion?: ?string,
      *   destination?: ?ClientMessageTransferUpdateDestination,
      *   timestamp?: ?float,
      *   call?: ?Call,
@@ -93,6 +105,7 @@ class ClientMessageTransferUpdate extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->destination = $values['destination'] ?? null;
         $this->timestamp = $values['timestamp'] ?? null;

@@ -9,6 +9,9 @@ use Vapi\Core\Types\Union;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A call record returned by Vapi. It contains the configuration and resources used for the call, its lifecycle status and timestamps, conversation messages, artifacts, analysis, and costs.
+ */
 class Call extends JsonSerializableType
 {
     /**
@@ -30,7 +33,7 @@ class Call extends JsonSerializableType
      *   |BotMessage
      *   |ToolCallMessage
      *   |ToolCallResultMessage
-     * )> $messages
+     * )> $messages Messages exchanged during the call, including user, assistant, system, tool-call, and tool-result messages.
      */
     #[JsonProperty('messages'), ArrayType([new Union(UserMessage::class, SystemMessage::class, BotMessage::class, ToolCallMessage::class, ToolCallResultMessage::class)])]
     public ?array $messages;
@@ -78,6 +81,21 @@ class Call extends JsonSerializableType
      */
     #[JsonProperty('destination')]
     public ?CallDestination $destination;
+
+    /**
+     * This is the assistant version to use for this call. Supported only with
+     * direct `assistantId`. Omit to follow the latest version.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
+     * @var ?CallTransport $transport This is the transport of the call.
+     */
+    #[JsonProperty('transport')]
+    public ?CallTransport $transport;
 
     /**
      * @var string $id This is the unique identifier for the call.
@@ -325,18 +343,6 @@ class Call extends JsonSerializableType
     public ?SchedulePlan $schedulePlan;
 
     /**
-     * @var ?array<string, mixed> $transport This is the transport of the call.
-     */
-    #[JsonProperty('transport'), ArrayType(['string' => 'mixed'])]
-    public ?array $transport;
-
-    /**
-     * @var ?SubscriptionLimits $subscriptionLimits These are the subscription limits for the org at the time of the call. Includes concurrency limit information.
-     */
-    #[JsonProperty('subscriptionLimits')]
-    public ?SubscriptionLimits $subscriptionLimits;
-
-    /**
      * @param array{
      *   id: string,
      *   orgId: string,
@@ -357,6 +363,8 @@ class Call extends JsonSerializableType
      *   endedReason?: ?value-of<CallEndedReason>,
      *   endedMessage?: ?string,
      *   destination?: ?CallDestination,
+     *   assistantVersion?: ?string,
+     *   transport?: ?CallTransport,
      *   startedAt?: ?DateTime,
      *   endedAt?: ?DateTime,
      *   cost?: ?float,
@@ -383,8 +391,6 @@ class Call extends JsonSerializableType
      *   customer?: ?CreateCustomerDto,
      *   name?: ?string,
      *   schedulePlan?: ?SchedulePlan,
-     *   transport?: ?array<string, mixed>,
-     *   subscriptionLimits?: ?SubscriptionLimits,
      * } $values
      */
     public function __construct(
@@ -399,6 +405,8 @@ class Call extends JsonSerializableType
         $this->endedReason = $values['endedReason'] ?? null;
         $this->endedMessage = $values['endedMessage'] ?? null;
         $this->destination = $values['destination'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
+        $this->transport = $values['transport'] ?? null;
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];
@@ -429,8 +437,6 @@ class Call extends JsonSerializableType
         $this->customer = $values['customer'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->schedulePlan = $values['schedulePlan'] ?? null;
-        $this->transport = $values['transport'] ?? null;
-        $this->subscriptionLimits = $values['subscriptionLimits'] ?? null;
     }
 
     /**

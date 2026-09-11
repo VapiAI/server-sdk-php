@@ -22,6 +22,12 @@ class SonioxCredential extends JsonSerializableType
     public string $apiKey;
 
     /**
+     * @var ?string $apiUrl Custom Soniox WebSocket endpoint (e.g. EU server wss://stt-rt.eu.soniox.com/transcribe-websocket). Defaults to the region-appropriate endpoint when omitted.
+     */
+    #[JsonProperty('apiUrl')]
+    public ?string $apiUrl;
+
+    /**
      * @var string $id This is the unique identifier for the credential.
      */
     #[JsonProperty('id')]
@@ -59,6 +65,7 @@ class SonioxCredential extends JsonSerializableType
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
+     *   apiUrl?: ?string,
      *   name?: ?string,
      * } $values
      */
@@ -67,6 +74,7 @@ class SonioxCredential extends JsonSerializableType
     ) {
         $this->provider = $values['provider'];
         $this->apiKey = $values['apiKey'];
+        $this->apiUrl = $values['apiUrl'] ?? null;
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];

@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * The result of a named analytics query, including the evaluated time range and returned metric data.
+ */
 class AnalyticsQueryResult extends JsonSerializableType
 {
     /**

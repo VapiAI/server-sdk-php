@@ -1,15 +1,15 @@
 {
-  "cliVersion": "5.51.2",
+  "cliVersion": "5.121.0",
   "generatorName": "fernapi/fern-php-sdk",
   "generatorVersion": "2.4.0",
   "generatorConfig": {
     "namespace": "Vapi",
     "client-class-name": "VapiClient"
   },
-  "originGitCommit": "5a015aa01196915bea6110904c69d5804f457ff5",
+  "originGitCommit": "2e7e68f7e2ee286584e391ad7f156a1d38260be8",
   "originGitCommitIsDirty": true,
   "invokedBy": "ci",
   "requestedVersion": "AUTO",
   "ciProvider": "unknown",
-  "sdkVersion": "2.0.0"
+  "sdkVersion": "0.0.0-fern-placeholder"
 }

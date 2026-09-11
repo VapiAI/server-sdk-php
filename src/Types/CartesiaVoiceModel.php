@@ -4,6 +4,8 @@ namespace Vapi\Types;
 
 enum CartesiaVoiceModel: string
 {
+    case Sonic35 = "sonic-3.5";
+    case Sonic3520260504 = "sonic-3.5-2026-05-04";
     case Sonic3 = "sonic-3";
     case Sonic320260112 = "sonic-3-2026-01-12";
     case Sonic320251027 = "sonic-3-2025-10-27";

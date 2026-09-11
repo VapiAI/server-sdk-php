@@ -41,6 +41,7 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
      *   |'rime-ai'
      *   |'runpod'
      *   |'s3'
+     *   |'s3-compatible'
      *   |'supabase'
      *   |'smallest-ai'
      *   |'tavus'
@@ -50,12 +51,12 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
      *   |'webhook'
      *   |'custom-credential'
      *   |'xai'
+     *   |'microsoft'
      *   |'neuphonic'
      *   |'hume'
      *   |'mistral'
      *   |'speechmatics'
      *   |'soniox'
-     *   |'trieve'
      *   |'google.calendar.oauth2-client'
      *   |'google.calendar.oauth2-authorization'
      *   |'google.sheets.oauth2-authorization'
@@ -104,6 +105,7 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
      *   |CreateRimeAiCredentialDto
      *   |CreateRunpodCredentialDto
      *   |CreateS3CredentialDto
+     *   |CreateS3CompatibleCredentialDto
      *   |CreateSupabaseCredentialDto
      *   |CreateSmallestAiCredentialDto
      *   |CreateTavusCredentialDto
@@ -113,12 +115,12 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
      *   |CreateWebhookCredentialDto
      *   |CreateCustomCredentialDto
      *   |CreateXAiCredentialDto
+     *   |CreateMicrosoftCredentialDto
      *   |CreateNeuphonicCredentialDto
      *   |CreateHumeCredentialDto
      *   |CreateMistralCredentialDto
      *   |CreateSpeechmaticsCredentialDto
      *   |CreateSonioxCredentialDto
-     *   |CreateTrieveCredentialDto
      *   |CreateGoogleCalendarOAuth2ClientCredentialDto
      *   |CreateGoogleCalendarOAuth2AuthorizationCredentialDto
      *   |CreateGoogleSheetsOAuth2AuthorizationCredentialDto
@@ -168,6 +170,7 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
      *   |'rime-ai'
      *   |'runpod'
      *   |'s3'
+     *   |'s3-compatible'
      *   |'supabase'
      *   |'smallest-ai'
      *   |'tavus'
@@ -177,12 +180,12 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
      *   |'webhook'
      *   |'custom-credential'
      *   |'xai'
+     *   |'microsoft'
      *   |'neuphonic'
      *   |'hume'
      *   |'mistral'
      *   |'speechmatics'
      *   |'soniox'
-     *   |'trieve'
      *   |'google.calendar.oauth2-client'
      *   |'google.calendar.oauth2-authorization'
      *   |'google.sheets.oauth2-authorization'
@@ -227,6 +230,7 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
      *   |CreateRimeAiCredentialDto
      *   |CreateRunpodCredentialDto
      *   |CreateS3CredentialDto
+     *   |CreateS3CompatibleCredentialDto
      *   |CreateSupabaseCredentialDto
      *   |CreateSmallestAiCredentialDto
      *   |CreateTavusCredentialDto
@@ -236,12 +240,12 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
      *   |CreateWebhookCredentialDto
      *   |CreateCustomCredentialDto
      *   |CreateXAiCredentialDto
+     *   |CreateMicrosoftCredentialDto
      *   |CreateNeuphonicCredentialDto
      *   |CreateHumeCredentialDto
      *   |CreateMistralCredentialDto
      *   |CreateSpeechmaticsCredentialDto
      *   |CreateSonioxCredentialDto
-     *   |CreateTrieveCredentialDto
      *   |CreateGoogleCalendarOAuth2ClientCredentialDto
      *   |CreateGoogleCalendarOAuth2AuthorizationCredentialDto
      *   |CreateGoogleSheetsOAuth2AuthorizationCredentialDto
@@ -636,6 +640,18 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
     }
 
     /**
+     * @param CreateS3CompatibleCredentialDto $s3Compatible
+     * @return UpdateWorkflowDtoCredentialsItem
+     */
+    public static function s3Compatible(CreateS3CompatibleCredentialDto $s3Compatible): UpdateWorkflowDtoCredentialsItem
+    {
+        return new UpdateWorkflowDtoCredentialsItem([
+            'provider' => 's3-compatible',
+            'value' => $s3Compatible,
+        ]);
+    }
+
+    /**
      * @param CreateSupabaseCredentialDto $supabase
      * @return UpdateWorkflowDtoCredentialsItem
      */
@@ -744,6 +760,18 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
     }
 
     /**
+     * @param CreateMicrosoftCredentialDto $microsoft
+     * @return UpdateWorkflowDtoCredentialsItem
+     */
+    public static function microsoft(CreateMicrosoftCredentialDto $microsoft): UpdateWorkflowDtoCredentialsItem
+    {
+        return new UpdateWorkflowDtoCredentialsItem([
+            'provider' => 'microsoft',
+            'value' => $microsoft,
+        ]);
+    }
+
+    /**
      * @param CreateNeuphonicCredentialDto $neuphonic
      * @return UpdateWorkflowDtoCredentialsItem
      */
@@ -800,18 +828,6 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
         return new UpdateWorkflowDtoCredentialsItem([
             'provider' => 'soniox',
             'value' => $soniox,
-        ]);
-    }
-
-    /**
-     * @param CreateTrieveCredentialDto $trieve
-     * @return UpdateWorkflowDtoCredentialsItem
-     */
-    public static function trieve(CreateTrieveCredentialDto $trieve): UpdateWorkflowDtoCredentialsItem
-    {
-        return new UpdateWorkflowDtoCredentialsItem([
-            'provider' => 'trieve',
-            'value' => $trieve,
         ]);
     }
 
@@ -1620,6 +1636,28 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
     /**
      * @return bool
      */
+    public function isS3Compatible(): bool
+    {
+        return $this->value instanceof CreateS3CompatibleCredentialDto && $this->provider === 's3-compatible';
+    }
+
+    /**
+     * @return CreateS3CompatibleCredentialDto
+     */
+    public function asS3Compatible(): CreateS3CompatibleCredentialDto
+    {
+        if (!($this->value instanceof CreateS3CompatibleCredentialDto && $this->provider === 's3-compatible')) {
+            throw new Exception(
+                "Expected s3-compatible; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
     public function isSupabase(): bool
     {
         return $this->value instanceof CreateSupabaseCredentialDto && $this->provider === 'supabase';
@@ -1818,6 +1856,28 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
     /**
      * @return bool
      */
+    public function isMicrosoft(): bool
+    {
+        return $this->value instanceof CreateMicrosoftCredentialDto && $this->provider === 'microsoft';
+    }
+
+    /**
+     * @return CreateMicrosoftCredentialDto
+     */
+    public function asMicrosoft(): CreateMicrosoftCredentialDto
+    {
+        if (!($this->value instanceof CreateMicrosoftCredentialDto && $this->provider === 'microsoft')) {
+            throw new Exception(
+                "Expected microsoft; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
     public function isNeuphonic(): bool
     {
         return $this->value instanceof CreateNeuphonicCredentialDto && $this->provider === 'neuphonic';
@@ -1919,28 +1979,6 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
         if (!($this->value instanceof CreateSonioxCredentialDto && $this->provider === 'soniox')) {
             throw new Exception(
                 "Expected soniox; got " . $this->provider . " with value of type " . get_debug_type($this->value),
-            );
-        }
-
-        return $this->value;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isTrieve(): bool
-    {
-        return $this->value instanceof CreateTrieveCredentialDto && $this->provider === 'trieve';
-    }
-
-    /**
-     * @return CreateTrieveCredentialDto
-     */
-    public function asTrieve(): CreateTrieveCredentialDto
-    {
-        if (!($this->value instanceof CreateTrieveCredentialDto && $this->provider === 'trieve')) {
-            throw new Exception(
-                "Expected trieve; got " . $this->provider . " with value of type " . get_debug_type($this->value),
             );
         }
 
@@ -2311,6 +2349,10 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
                 $value = $this->asS3()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
+            case 's3-compatible':
+                $value = $this->asS3Compatible()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
             case 'supabase':
                 $value = $this->asSupabase()->jsonSerialize();
                 $result = array_merge($value, $result);
@@ -2347,6 +2389,10 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
                 $value = $this->asXai()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
+            case 'microsoft':
+                $value = $this->asMicrosoft()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
             case 'neuphonic':
                 $value = $this->asNeuphonic()->jsonSerialize();
                 $result = array_merge($value, $result);
@@ -2365,10 +2411,6 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
                 break;
             case 'soniox':
                 $value = $this->asSoniox()->jsonSerialize();
-                $result = array_merge($value, $result);
-                break;
-            case 'trieve':
-                $value = $this->asTrieve()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case 'google.calendar.oauth2-client':
@@ -2552,6 +2594,9 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
             case 's3':
                 $args['value'] = CreateS3CredentialDto::jsonDeserialize($data);
                 break;
+            case 's3-compatible':
+                $args['value'] = CreateS3CompatibleCredentialDto::jsonDeserialize($data);
+                break;
             case 'supabase':
                 $args['value'] = CreateSupabaseCredentialDto::jsonDeserialize($data);
                 break;
@@ -2579,6 +2624,9 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
             case 'xai':
                 $args['value'] = CreateXAiCredentialDto::jsonDeserialize($data);
                 break;
+            case 'microsoft':
+                $args['value'] = CreateMicrosoftCredentialDto::jsonDeserialize($data);
+                break;
             case 'neuphonic':
                 $args['value'] = CreateNeuphonicCredentialDto::jsonDeserialize($data);
                 break;
@@ -2593,9 +2641,6 @@ class UpdateWorkflowDtoCredentialsItem extends JsonSerializableType
                 break;
             case 'soniox':
                 $args['value'] = CreateSonioxCredentialDto::jsonDeserialize($data);
-                break;
-            case 'trieve':
-                $args['value'] = CreateTrieveCredentialDto::jsonDeserialize($data);
                 break;
             case 'google.calendar.oauth2-client':
                 $args['value'] = CreateGoogleCalendarOAuth2ClientCredentialDto::jsonDeserialize($data);

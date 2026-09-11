@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * The function name and serialized arguments associated with a tool call.
+ */
 class ToolCallFunction extends JsonSerializableType
 {
     /**

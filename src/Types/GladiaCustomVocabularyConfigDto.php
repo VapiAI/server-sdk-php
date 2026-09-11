@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * Custom vocabulary configuration for Gladia transcription, including vocabulary items and default recognition intensity.
+ */
 class GladiaCustomVocabularyConfigDto extends JsonSerializableType
 {
     /**

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * OAuth 2.0 session credentials for authenticating GoHighLevel MCP requests.
+ */
 class CreateGoHighLevelMcpCredentialDto extends JsonSerializableType
 {
     /**

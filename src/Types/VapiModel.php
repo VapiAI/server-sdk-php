@@ -35,16 +35,45 @@ class VapiModel extends JsonSerializableType
     public ?array $toolIds;
 
     /**
+     * These are version-pinned references to tools. Each entry pins a specific
+     * version of a tool by `(toolId, version)`. When the same `toolId` appears
+     * in both `toolIds` and `toolRefs[]`, the `toolRefs` pin wins (the
+     * `toolIds` entry is dropped at write time).
+     *
+     * @var ?array<ToolRef> $toolRefs
+     */
+    #[JsonProperty('toolRefs'), ArrayType([ToolRef::class])]
+    public ?array $toolRefs;
+
+    /**
      * @var ?CreateCustomKnowledgeBaseDto $knowledgeBase These are the options for the knowledge base.
      */
     #[JsonProperty('knowledgeBase')]
     public ?CreateCustomKnowledgeBaseDto $knowledgeBase;
 
     /**
-     * @var value-of<VapiModelProvider> $provider
+     * White-label Vapi models are selected by `version`, not a model name, so
+     * `model` is optional here (the runtime already accepts a version-only Vapi
+     * payload). Overriding the required `ModelBase.model`: the declared type stays
+     * `string` to match the base (avoids TS2416) and the `= undefined!` initializer
+     * satisfies TS2612 for the field override, while `@IsOptional` +
+     * `@ApiPropertyOptional` make validation and the generated OpenAPI schema treat
+     * it as optional (so `VapiModel.required` is `['provider']`).
+     *
+     * @var ?string $model
      */
-    #[JsonProperty('provider')]
-    public string $provider;
+    #[JsonProperty('model')]
+    public ?string $model;
+
+    /**
+     * Vapi-managed model version (update channel). When set, this is a Vapi-managed
+     * LLM routed by the registry; when absent, this is the legacy workflow form
+     * below (`steps` / `workflow`).
+     *
+     * @var ?value-of<VapiModelVersion> $version
+     */
+    #[JsonProperty('version')]
+    public ?string $version;
 
     /**
      * @var ?string $workflowId This is the workflow that will be used for the call. To use a transient workflow, use `workflow` instead.
@@ -59,22 +88,10 @@ class VapiModel extends JsonSerializableType
     public ?WorkflowUserEditable $workflow;
 
     /**
-     * @var string $model This is the name of the model. Ex. cognitivecomputations/dolphin-mixtral-8x7b
-     */
-    #[JsonProperty('model')]
-    public string $model;
-
-    /**
-     * @var ?float $temperature This is the temperature that will be used for calls. Default is 0 to leverage caching for lower latency.
+     * @var ?float $temperature This is the temperature that will be used for calls. Default is 0.5.
      */
     #[JsonProperty('temperature')]
     public ?float $temperature;
-
-    /**
-     * @var ?float $maxTokens This is the max number of tokens that the assistant will be allowed to generate in each turn of the conversation. Default is 250.
-     */
-    #[JsonProperty('maxTokens')]
-    public ?float $maxTokens;
 
     /**
      * This determines whether we detect user's emotion while they speak and send it as an additional info to model.
@@ -102,33 +119,33 @@ class VapiModel extends JsonSerializableType
 
     /**
      * @param array{
-     *   provider: value-of<VapiModelProvider>,
-     *   model: string,
      *   messages?: ?array<OpenAiMessage>,
      *   tools?: ?array<VapiModelToolsItem>,
      *   toolIds?: ?array<string>,
+     *   toolRefs?: ?array<ToolRef>,
      *   knowledgeBase?: ?CreateCustomKnowledgeBaseDto,
+     *   model?: ?string,
+     *   version?: ?value-of<VapiModelVersion>,
      *   workflowId?: ?string,
      *   workflow?: ?WorkflowUserEditable,
      *   temperature?: ?float,
-     *   maxTokens?: ?float,
      *   emotionRecognitionEnabled?: ?bool,
      *   numFastTurns?: ?float,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
         $this->messages = $values['messages'] ?? null;
         $this->tools = $values['tools'] ?? null;
         $this->toolIds = $values['toolIds'] ?? null;
+        $this->toolRefs = $values['toolRefs'] ?? null;
         $this->knowledgeBase = $values['knowledgeBase'] ?? null;
-        $this->provider = $values['provider'];
+        $this->model = $values['model'] ?? null;
+        $this->version = $values['version'] ?? null;
         $this->workflowId = $values['workflowId'] ?? null;
         $this->workflow = $values['workflow'] ?? null;
-        $this->model = $values['model'];
         $this->temperature = $values['temperature'] ?? null;
-        $this->maxTokens = $values['maxTokens'] ?? null;
         $this->emotionRecognitionEnabled = $values['emotionRecognitionEnabled'] ?? null;
         $this->numFastTurns = $values['numFastTurns'] ?? null;
     }

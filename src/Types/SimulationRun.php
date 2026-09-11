@@ -23,7 +23,7 @@ class SimulationRun extends JsonSerializableType
     public string $orgId;
 
     /**
-     * @var value-of<SimulationRunStatus> $status Current status of the run
+     * @var value-of<SimulationRunStatus> $status The run's current status. One of `queued`, `running`, or `ended`.
      */
     #[JsonProperty('status')]
     public string $status;
@@ -47,7 +47,7 @@ class SimulationRun extends JsonSerializableType
     public ?DateTime $endedAt;
 
     /**
-     * @var ?string $endedReason Reason the run ended
+     * @var ?string $endedReason Why the run ended, when applicable.
      */
     #[JsonProperty('endedReason')]
     public ?string $endedReason;
@@ -65,31 +65,31 @@ class SimulationRun extends JsonSerializableType
     public DateTime $updatedAt;
 
     /**
-     * @var ?SimulationRunItemCounts $itemCounts Aggregate counts of run items by status
+     * @var ?SimulationRunItemCounts $itemCounts Aggregate counts of the run's items by status.
      */
     #[JsonProperty('itemCounts')]
     public ?SimulationRunItemCounts $itemCounts;
 
     /**
-     * @var array<SimulationRunSimulationsItem> $simulations Array of simulations and/or suites to run
+     * @var array<SimulationRunSimulationsItem> $simulations The simulations and suites included in the run.
      */
     #[JsonProperty('simulations'), ArrayType([SimulationRunSimulationsItem::class])]
     public array $simulations;
 
     /**
-     * @var SimulationRunTarget $target Target to test against
+     * @var SimulationRunTarget $target The assistant or squad the run was tested against.
      */
     #[JsonProperty('target')]
     public SimulationRunTarget $target;
 
     /**
-     * @var ?float $iterations Number of times to run each simulation (default: 1)
+     * @var ?float $iterations The number of times each simulation was run. Defaults to 1.
      */
     #[JsonProperty('iterations')]
     public ?float $iterations;
 
     /**
-     * @var ?SimulationRunTransportConfiguration $transport Transport configuration for the simulation runs
+     * @var ?SimulationRunTransportConfiguration $transport The transport used for the run, either voice or chat.
      */
     #[JsonProperty('transport')]
     public ?SimulationRunTransportConfiguration $transport;

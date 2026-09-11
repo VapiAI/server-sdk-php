@@ -15,6 +15,17 @@ class ClientMessageTranscript extends JsonSerializableType
     public ?ClientMessageTranscriptPhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var value-of<ClientMessageTranscriptType> $type This is the type of the message. "transcript" is sent as transcriber outputs partial or final transcript.
      */
     #[JsonProperty('type')]
@@ -63,6 +74,24 @@ class ClientMessageTranscript extends JsonSerializableType
     public string $transcript;
 
     /**
+     * The ID of the assistant that produced this transcript. Present on
+     * assistant-role events when an active assistant ID is available.
+     *
+     * @var ?string $assistantId
+     */
+    #[JsonProperty('assistantId')]
+    public ?string $assistantId;
+
+    /**
+     * The name of the assistant that produced this transcript. Present on
+     * assistant-role events when an active assistant name is available.
+     *
+     * @var ?string $assistantName
+     */
+    #[JsonProperty('assistantName')]
+    public ?string $assistantName;
+
+    /**
      * @var ?bool $isFiltered Indicates if the transcript was filtered for security reasons.
      */
     #[JsonProperty('isFiltered')]
@@ -87,10 +116,13 @@ class ClientMessageTranscript extends JsonSerializableType
      *   transcriptType: value-of<ClientMessageTranscriptTranscriptType>,
      *   transcript: string,
      *   phoneNumber?: ?ClientMessageTranscriptPhoneNumber,
+     *   assistantVersion?: ?string,
      *   timestamp?: ?float,
      *   call?: ?Call,
      *   customer?: ?CreateCustomerDto,
      *   assistant?: ?CreateAssistantDto,
+     *   assistantId?: ?string,
+     *   assistantName?: ?string,
      *   isFiltered?: ?bool,
      *   detectedThreats?: ?array<string>,
      *   originalTranscript?: ?string,
@@ -100,6 +132,7 @@ class ClientMessageTranscript extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->timestamp = $values['timestamp'] ?? null;
         $this->call = $values['call'] ?? null;
@@ -108,6 +141,8 @@ class ClientMessageTranscript extends JsonSerializableType
         $this->role = $values['role'];
         $this->transcriptType = $values['transcriptType'];
         $this->transcript = $values['transcript'];
+        $this->assistantId = $values['assistantId'] ?? null;
+        $this->assistantName = $values['assistantName'] ?? null;
         $this->isFiltered = $values['isFiltered'] ?? null;
         $this->detectedThreats = $values['detectedThreats'] ?? null;
         $this->originalTranscript = $values['originalTranscript'] ?? null;

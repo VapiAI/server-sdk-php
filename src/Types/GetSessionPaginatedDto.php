@@ -59,6 +59,12 @@ class GetSessionPaginatedDto extends JsonSerializableType
     public ?string $customerNumberAny;
 
     /**
+     * @var ?string $idAny Filter by multiple session IDs. Provide as comma-separated values.
+     */
+    #[JsonProperty('idAny')]
+    public ?string $idAny;
+
+    /**
      * @var ?string $phoneNumberId This will return sessions with the specified phoneNumberId.
      */
     #[JsonProperty('phoneNumberId')]
@@ -81,6 +87,12 @@ class GetSessionPaginatedDto extends JsonSerializableType
      */
     #[JsonProperty('sortOrder')]
     public ?string $sortOrder;
+
+    /**
+     * @var ?value-of<GetSessionPaginatedDtoSortBy> $sortBy This is the column to sort by. Defaults to 'createdAt'.
+     */
+    #[JsonProperty('sortBy')]
+    public ?string $sortBy;
 
     /**
      * @var ?float $limit This is the maximum number of items to return. Defaults to 100.
@@ -146,10 +158,12 @@ class GetSessionPaginatedDto extends JsonSerializableType
      *   workflowId?: ?string,
      *   customer?: ?CreateCustomerDto,
      *   customerNumberAny?: ?string,
+     *   idAny?: ?string,
      *   phoneNumberId?: ?string,
      *   phoneNumberIdAny?: ?array<string>,
      *   page?: ?float,
      *   sortOrder?: ?value-of<GetSessionPaginatedDtoSortOrder>,
+     *   sortBy?: ?value-of<GetSessionPaginatedDtoSortBy>,
      *   limit?: ?float,
      *   createdAtGt?: ?DateTime,
      *   createdAtLt?: ?DateTime,
@@ -172,10 +186,12 @@ class GetSessionPaginatedDto extends JsonSerializableType
         $this->workflowId = $values['workflowId'] ?? null;
         $this->customer = $values['customer'] ?? null;
         $this->customerNumberAny = $values['customerNumberAny'] ?? null;
+        $this->idAny = $values['idAny'] ?? null;
         $this->phoneNumberId = $values['phoneNumberId'] ?? null;
         $this->phoneNumberIdAny = $values['phoneNumberIdAny'] ?? null;
         $this->page = $values['page'] ?? null;
         $this->sortOrder = $values['sortOrder'] ?? null;
+        $this->sortBy = $values['sortBy'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->createdAtGt = $values['createdAtGt'] ?? null;
         $this->createdAtLt = $values['createdAtLt'] ?? null;

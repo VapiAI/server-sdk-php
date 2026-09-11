@@ -16,6 +16,8 @@ use Vapi\Core\Json\JsonDecoder;
 use JsonException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Vapi\Types\CreateAssistantDto;
+use Vapi\Assistants\Requests\ValidateBackgroundSoundUrlDto;
+use Vapi\Types\BackgroundSoundUrlValidationResult;
 use Vapi\Assistants\Requests\UpdateAssistantDto;
 
 class AssistantsClient
@@ -55,6 +57,8 @@ class AssistantsClient
     }
 
     /**
+     * Returns assistants for the authenticated organization. Filter results by creation or update timestamps and limit the number returned.
+     *
      * @param ListAssistantsRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -130,6 +134,8 @@ class AssistantsClient
     }
 
     /**
+     * Creates a reusable assistant configuration containing the model, voice, transcriber, tools, prompts, and call behavior.
+     *
      * @param CreateAssistantDto $request
      * @param ?array{
      *   baseUrl?: string,
@@ -177,7 +183,56 @@ class AssistantsClient
     }
 
     /**
-     * @param string $id
+     * @param ValidateBackgroundSoundUrlDto $request
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @return ?BackgroundSoundUrlValidationResult
+     * @throws VapiException
+     * @throws VapiApiException
+     */
+    public function assistantControllerValidateBackgroundSoundUrl(ValidateBackgroundSoundUrlDto $request, ?array $options = null): ?BackgroundSoundUrlValidationResult
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
+                    path: "assistant/background-sound/validate",
+                    method: HttpMethod::POST,
+                    body: $request,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
+                return BackgroundSoundUrlValidationResult::fromJson($json);
+            }
+        } catch (JsonException $e) {
+            throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (ClientExceptionInterface $e) {
+            throw new VapiException(message: $e->getMessage(), previous: $e);
+        }
+        throw new VapiApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * Returns the assistant identified by its ID.
+     *
+     * @param string $id The unique identifier of the assistant.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -223,7 +278,9 @@ class AssistantsClient
     }
 
     /**
-     * @param string $id
+     * Deletes the assistant identified by its ID.
+     *
+     * @param string $id The unique identifier of the assistant.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -269,7 +326,9 @@ class AssistantsClient
     }
 
     /**
-     * @param string $id
+     * Updates the specified fields of the assistant identified by its ID.
+     *
+     * @param string $id The unique identifier of the assistant.
      * @param UpdateAssistantDto $request
      * @param ?array{
      *   baseUrl?: string,

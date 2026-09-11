@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Controls generation of a post-call summary, including prompt messages, enablement, and request timeout.
+ */
 class SummaryPlan extends JsonSerializableType
 {
     /**

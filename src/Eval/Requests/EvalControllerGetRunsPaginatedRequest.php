@@ -4,12 +4,13 @@ namespace Vapi\Eval\Requests;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Eval\Types\EvalControllerGetRunsPaginatedRequestSortOrder;
+use Vapi\Eval\Types\EvalControllerGetRunsPaginatedRequestSortBy;
 use DateTime;
 
 class EvalControllerGetRunsPaginatedRequest extends JsonSerializableType
 {
     /**
-     * @var ?string $id
+     * @var ?string $id Filters eval runs by ID.
      */
     public ?string $id;
 
@@ -22,6 +23,11 @@ class EvalControllerGetRunsPaginatedRequest extends JsonSerializableType
      * @var ?value-of<EvalControllerGetRunsPaginatedRequestSortOrder> $sortOrder This is the sort order for pagination. Defaults to 'DESC'.
      */
     public ?string $sortOrder;
+
+    /**
+     * @var ?value-of<EvalControllerGetRunsPaginatedRequestSortBy> $sortBy This is the column to sort by. Defaults to 'createdAt'.
+     */
+    public ?string $sortBy;
 
     /**
      * @var ?float $limit This is the maximum number of items to return. Defaults to 100.
@@ -73,6 +79,7 @@ class EvalControllerGetRunsPaginatedRequest extends JsonSerializableType
      *   id?: ?string,
      *   page?: ?float,
      *   sortOrder?: ?value-of<EvalControllerGetRunsPaginatedRequestSortOrder>,
+     *   sortBy?: ?value-of<EvalControllerGetRunsPaginatedRequestSortBy>,
      *   limit?: ?float,
      *   createdAtGt?: ?DateTime,
      *   createdAtLt?: ?DateTime,
@@ -90,6 +97,7 @@ class EvalControllerGetRunsPaginatedRequest extends JsonSerializableType
         $this->id = $values['id'] ?? null;
         $this->page = $values['page'] ?? null;
         $this->sortOrder = $values['sortOrder'] ?? null;
+        $this->sortBy = $values['sortBy'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->createdAtGt = $values['createdAtGt'] ?? null;
         $this->createdAtLt = $values['createdAtLt'] ?? null;

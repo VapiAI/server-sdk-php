@@ -8,6 +8,9 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A phone number connected to Vapi through a bring-your-own telephony provider, including its credential, routing, hooks, server settings, and lifecycle metadata.
+ */
 class ByoPhoneNumber extends JsonSerializableType
 {
     /**

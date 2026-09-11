@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for generating assistant responses through a custom language model endpoint, including server URL, headers, metadata, prompts, tools, and generation settings.
+ */
 class CustomLlmModel extends JsonSerializableType
 {
     /**
@@ -33,6 +36,17 @@ class CustomLlmModel extends JsonSerializableType
      */
     #[JsonProperty('toolIds'), ArrayType(['string'])]
     public ?array $toolIds;
+
+    /**
+     * These are version-pinned references to tools. Each entry pins a specific
+     * version of a tool by `(toolId, version)`. When the same `toolId` appears
+     * in both `toolIds` and `toolRefs[]`, the `toolRefs` pin wins (the
+     * `toolIds` entry is dropped at write time).
+     *
+     * @var ?array<ToolRef> $toolRefs
+     */
+    #[JsonProperty('toolRefs'), ArrayType([ToolRef::class])]
+    public ?array $toolRefs;
 
     /**
      * @var ?CreateCustomKnowledgeBaseDto $knowledgeBase These are the options for the knowledge base.
@@ -90,7 +104,7 @@ class CustomLlmModel extends JsonSerializableType
     public string $model;
 
     /**
-     * @var ?float $temperature This is the temperature that will be used for calls. Default is 0 to leverage caching for lower latency.
+     * @var ?float $temperature This is the temperature that will be used for calls. Default is 0.5.
      */
     #[JsonProperty('temperature')]
     public ?float $temperature;
@@ -132,6 +146,7 @@ class CustomLlmModel extends JsonSerializableType
      *   messages?: ?array<OpenAiMessage>,
      *   tools?: ?array<CustomLlmModelToolsItem>,
      *   toolIds?: ?array<string>,
+     *   toolRefs?: ?array<ToolRef>,
      *   knowledgeBase?: ?CreateCustomKnowledgeBaseDto,
      *   metadataSendMode?: ?value-of<CustomLlmModelMetadataSendMode>,
      *   headers?: ?array<string, string>,
@@ -149,6 +164,7 @@ class CustomLlmModel extends JsonSerializableType
         $this->messages = $values['messages'] ?? null;
         $this->tools = $values['tools'] ?? null;
         $this->toolIds = $values['toolIds'] ?? null;
+        $this->toolRefs = $values['toolRefs'] ?? null;
         $this->knowledgeBase = $values['knowledgeBase'] ?? null;
         $this->metadataSendMode = $values['metadataSendMode'] ?? null;
         $this->headers = $values['headers'] ?? null;

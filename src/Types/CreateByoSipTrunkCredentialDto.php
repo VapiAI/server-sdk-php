@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for connecting Vapi to a bring-your-own SIP trunk or carrier, including gateways, outbound authentication, number handling, and optional session border controller routing.
+ */
 class CreateByoSipTrunkCredentialDto extends JsonSerializableType
 {
     /**
@@ -46,12 +49,6 @@ class CreateByoSipTrunkCredentialDto extends JsonSerializableType
     public ?string $sipDiversionHeader;
 
     /**
-     * @var ?SbcConfiguration $sbcConfiguration This is an advanced configuration for enterprise deployments. This uses the onprem SBC to trunk into the SIP trunk's `gateways`, rather than the managed SBC provided by Vapi.
-     */
-    #[JsonProperty('sbcConfiguration')]
-    public ?SbcConfiguration $sbcConfiguration;
-
-    /**
      * @var ?string $name This is the name of credential. This is just for your reference.
      */
     #[JsonProperty('name')]
@@ -64,7 +61,6 @@ class CreateByoSipTrunkCredentialDto extends JsonSerializableType
      *   outboundLeadingPlusEnabled?: ?bool,
      *   techPrefix?: ?string,
      *   sipDiversionHeader?: ?string,
-     *   sbcConfiguration?: ?SbcConfiguration,
      *   name?: ?string,
      * } $values
      */
@@ -76,7 +72,6 @@ class CreateByoSipTrunkCredentialDto extends JsonSerializableType
         $this->outboundLeadingPlusEnabled = $values['outboundLeadingPlusEnabled'] ?? null;
         $this->techPrefix = $values['techPrefix'] ?? null;
         $this->sipDiversionHeader = $values['sipDiversionHeader'] ?? null;
-        $this->sbcConfiguration = $values['sbcConfiguration'] ?? null;
         $this->name = $values['name'] ?? null;
     }
 

@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for transcribing speech during assistant conversations with AssemblyAI, including language, streaming model, endpointing, vocabulary, and fallback settings.
+ */
 class AssemblyAiTranscriber extends JsonSerializableType
 {
     /**
@@ -86,8 +89,37 @@ class AssemblyAiTranscriber extends JsonSerializableType
     public ?bool $vadAssistedEndpointingEnabled;
 
     /**
+     * This is the transcription mode used by the `universal-3-5-pro` speech model. Only applies to the `universal-3-5-pro` speech model.
+     *
+     * @default 'balanced'
+     *
+     * @var ?value-of<AssemblyAiTranscriberMode> $mode
+     */
+    #[JsonProperty('mode')]
+    public ?string $mode;
+
+    /**
+     * @var ?string $prompt This is a prompt that provides additional context to the transcription model. Only applies to the `universal-3-5-pro` speech model.
+     */
+    #[JsonProperty('prompt')]
+    public ?string $prompt;
+
+    /**
+     * @var ?string $agentContext This is context about the voice agent that guides the transcription model. Only applies to the `universal-3-5-pro` speech model.
+     */
+    #[JsonProperty('agentContext')]
+    public ?string $agentContext;
+
+    /**
+     * @var ?array<value-of<AssemblyAiTranscriberLanguageCodesItem>> $languageCodes These are language codes used to steer automatic language detection. Only applies to the `universal-3-5-pro` speech model.
+     */
+    #[JsonProperty('languageCodes'), ArrayType(['string'])]
+    public ?array $languageCodes;
+
+    /**
      * This is the speech model used for the streaming session.
-     * Note: Keyterms prompting is not supported with multilingual streaming.
+     * Keyterms prompting is supported on universal-streaming-english and universal-3-5-pro.
+     * universal-3-5-pro is AssemblyAI's most accurate voice-agent model.
      * @default 'universal-streaming-english'
      *
      * @var ?value-of<AssemblyAiTranscriberSpeechModel> $speechModel
@@ -110,7 +142,7 @@ class AssemblyAiTranscriber extends JsonSerializableType
     /**
      * Keyterms prompting improves recognition accuracy for specific words and phrases.
      * Can include up to 100 keyterms, each up to 50 characters.
-     * Costs an additional $0.04/hour when enabled.
+     * Costs an additional $0.04/hour on universal-streaming-english and is included at no extra cost on universal-3-5-pro.
      *
      * @var ?array<string> $keytermsPrompt
      */
@@ -148,6 +180,10 @@ class AssemblyAiTranscriber extends JsonSerializableType
      *   wordFinalizationMaxWaitTime?: ?float,
      *   maxTurnSilence?: ?float,
      *   vadAssistedEndpointingEnabled?: ?bool,
+     *   mode?: ?value-of<AssemblyAiTranscriberMode>,
+     *   prompt?: ?string,
+     *   agentContext?: ?string,
+     *   languageCodes?: ?array<value-of<AssemblyAiTranscriberLanguageCodesItem>>,
      *   speechModel?: ?value-of<AssemblyAiTranscriberSpeechModel>,
      *   realtimeUrl?: ?string,
      *   wordBoost?: ?array<string>,
@@ -168,6 +204,10 @@ class AssemblyAiTranscriber extends JsonSerializableType
         $this->wordFinalizationMaxWaitTime = $values['wordFinalizationMaxWaitTime'] ?? null;
         $this->maxTurnSilence = $values['maxTurnSilence'] ?? null;
         $this->vadAssistedEndpointingEnabled = $values['vadAssistedEndpointingEnabled'] ?? null;
+        $this->mode = $values['mode'] ?? null;
+        $this->prompt = $values['prompt'] ?? null;
+        $this->agentContext = $values['agentContext'] ?? null;
+        $this->languageCodes = $values['languageCodes'] ?? null;
         $this->speechModel = $values['speechModel'] ?? null;
         $this->realtimeUrl = $values['realtimeUrl'] ?? null;
         $this->wordBoost = $values['wordBoost'] ?? null;

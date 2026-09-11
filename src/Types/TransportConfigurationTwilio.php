@@ -5,10 +5,13 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration passed to Twilio for assistant calls, including ring timeout and Twilio recording behavior.
+ */
 class TransportConfigurationTwilio extends JsonSerializableType
 {
     /**
-     * @var value-of<TransportConfigurationTwilioProvider> $provider
+     * @var value-of<TransportConfigurationTwilioProvider> $provider Selects Twilio as the call transport provider.
      */
     #[JsonProperty('provider')]
     public string $provider;

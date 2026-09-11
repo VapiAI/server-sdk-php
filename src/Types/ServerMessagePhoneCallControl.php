@@ -14,6 +14,17 @@ class ServerMessagePhoneCallControl extends JsonSerializableType
     public ?ServerMessagePhoneCallControlPhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * This is the type of the message. "phone-call-control" is an advanced type of message.
      *
      * When it is requested in `assistant.serverMessages`, the hangup and forwarding responsibilities are delegated to your server. Vapi will no longer do the actual transfer and hangup.
@@ -80,6 +91,7 @@ class ServerMessagePhoneCallControl extends JsonSerializableType
      *   type: value-of<ServerMessagePhoneCallControlType>,
      *   request: value-of<ServerMessagePhoneCallControlRequest>,
      *   phoneNumber?: ?ServerMessagePhoneCallControlPhoneNumber,
+     *   assistantVersion?: ?string,
      *   destination?: ?ServerMessagePhoneCallControlDestination,
      *   timestamp?: ?float,
      *   artifact?: ?Artifact,
@@ -93,6 +105,7 @@ class ServerMessagePhoneCallControl extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->request = $values['request'];
         $this->destination = $values['destination'] ?? null;

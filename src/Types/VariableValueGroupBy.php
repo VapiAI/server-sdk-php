@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Groups analytics results by a selected assistant variable-value key.
+ */
 class VariableValueGroupBy extends JsonSerializableType
 {
     /**

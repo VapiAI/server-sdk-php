@@ -55,7 +55,9 @@ class ObservabilityScorecardClient
     }
 
     /**
-     * @param string $id
+     * Returns the scorecard identified by its ID.
+     *
+     * @param string $id The unique identifier of the scorecard.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -101,7 +103,9 @@ class ObservabilityScorecardClient
     }
 
     /**
-     * @param string $id
+     * Deletes the scorecard identified by its ID.
+     *
+     * @param string $id The unique identifier of the scorecard.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -147,7 +151,9 @@ class ObservabilityScorecardClient
     }
 
     /**
-     * @param string $id
+     * Updates the scorecard identified by its ID.
+     *
+     * @param string $id The unique identifier of the scorecard.
      * @param UpdateScorecardDto $request
      * @param ?array{
      *   baseUrl?: string,
@@ -195,6 +201,8 @@ class ObservabilityScorecardClient
     }
 
     /**
+     * Returns scorecards for the authenticated organization. Filter results by ID or creation and update timestamps.
+     *
      * @param ScorecardControllerGetPaginatedRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -220,6 +228,9 @@ class ObservabilityScorecardClient
         }
         if ($request->sortOrder != null) {
             $query['sortOrder'] = $request->sortOrder;
+        }
+        if ($request->sortBy != null) {
+            $query['sortBy'] = $request->sortBy;
         }
         if ($request->limit != null) {
             $query['limit'] = $request->limit;
@@ -279,6 +290,8 @@ class ObservabilityScorecardClient
     }
 
     /**
+     * Creates a scorecard containing metrics, scoring conditions, and optional links to assistants whose calls should be evaluated.
+     *
      * @param CreateScorecardDto $request
      * @param ?array{
      *   baseUrl?: string,

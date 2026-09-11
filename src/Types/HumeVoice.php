@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for synthesizing assistant speech with Hume, including model and voice selection, custom voice metadata, chunking, caching, and fallback settings.
+ */
 class HumeVoice extends JsonSerializableType
 {
     /**

@@ -5,10 +5,13 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Routes a handoff to a saved or transient assistant, with optional context engineering, variable extraction, and assistant overrides.
+ */
 class HandoffDestinationAssistant extends JsonSerializableType
 {
     /**
-     * @var value-of<HandoffDestinationAssistantType> $type
+     * @var value-of<HandoffDestinationAssistantType> $type Selects an assistant as the handoff destination.
      */
     #[JsonProperty('type')]
     public string $type;

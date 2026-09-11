@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Filters potential cross-site scripting (XSS) patterns from transcripts.
+ */
 class XssSecurityFilter extends JsonSerializableType
 {
     /**

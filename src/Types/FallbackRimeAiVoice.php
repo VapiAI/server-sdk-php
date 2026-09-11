@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Fallback configuration for synthesizing assistant speech with Rime AI, including voice and model selection, language, speed, pauses, phonemization, latency, chunking, and caching.
+ */
 class FallbackRimeAiVoice extends JsonSerializableType
 {
     /**

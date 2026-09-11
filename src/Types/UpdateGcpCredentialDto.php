@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateGcpCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateGcpCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?float $fallbackIndex This is the order in which this storage provider is tried during upload retries. Lower numbers are tried first in increasing order.
      */
     #[JsonProperty('fallbackIndex')]
@@ -43,6 +49,7 @@ class UpdateGcpCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateGcpCredentialDtoProvider>,
      *   fallbackIndex?: ?float,
      *   name?: ?string,
      *   gcpKey?: ?GcpKey,
@@ -53,6 +60,7 @@ class UpdateGcpCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->fallbackIndex = $values['fallbackIndex'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->gcpKey = $values['gcpKey'] ?? null;

@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for Twilio answering-machine detection, including recognized outcomes, enablement, timeout, speech thresholds, and silence timeout.
+ */
 class TwilioVoicemailDetectionPlan extends JsonSerializableType
 {
     /**

@@ -7,6 +7,7 @@ use Vapi\Types\UpdateApiRequestToolDto;
 use Vapi\Types\UpdateDtmfToolDto;
 use Vapi\Types\UpdateEndCallToolDto;
 use Vapi\Types\UpdateFunctionToolDto;
+use Vapi\Types\UpdateKnowledgeBaseToolDto;
 use Vapi\Types\UpdateTransferCallToolDto;
 use Vapi\Types\UpdateHandoffToolDto;
 use Vapi\Types\UpdateBashToolDto;
@@ -36,6 +37,7 @@ class UpdateToolsRequestBody extends JsonSerializableType
      *   |'dtmf'
      *   |'endCall'
      *   |'function'
+     *   |'knowledgeBase'
      *   |'transferCall'
      *   |'handoff'
      *   |'bash'
@@ -65,6 +67,7 @@ class UpdateToolsRequestBody extends JsonSerializableType
      *   |UpdateDtmfToolDto
      *   |UpdateEndCallToolDto
      *   |UpdateFunctionToolDto
+     *   |UpdateKnowledgeBaseToolDto
      *   |UpdateTransferCallToolDto
      *   |UpdateHandoffToolDto
      *   |UpdateBashToolDto
@@ -95,6 +98,7 @@ class UpdateToolsRequestBody extends JsonSerializableType
      *   |'dtmf'
      *   |'endCall'
      *   |'function'
+     *   |'knowledgeBase'
      *   |'transferCall'
      *   |'handoff'
      *   |'bash'
@@ -120,6 +124,7 @@ class UpdateToolsRequestBody extends JsonSerializableType
      *   |UpdateDtmfToolDto
      *   |UpdateEndCallToolDto
      *   |UpdateFunctionToolDto
+     *   |UpdateKnowledgeBaseToolDto
      *   |UpdateTransferCallToolDto
      *   |UpdateHandoffToolDto
      *   |UpdateBashToolDto
@@ -194,6 +199,18 @@ class UpdateToolsRequestBody extends JsonSerializableType
         return new UpdateToolsRequestBody([
             'type' => 'function',
             'value' => $function,
+        ]);
+    }
+
+    /**
+     * @param UpdateKnowledgeBaseToolDto $knowledgeBase
+     * @return UpdateToolsRequestBody
+     */
+    public static function knowledgeBase(UpdateKnowledgeBaseToolDto $knowledgeBase): UpdateToolsRequestBody
+    {
+        return new UpdateToolsRequestBody([
+            'type' => 'knowledgeBase',
+            'value' => $knowledgeBase,
         ]);
     }
 
@@ -495,6 +512,28 @@ class UpdateToolsRequestBody extends JsonSerializableType
         if (!($this->value instanceof UpdateFunctionToolDto && $this->type === 'function')) {
             throw new Exception(
                 "Expected function; got " . $this->type . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isKnowledgeBase(): bool
+    {
+        return $this->value instanceof UpdateKnowledgeBaseToolDto && $this->type === 'knowledgeBase';
+    }
+
+    /**
+     * @return UpdateKnowledgeBaseToolDto
+     */
+    public function asKnowledgeBase(): UpdateKnowledgeBaseToolDto
+    {
+        if (!($this->value instanceof UpdateKnowledgeBaseToolDto && $this->type === 'knowledgeBase')) {
+            throw new Exception(
+                "Expected knowledgeBase; got " . $this->type . " with value of type " . get_debug_type($this->value),
             );
         }
 
@@ -933,6 +972,10 @@ class UpdateToolsRequestBody extends JsonSerializableType
                 $value = $this->asFunction_()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
+            case 'knowledgeBase':
+                $value = $this->asKnowledgeBase()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
             case 'transferCall':
                 $value = $this->asTransferCall()->jsonSerialize();
                 $result = array_merge($value, $result);
@@ -1064,6 +1107,9 @@ class UpdateToolsRequestBody extends JsonSerializableType
                 break;
             case 'function':
                 $args['value'] = UpdateFunctionToolDto::jsonDeserialize($data);
+                break;
+            case 'knowledgeBase':
+                $args['value'] = UpdateKnowledgeBaseToolDto::jsonDeserialize($data);
                 break;
             case 'transferCall':
                 $args['value'] = UpdateTransferCallToolDto::jsonDeserialize($data);

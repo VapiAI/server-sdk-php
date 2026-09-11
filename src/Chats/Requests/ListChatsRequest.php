@@ -4,6 +4,7 @@ namespace Vapi\Chats\Requests;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Chats\Types\ListChatsRequestSortOrder;
+use Vapi\Chats\Types\ListChatsRequestSortBy;
 use DateTime;
 
 class ListChatsRequest extends JsonSerializableType
@@ -39,6 +40,11 @@ class ListChatsRequest extends JsonSerializableType
     public ?string $previousChatId;
 
     /**
+     * @var ?string $idAny Filter by multiple chat IDs. Provide as comma-separated values.
+     */
+    public ?string $idAny;
+
+    /**
      * @var ?float $page This is the page number to return. Defaults to 1.
      */
     public ?float $page;
@@ -47,6 +53,11 @@ class ListChatsRequest extends JsonSerializableType
      * @var ?value-of<ListChatsRequestSortOrder> $sortOrder This is the sort order for pagination. Defaults to 'DESC'.
      */
     public ?string $sortOrder;
+
+    /**
+     * @var ?value-of<ListChatsRequestSortBy> $sortBy This is the column to sort by. Defaults to 'createdAt'.
+     */
+    public ?string $sortBy;
 
     /**
      * @var ?float $limit This is the maximum number of items to return. Defaults to 100.
@@ -101,8 +112,10 @@ class ListChatsRequest extends JsonSerializableType
      *   squadId?: ?string,
      *   sessionId?: ?string,
      *   previousChatId?: ?string,
+     *   idAny?: ?string,
      *   page?: ?float,
      *   sortOrder?: ?value-of<ListChatsRequestSortOrder>,
+     *   sortBy?: ?value-of<ListChatsRequestSortBy>,
      *   limit?: ?float,
      *   createdAtGt?: ?DateTime,
      *   createdAtLt?: ?DateTime,
@@ -123,8 +136,10 @@ class ListChatsRequest extends JsonSerializableType
         $this->squadId = $values['squadId'] ?? null;
         $this->sessionId = $values['sessionId'] ?? null;
         $this->previousChatId = $values['previousChatId'] ?? null;
+        $this->idAny = $values['idAny'] ?? null;
         $this->page = $values['page'] ?? null;
         $this->sortOrder = $values['sortOrder'] ?? null;
+        $this->sortBy = $values['sortBy'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->createdAtGt = $values['createdAtGt'] ?? null;
         $this->createdAtLt = $values['createdAtLt'] ?? null;

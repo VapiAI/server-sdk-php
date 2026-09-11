@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A simulated assistant tool call with the tool name and optional arguments.
+ */
 class ChatEvalAssistantMessageMockToolCall extends JsonSerializableType
 {
     /**

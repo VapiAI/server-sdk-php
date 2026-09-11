@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for generating assistant responses with Anthropic models through Amazon Bedrock, including model, prompts, tools, knowledge-base access, reasoning, and generation settings.
+ */
 class AnthropicBedrockModel extends JsonSerializableType
 {
     /**
@@ -35,6 +38,17 @@ class AnthropicBedrockModel extends JsonSerializableType
     public ?array $toolIds;
 
     /**
+     * These are version-pinned references to tools. Each entry pins a specific
+     * version of a tool by `(toolId, version)`. When the same `toolId` appears
+     * in both `toolIds` and `toolRefs[]`, the `toolRefs` pin wins (the
+     * `toolIds` entry is dropped at write time).
+     *
+     * @var ?array<ToolRef> $toolRefs
+     */
+    #[JsonProperty('toolRefs'), ArrayType([ToolRef::class])]
+    public ?array $toolRefs;
+
+    /**
      * @var ?CreateCustomKnowledgeBaseDto $knowledgeBase These are the options for the knowledge base.
      */
     #[JsonProperty('knowledgeBase')]
@@ -47,6 +61,12 @@ class AnthropicBedrockModel extends JsonSerializableType
     public string $model;
 
     /**
+     * @var ?array<value-of<AnthropicBedrockModelFallbackModelsItem>> $fallbackModels At most one same-provider Bedrock fallback model, tried if the primary fails. Cannot be combined with thinking in this release. Resolution uses the call's Bedrock credential region (or ANTHROPIC_BEDROCK_AWS_REGION). Names with no inference profile in that region are skipped and warned, never remapped to US or global. On Vapi EU, fallback names without an EU inference profile are rejected at write time.
+     */
+    #[JsonProperty('fallbackModels'), ArrayType(['string'])]
+    public ?array $fallbackModels;
+
+    /**
      * Optional configuration for Anthropic's thinking feature.
      * Only applicable for claude-3-7-sonnet-20250219 model.
      * If provided, maxTokens must be greater than thinking.budgetTokens.
@@ -57,7 +77,7 @@ class AnthropicBedrockModel extends JsonSerializableType
     public ?AnthropicThinkingConfig $thinking;
 
     /**
-     * @var ?float $temperature This is the temperature that will be used for calls. Default is 0 to leverage caching for lower latency.
+     * @var ?float $temperature This is the temperature that will be used for calls. Default is 0.5.
      */
     #[JsonProperty('temperature')]
     public ?float $temperature;
@@ -98,7 +118,9 @@ class AnthropicBedrockModel extends JsonSerializableType
      *   messages?: ?array<OpenAiMessage>,
      *   tools?: ?array<AnthropicBedrockModelToolsItem>,
      *   toolIds?: ?array<string>,
+     *   toolRefs?: ?array<ToolRef>,
      *   knowledgeBase?: ?CreateCustomKnowledgeBaseDto,
+     *   fallbackModels?: ?array<value-of<AnthropicBedrockModelFallbackModelsItem>>,
      *   thinking?: ?AnthropicThinkingConfig,
      *   temperature?: ?float,
      *   maxTokens?: ?float,
@@ -112,8 +134,10 @@ class AnthropicBedrockModel extends JsonSerializableType
         $this->messages = $values['messages'] ?? null;
         $this->tools = $values['tools'] ?? null;
         $this->toolIds = $values['toolIds'] ?? null;
+        $this->toolRefs = $values['toolRefs'] ?? null;
         $this->knowledgeBase = $values['knowledgeBase'] ?? null;
         $this->model = $values['model'];
+        $this->fallbackModels = $values['fallbackModels'] ?? null;
         $this->thinking = $values['thinking'] ?? null;
         $this->temperature = $values['temperature'] ?? null;
         $this->maxTokens = $values['maxTokens'] ?? null;

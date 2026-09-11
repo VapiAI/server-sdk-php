@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Runs configured transfer or message actions when an incoming call rings and its caller-number prefix filters match.
+ */
 class PhoneNumberHookCallRinging extends JsonSerializableType
 {
     /**

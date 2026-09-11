@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * Start, end, timezone, and time step used for analytics aggregation.
+ */
 class TimeRange extends JsonSerializableType
 {
     /**

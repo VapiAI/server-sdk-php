@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration used to import a Telnyx phone number into Vapi with a stored credential and routing settings.
+ */
 class CreateTelnyxPhoneNumberDto extends JsonSerializableType
 {
     /**

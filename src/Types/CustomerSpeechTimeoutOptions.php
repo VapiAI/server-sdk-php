@@ -4,15 +4,25 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
-use Vapi\Core\Types\ArrayType;
 
+/**
+ * Controls how long a hook waits for customer speech, how often it can trigger, and when its trigger counter resets.
+ */
 class CustomerSpeechTimeoutOptions extends JsonSerializableType
 {
+    /**
+     * @var ?value-of<CustomerSpeechTimeoutOptionsTriggerResetMode> $triggerResetMode Controls whether the hook's trigger counter resets after the customer speaks. Defaults to `never`.
+     */
+    #[JsonProperty('triggerResetMode')]
+    public ?string $triggerResetMode;
+
     /**
      * This is the timeout in seconds before action is triggered.
      * The clock starts when the assistant finishes speaking and remains active until the user speaks.
      *
      * @default 7.5
+     * @minimum 2
+     * @maximum 1000
      *
      * @var float $timeoutSeconds
      */
@@ -30,28 +40,18 @@ class CustomerSpeechTimeoutOptions extends JsonSerializableType
     public ?float $triggerMaxCount;
 
     /**
-     * This is whether the counter for hook trigger resets the user speaks.
-     *
-     * @default never
-     *
-     * @var ?array<string, mixed> $triggerResetMode
-     */
-    #[JsonProperty('triggerResetMode'), ArrayType(['string' => 'mixed'])]
-    public ?array $triggerResetMode;
-
-    /**
      * @param array{
      *   timeoutSeconds: float,
+     *   triggerResetMode?: ?value-of<CustomerSpeechTimeoutOptionsTriggerResetMode>,
      *   triggerMaxCount?: ?float,
-     *   triggerResetMode?: ?array<string, mixed>,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->triggerResetMode = $values['triggerResetMode'] ?? null;
         $this->timeoutSeconds = $values['timeoutSeconds'];
         $this->triggerMaxCount = $values['triggerMaxCount'] ?? null;
-        $this->triggerResetMode = $values['triggerResetMode'] ?? null;
     }
 
     /**

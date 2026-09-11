@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Selects Vapi smart endpointing to determine when customer speech is complete.
+ */
 class VapiSmartEndpointingPlan extends JsonSerializableType
 {
     /**

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Evaluates whether targeted conversation-message content matches a regular expression.
+ */
 class RegexCondition extends JsonSerializableType
 {
     /**

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Controls smart and Fourier denoising applied to customer audio before transcription.
+ */
 class BackgroundSpeechDenoisingPlan extends JsonSerializableType
 {
     /**

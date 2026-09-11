@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for Fourier denoising, including media detection, thresholds, baseline calculation, and analysis window.
+ */
 class FourierDenoisingPlan extends JsonSerializableType
 {
     /**

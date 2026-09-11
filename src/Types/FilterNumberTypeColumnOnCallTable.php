@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Filters call records by comparing a numeric field with a value.
+ */
 class FilterNumberTypeColumnOnCallTable extends JsonSerializableType
 {
     /**

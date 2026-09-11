@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * VapiQL JSON query that aggregates a numeric call-table column with optional call filters.
+ */
 class JsonQueryOnCallTableWithNumberTypeColumn extends JsonSerializableType
 {
     /**

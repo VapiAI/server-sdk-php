@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * VapiQL JSON query that counts or calculates the percentage of matching events using optional typed event-data filters.
+ */
 class JsonQueryOnEventsTable extends JsonSerializableType
 {
     /**

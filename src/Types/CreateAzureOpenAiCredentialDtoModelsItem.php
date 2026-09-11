@@ -4,6 +4,9 @@ namespace Vapi\Types;
 
 enum CreateAzureOpenAiCredentialDtoModelsItem: string
 {
+    case Gpt56Luna20260709 = "gpt-5.6-luna-2026-07-09";
+    case Gpt56Terra20260709 = "gpt-5.6-terra-2026-07-09";
+    case Gpt56Sol20260709 = "gpt-5.6-sol-2026-07-09";
     case Gpt54 = "gpt-5.4";
     case Gpt54Mini = "gpt-5.4-mini";
     case Gpt54Nano = "gpt-5.4-nano";
@@ -27,4 +30,7 @@ enum CreateAzureOpenAiCredentialDtoModelsItem: string
     case Gpt40613 = "gpt-4-0613";
     case Gpt35Turbo0125 = "gpt-35-turbo-0125";
     case Gpt35Turbo1106 = "gpt-35-turbo-1106";
+    case Gpt4O = "gpt-4o";
+    case Gpt41 = "gpt-4.1";
+    case Gpt54Mini20260317 = "gpt-5.4-mini-2026-03-17";
 }

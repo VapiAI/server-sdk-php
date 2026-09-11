@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for authenticating Anthropic model requests through Amazon Bedrock, including AWS region and authentication method.
+ */
 class CreateAnthropicBedrockCredentialDto extends JsonSerializableType
 {
     /**

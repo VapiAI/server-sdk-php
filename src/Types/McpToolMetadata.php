@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Protocol metadata used to communicate with an MCP server.
+ */
 class McpToolMetadata extends JsonSerializableType
 {
     /**

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * An assistant evaluation target provided as a saved assistant ID or a transient assistant, with optional assistant overrides.
+ */
 class EvalRunTargetAssistant extends JsonSerializableType
 {
     /**

@@ -8,6 +8,11 @@ use DateTime;
 class ListSquadsRequest extends JsonSerializableType
 {
     /**
+     * @var ?array<string> $idAny Return only squads matching the provided ids
+     */
+    public ?array $idAny;
+
+    /**
      * @var ?float $limit This is the maximum number of items to return. Defaults to 100.
      */
     public ?float $limit;
@@ -54,6 +59,7 @@ class ListSquadsRequest extends JsonSerializableType
 
     /**
      * @param array{
+     *   idAny?: ?array<string>,
      *   limit?: ?float,
      *   createdAtGt?: ?DateTime,
      *   createdAtLt?: ?DateTime,
@@ -68,6 +74,7 @@ class ListSquadsRequest extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->idAny = $values['idAny'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->createdAtGt = $values['createdAtGt'] ?? null;
         $this->createdAtLt = $values['createdAtLt'] ?? null;

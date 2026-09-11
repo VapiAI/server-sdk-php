@@ -14,6 +14,12 @@ class SimulationRunSuiteEntry extends JsonSerializableType
     public ?string $simulationSuiteId;
 
     /**
+     * @var ?string $name Historical suite name captured when the run was created
+     */
+    #[JsonProperty('name')]
+    public ?string $name;
+
+    /**
      * @var ?string $suiteId
      */
     #[JsonProperty('suiteId')]
@@ -22,6 +28,7 @@ class SimulationRunSuiteEntry extends JsonSerializableType
     /**
      * @param array{
      *   simulationSuiteId?: ?string,
+     *   name?: ?string,
      *   suiteId?: ?string,
      * } $values
      */
@@ -29,6 +36,7 @@ class SimulationRunSuiteEntry extends JsonSerializableType
         array $values = [],
     ) {
         $this->simulationSuiteId = $values['simulationSuiteId'] ?? null;
+        $this->name = $values['name'] ?? null;
         $this->suiteId = $values['suiteId'] ?? null;
     }
 

@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A user-authored entry in the call message history, including content, timing, security-filter results, and optional speaker metadata.
+ */
 class UserMessage extends JsonSerializableType
 {
     /**

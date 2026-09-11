@@ -6,16 +6,19 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A paginated collection of scorecards and metadata describing the result set.
+ */
 class ScorecardPaginatedResponse extends JsonSerializableType
 {
     /**
-     * @var array<Scorecard> $results
+     * @var array<Scorecard> $results The scorecards returned for the current page.
      */
     #[JsonProperty('results'), ArrayType([Scorecard::class])]
     public array $results;
 
     /**
-     * @var PaginationMeta $metadata
+     * @var PaginationMeta $metadata Pagination metadata for the scorecard result set.
      */
     #[JsonProperty('metadata')]
     public PaginationMeta $metadata;

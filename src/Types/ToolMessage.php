@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A tool-result message associated with a specific tool call.
+ */
 class ToolMessage extends JsonSerializableType
 {
     /**

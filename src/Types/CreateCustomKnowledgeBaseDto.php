@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for connecting a custom knowledge-base implementation through a customer-hosted server.
+ */
 class CreateCustomKnowledgeBaseDto extends JsonSerializableType
 {
     /**

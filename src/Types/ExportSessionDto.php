@@ -59,6 +59,12 @@ class ExportSessionDto extends JsonSerializableType
     public ?string $customerNumberAny;
 
     /**
+     * @var ?string $idAny Filter by multiple session IDs. Provide as comma-separated values.
+     */
+    #[JsonProperty('idAny')]
+    public ?string $idAny;
+
+    /**
      * @var ?value-of<ExportSessionDtoColumns> $columns Columns to include in the CSV export
      */
     #[JsonProperty('columns')]
@@ -106,6 +112,12 @@ class ExportSessionDto extends JsonSerializableType
      */
     #[JsonProperty('sortOrder')]
     public ?string $sortOrder;
+
+    /**
+     * @var ?value-of<ExportSessionDtoSortBy> $sortBy This is the column to sort by. Defaults to 'createdAt'.
+     */
+    #[JsonProperty('sortBy')]
+    public ?string $sortBy;
 
     /**
      * @var ?float $limit This is the maximum number of items to return. Defaults to 100.
@@ -171,6 +183,7 @@ class ExportSessionDto extends JsonSerializableType
      *   workflowId?: ?string,
      *   customer?: ?CreateCustomerDto,
      *   customerNumberAny?: ?string,
+     *   idAny?: ?string,
      *   columns?: ?value-of<ExportSessionDtoColumns>,
      *   email?: ?string,
      *   format?: ?value-of<ExportSessionDtoFormat>,
@@ -178,6 +191,7 @@ class ExportSessionDto extends JsonSerializableType
      *   phoneNumberIdAny?: ?array<string>,
      *   page?: ?float,
      *   sortOrder?: ?value-of<ExportSessionDtoSortOrder>,
+     *   sortBy?: ?value-of<ExportSessionDtoSortBy>,
      *   limit?: ?float,
      *   createdAtGt?: ?DateTime,
      *   createdAtLt?: ?DateTime,
@@ -200,6 +214,7 @@ class ExportSessionDto extends JsonSerializableType
         $this->workflowId = $values['workflowId'] ?? null;
         $this->customer = $values['customer'] ?? null;
         $this->customerNumberAny = $values['customerNumberAny'] ?? null;
+        $this->idAny = $values['idAny'] ?? null;
         $this->columns = $values['columns'] ?? null;
         $this->email = $values['email'] ?? null;
         $this->format = $values['format'] ?? null;
@@ -207,6 +222,7 @@ class ExportSessionDto extends JsonSerializableType
         $this->phoneNumberIdAny = $values['phoneNumberIdAny'] ?? null;
         $this->page = $values['page'] ?? null;
         $this->sortOrder = $values['sortOrder'] ?? null;
+        $this->sortBy = $values['sortBy'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->createdAtGt = $values['createdAtGt'] ?? null;
         $this->createdAtLt = $values['createdAtLt'] ?? null;

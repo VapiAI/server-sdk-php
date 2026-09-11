@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * Fields used to update a text-value insight, including its queries, formula, time range, and name.
+ */
 class UpdateTextInsightFromCallTableDto extends JsonSerializableType
 {
     /**
@@ -38,7 +41,7 @@ class UpdateTextInsightFromCallTableDto extends JsonSerializableType
     public ?array $formula;
 
     /**
-     * @var ?InsightTimeRange $timeRange
+     * @var ?InsightTimeRange $timeRange The time range used to query the text-value data.
      */
     #[JsonProperty('timeRange')]
     public ?InsightTimeRange $timeRange;

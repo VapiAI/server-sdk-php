@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Compares a named parameter with a value using the selected comparison operator.
+ */
 class Condition extends JsonSerializableType
 {
     /**

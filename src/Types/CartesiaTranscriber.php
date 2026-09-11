@@ -5,16 +5,19 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for transcribing speech during assistant conversations with Cartesia, including model, language, and fallback settings.
+ */
 class CartesiaTranscriber extends JsonSerializableType
 {
     /**
-     * @var ?value-of<CartesiaTranscriberModel> $model
+     * @var ?value-of<CartesiaTranscriberModel> $model The Cartesia speech-to-text model used for transcription.
      */
     #[JsonProperty('model')]
     public ?string $model;
 
     /**
-     * @var ?value-of<CartesiaTranscriberLanguage> $language
+     * @var ?value-of<CartesiaTranscriberLanguage> $language The language code used for transcription.
      */
     #[JsonProperty('language')]
     public ?string $language;

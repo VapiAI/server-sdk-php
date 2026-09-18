@@ -59,6 +59,7 @@ enum JsonQueryOnEventsTableOn: string
     case AssistantModelRequestAttemptStarted = "assistant.model.requestAttemptStarted";
     case AssistantModelRequestAttemptSucceeded = "assistant.model.requestAttemptSucceeded";
     case AssistantModelRequestAttemptFailed = "assistant.model.requestAttemptFailed";
+    case AssistantKnowledgeBaseRequestSucceeded = "assistant.knowledgeBase.requestSucceeded";
     case AssistantModelConnectionOpened = "assistant.model.connectionOpened";
     case AssistantModelConnectionClosed = "assistant.model.connectionClosed";
     case AssistantModelFirstTokenReceived = "assistant.model.firstTokenReceived";
@@ -88,7 +89,11 @@ enum JsonQueryOnEventsTableOn: string
     case AssistantTranscriberClearing = "assistant.transcriber.clearing";
     case AssistantTranscriberTranscriptIgnored = "assistant.transcriber.transcriptIgnored";
     case AssistantTranscriberLanguageSwitched = "assistant.transcriber.languageSwitched";
+    case AssistantAnalysisStructuredOutputRequest = "assistant.analysis.structuredOutputRequest";
+    case AssistantAnalysisStructuredOutputResponse = "assistant.analysis.structuredOutputResponse";
+    case AssistantAnalysisStructuredOutputError = "assistant.analysis.structuredOutputError";
     case AssistantAnalysisStructuredOutputGenerated = "assistant.analysis.structuredOutputGenerated";
+    case AssistantAnalysisStructuredOutputSkipped = "assistant.analysis.structuredOutputSkipped";
     case PipelineTurnStarted = "pipeline.turnStarted";
     case PipelineCleared = "pipeline.cleared";
     case PipelineBotSpeechStarted = "pipeline.botSpeechStarted";

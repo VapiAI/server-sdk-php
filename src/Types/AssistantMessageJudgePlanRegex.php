@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Evaluates assistant-message content and tool-call arguments using regular-expression patterns.
+ */
 class AssistantMessageJudgePlanRegex extends JsonSerializableType
 {
     /**

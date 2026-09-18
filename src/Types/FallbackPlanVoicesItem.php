@@ -27,6 +27,8 @@ class FallbackPlanVoicesItem extends JsonSerializableType
      *   |'neuphonic'
      *   |'sesame'
      *   |'inworld'
+     *   |'xai'
+     *   |'microsoft'
      *   |'_unknown'
      * ) $provider
      */
@@ -51,6 +53,8 @@ class FallbackPlanVoicesItem extends JsonSerializableType
      *   |FallbackNeuphonicVoice
      *   |FallbackSesameVoice
      *   |FallbackInworldVoice
+     *   |FallbackXaiVoice
+     *   |FallbackMicrosoftVoice
      *   |mixed
      * ) $value
      */
@@ -76,6 +80,8 @@ class FallbackPlanVoicesItem extends JsonSerializableType
      *   |'neuphonic'
      *   |'sesame'
      *   |'inworld'
+     *   |'xai'
+     *   |'microsoft'
      *   |'_unknown'
      * ),
      *   value: (
@@ -96,6 +102,8 @@ class FallbackPlanVoicesItem extends JsonSerializableType
      *   |FallbackNeuphonicVoice
      *   |FallbackSesameVoice
      *   |FallbackInworldVoice
+     *   |FallbackXaiVoice
+     *   |FallbackMicrosoftVoice
      *   |mixed
      * ),
      * } $values
@@ -308,6 +316,30 @@ class FallbackPlanVoicesItem extends JsonSerializableType
         return new FallbackPlanVoicesItem([
             'provider' => 'inworld',
             'value' => $inworld,
+        ]);
+    }
+
+    /**
+     * @param FallbackXaiVoice $xai
+     * @return FallbackPlanVoicesItem
+     */
+    public static function xai(FallbackXaiVoice $xai): FallbackPlanVoicesItem
+    {
+        return new FallbackPlanVoicesItem([
+            'provider' => 'xai',
+            'value' => $xai,
+        ]);
+    }
+
+    /**
+     * @param FallbackMicrosoftVoice $microsoft
+     * @return FallbackPlanVoicesItem
+     */
+    public static function microsoft(FallbackMicrosoftVoice $microsoft): FallbackPlanVoicesItem
+    {
+        return new FallbackPlanVoicesItem([
+            'provider' => 'microsoft',
+            'value' => $microsoft,
         ]);
     }
 
@@ -686,6 +718,50 @@ class FallbackPlanVoicesItem extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isXai(): bool
+    {
+        return $this->value instanceof FallbackXaiVoice && $this->provider === 'xai';
+    }
+
+    /**
+     * @return FallbackXaiVoice
+     */
+    public function asXai(): FallbackXaiVoice
+    {
+        if (!($this->value instanceof FallbackXaiVoice && $this->provider === 'xai')) {
+            throw new Exception(
+                "Expected xai; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMicrosoft(): bool
+    {
+        return $this->value instanceof FallbackMicrosoftVoice && $this->provider === 'microsoft';
+    }
+
+    /**
+     * @return FallbackMicrosoftVoice
+     */
+    public function asMicrosoft(): FallbackMicrosoftVoice
+    {
+        if (!($this->value instanceof FallbackMicrosoftVoice && $this->provider === 'microsoft')) {
+            throw new Exception(
+                "Expected microsoft; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -771,6 +847,14 @@ class FallbackPlanVoicesItem extends JsonSerializableType
                 break;
             case 'inworld':
                 $value = $this->asInworld()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'xai':
+                $value = $this->asXai()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'microsoft':
+                $value = $this->asMicrosoft()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -871,6 +955,12 @@ class FallbackPlanVoicesItem extends JsonSerializableType
                 break;
             case 'inworld':
                 $args['value'] = FallbackInworldVoice::jsonDeserialize($data);
+                break;
+            case 'xai':
+                $args['value'] = FallbackXaiVoice::jsonDeserialize($data);
+                break;
+            case 'microsoft':
+                $args['value'] = FallbackMicrosoftVoice::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

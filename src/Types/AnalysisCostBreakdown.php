@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Analysis costs and token usage grouped by summary, structured data, success evaluation, and structured-output generation.
+ */
 class AnalysisCostBreakdown extends JsonSerializableType
 {
     /**

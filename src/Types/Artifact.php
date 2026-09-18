@@ -9,6 +9,9 @@ use Vapi\Core\Types\Union;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * Artifacts generated during a call, including messages, recordings, transcript, logs, packet capture, workflow-node data, variables, performance metrics, structured outputs, scorecards, and transfers.
+ */
 class Artifact extends JsonSerializableType
 {
     /**
@@ -28,6 +31,21 @@ class Artifact extends JsonSerializableType
      */
     #[JsonProperty('messagesOpenAIFormatted'), ArrayType([OpenAiMessage::class])]
     public ?array $messagesOpenAiFormatted;
+
+    /**
+     * @var ?array<string, SkippedStructuredOutput> $skippedStructuredOutputs Structured outputs skipped because their conditions were not met, keyed by saved or runtime output ID.
+     */
+    #[JsonProperty('skippedStructuredOutputs'), ArrayType(['string' => SkippedStructuredOutput::class])]
+    public ?array $skippedStructuredOutputs;
+
+    /**
+     * These are the transfer records for the call's transfer attempts (warm and blind), including
+     * destination, mode, and status. Warm transfer records also include transcripts and messages.
+     *
+     * @var ?array<TransferArtifact> $transfers
+     */
+    #[JsonProperty('transfers'), ArrayType([TransferArtifact::class])]
+    public ?array $transfers;
 
     /**
      * @var ?string $recordingUrl This is the recording url for the call. To enable, set `assistant.artifactPlan.recordingEnabled`.
@@ -120,16 +138,88 @@ class Artifact extends JsonSerializableType
     public ?array $scorecards;
 
     /**
-     * @var ?array<string> $transfers These are the transfer records from warm transfers, including destinations, transcripts, and status.
-     */
-    #[JsonProperty('transfers'), ArrayType(['string'])]
-    public ?array $transfers;
-
-    /**
      * @var ?DateTime $structuredOutputsLastUpdatedAt This is when the structured outputs were last updated
      */
     #[JsonProperty('structuredOutputsLastUpdatedAt'), Date(Date::TYPE_DATETIME)]
     public ?DateTime $structuredOutputsLastUpdatedAt;
+
+    /**
+     * This is a presigned URL to download the mono recording without
+     * authentication. Populated on API responses and server messages; never
+     * stored. Expires at `presignedUrlsExpiresAt` — after that, use
+     * `GET /call/{id}/mono-recording`.
+     *
+     * @var ?string $presignedMonoUrl
+     */
+    #[JsonProperty('presignedMonoUrl')]
+    public ?string $presignedMonoUrl;
+
+    /**
+     * This is a presigned URL to download the stereo recording without
+     * authentication. Expires at `presignedUrlsExpiresAt` — after that, use
+     * `GET /call/{id}/stereo-recording`.
+     *
+     * @var ?string $presignedStereoUrl
+     */
+    #[JsonProperty('presignedStereoUrl')]
+    public ?string $presignedStereoUrl;
+
+    /**
+     * This is a presigned URL to download the video recording without
+     * authentication. Expires at `presignedUrlsExpiresAt` — after that, use
+     * `GET /call/{id}/video-recording`.
+     *
+     * @var ?string $presignedVideoUrl
+     */
+    #[JsonProperty('presignedVideoUrl')]
+    public ?string $presignedVideoUrl;
+
+    /**
+     * This is a presigned URL to download the assistant-channel mono recording
+     * without authentication. Expires at `presignedUrlsExpiresAt`.
+     *
+     * @var ?string $presignedAssistantUrl
+     */
+    #[JsonProperty('presignedAssistantUrl')]
+    public ?string $presignedAssistantUrl;
+
+    /**
+     * This is a presigned URL to download the customer-channel mono recording
+     * without authentication. Expires at `presignedUrlsExpiresAt`.
+     *
+     * @var ?string $presignedCustomerUrl
+     */
+    #[JsonProperty('presignedCustomerUrl')]
+    public ?string $presignedCustomerUrl;
+
+    /**
+     * This is a presigned URL to download the packet capture without
+     * authentication. Expires at `presignedUrlsExpiresAt`.
+     *
+     * @var ?string $presignedPcapUrl
+     */
+    #[JsonProperty('presignedPcapUrl')]
+    public ?string $presignedPcapUrl;
+
+    /**
+     * This is a presigned URL to download the call logs without
+     * authentication. Expires at `presignedUrlsExpiresAt`.
+     *
+     * @var ?string $presignedLogUrl
+     */
+    #[JsonProperty('presignedLogUrl')]
+    public ?string $presignedLogUrl;
+
+    /**
+     * This is when the presigned URLs above expire, as an ISO 8601 timestamp.
+     * The raw `*Url` fields remain the stable identifiers and do not expire.
+     * Presigned URLs are regenerated per response and per webhook delivery, so
+     * values differ across retries.
+     *
+     * @var ?string $presignedUrlsExpiresAt
+     */
+    #[JsonProperty('presignedUrlsExpiresAt')]
+    public ?string $presignedUrlsExpiresAt;
 
     /**
      * @param array{
@@ -141,6 +231,8 @@ class Artifact extends JsonSerializableType
      *   |ToolCallResultMessage
      * )>,
      *   messagesOpenAiFormatted?: ?array<OpenAiMessage>,
+     *   skippedStructuredOutputs?: ?array<string, SkippedStructuredOutput>,
+     *   transfers?: ?array<TransferArtifact>,
      *   recordingUrl?: ?string,
      *   stereoRecordingUrl?: ?string,
      *   videoRecordingUrl?: ?string,
@@ -155,8 +247,15 @@ class Artifact extends JsonSerializableType
      *   performanceMetrics?: ?PerformanceMetrics,
      *   structuredOutputs?: ?array<string, mixed>,
      *   scorecards?: ?array<string, mixed>,
-     *   transfers?: ?array<string>,
      *   structuredOutputsLastUpdatedAt?: ?DateTime,
+     *   presignedMonoUrl?: ?string,
+     *   presignedStereoUrl?: ?string,
+     *   presignedVideoUrl?: ?string,
+     *   presignedAssistantUrl?: ?string,
+     *   presignedCustomerUrl?: ?string,
+     *   presignedPcapUrl?: ?string,
+     *   presignedLogUrl?: ?string,
+     *   presignedUrlsExpiresAt?: ?string,
      * } $values
      */
     public function __construct(
@@ -164,6 +263,8 @@ class Artifact extends JsonSerializableType
     ) {
         $this->messages = $values['messages'] ?? null;
         $this->messagesOpenAiFormatted = $values['messagesOpenAiFormatted'] ?? null;
+        $this->skippedStructuredOutputs = $values['skippedStructuredOutputs'] ?? null;
+        $this->transfers = $values['transfers'] ?? null;
         $this->recordingUrl = $values['recordingUrl'] ?? null;
         $this->stereoRecordingUrl = $values['stereoRecordingUrl'] ?? null;
         $this->videoRecordingUrl = $values['videoRecordingUrl'] ?? null;
@@ -178,8 +279,15 @@ class Artifact extends JsonSerializableType
         $this->performanceMetrics = $values['performanceMetrics'] ?? null;
         $this->structuredOutputs = $values['structuredOutputs'] ?? null;
         $this->scorecards = $values['scorecards'] ?? null;
-        $this->transfers = $values['transfers'] ?? null;
         $this->structuredOutputsLastUpdatedAt = $values['structuredOutputsLastUpdatedAt'] ?? null;
+        $this->presignedMonoUrl = $values['presignedMonoUrl'] ?? null;
+        $this->presignedStereoUrl = $values['presignedStereoUrl'] ?? null;
+        $this->presignedVideoUrl = $values['presignedVideoUrl'] ?? null;
+        $this->presignedAssistantUrl = $values['presignedAssistantUrl'] ?? null;
+        $this->presignedCustomerUrl = $values['presignedCustomerUrl'] ?? null;
+        $this->presignedPcapUrl = $values['presignedPcapUrl'] ?? null;
+        $this->presignedLogUrl = $values['presignedLogUrl'] ?? null;
+        $this->presignedUrlsExpiresAt = $values['presignedUrlsExpiresAt'] ?? null;
     }
 
     /**

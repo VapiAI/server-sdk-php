@@ -4,10 +4,13 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
+use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
-use Vapi\Core\Types\ArrayType;
 
+/**
+ * A saved structured-output definition containing its extraction schema, execution method, model or regular expression, linked resources, and lifecycle metadata.
+ */
 class StructuredOutput extends JsonSerializableType
 {
     /**
@@ -23,6 +26,15 @@ class StructuredOutput extends JsonSerializableType
 
     /**
      * This is the regex pattern to match against the transcript.
+     *
+     * Simulation evaluations use a canonical transcript built from recorded messages:
+     * User: and AI: dialogue, AI: tool_calls: JSON name/arguments records, and
+     * AI: tool_call_results: JSON results. System messages are excluded. These
+     * fixed labels apply even when custom artifact transcript labels are configured.
+     * Tool payloads participate in first-match and all-match extraction in event order.
+     * An empty message array falls back to the supplied transcript verbatim.
+     * Production-call extraction and call preview use their existing transcripts,
+     * so previewing the same output on a simulation's call can return a different result.
      *
      * Only used when type is 'regex'. Supports both raw patterns (e.g. '\d+') and
      * regex literal format (e.g. '/\d+/gi'). Uses RE2 syntax for safety.
@@ -63,6 +75,12 @@ class StructuredOutput extends JsonSerializableType
      */
     #[JsonProperty('compliancePlan')]
     public ?ComplianceOverride $compliancePlan;
+
+    /**
+     * @var ?array<StructuredOutputConditionsItem> $conditions These are the conditions that gate the execution of this structured output. Every condition must pass for the structured output to run (AND semantics). When omitted or empty, no user-defined conditions gate this output. Send null to clear a previously saved gate.
+     */
+    #[JsonProperty('conditions'), ArrayType([StructuredOutputConditionsItem::class])]
+    public ?array $conditions;
 
     /**
      * @var string $id This is the unique identifier for the structured output.
@@ -152,6 +170,7 @@ class StructuredOutput extends JsonSerializableType
      *   regex?: ?string,
      *   model?: ?StructuredOutputModel,
      *   compliancePlan?: ?ComplianceOverride,
+     *   conditions?: ?array<StructuredOutputConditionsItem>,
      *   description?: ?string,
      *   assistantIds?: ?array<string>,
      *   workflowIds?: ?array<string>,
@@ -164,6 +183,7 @@ class StructuredOutput extends JsonSerializableType
         $this->regex = $values['regex'] ?? null;
         $this->model = $values['model'] ?? null;
         $this->compliancePlan = $values['compliancePlan'] ?? null;
+        $this->conditions = $values['conditions'] ?? null;
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];

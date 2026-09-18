@@ -8,6 +8,9 @@ use DateTime;
 use Vapi\Core\Types\Date;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A record of an eval execution, including its target, status, results, costs, completion details, and lifecycle timestamps.
+ */
 class EvalRun extends JsonSerializableType
 {
     /**
@@ -45,31 +48,31 @@ class EvalRun extends JsonSerializableType
     public EvalRunTarget $target;
 
     /**
-     * @var string $id
+     * @var string $id The unique identifier for the eval run.
      */
     #[JsonProperty('id')]
     public string $id;
 
     /**
-     * @var string $orgId
+     * @var string $orgId The unique identifier for the organization that owns the run.
      */
     #[JsonProperty('orgId')]
     public string $orgId;
 
     /**
-     * @var DateTime $createdAt
+     * @var DateTime $createdAt The ISO 8601 timestamp when the eval run was created.
      */
     #[JsonProperty('createdAt'), Date(Date::TYPE_DATETIME)]
     public DateTime $createdAt;
 
     /**
-     * @var DateTime $startedAt
+     * @var DateTime $startedAt The ISO 8601 timestamp when the eval run started.
      */
     #[JsonProperty('startedAt'), Date(Date::TYPE_DATETIME)]
     public DateTime $startedAt;
 
     /**
-     * @var DateTime $endedAt
+     * @var DateTime $endedAt The ISO 8601 timestamp when the eval run ended.
      */
     #[JsonProperty('endedAt'), Date(Date::TYPE_DATETIME)]
     public DateTime $endedAt;
@@ -81,22 +84,19 @@ class EvalRun extends JsonSerializableType
     public ?string $endedMessage;
 
     /**
-     * This is the results of the eval or suite run.
-     * The array will have a single item for an eval run, and multiple items each corresponding to the an eval in a suite run in the same order as the evals in the suite.
-     *
-     * @var array<EvalRunResult> $results
+     * @var array<EvalRunResult> $results Results for this individual Eval. Check them after status is ended. An Eval that finishes normally contains one result; it passes only when all judged checkpoints pass. Grouping multiple Evals requires your own orchestration, not an Eval suite.
      */
     #[JsonProperty('results'), ArrayType([EvalRunResult::class])]
     public array $results;
 
     /**
-     * @var float $cost This is the cost of the eval or suite run in USD.
+     * @var float $cost The cost of this Eval run in USD.
      */
     #[JsonProperty('cost')]
     public float $cost;
 
     /**
-     * @var array<array<string, mixed>> $costs This is the break up of costs of the eval or suite run.
+     * @var array<array<string, mixed>> $costs The cost breakdown for this Eval run.
      */
     #[JsonProperty('costs'), ArrayType([['string' => 'mixed']])]
     public array $costs;

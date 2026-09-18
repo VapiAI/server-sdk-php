@@ -14,6 +14,17 @@ class ClientMessageAssistantSpeech extends JsonSerializableType
     public ?ClientMessageAssistantSpeechPhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var value-of<ClientMessageAssistantSpeechType> $type This is the type of the message. "assistant-speech" is sent as assistant audio is being played.
      */
     #[JsonProperty('type')]
@@ -93,6 +104,7 @@ class ClientMessageAssistantSpeech extends JsonSerializableType
      *   type: value-of<ClientMessageAssistantSpeechType>,
      *   text: string,
      *   phoneNumber?: ?ClientMessageAssistantSpeechPhoneNumber,
+     *   assistantVersion?: ?string,
      *   turn?: ?float,
      *   source?: ?value-of<ClientMessageAssistantSpeechSource>,
      *   timing?: ?ClientMessageAssistantSpeechTiming,
@@ -106,6 +118,7 @@ class ClientMessageAssistantSpeech extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->text = $values['text'];
         $this->turn = $values['turn'] ?? null;

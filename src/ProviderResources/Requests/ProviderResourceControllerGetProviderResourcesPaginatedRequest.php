@@ -4,17 +4,18 @@ namespace Vapi\ProviderResources\Requests;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\ProviderResources\Types\ProviderResourceControllerGetProviderResourcesPaginatedRequestSortOrder;
+use Vapi\ProviderResources\Types\ProviderResourceControllerGetProviderResourcesPaginatedRequestSortBy;
 use DateTime;
 
 class ProviderResourceControllerGetProviderResourcesPaginatedRequest extends JsonSerializableType
 {
     /**
-     * @var ?string $id
+     * @var ?string $id Filters provider resources by their resource ID.
      */
     public ?string $id;
 
     /**
-     * @var ?string $resourceId
+     * @var ?string $resourceId Filters provider resources by their provider-specific resource ID.
      */
     public ?string $resourceId;
 
@@ -27,6 +28,11 @@ class ProviderResourceControllerGetProviderResourcesPaginatedRequest extends Jso
      * @var ?value-of<ProviderResourceControllerGetProviderResourcesPaginatedRequestSortOrder> $sortOrder This is the sort order for pagination. Defaults to 'DESC'.
      */
     public ?string $sortOrder;
+
+    /**
+     * @var ?value-of<ProviderResourceControllerGetProviderResourcesPaginatedRequestSortBy> $sortBy This is the column to sort by. Defaults to 'createdAt'.
+     */
+    public ?string $sortBy;
 
     /**
      * @var ?float $limit This is the maximum number of items to return. Defaults to 100.
@@ -79,6 +85,7 @@ class ProviderResourceControllerGetProviderResourcesPaginatedRequest extends Jso
      *   resourceId?: ?string,
      *   page?: ?float,
      *   sortOrder?: ?value-of<ProviderResourceControllerGetProviderResourcesPaginatedRequestSortOrder>,
+     *   sortBy?: ?value-of<ProviderResourceControllerGetProviderResourcesPaginatedRequestSortBy>,
      *   limit?: ?float,
      *   createdAtGt?: ?DateTime,
      *   createdAtLt?: ?DateTime,
@@ -97,6 +104,7 @@ class ProviderResourceControllerGetProviderResourcesPaginatedRequest extends Jso
         $this->resourceId = $values['resourceId'] ?? null;
         $this->page = $values['page'] ?? null;
         $this->sortOrder = $values['sortOrder'] ?? null;
+        $this->sortBy = $values['sortBy'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->createdAtGt = $values['createdAtGt'] ?? null;
         $this->createdAtLt = $values['createdAtLt'] ?? null;

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for authenticating speech recognition and voice synthesis requests with Cartesia.
+ */
 class CreateCartesiaCredentialDto extends JsonSerializableType
 {
     /**
@@ -12,6 +15,12 @@ class CreateCartesiaCredentialDto extends JsonSerializableType
      */
     #[JsonProperty('apiKey')]
     public string $apiKey;
+
+    /**
+     * @var ?string $apiUrl This can be used to point to an onprem Cartesia instance. Defaults to api.cartesia.ai.
+     */
+    #[JsonProperty('apiUrl')]
+    public ?string $apiUrl;
 
     /**
      * @var ?string $name This is the name of credential. This is just for your reference.
@@ -22,6 +31,7 @@ class CreateCartesiaCredentialDto extends JsonSerializableType
     /**
      * @param array{
      *   apiKey: string,
+     *   apiUrl?: ?string,
      *   name?: ?string,
      * } $values
      */
@@ -29,6 +39,7 @@ class CreateCartesiaCredentialDto extends JsonSerializableType
         array $values,
     ) {
         $this->apiKey = $values['apiKey'];
+        $this->apiUrl = $values['apiUrl'] ?? null;
         $this->name = $values['name'] ?? null;
     }
 

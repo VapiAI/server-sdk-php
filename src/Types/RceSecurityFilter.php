@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Filters potential remote code execution (RCE) patterns from transcripts.
+ */
 class RceSecurityFilter extends JsonSerializableType
 {
     /**

@@ -9,6 +9,12 @@ use Vapi\Core\Types\ArrayType;
 class UpdateAzureOpenAiCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateAzureOpenAiCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?value-of<UpdateAzureOpenAiCredentialDtoRegion> $region
      */
     #[JsonProperty('region')]
@@ -46,6 +52,7 @@ class UpdateAzureOpenAiCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateAzureOpenAiCredentialDtoProvider>,
      *   region?: ?value-of<UpdateAzureOpenAiCredentialDtoRegion>,
      *   models?: ?array<value-of<UpdateAzureOpenAiCredentialDtoModelsItem>>,
      *   openAiKey?: ?string,
@@ -57,6 +64,7 @@ class UpdateAzureOpenAiCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->region = $values['region'] ?? null;
         $this->models = $values['models'] ?? null;
         $this->openAiKey = $values['openAiKey'] ?? null;

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Overrides storage behavior for an output when HIPAA compliance is enabled.
+ */
 class ComplianceOverride extends JsonSerializableType
 {
     /**

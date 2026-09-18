@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Fallback configuration for transcribing speech with Azure Speech, including language and segmentation.
+ */
 class FallbackAzureSpeechTranscriber extends JsonSerializableType
 {
     /**

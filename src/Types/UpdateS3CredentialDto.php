@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateS3CredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateS3CredentialDtoProvider> $provider Credential provider. Only allowed value is s3
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?string $awsAccessKeyId AWS access key ID.
      */
     #[JsonProperty('awsAccessKeyId')]
@@ -51,6 +57,7 @@ class UpdateS3CredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateS3CredentialDtoProvider>,
      *   awsAccessKeyId?: ?string,
      *   awsSecretAccessKey?: ?string,
      *   region?: ?string,
@@ -63,6 +70,7 @@ class UpdateS3CredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->awsAccessKeyId = $values['awsAccessKeyId'] ?? null;
         $this->awsSecretAccessKey = $values['awsSecretAccessKey'] ?? null;
         $this->region = $values['region'] ?? null;

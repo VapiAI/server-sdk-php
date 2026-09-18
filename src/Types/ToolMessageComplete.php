@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Message spoken when a tool call completes, with optional language variants, argument conditions, role, and end-call behavior.
+ */
 class ToolMessageComplete extends JsonSerializableType
 {
     /**

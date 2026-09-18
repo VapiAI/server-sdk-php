@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Selects a conversation message by participant role and position for condition evaluation.
+ */
 class MessageTarget extends JsonSerializableType
 {
     /**

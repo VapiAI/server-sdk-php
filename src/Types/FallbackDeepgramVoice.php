@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Fallback configuration for synthesizing assistant speech with Deepgram, including voice and model selection, model-improvement preferences, chunking, and caching.
+ */
 class FallbackDeepgramVoice extends JsonSerializableType
 {
     /**

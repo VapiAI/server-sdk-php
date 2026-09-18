@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for authenticating voice synthesis requests with PlayHT, including the PlayHT user identifier.
+ */
 class CreatePlayHtCredentialDto extends JsonSerializableType
 {
     /**
@@ -14,7 +17,7 @@ class CreatePlayHtCredentialDto extends JsonSerializableType
     public string $apiKey;
 
     /**
-     * @var string $userId
+     * @var string $userId PlayHT user identifier associated with the API key.
      */
     #[JsonProperty('userId')]
     public string $userId;

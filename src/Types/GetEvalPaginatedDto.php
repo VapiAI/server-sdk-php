@@ -28,6 +28,12 @@ class GetEvalPaginatedDto extends JsonSerializableType
     public ?string $sortOrder;
 
     /**
+     * @var ?value-of<GetEvalPaginatedDtoSortBy> $sortBy This is the column to sort by. Defaults to 'createdAt'.
+     */
+    #[JsonProperty('sortBy')]
+    public ?string $sortBy;
+
+    /**
      * @var ?float $limit This is the maximum number of items to return. Defaults to 100.
      */
     #[JsonProperty('limit')]
@@ -86,6 +92,7 @@ class GetEvalPaginatedDto extends JsonSerializableType
      *   id?: ?string,
      *   page?: ?float,
      *   sortOrder?: ?value-of<GetEvalPaginatedDtoSortOrder>,
+     *   sortBy?: ?value-of<GetEvalPaginatedDtoSortBy>,
      *   limit?: ?float,
      *   createdAtGt?: ?DateTime,
      *   createdAtLt?: ?DateTime,
@@ -103,6 +110,7 @@ class GetEvalPaginatedDto extends JsonSerializableType
         $this->id = $values['id'] ?? null;
         $this->page = $values['page'] ?? null;
         $this->sortOrder = $values['sortOrder'] ?? null;
+        $this->sortBy = $values['sortBy'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->createdAtGt = $values['createdAtGt'] ?? null;
         $this->createdAtLt = $values['createdAtLt'] ?? null;

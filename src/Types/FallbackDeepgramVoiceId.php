@@ -59,4 +59,11 @@ enum FallbackDeepgramVoiceId: string
     case Aquila = "aquila";
     case Selena = "selena";
     case Javier = "javier";
+    case Viktoria = "viktoria";
+    case Kara = "kara";
+    case Fabian = "fabian";
+    case Julius = "julius";
+    case Lara = "lara";
+    case Elara = "elara";
+    case Aurelia = "aurelia";
 }

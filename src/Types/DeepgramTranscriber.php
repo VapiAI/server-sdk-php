@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for transcribing speech during assistant conversations with Deepgram, including model, language, formatting, endpointing, vocabulary, and fallback settings.
+ */
 class DeepgramTranscriber extends JsonSerializableType
 {
     /**
@@ -59,6 +62,25 @@ class DeepgramTranscriber extends JsonSerializableType
     public ?bool $profanityFilter;
 
     /**
+     * Enables redaction of sensitive information from transcripts.
+     *
+     * Options include:
+     * - "pci": Redacts credit card numbers, expiration dates, and CVV.
+     * - "pii": Redacts personally identifiable information (names, locations, identifying numbers, etc.).
+     * - "phi": Redacts protected health information (medical conditions, drugs, injuries, etc.).
+     * - "numbers": Redacts numerical and identifying entities (dates, account numbers, SSNs, etc.).
+     *
+     * Multiple values can be provided to redact different categories simultaneously.
+     * Redacted content is replaced with entity labels like [CREDIT_CARD_1], [SSN_1], etc.
+     *
+     * See https://developers.deepgram.com/docs/redaction for details.
+     *
+     * @var ?array<value-of<DeepgramTranscriberRedactionItem>> $redaction
+     */
+    #[JsonProperty('redaction'), ArrayType(['string'])]
+    public ?array $redaction;
+
+    /**
      * Transcripts below this confidence threshold will be discarded.
      *
      * @default 0.4
@@ -67,12 +89,6 @@ class DeepgramTranscriber extends JsonSerializableType
      */
     #[JsonProperty('confidenceThreshold')]
     public ?float $confidenceThreshold;
-
-    /**
-     * @var ?float $eagerEotThreshold Eager end-of-turn confidence required to fire a eager end-of-turn event. Setting a value here will enable EagerEndOfTurn and SpeechResumed events. It is disabled by default. Only used with Flux models.
-     */
-    #[JsonProperty('eagerEotThreshold')]
-    public ?float $eagerEotThreshold;
 
     /**
      * End-of-turn confidence required to finish a turn. Only used with Flux models.
@@ -93,6 +109,16 @@ class DeepgramTranscriber extends JsonSerializableType
      */
     #[JsonProperty('eotTimeoutMs')]
     public ?float $eotTimeoutMs;
+
+    /**
+     * Language hints to bias Flux Multilingual (`flux-general-multi`) toward specific languages.
+     * Provide BCP-47 language codes (e.g. "en", "es", "fr"). Multiple hints can be given for
+     * multilingual or code-switching scenarios. Omit for auto-detection. Only used with `flux-general-multi`.
+     *
+     * @var ?array<string> $languages
+     */
+    #[JsonProperty('languages'), ArrayType(['string'])]
+    public ?array $languages;
 
     /**
      * @var ?array<string> $keywords These keywords are passed to the transcription model to help it pick up use-case specific words. Anything that may not be a common word, like your company name, should be added here.
@@ -135,10 +161,11 @@ class DeepgramTranscriber extends JsonSerializableType
      *   mipOptOut?: ?bool,
      *   numerals?: ?bool,
      *   profanityFilter?: ?bool,
+     *   redaction?: ?array<value-of<DeepgramTranscriberRedactionItem>>,
      *   confidenceThreshold?: ?float,
-     *   eagerEotThreshold?: ?float,
      *   eotThreshold?: ?float,
      *   eotTimeoutMs?: ?float,
+     *   languages?: ?array<string>,
      *   keywords?: ?array<string>,
      *   keyterm?: ?array<string>,
      *   endpointing?: ?float,
@@ -154,10 +181,11 @@ class DeepgramTranscriber extends JsonSerializableType
         $this->mipOptOut = $values['mipOptOut'] ?? null;
         $this->numerals = $values['numerals'] ?? null;
         $this->profanityFilter = $values['profanityFilter'] ?? null;
+        $this->redaction = $values['redaction'] ?? null;
         $this->confidenceThreshold = $values['confidenceThreshold'] ?? null;
-        $this->eagerEotThreshold = $values['eagerEotThreshold'] ?? null;
         $this->eotThreshold = $values['eotThreshold'] ?? null;
         $this->eotTimeoutMs = $values['eotTimeoutMs'] ?? null;
+        $this->languages = $values['languages'] ?? null;
         $this->keywords = $values['keywords'] ?? null;
         $this->keyterm = $values['keyterm'] ?? null;
         $this->endpointing = $values['endpointing'] ?? null;

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Replaces an exact word or phrase before text is sent to a voice provider.
+ */
 class ExactReplacement extends JsonSerializableType
 {
     /**

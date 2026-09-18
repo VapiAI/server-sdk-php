@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Vapi platform cost for a call, including cost subtype, billable minutes, and amount.
+ */
 class VapiCost extends JsonSerializableType
 {
     /**

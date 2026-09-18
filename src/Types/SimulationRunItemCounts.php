@@ -8,40 +8,52 @@ use Vapi\Core\Json\JsonProperty;
 class SimulationRunItemCounts extends JsonSerializableType
 {
     /**
-     * @var float $total Total number of run items
+     * @var float $total The total number of run items.
      */
     #[JsonProperty('total')]
     public float $total;
 
     /**
-     * @var float $passed Number of passed run items
+     * @var float $passed The number of run items that passed all required evaluations.
      */
     #[JsonProperty('passed')]
     public float $passed;
 
     /**
-     * @var float $failed Number of failed run items
+     * @var float $failed The number of run items that failed at least one required evaluation.
      */
     #[JsonProperty('failed')]
     public float $failed;
 
     /**
-     * @var float $running Number of running/evaluating run items
+     * @var float $running The number of run items currently running or evaluating.
      */
     #[JsonProperty('running')]
     public float $running;
 
     /**
-     * @var float $queued Number of queued run items
+     * @var float $queued The number of run items waiting to start.
      */
     #[JsonProperty('queued')]
     public float $queued;
 
     /**
-     * @var float $canceled Number of canceled run items
+     * @var float $canceled The number of run items that were canceled.
      */
     #[JsonProperty('canceled')]
     public float $canceled;
+
+    /**
+     * @var ?float $distinctSimulationTotal Number of distinct simulations represented by the run items. Omitted when any item has no simulation ID.
+     */
+    #[JsonProperty('distinctSimulationTotal')]
+    public ?float $distinctSimulationTotal;
+
+    /**
+     * @var ?float $distinctSimulationFailed Number of distinct simulations with a failed or canceled item. Omitted when any item has no simulation ID.
+     */
+    #[JsonProperty('distinctSimulationFailed')]
+    public ?float $distinctSimulationFailed;
 
     /**
      * @param array{
@@ -51,6 +63,8 @@ class SimulationRunItemCounts extends JsonSerializableType
      *   running: float,
      *   queued: float,
      *   canceled: float,
+     *   distinctSimulationTotal?: ?float,
+     *   distinctSimulationFailed?: ?float,
      * } $values
      */
     public function __construct(
@@ -62,6 +76,8 @@ class SimulationRunItemCounts extends JsonSerializableType
         $this->running = $values['running'];
         $this->queued = $values['queued'];
         $this->canceled = $values['canceled'];
+        $this->distinctSimulationTotal = $values['distinctSimulationTotal'] ?? null;
+        $this->distinctSimulationFailed = $values['distinctSimulationFailed'] ?? null;
     }
 
     /**

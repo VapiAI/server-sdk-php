@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A custom endpointing rule that matches the customer's current speech and applies a configured timeout.
+ */
 class CustomerCustomEndpointingRule extends JsonSerializableType
 {
     /**

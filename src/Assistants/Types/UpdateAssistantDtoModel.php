@@ -19,6 +19,7 @@ use Vapi\Types\OpenRouterModel;
 use Vapi\Types\PerplexityAiModel;
 use Vapi\Types\TogetherAiModel;
 use Vapi\Types\XaiModel;
+use Vapi\Types\VapiModel;
 use Exception;
 use Vapi\Core\Json\JsonDecoder;
 
@@ -45,6 +46,7 @@ class UpdateAssistantDtoModel extends JsonSerializableType
      *   |'perplexity-ai'
      *   |'together-ai'
      *   |'xai'
+     *   |'vapi'
      *   |'_unknown'
      * ) $provider
      */
@@ -68,6 +70,7 @@ class UpdateAssistantDtoModel extends JsonSerializableType
      *   |PerplexityAiModel
      *   |TogetherAiModel
      *   |XaiModel
+     *   |VapiModel
      *   |mixed
      * ) $value
      */
@@ -92,6 +95,7 @@ class UpdateAssistantDtoModel extends JsonSerializableType
      *   |'perplexity-ai'
      *   |'together-ai'
      *   |'xai'
+     *   |'vapi'
      *   |'_unknown'
      * ),
      *   value: (
@@ -111,6 +115,7 @@ class UpdateAssistantDtoModel extends JsonSerializableType
      *   |PerplexityAiModel
      *   |TogetherAiModel
      *   |XaiModel
+     *   |VapiModel
      *   |mixed
      * ),
      * } $values
@@ -311,6 +316,18 @@ class UpdateAssistantDtoModel extends JsonSerializableType
         return new UpdateAssistantDtoModel([
             'provider' => 'xai',
             'value' => $xai,
+        ]);
+    }
+
+    /**
+     * @param VapiModel $vapi
+     * @return UpdateAssistantDtoModel
+     */
+    public static function vapi(VapiModel $vapi): UpdateAssistantDtoModel
+    {
+        return new UpdateAssistantDtoModel([
+            'provider' => 'vapi',
+            'value' => $vapi,
         ]);
     }
 
@@ -667,6 +684,28 @@ class UpdateAssistantDtoModel extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isVapi(): bool
+    {
+        return $this->value instanceof VapiModel && $this->provider === 'vapi';
+    }
+
+    /**
+     * @return VapiModel
+     */
+    public function asVapi(): VapiModel
+    {
+        if (!($this->value instanceof VapiModel && $this->provider === 'vapi')) {
+            throw new Exception(
+                "Expected vapi; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -748,6 +787,10 @@ class UpdateAssistantDtoModel extends JsonSerializableType
                 break;
             case 'xai':
                 $value = $this->asXai()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'vapi':
+                $value = $this->asVapi()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -845,6 +888,9 @@ class UpdateAssistantDtoModel extends JsonSerializableType
                 break;
             case 'xai':
                 $args['value'] = XaiModel::jsonDeserialize($data);
+                break;
+            case 'vapi':
+                $args['value'] = VapiModel::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

@@ -60,6 +60,8 @@ class EvalClient
     }
 
     /**
+     * Returns eval definitions for the authenticated organization. Filter results by ID or creation and update timestamps.
+     *
      * @param EvalControllerGetPaginatedRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -85,6 +87,9 @@ class EvalClient
         }
         if ($request->sortOrder != null) {
             $query['sortOrder'] = $request->sortOrder;
+        }
+        if ($request->sortBy != null) {
+            $query['sortBy'] = $request->sortBy;
         }
         if ($request->limit != null) {
             $query['limit'] = $request->limit;
@@ -144,6 +149,8 @@ class EvalClient
     }
 
     /**
+     * Creates a reusable eval that defines a mock conversation and checkpoints for evaluating assistant responses and tool calls.
+     *
      * @param CreateEvalDto $request
      * @param ?array{
      *   baseUrl?: string,
@@ -191,7 +198,9 @@ class EvalClient
     }
 
     /**
-     * @param string $id
+     * Returns the eval definition identified by its ID.
+     *
+     * @param string $id The unique identifier of the eval definition.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -237,7 +246,9 @@ class EvalClient
     }
 
     /**
-     * @param string $id
+     * Deletes the eval definition identified by its ID.
+     *
+     * @param string $id The unique identifier of the eval definition.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -283,7 +294,9 @@ class EvalClient
     }
 
     /**
-     * @param string $id
+     * Updates the eval definition identified by its ID.
+     *
+     * @param string $id The unique identifier of the eval definition.
      * @param UpdateEvalDto $request
      * @param ?array{
      *   baseUrl?: string,
@@ -331,7 +344,9 @@ class EvalClient
     }
 
     /**
-     * @param string $id
+     * Returns the eval run identified by its ID.
+     *
+     * @param string $id The unique identifier of the eval run.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -377,7 +392,9 @@ class EvalClient
     }
 
     /**
-     * @param string $id
+     * Deletes the eval run identified by its ID.
+     *
+     * @param string $id The unique identifier of the eval run.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -423,6 +440,8 @@ class EvalClient
     }
 
     /**
+     * Returns eval runs for the authenticated organization. Filter results by ID or creation and update timestamps.
+     *
      * @param EvalControllerGetRunsPaginatedRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -448,6 +467,9 @@ class EvalClient
         }
         if ($request->sortOrder != null) {
             $query['sortOrder'] = $request->sortOrder;
+        }
+        if ($request->sortBy != null) {
+            $query['sortBy'] = $request->sortBy;
         }
         if ($request->limit != null) {
             $query['limit'] = $request->limit;
@@ -507,6 +529,8 @@ class EvalClient
     }
 
     /**
+     * Runs a saved or transient eval against an assistant or squad and creates an eval-run record containing the results.
+     *
      * @param CreateEvalRunDto $request
      * @param ?array{
      *   baseUrl?: string,

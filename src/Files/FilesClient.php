@@ -4,6 +4,7 @@ namespace Vapi\Files;
 
 use Psr\Http\Client\ClientInterface;
 use Vapi\Core\Client\RawClient;
+use Vapi\Files\Requests\ListFilesRequest;
 use Vapi\Types\File;
 use Vapi\Exceptions\VapiException;
 use Vapi\Exceptions\VapiApiException;
@@ -55,6 +56,9 @@ class FilesClient
     }
 
     /**
+     * Returns files uploaded to the authenticated organization.
+     *
+     * @param ListFilesRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -67,15 +71,18 @@ class FilesClient
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function list(?array $options = null): ?array
+    public function list(ListFilesRequest $request, ?array $options = null): ?array
     {
         $options = array_merge($this->options, $options ?? []);
+        $query = [];
+        $query['purpose'] = $request->purpose;
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "file",
                     method: HttpMethod::GET,
+                    query: $query,
                 ),
                 $options,
             );
@@ -100,6 +107,8 @@ class FilesClient
     }
 
     /**
+     * Uploads a file for use with a Vapi knowledge base.
+     *
      * @param CreateFileDto $request
      * @param ?array{
      *   baseUrl?: string,
@@ -117,6 +126,12 @@ class FilesClient
         $options = array_merge($this->options, $options ?? []);
         $body = new MultipartFormData();
         $body->addPart($request->file->toMultipartFormDataPart('file'));
+        if ($request->purpose != null) {
+            $body->add(name: 'purpose', value: $request->purpose);
+        }
+        if ($request->metadata != null) {
+            $body->add(name: 'metadata', value: $request->metadata);
+        }
         try {
             $response = $this->client->sendRequest(
                 new MultipartApiRequest(
@@ -148,7 +163,9 @@ class FilesClient
     }
 
     /**
-     * @param string $id
+     * Returns the uploaded file identified by its ID.
+     *
+     * @param string $id The unique identifier of the file.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -194,7 +211,9 @@ class FilesClient
     }
 
     /**
-     * @param string $id
+     * Deletes the uploaded file identified by its ID.
+     *
+     * @param string $id The unique identifier of the file.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -240,7 +259,9 @@ class FilesClient
     }
 
     /**
-     * @param string $id
+     * Updates the name of the uploaded file identified by its ID.
+     *
+     * @param string $id The unique identifier of the file.
      * @param UpdateFileDto $request
      * @param ?array{
      *   baseUrl?: string,

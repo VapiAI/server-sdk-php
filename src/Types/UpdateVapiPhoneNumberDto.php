@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Fields used to update a Vapi-managed phone number or SIP URI, including its authentication, routing, hooks, and server settings.
+ */
 class UpdateVapiPhoneNumberDto extends JsonSerializableType
 {
     /**

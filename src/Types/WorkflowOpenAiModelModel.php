@@ -4,6 +4,11 @@ namespace Vapi\Types;
 
 enum WorkflowOpenAiModelModel: string
 {
+    case Gpt56Sol = "gpt-5.6-sol";
+    case Gpt56Terra = "gpt-5.6-terra";
+    case Gpt56Luna = "gpt-5.6-luna";
+    case Gpt55 = "gpt-5.5";
+    case ChatLatest = "chat-latest";
     case Gpt54 = "gpt-5.4";
     case Gpt54Mini = "gpt-5.4-mini";
     case Gpt54Nano = "gpt-5.4-nano";
@@ -45,6 +50,35 @@ enum WorkflowOpenAiModelModel: string
     case Gpt35Turbo1106 = "gpt-3.5-turbo-1106";
     case Gpt35Turbo16K = "gpt-3.5-turbo-16k";
     case Gpt35Turbo0613 = "gpt-3.5-turbo-0613";
+    case Gpt56LunaWestus3 = "gpt-5.6-luna:westus3";
+    case Gpt56TerraWestus3 = "gpt-5.6-terra:westus3";
+    case Gpt56SolWestus3 = "gpt-5.6-sol:westus3";
+    case Gpt54Eastus2 = "gpt-5.4:eastus2";
+    case Gpt54Swedencentral = "gpt-5.4:swedencentral";
+    case Gpt54MiniEastus2 = "gpt-5.4-mini:eastus2";
+    case Gpt54MiniSwedencentral = "gpt-5.4-mini:swedencentral";
+    case Gpt54NanoEastus2 = "gpt-5.4-nano:eastus2";
+    case Gpt54NanoSwedencentral = "gpt-5.4-nano:swedencentral";
+    case Gpt52Eastus2 = "gpt-5.2:eastus2";
+    case Gpt52Swedencentral = "gpt-5.2:swedencentral";
+    case Gpt51Eastus2 = "gpt-5.1:eastus2";
+    case Gpt51Swedencentral = "gpt-5.1:swedencentral";
+    case Gpt5Eastus2 = "gpt-5:eastus2";
+    case Gpt5Swedencentral = "gpt-5:swedencentral";
+    case Gpt5Canadaeast = "gpt-5:canadaeast";
+    case Gpt5Eastus = "gpt-5:eastus";
+    case Gpt5Westeurope = "gpt-5:westeurope";
+    case Gpt5Germanywestcentral = "gpt-5:germanywestcentral";
+    case Gpt5Polandcentral = "gpt-5:polandcentral";
+    case Gpt5Spaincentral = "gpt-5:spaincentral";
+    case Gpt5MiniEastus2 = "gpt-5-mini:eastus2";
+    case Gpt5MiniSwedencentral = "gpt-5-mini:swedencentral";
+    case Gpt5MiniWesteurope = "gpt-5-mini:westeurope";
+    case Gpt5MiniGermanywestcentral = "gpt-5-mini:germanywestcentral";
+    case Gpt5MiniPolandcentral = "gpt-5-mini:polandcentral";
+    case Gpt5MiniSpaincentral = "gpt-5-mini:spaincentral";
+    case Gpt5NanoEastus2 = "gpt-5-nano:eastus2";
+    case Gpt5NanoSwedencentral = "gpt-5-nano:swedencentral";
     case Gpt4120250414Westus = "gpt-4.1-2025-04-14:westus";
     case Gpt4120250414Eastus2 = "gpt-4.1-2025-04-14:eastus2";
     case Gpt4120250414Eastus = "gpt-4.1-2025-04-14:eastus";
@@ -117,4 +151,7 @@ enum WorkflowOpenAiModelModel: string
     case Gpt35Turbo0125Southcentralus = "gpt-3.5-turbo-0125:southcentralus";
     case Gpt35Turbo1106Canadaeast = "gpt-3.5-turbo-1106:canadaeast";
     case Gpt35Turbo1106Westus = "gpt-3.5-turbo-1106:westus";
+    case Gpt41Australiaeast = "gpt-4.1:australiaeast";
+    case Gpt4OAustraliaeast = "gpt-4o:australiaeast";
+    case Gpt54MiniAustraliaeast = "gpt-5.4-mini:australiaeast";
 }

@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Start, end, and timezone used to limit an insight query by time.
+ */
 class InsightTimeRange extends JsonSerializableType
 {
     /**

@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Matches an incoming caller's phone number against one or more prefixes before a ringing hook runs.
+ */
 class PhoneNumberCallRingingHookFilter extends JsonSerializableType
 {
     /**

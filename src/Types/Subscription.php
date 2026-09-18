@@ -29,6 +29,16 @@ class Subscription extends JsonSerializableType
     public DateTime $updatedAt;
 
     /**
+     * This is the display name for the subscription, used to tell subscriptions
+     * apart in the dashboard. It is unique across all subscriptions and does not
+     * appear on invoices, which use the company details on the invoice plan.
+     *
+     * @var ?string $name
+     */
+    #[JsonProperty('name')]
+    public ?string $name;
+
+    /**
      * @var value-of<SubscriptionType> $type This is the type / tier of the subscription.
      */
     #[JsonProperty('type')]
@@ -109,18 +119,6 @@ class Subscription extends JsonSerializableType
      */
     #[JsonProperty('stripePaymentMethodId')]
     public ?string $stripePaymentMethodId;
-
-    /**
-     * @var ?bool $slackSupportEnabled If this flag is true, then the user has purchased slack support.
-     */
-    #[JsonProperty('slackSupportEnabled')]
-    public ?bool $slackSupportEnabled;
-
-    /**
-     * @var ?string $slackChannelId If this subscription has a slack support subscription, the slack channel's ID will be stored here.
-     */
-    #[JsonProperty('slackChannelId')]
-    public ?string $slackChannelId;
 
     /**
      * This is the HIPAA enabled flag for the subscription. It determines whether orgs under this
@@ -304,14 +302,13 @@ class Subscription extends JsonSerializableType
      *   concurrencyCounter: float,
      *   concurrencyLimitIncluded: float,
      *   concurrencyLimitPurchased: float,
+     *   name?: ?string,
      *   phoneNumbersCounter?: ?float,
      *   phoneNumbersIncluded?: ?float,
      *   monthlyChargeScheduleId?: ?float,
      *   monthlyCreditCheckScheduleId?: ?float,
      *   stripeCustomerId?: ?string,
      *   stripePaymentMethodId?: ?string,
-     *   slackSupportEnabled?: ?bool,
-     *   slackChannelId?: ?string,
      *   hipaaEnabled?: ?bool,
      *   zdrEnabled?: ?bool,
      *   dataRetentionEnabled?: ?bool,
@@ -346,6 +343,7 @@ class Subscription extends JsonSerializableType
         $this->id = $values['id'];
         $this->createdAt = $values['createdAt'];
         $this->updatedAt = $values['updatedAt'];
+        $this->name = $values['name'] ?? null;
         $this->type = $values['type'];
         $this->status = $values['status'];
         $this->credits = $values['credits'];
@@ -358,8 +356,6 @@ class Subscription extends JsonSerializableType
         $this->monthlyCreditCheckScheduleId = $values['monthlyCreditCheckScheduleId'] ?? null;
         $this->stripeCustomerId = $values['stripeCustomerId'] ?? null;
         $this->stripePaymentMethodId = $values['stripePaymentMethodId'] ?? null;
-        $this->slackSupportEnabled = $values['slackSupportEnabled'] ?? null;
-        $this->slackChannelId = $values['slackChannelId'] ?? null;
         $this->hipaaEnabled = $values['hipaaEnabled'] ?? null;
         $this->zdrEnabled = $values['zdrEnabled'] ?? null;
         $this->dataRetentionEnabled = $values['dataRetentionEnabled'] ?? null;

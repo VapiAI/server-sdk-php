@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Routes a handoff to a saved or transient squad, with optional entry assistant, context engineering, variable extraction, and overrides.
+ */
 class HandoffDestinationSquad extends JsonSerializableType
 {
     /**

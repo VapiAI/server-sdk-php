@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * The result of a batch call creation request, containing successfully created calls, per-call failures, and subscription limits recorded at the end of the batch.
+ */
 class CallBatchResponse extends JsonSerializableType
 {
     /**

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for synthesizing assistant speech with MiniMax, including voice and model selection, emotion, pitch, speed, volume, region, language, text normalization, chunking, caching, and fallback settings.
+ */
 class MinimaxVoice extends JsonSerializableType
 {
     /**

@@ -14,6 +14,17 @@ class ClientMessageLanguageChangeDetected extends JsonSerializableType
     public ?ClientMessageLanguageChangeDetectedPhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var value-of<ClientMessageLanguageChangeDetectedType> $type This is the type of the message. "language-change-detected" is sent when the transcriber is automatically switched based on the detected language.
      */
     #[JsonProperty('type')]
@@ -54,6 +65,7 @@ class ClientMessageLanguageChangeDetected extends JsonSerializableType
      *   type: value-of<ClientMessageLanguageChangeDetectedType>,
      *   language: string,
      *   phoneNumber?: ?ClientMessageLanguageChangeDetectedPhoneNumber,
+     *   assistantVersion?: ?string,
      *   timestamp?: ?float,
      *   call?: ?Call,
      *   customer?: ?CreateCustomerDto,
@@ -64,6 +76,7 @@ class ClientMessageLanguageChangeDetected extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->timestamp = $values['timestamp'] ?? null;
         $this->call = $values['call'] ?? null;

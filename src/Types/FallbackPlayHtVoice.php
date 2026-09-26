@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Fallback configuration for synthesizing assistant speech with PlayHT, including voice and model selection, language, emotion and style guidance, chunking, and caching.
+ */
 class FallbackPlayHtVoice extends JsonSerializableType
 {
     /**

@@ -5,10 +5,13 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Voice selection configuration for Gemini Multimodal Live.
+ */
 class GeminiMultimodalLiveVoiceConfig extends JsonSerializableType
 {
     /**
-     * @var GeminiMultimodalLivePrebuiltVoiceConfig $prebuiltVoiceConfig
+     * @var GeminiMultimodalLivePrebuiltVoiceConfig $prebuiltVoiceConfig Prebuilt voice used for Gemini Multimodal Live speech output.
      */
     #[JsonProperty('prebuiltVoiceConfig')]
     public GeminiMultimodalLivePrebuiltVoiceConfig $prebuiltVoiceConfig;

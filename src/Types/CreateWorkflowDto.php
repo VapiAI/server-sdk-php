@@ -7,10 +7,13 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * Configuration for creating a graph-based workflow, including conversation and tool nodes, directed edges, global prompts, shared providers, hooks, credentials, and call behavior.
+ */
 class CreateWorkflowDto extends JsonSerializableType
 {
     /**
-     * @var array<CreateWorkflowDtoNodesItem> $nodes
+     * @var array<CreateWorkflowDtoNodesItem> $nodes Nodes that make up the workflow graph. Conversation nodes interact with the customer, while tool nodes invoke configured tools.
      */
     #[JsonProperty('nodes'), ArrayType([CreateWorkflowDtoNodesItem::class])]
     public array $nodes;
@@ -110,19 +113,19 @@ class CreateWorkflowDto extends JsonSerializableType
     public ?float $maxDurationSeconds;
 
     /**
-     * @var string $name
+     * @var string $name Name used to identify the workflow.
      */
     #[JsonProperty('name')]
     public string $name;
 
     /**
-     * @var array<Edge> $edges
+     * @var array<Edge> $edges Directed connections that determine transitions between nodes.
      */
     #[JsonProperty('edges'), ArrayType([Edge::class])]
     public array $edges;
 
     /**
-     * @var ?string $globalPrompt
+     * @var ?string $globalPrompt Prompt applied across the workflow's conversation nodes.
      */
     #[JsonProperty('globalPrompt')]
     public ?string $globalPrompt;

@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Associates a phone number with the customers to dial through that number in a batch call plan.
+ */
 class DialPlanEntry extends JsonSerializableType
 {
     /**

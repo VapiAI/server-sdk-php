@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Supabase S3-compatible bucket configuration for call artifacts, including region, endpoint, access keys, bucket name, and path.
+ */
 class SupabaseBucketPlan extends JsonSerializableType
 {
     /**

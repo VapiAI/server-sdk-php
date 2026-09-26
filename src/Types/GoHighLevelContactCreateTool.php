@@ -8,14 +8,19 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A reusable tool that adds contacts to a connected GoHighLevel account.
+ */
 class GoHighLevelContactCreateTool extends JsonSerializableType
 {
     /**
-     * These are the messages that will be spoken to the user as the tool is running.
-     *
-     * For some tools, this is auto-filled based on special fields like `tool.destinations`. For others like the function tool, these can be custom configured.
-     *
-     * @var ?array<GoHighLevelContactCreateToolMessagesItem> $messages
+     * @var ?string $latestVersion
+     */
+    #[JsonProperty('latestVersion')]
+    public ?string $latestVersion;
+
+    /**
+     * @var ?array<GoHighLevelContactCreateToolMessagesItem> $messages Messages spoken while the tool is running. Multiple request-start messages are variants. For request-response-delayed, same timing means variants and different timings mean staged updates.
      */
     #[JsonProperty('messages'), ArrayType([GoHighLevelContactCreateToolMessagesItem::class])]
     public ?array $messages;
@@ -135,6 +140,7 @@ class GoHighLevelContactCreateTool extends JsonSerializableType
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
+     *   latestVersion?: ?string,
      *   messages?: ?array<GoHighLevelContactCreateToolMessagesItem>,
      *   rejectionPlan?: ?ToolRejectionPlan,
      * } $values
@@ -142,6 +148,7 @@ class GoHighLevelContactCreateTool extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
+        $this->latestVersion = $values['latestVersion'] ?? null;
         $this->messages = $values['messages'] ?? null;
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];

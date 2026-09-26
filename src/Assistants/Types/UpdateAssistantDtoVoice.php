@@ -21,6 +21,8 @@ use Vapi\Types\VapiVoice;
 use Vapi\Types\SesameVoice;
 use Vapi\Types\InworldVoice;
 use Vapi\Types\MinimaxVoice;
+use Vapi\Types\XaiVoice;
+use Vapi\Types\MicrosoftVoice;
 use Exception;
 use Vapi\Core\Json\JsonDecoder;
 
@@ -49,6 +51,8 @@ class UpdateAssistantDtoVoice extends JsonSerializableType
      *   |'sesame'
      *   |'inworld'
      *   |'minimax'
+     *   |'xai'
+     *   |'microsoft'
      *   |'_unknown'
      * ) $provider
      */
@@ -74,6 +78,8 @@ class UpdateAssistantDtoVoice extends JsonSerializableType
      *   |SesameVoice
      *   |InworldVoice
      *   |MinimaxVoice
+     *   |XaiVoice
+     *   |MicrosoftVoice
      *   |mixed
      * ) $value
      */
@@ -100,6 +106,8 @@ class UpdateAssistantDtoVoice extends JsonSerializableType
      *   |'sesame'
      *   |'inworld'
      *   |'minimax'
+     *   |'xai'
+     *   |'microsoft'
      *   |'_unknown'
      * ),
      *   value: (
@@ -121,6 +129,8 @@ class UpdateAssistantDtoVoice extends JsonSerializableType
      *   |SesameVoice
      *   |InworldVoice
      *   |MinimaxVoice
+     *   |XaiVoice
+     *   |MicrosoftVoice
      *   |mixed
      * ),
      * } $values
@@ -345,6 +355,30 @@ class UpdateAssistantDtoVoice extends JsonSerializableType
         return new UpdateAssistantDtoVoice([
             'provider' => 'minimax',
             'value' => $minimax,
+        ]);
+    }
+
+    /**
+     * @param XaiVoice $xai
+     * @return UpdateAssistantDtoVoice
+     */
+    public static function xai(XaiVoice $xai): UpdateAssistantDtoVoice
+    {
+        return new UpdateAssistantDtoVoice([
+            'provider' => 'xai',
+            'value' => $xai,
+        ]);
+    }
+
+    /**
+     * @param MicrosoftVoice $microsoft
+     * @return UpdateAssistantDtoVoice
+     */
+    public static function microsoft(MicrosoftVoice $microsoft): UpdateAssistantDtoVoice
+    {
+        return new UpdateAssistantDtoVoice([
+            'provider' => 'microsoft',
+            'value' => $microsoft,
         ]);
     }
 
@@ -745,6 +779,50 @@ class UpdateAssistantDtoVoice extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isXai(): bool
+    {
+        return $this->value instanceof XaiVoice && $this->provider === 'xai';
+    }
+
+    /**
+     * @return XaiVoice
+     */
+    public function asXai(): XaiVoice
+    {
+        if (!($this->value instanceof XaiVoice && $this->provider === 'xai')) {
+            throw new Exception(
+                "Expected xai; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMicrosoft(): bool
+    {
+        return $this->value instanceof MicrosoftVoice && $this->provider === 'microsoft';
+    }
+
+    /**
+     * @return MicrosoftVoice
+     */
+    public function asMicrosoft(): MicrosoftVoice
+    {
+        if (!($this->value instanceof MicrosoftVoice && $this->provider === 'microsoft')) {
+            throw new Exception(
+                "Expected microsoft; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -834,6 +912,14 @@ class UpdateAssistantDtoVoice extends JsonSerializableType
                 break;
             case 'minimax':
                 $value = $this->asMinimax()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'xai':
+                $value = $this->asXai()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'microsoft':
+                $value = $this->asMicrosoft()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -937,6 +1023,12 @@ class UpdateAssistantDtoVoice extends JsonSerializableType
                 break;
             case 'minimax':
                 $args['value'] = MinimaxVoice::jsonDeserialize($data);
+                break;
+            case 'xai':
+                $args['value'] = XaiVoice::jsonDeserialize($data);
+                break;
+            case 'microsoft':
+                $args['value'] = MicrosoftVoice::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

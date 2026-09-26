@@ -52,6 +52,8 @@ class AnalyticsClient
     }
 
     /**
+     * Runs one or more metric queries against call or subscription data using the requested time range, groupings, and aggregate operations.
+     *
      * @param AnalyticsQueryDto $request
      * @param ?array{
      *   baseUrl?: string,

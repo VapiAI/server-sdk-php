@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Start, end, timezone, and aggregation step used for a time-series insight query.
+ */
 class InsightTimeRangeWithStep extends JsonSerializableType
 {
     /**

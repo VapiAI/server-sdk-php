@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Filters a structured-output value stored on a call using comparison, membership, containment, or emptiness operators.
+ */
 class FilterStructuredOutputColumnOnCallTable extends JsonSerializableType
 {
     /**

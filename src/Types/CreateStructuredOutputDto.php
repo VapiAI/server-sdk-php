@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration used to create a structured-output definition that extracts validated data from calls using an AI model or regular expression.
+ */
 class CreateStructuredOutputDto extends JsonSerializableType
 {
     /**
@@ -23,6 +26,15 @@ class CreateStructuredOutputDto extends JsonSerializableType
 
     /**
      * This is the regex pattern to match against the transcript.
+     *
+     * Simulation evaluations use a canonical transcript built from recorded messages:
+     * User: and AI: dialogue, AI: tool_calls: JSON name/arguments records, and
+     * AI: tool_call_results: JSON results. System messages are excluded. These
+     * fixed labels apply even when custom artifact transcript labels are configured.
+     * Tool payloads participate in first-match and all-match extraction in event order.
+     * An empty message array falls back to the supplied transcript verbatim.
+     * Production-call extraction and call preview use their existing transcripts,
+     * so previewing the same output on a simulation's call can return a different result.
      *
      * Only used when type is 'regex'. Supports both raw patterns (e.g. '\d+') and
      * regex literal format (e.g. '/\d+/gi'). Uses RE2 syntax for safety.
@@ -63,6 +75,12 @@ class CreateStructuredOutputDto extends JsonSerializableType
      */
     #[JsonProperty('compliancePlan')]
     public ?ComplianceOverride $compliancePlan;
+
+    /**
+     * @var ?array<CreateStructuredOutputDtoConditionsItem> $conditions These are the conditions that gate the execution of this structured output. Every condition must pass for the structured output to run (AND semantics). When omitted or empty, no user-defined conditions gate this output. Send null to clear a previously saved gate.
+     */
+    #[JsonProperty('conditions'), ArrayType([CreateStructuredOutputDtoConditionsItem::class])]
+    public ?array $conditions;
 
     /**
      * @var string $name This is the name of the structured output.
@@ -124,6 +142,7 @@ class CreateStructuredOutputDto extends JsonSerializableType
      *   regex?: ?string,
      *   model?: ?CreateStructuredOutputDtoModel,
      *   compliancePlan?: ?ComplianceOverride,
+     *   conditions?: ?array<CreateStructuredOutputDtoConditionsItem>,
      *   description?: ?string,
      *   assistantIds?: ?array<string>,
      *   workflowIds?: ?array<string>,
@@ -136,6 +155,7 @@ class CreateStructuredOutputDto extends JsonSerializableType
         $this->regex = $values['regex'] ?? null;
         $this->model = $values['model'] ?? null;
         $this->compliancePlan = $values['compliancePlan'] ?? null;
+        $this->conditions = $values['conditions'] ?? null;
         $this->name = $values['name'];
         $this->schema = $values['schema'];
         $this->description = $values['description'] ?? null;

@@ -5,17 +5,18 @@ namespace Vapi\Campaigns\Requests;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Campaigns\Types\CampaignControllerFindAllRequestStatus;
 use Vapi\Campaigns\Types\CampaignControllerFindAllRequestSortOrder;
+use Vapi\Campaigns\Types\CampaignControllerFindAllRequestSortBy;
 use DateTime;
 
 class CampaignControllerFindAllRequest extends JsonSerializableType
 {
     /**
-     * @var ?string $id
+     * @var ?string $id Filters campaigns by ID.
      */
     public ?string $id;
 
     /**
-     * @var ?value-of<CampaignControllerFindAllRequestStatus> $status
+     * @var ?value-of<CampaignControllerFindAllRequestStatus> $status Filters campaigns by status.
      */
     public ?string $status;
 
@@ -28,6 +29,11 @@ class CampaignControllerFindAllRequest extends JsonSerializableType
      * @var ?value-of<CampaignControllerFindAllRequestSortOrder> $sortOrder This is the sort order for pagination. Defaults to 'DESC'.
      */
     public ?string $sortOrder;
+
+    /**
+     * @var ?value-of<CampaignControllerFindAllRequestSortBy> $sortBy This is the column to sort by. Defaults to 'createdAt'.
+     */
+    public ?string $sortBy;
 
     /**
      * @var ?float $limit This is the maximum number of items to return. Defaults to 100.
@@ -80,6 +86,7 @@ class CampaignControllerFindAllRequest extends JsonSerializableType
      *   status?: ?value-of<CampaignControllerFindAllRequestStatus>,
      *   page?: ?float,
      *   sortOrder?: ?value-of<CampaignControllerFindAllRequestSortOrder>,
+     *   sortBy?: ?value-of<CampaignControllerFindAllRequestSortBy>,
      *   limit?: ?float,
      *   createdAtGt?: ?DateTime,
      *   createdAtLt?: ?DateTime,
@@ -98,6 +105,7 @@ class CampaignControllerFindAllRequest extends JsonSerializableType
         $this->status = $values['status'] ?? null;
         $this->page = $values['page'] ?? null;
         $this->sortOrder = $values['sortOrder'] ?? null;
+        $this->sortBy = $values['sortBy'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->createdAtGt = $values['createdAtGt'] ?? null;
         $this->createdAtLt = $values['createdAtLt'] ?? null;

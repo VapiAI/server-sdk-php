@@ -5,10 +5,13 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * An AI-evaluated boolean condition that determines whether a workflow follows an edge.
+ */
 class AiEdgeCondition extends JsonSerializableType
 {
     /**
-     * @var value-of<AiEdgeConditionType> $type
+     * @var value-of<AiEdgeConditionType> $type Selects an AI-evaluated workflow edge condition.
      */
     #[JsonProperty('type')]
     public string $type;

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Filters transcript content that matches a custom regular expression.
+ */
 class RegexSecurityFilter extends JsonSerializableType
 {
     /**

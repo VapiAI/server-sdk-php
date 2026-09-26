@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Aggregated call costs and usage, including transport, transcription, model, voice, Vapi, analysis, token, and character totals.
+ */
 class CostBreakdown extends JsonSerializableType
 {
     /**

@@ -61,6 +61,8 @@ class InsightClient
     }
 
     /**
+     * Returns saved reporting insights for the authenticated organization. Filter results by ID or creation and update timestamps.
+     *
      * @param InsightControllerFindAllRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -86,6 +88,9 @@ class InsightClient
         }
         if ($request->sortOrder != null) {
             $query['sortOrder'] = $request->sortOrder;
+        }
+        if ($request->sortBy != null) {
+            $query['sortBy'] = $request->sortBy;
         }
         if ($request->limit != null) {
             $query['limit'] = $request->limit;
@@ -145,6 +150,8 @@ class InsightClient
     }
 
     /**
+     * Creates a saved reporting insight that queries call data and presents the results as a bar chart, pie chart, line chart, or text value.
+     *
      * @param InsightControllerCreateRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -192,7 +199,9 @@ class InsightClient
     }
 
     /**
-     * @param string $id
+     * Returns the reporting insight identified by its ID.
+     *
+     * @param string $id The unique identifier of the reporting insight.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -238,7 +247,9 @@ class InsightClient
     }
 
     /**
-     * @param string $id
+     * Deletes the reporting insight identified by its ID.
+     *
+     * @param string $id The unique identifier of the reporting insight.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -284,7 +295,9 @@ class InsightClient
     }
 
     /**
-     * @param string $id
+     * Updates the reporting insight identified by its ID.
+     *
+     * @param string $id The unique identifier of the reporting insight.
      * @param InsightControllerUpdateRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -332,7 +345,9 @@ class InsightClient
     }
 
     /**
-     * @param string $id
+     * Runs a saved reporting insight, optionally overriding its time range and response format.
+     *
+     * @param string $id The unique identifier of the reporting insight.
      * @param InsightRunDto $request
      * @param ?array{
      *   baseUrl?: string,
@@ -380,6 +395,8 @@ class InsightClient
     }
 
     /**
+     * Runs an insight definition without first saving it, returning a preview of the resulting chart or text value.
+     *
      * @param InsightControllerPreviewRequest $request
      * @param ?array{
      *   baseUrl?: string,

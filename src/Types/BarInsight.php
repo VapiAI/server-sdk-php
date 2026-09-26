@@ -9,6 +9,9 @@ use Vapi\Core\Types\Union;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A saved bar-chart insight containing its call-data queries, formulas, grouping, stepped time range, metadata, and lifecycle information.
+ */
 class BarInsight extends JsonSerializableType
 {
     /**
@@ -46,7 +49,7 @@ class BarInsight extends JsonSerializableType
     public ?BarInsightMetadata $metadata;
 
     /**
-     * @var ?InsightTimeRangeWithStep $timeRange
+     * @var ?InsightTimeRangeWithStep $timeRange The time range and interval used to aggregate the bar-chart data.
      */
     #[JsonProperty('timeRange')]
     public ?InsightTimeRangeWithStep $timeRange;
@@ -97,6 +100,12 @@ class BarInsight extends JsonSerializableType
     public DateTime $updatedAt;
 
     /**
+     * @var ?string $systemKey Stable server-owned identifier for system-created insights.
+     */
+    #[JsonProperty('systemKey')]
+    public ?string $systemKey;
+
+    /**
      * @param array{
      *   queries: array<(
      *    JsonQueryOnCallTableWithStringTypeColumn
@@ -113,6 +122,7 @@ class BarInsight extends JsonSerializableType
      *   metadata?: ?BarInsightMetadata,
      *   timeRange?: ?InsightTimeRangeWithStep,
      *   groupBy?: ?value-of<BarInsightGroupBy>,
+     *   systemKey?: ?string,
      * } $values
      */
     public function __construct(
@@ -128,6 +138,7 @@ class BarInsight extends JsonSerializableType
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];
         $this->updatedAt = $values['updatedAt'];
+        $this->systemKey = $values['systemKey'] ?? null;
     }
 
     /**

@@ -8,6 +8,9 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A saved outbound calling campaign, including its calling configuration, schedule, status, customers, calls, and call-progress counters.
+ */
 class Campaign extends JsonSerializableType
 {
     /**
@@ -65,10 +68,46 @@ class Campaign extends JsonSerializableType
     public ?SchedulePlan $schedulePlan;
 
     /**
-     * @var ?array<CreateCustomerDto> $customers These are the customers that will be called in the campaign. Required if dialPlan is not provided.
+     * @var ?array<CreateCustomerDto> $customers These are the customers that will be called in the campaign. Required if dialPlan is not provided. Maximum of 10000 customers per campaign.
      */
     #[JsonProperty('customers'), ArrayType([CreateCustomerDto::class])]
     public ?array $customers;
+
+    /**
+     * @var ?float $maxConcurrency This is the maximum number of concurrent calls that will be made for the campaign. Defaults to 10. Maximum of 500, and may not exceed your organization's concurrency limit.
+     */
+    #[JsonProperty('maxConcurrency')]
+    public ?float $maxConcurrency;
+
+    /**
+     * @var ?AssistantOverrides $assistantOverrides These are the overrides for the assistant's settings and template variables for the campaign. Use this when the campaign targets an `assistantId`.
+     */
+    #[JsonProperty('assistantOverrides')]
+    public ?AssistantOverrides $assistantOverrides;
+
+    /**
+     * @var ?AssistantOverrides $squadOverrides These are the overrides for the squad and template variables for the campaign. Use this when the campaign targets a `squadId`. Per-contact `squadOverrides` are deep-merged on top of this at dispatch time.
+     */
+    #[JsonProperty('squadOverrides')]
+    public ?AssistantOverrides $squadOverrides;
+
+    /**
+     * @var ?Server $server This is the server (URL, auth headers, timeout, etc.) for the campaign webhooks.
+     */
+    #[JsonProperty('server')]
+    public ?Server $server;
+
+    /**
+     * @var ?array<value-of<CampaignServerMessagesItem>> $serverMessages These are the messages that will be sent to your Server URL.
+     */
+    #[JsonProperty('serverMessages'), ArrayType(['string'])]
+    public ?array $serverMessages;
+
+    /**
+     * @var ?CampaignPredialPlan $predialPlan This opts the campaign into the blocking `campaign.predial` eligibility webhook. When set, every contact triggers a `campaign.predial` POST to the Server URL before dialing, and the response `{ eligible: boolean }` decides whether the call is placed. Requires `server`. When unset, no pre-dial webhook is sent.
+     */
+    #[JsonProperty('predialPlan')]
+    public ?CampaignPredialPlan $predialPlan;
 
     /**
      * @var string $id This is the unique identifier for the campaign.
@@ -152,6 +191,12 @@ class Campaign extends JsonSerializableType
      *   dialPlan?: ?array<DialPlanEntry>,
      *   schedulePlan?: ?SchedulePlan,
      *   customers?: ?array<CreateCustomerDto>,
+     *   maxConcurrency?: ?float,
+     *   assistantOverrides?: ?AssistantOverrides,
+     *   squadOverrides?: ?AssistantOverrides,
+     *   server?: ?Server,
+     *   serverMessages?: ?array<value-of<CampaignServerMessagesItem>>,
+     *   predialPlan?: ?CampaignPredialPlan,
      * } $values
      */
     public function __construct(
@@ -167,6 +212,12 @@ class Campaign extends JsonSerializableType
         $this->dialPlan = $values['dialPlan'] ?? null;
         $this->schedulePlan = $values['schedulePlan'] ?? null;
         $this->customers = $values['customers'] ?? null;
+        $this->maxConcurrency = $values['maxConcurrency'] ?? null;
+        $this->assistantOverrides = $values['assistantOverrides'] ?? null;
+        $this->squadOverrides = $values['squadOverrides'] ?? null;
+        $this->server = $values['server'] ?? null;
+        $this->serverMessages = $values['serverMessages'] ?? null;
+        $this->predialPlan = $values['predialPlan'] ?? null;
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];

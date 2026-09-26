@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Post-call analysis results, including summary, structured data, and success evaluation outputs.
+ */
 class Analysis extends JsonSerializableType
 {
     /**

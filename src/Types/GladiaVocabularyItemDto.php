@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A Gladia custom vocabulary word or phrase with optional pronunciations, intensity, and language.
+ */
 class GladiaVocabularyItemDto extends JsonSerializableType
 {
     /**

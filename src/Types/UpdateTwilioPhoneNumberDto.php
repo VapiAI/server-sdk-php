@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Fields used to update a Twilio phone number, including its account credentials, SMS configuration, routing, hooks, and server settings.
+ */
 class UpdateTwilioPhoneNumberDto extends JsonSerializableType
 {
     /**

@@ -14,7 +14,10 @@ class UpdateUserRoleDto extends JsonSerializableType
     public string $userId;
 
     /**
-     * @var value-of<UpdateUserRoleDtoRole> $role
+     * @var (
+     *    value-of<UpdateUserRoleDtoRoleZero>
+     *   |string
+     * ) $role
      */
     #[JsonProperty('role')]
     public string $role;
@@ -22,7 +25,10 @@ class UpdateUserRoleDto extends JsonSerializableType
     /**
      * @param array{
      *   userId: string,
-     *   role: value-of<UpdateUserRoleDtoRole>,
+     *   role: (
+     *    value-of<UpdateUserRoleDtoRoleZero>
+     *   |string
+     * ),
      * } $values
      */
     public function __construct(

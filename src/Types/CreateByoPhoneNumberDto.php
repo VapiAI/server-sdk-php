@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration used to connect a bring-your-own phone number to Vapi with a stored telephony credential and routing settings.
+ */
 class CreateByoPhoneNumberDto extends JsonSerializableType
 {
     /**

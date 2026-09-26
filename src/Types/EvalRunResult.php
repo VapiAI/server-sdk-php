@@ -8,6 +8,9 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * The pass or fail result of an evaluation run, including its conversation messages and timing.
+ */
 class EvalRunResult extends JsonSerializableType
 {
     /**

@@ -6,10 +6,13 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for sending assistant call traces to Langfuse, including prompt version linkage, trace naming, tags, and metadata.
+ */
 class LangfuseObservabilityPlan extends JsonSerializableType
 {
     /**
-     * @var value-of<LangfuseObservabilityPlanProvider> $provider
+     * @var value-of<LangfuseObservabilityPlanProvider> $provider Routes assistant call observability data to Langfuse.
      */
     #[JsonProperty('provider')]
     public string $provider;

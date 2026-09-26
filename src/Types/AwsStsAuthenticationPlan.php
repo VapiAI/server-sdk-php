@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * AWS Security Token Service role-assumption configuration used to authenticate requests.
+ */
 class AwsStsAuthenticationPlan extends JsonSerializableType
 {
     /**

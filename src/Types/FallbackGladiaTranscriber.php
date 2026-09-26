@@ -4,7 +4,11 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
+use Vapi\Core\Types\ArrayType;
 
+/**
+ * Fallback configuration for transcribing speech with Gladia, including language behavior, audio processing, endpointing, vocabulary, and region.
+ */
 class FallbackGladiaTranscriber extends JsonSerializableType
 {
     /**
@@ -26,10 +30,10 @@ class FallbackGladiaTranscriber extends JsonSerializableType
     public ?string $language;
 
     /**
-     * @var ?value-of<FallbackGladiaTranscriberLanguages> $languages Defines the languages to use for the transcription. Required when languageBehaviour is 'manual'.
+     * @var ?array<value-of<FallbackGladiaTranscriberLanguagesItem>> $languages Defines the languages to use for the transcription. Required when languageBehaviour is 'manual'.
      */
-    #[JsonProperty('languages')]
-    public ?string $languages;
+    #[JsonProperty('languages'), ArrayType(['string'])]
+    public ?array $languages;
 
     /**
      * Provides a custom vocabulary to the model to improve accuracy of transcribing context specific words, technical terms, names, etc. If empty, this argument is ignored.
@@ -103,7 +107,7 @@ class FallbackGladiaTranscriber extends JsonSerializableType
      *   model?: ?value-of<FallbackGladiaTranscriberModel>,
      *   languageBehaviour?: ?value-of<FallbackGladiaTranscriberLanguageBehaviour>,
      *   language?: ?value-of<FallbackGladiaTranscriberLanguage>,
-     *   languages?: ?value-of<FallbackGladiaTranscriberLanguages>,
+     *   languages?: ?array<value-of<FallbackGladiaTranscriberLanguagesItem>>,
      *   transcriptionHint?: ?string,
      *   prosody?: ?bool,
      *   audioEnhancer?: ?bool,

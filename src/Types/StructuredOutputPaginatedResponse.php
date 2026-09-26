@@ -6,16 +6,19 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A paginated collection of structured-output definitions and metadata describing the result set.
+ */
 class StructuredOutputPaginatedResponse extends JsonSerializableType
 {
     /**
-     * @var array<StructuredOutput> $results
+     * @var array<StructuredOutput> $results The structured-output definitions returned for the current page.
      */
     #[JsonProperty('results'), ArrayType([StructuredOutput::class])]
     public array $results;
 
     /**
-     * @var PaginationMeta $metadata
+     * @var PaginationMeta $metadata Pagination metadata for the structured-output result set.
      */
     #[JsonProperty('metadata')]
     public PaginationMeta $metadata;

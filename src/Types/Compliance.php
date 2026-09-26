@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Compliance information captured for a call, including recording consent.
+ */
 class Compliance extends JsonSerializableType
 {
     /**

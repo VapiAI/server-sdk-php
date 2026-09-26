@@ -1,0 +1,12 @@
+<?php
+
+namespace Vapi\Campaigns\Types;
+
+enum CampaignControllerFindAllV2RequestStatus: string
+{
+    case Scheduled = "scheduled";
+    case InProgress = "in-progress";
+    case Ended = "ended";
+    case Cancelled = "cancelled";
+    case Archived = "archived";
+}

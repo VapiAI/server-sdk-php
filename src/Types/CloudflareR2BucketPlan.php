@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Cloudflare R2 bucket configuration for call-artifact storage, including access keys, base URL, bucket name, and path.
+ */
 class CloudflareR2BucketPlan extends JsonSerializableType
 {
     /**

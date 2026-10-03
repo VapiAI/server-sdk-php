@@ -5,31 +5,26 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for authenticating knowledge-base requests with Trieve.
+ */
 class CreateTrieveCredentialDto extends JsonSerializableType
 {
     /**
-     * @var string $apiKey This is not returned in the API.
+     * @var mixed $provider Selects Trieve as the credential provider.
      */
-    #[JsonProperty('apiKey')]
-    public string $apiKey;
-
-    /**
-     * @var ?string $name This is the name of credential. This is just for your reference.
-     */
-    #[JsonProperty('name')]
-    public ?string $name;
+    #[JsonProperty('provider')]
+    public mixed $provider;
 
     /**
      * @param array{
-     *   apiKey: string,
-     *   name?: ?string,
+     *   provider?: mixed,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->apiKey = $values['apiKey'];
-        $this->name = $values['name'] ?? null;
+        $this->provider = $values['provider'] ?? null;
     }
 
     /**

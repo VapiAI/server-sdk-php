@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateCustomLlmCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateCustomLlmCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?string $apiKey This is not returned in the API.
      */
     #[JsonProperty('apiKey')]
@@ -27,6 +33,7 @@ class UpdateCustomLlmCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateCustomLlmCredentialDtoProvider>,
      *   apiKey?: ?string,
      *   authenticationPlan?: ?OAuth2AuthenticationPlan,
      *   name?: ?string,
@@ -35,6 +42,7 @@ class UpdateCustomLlmCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->apiKey = $values['apiKey'] ?? null;
         $this->authenticationPlan = $values['authenticationPlan'] ?? null;
         $this->name = $values['name'] ?? null;

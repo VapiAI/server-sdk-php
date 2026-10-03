@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for authenticating voice synthesis requests with Rime AI.
+ */
 class CreateRimeAiCredentialDto extends JsonSerializableType
 {
     /**

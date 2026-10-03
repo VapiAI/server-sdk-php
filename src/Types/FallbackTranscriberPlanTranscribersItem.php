@@ -22,6 +22,7 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
      *   |'openai'
      *   |'cartesia'
      *   |'soniox'
+     *   |'xai'
      *   |'_unknown'
      * ) $provider
      */
@@ -41,6 +42,7 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
      *   |FallbackOpenAiTranscriber
      *   |FallbackCartesiaTranscriber
      *   |FallbackSonioxTranscriber
+     *   |FallbackXaiTranscriber
      *   |mixed
      * ) $value
      */
@@ -61,6 +63,7 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
      *   |'openai'
      *   |'cartesia'
      *   |'soniox'
+     *   |'xai'
      *   |'_unknown'
      * ),
      *   value: (
@@ -76,6 +79,7 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
      *   |FallbackOpenAiTranscriber
      *   |FallbackCartesiaTranscriber
      *   |FallbackSonioxTranscriber
+     *   |FallbackXaiTranscriber
      *   |mixed
      * ),
      * } $values
@@ -228,6 +232,18 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
         return new FallbackTranscriberPlanTranscribersItem([
             'provider' => 'soniox',
             'value' => $soniox,
+        ]);
+    }
+
+    /**
+     * @param FallbackXaiTranscriber $xai
+     * @return FallbackTranscriberPlanTranscribersItem
+     */
+    public static function xai(FallbackXaiTranscriber $xai): FallbackTranscriberPlanTranscribersItem
+    {
+        return new FallbackTranscriberPlanTranscribersItem([
+            'provider' => 'xai',
+            'value' => $xai,
         ]);
     }
 
@@ -496,6 +512,28 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isXai(): bool
+    {
+        return $this->value instanceof FallbackXaiTranscriber && $this->provider === 'xai';
+    }
+
+    /**
+     * @return FallbackXaiTranscriber
+     */
+    public function asXai(): FallbackXaiTranscriber
+    {
+        if (!($this->value instanceof FallbackXaiTranscriber && $this->provider === 'xai')) {
+            throw new Exception(
+                "Expected xai; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -561,6 +599,10 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
                 break;
             case 'soniox':
                 $value = $this->asSoniox()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'xai':
+                $value = $this->asXai()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -646,6 +688,9 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
                 break;
             case 'soniox':
                 $args['value'] = FallbackSonioxTranscriber::jsonDeserialize($data);
+                break;
+            case 'xai':
+                $args['value'] = FallbackXaiTranscriber::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

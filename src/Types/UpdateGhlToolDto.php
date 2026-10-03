@@ -9,14 +9,16 @@ use Vapi\Core\Types\ArrayType;
 class UpdateGhlToolDto extends JsonSerializableType
 {
     /**
-     * These are the messages that will be spoken to the user as the tool is running.
-     *
-     * For some tools, this is auto-filled based on special fields like `tool.destinations`. For others like the function tool, these can be custom configured.
-     *
-     * @var ?array<UpdateGhlToolDtoMessagesItem> $messages
+     * @var ?array<UpdateGhlToolDtoMessagesItem> $messages Messages spoken while the tool is running. Multiple request-start messages are variants. For request-response-delayed, same timing means variants and different timings mean staged updates.
      */
     #[JsonProperty('messages'), ArrayType([UpdateGhlToolDtoMessagesItem::class])]
     public ?array $messages;
+
+    /**
+     * @var ?value-of<UpdateGhlToolDtoType> $type The type of tool. "ghl" for GHL tool.
+     */
+    #[JsonProperty('type')]
+    public ?string $type;
 
     /**
      * This is the plan to reject a tool call based on the conversation state.
@@ -112,6 +114,7 @@ class UpdateGhlToolDto extends JsonSerializableType
     /**
      * @param array{
      *   messages?: ?array<UpdateGhlToolDtoMessagesItem>,
+     *   type?: ?value-of<UpdateGhlToolDtoType>,
      *   rejectionPlan?: ?ToolRejectionPlan,
      *   metadata?: ?GhlToolMetadata,
      * } $values
@@ -120,6 +123,7 @@ class UpdateGhlToolDto extends JsonSerializableType
         array $values = [],
     ) {
         $this->messages = $values['messages'] ?? null;
+        $this->type = $values['type'] ?? null;
         $this->rejectionPlan = $values['rejectionPlan'] ?? null;
         $this->metadata = $values['metadata'] ?? null;
     }

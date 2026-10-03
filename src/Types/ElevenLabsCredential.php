@@ -22,6 +22,12 @@ class ElevenLabsCredential extends JsonSerializableType
     public string $apiKey;
 
     /**
+     * @var ?value-of<ElevenLabsCredentialApiUrl> $apiUrl ElevenLabs-only API environment for this key: the global endpoint or the EU data residency endpoint. In EU deployments, new credentials must explicitly use the EU data residency endpoint; existing credentials may omit this field on update to retain their saved endpoint. Outside EU deployments, Vapi detects an omitted endpoint automatically and null on update clears and re-detects the endpoint.
+     */
+    #[JsonProperty('apiUrl')]
+    public ?string $apiUrl;
+
+    /**
      * @var string $id This is the unique identifier for the credential.
      */
     #[JsonProperty('id')]
@@ -59,6 +65,7 @@ class ElevenLabsCredential extends JsonSerializableType
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
+     *   apiUrl?: ?value-of<ElevenLabsCredentialApiUrl>,
      *   name?: ?string,
      * } $values
      */
@@ -67,6 +74,7 @@ class ElevenLabsCredential extends JsonSerializableType
     ) {
         $this->provider = $values['provider'];
         $this->apiKey = $values['apiKey'];
+        $this->apiUrl = $values['apiUrl'] ?? null;
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];

@@ -6,8 +6,28 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Workflow model configuration for a custom language model endpoint, including URL, headers, metadata delivery, timeout, model, temperature, and maximum output tokens.
+ */
 class WorkflowCustomModel extends JsonSerializableType
 {
+    /**
+     * These are the messages used to customize the prompt used for structured output extraction.
+     *
+     * When provided, these messages replace the default prompts. Message contents support LiquidJS templating with the following variables:
+     * - `{{transcript}}` or `{{messages}}` to reference the conversation (one is required)
+     * - `{{structuredOutput.name}}`, `{{structuredOutput.description}}`, or `{{structuredOutput.schema}}` to reference the structured output definition (one is required)
+     * - `{{systemPrompt}}`, `{{callEndedReason}}`, `{{duration}}`, `{{startedAt}}`, `{{endedAt}}`, and any `assistantOverrides.variableValues`
+     *
+     * `{{messages}}` is the full message history including tool calls; `{{transcript}}` is the spoken text only, which uses significantly fewer tokens.
+     *
+     * If not provided, default system and user prompts are used.
+     *
+     * @var ?array<OpenAiMessage> $messages
+     */
+    #[JsonProperty('messages'), ArrayType([OpenAiMessage::class])]
+    public ?array $messages;
+
     /**
      * This determines whether metadata is sent in requests to the custom provider.
      *
@@ -64,6 +84,7 @@ class WorkflowCustomModel extends JsonSerializableType
      * @param array{
      *   url: string,
      *   model: string,
+     *   messages?: ?array<OpenAiMessage>,
      *   metadataSendMode?: ?value-of<WorkflowCustomModelMetadataSendMode>,
      *   headers?: ?array<string, mixed>,
      *   timeoutSeconds?: ?float,
@@ -74,6 +95,7 @@ class WorkflowCustomModel extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
+        $this->messages = $values['messages'] ?? null;
         $this->metadataSendMode = $values['metadataSendMode'] ?? null;
         $this->url = $values['url'];
         $this->headers = $values['headers'] ?? null;

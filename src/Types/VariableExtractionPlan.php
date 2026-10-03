@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Defines structured variables to extract and optional aliases made available during and after a call.
+ */
 class VariableExtractionPlan extends JsonSerializableType
 {
     /**

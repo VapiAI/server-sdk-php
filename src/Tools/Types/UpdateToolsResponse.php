@@ -8,6 +8,7 @@ use Vapi\Types\CodeTool;
 use Vapi\Types\DtmfTool;
 use Vapi\Types\EndCallTool;
 use Vapi\Types\FunctionTool;
+use Vapi\Types\KnowledgeBaseTool;
 use Vapi\Types\TransferCallTool;
 use Vapi\Types\HandoffTool;
 use Vapi\Types\BashTool;
@@ -38,6 +39,7 @@ class UpdateToolsResponse extends JsonSerializableType
      *   |'dtmf'
      *   |'endCall'
      *   |'function'
+     *   |'knowledgeBase'
      *   |'transferCall'
      *   |'handoff'
      *   |'bash'
@@ -68,6 +70,7 @@ class UpdateToolsResponse extends JsonSerializableType
      *   |DtmfTool
      *   |EndCallTool
      *   |FunctionTool
+     *   |KnowledgeBaseTool
      *   |TransferCallTool
      *   |HandoffTool
      *   |BashTool
@@ -99,6 +102,7 @@ class UpdateToolsResponse extends JsonSerializableType
      *   |'dtmf'
      *   |'endCall'
      *   |'function'
+     *   |'knowledgeBase'
      *   |'transferCall'
      *   |'handoff'
      *   |'bash'
@@ -125,6 +129,7 @@ class UpdateToolsResponse extends JsonSerializableType
      *   |DtmfTool
      *   |EndCallTool
      *   |FunctionTool
+     *   |KnowledgeBaseTool
      *   |TransferCallTool
      *   |HandoffTool
      *   |BashTool
@@ -211,6 +216,18 @@ class UpdateToolsResponse extends JsonSerializableType
         return new UpdateToolsResponse([
             'type' => 'function',
             'value' => $function,
+        ]);
+    }
+
+    /**
+     * @param KnowledgeBaseTool $knowledgeBase
+     * @return UpdateToolsResponse
+     */
+    public static function knowledgeBase(KnowledgeBaseTool $knowledgeBase): UpdateToolsResponse
+    {
+        return new UpdateToolsResponse([
+            'type' => 'knowledgeBase',
+            'value' => $knowledgeBase,
         ]);
     }
 
@@ -534,6 +551,28 @@ class UpdateToolsResponse extends JsonSerializableType
         if (!($this->value instanceof FunctionTool && $this->type === 'function')) {
             throw new Exception(
                 "Expected function; got " . $this->type . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isKnowledgeBase(): bool
+    {
+        return $this->value instanceof KnowledgeBaseTool && $this->type === 'knowledgeBase';
+    }
+
+    /**
+     * @return KnowledgeBaseTool
+     */
+    public function asKnowledgeBase(): KnowledgeBaseTool
+    {
+        if (!($this->value instanceof KnowledgeBaseTool && $this->type === 'knowledgeBase')) {
+            throw new Exception(
+                "Expected knowledgeBase; got " . $this->type . " with value of type " . get_debug_type($this->value),
             );
         }
 
@@ -976,6 +1015,10 @@ class UpdateToolsResponse extends JsonSerializableType
                 $value = $this->asFunction_()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
+            case 'knowledgeBase':
+                $value = $this->asKnowledgeBase()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
             case 'transferCall':
                 $value = $this->asTransferCall()->jsonSerialize();
                 $result = array_merge($value, $result);
@@ -1110,6 +1153,9 @@ class UpdateToolsResponse extends JsonSerializableType
                 break;
             case 'function':
                 $args['value'] = FunctionTool::jsonDeserialize($data);
+                break;
+            case 'knowledgeBase':
+                $args['value'] = KnowledgeBaseTool::jsonDeserialize($data);
                 break;
             case 'transferCall':
                 $args['value'] = TransferCallTool::jsonDeserialize($data);

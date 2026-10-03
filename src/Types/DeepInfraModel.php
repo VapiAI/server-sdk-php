@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for generating assistant responses with DeepInfra, including model, prompts, tools, knowledge-base access, and generation settings.
+ */
 class DeepInfraModel extends JsonSerializableType
 {
     /**
@@ -35,6 +38,17 @@ class DeepInfraModel extends JsonSerializableType
     public ?array $toolIds;
 
     /**
+     * These are version-pinned references to tools. Each entry pins a specific
+     * version of a tool by `(toolId, version)`. When the same `toolId` appears
+     * in both `toolIds` and `toolRefs[]`, the `toolRefs` pin wins (the
+     * `toolIds` entry is dropped at write time).
+     *
+     * @var ?array<ToolRef> $toolRefs
+     */
+    #[JsonProperty('toolRefs'), ArrayType([ToolRef::class])]
+    public ?array $toolRefs;
+
+    /**
      * @var ?CreateCustomKnowledgeBaseDto $knowledgeBase These are the options for the knowledge base.
      */
     #[JsonProperty('knowledgeBase')]
@@ -47,7 +61,7 @@ class DeepInfraModel extends JsonSerializableType
     public string $model;
 
     /**
-     * @var ?float $temperature This is the temperature that will be used for calls. Default is 0 to leverage caching for lower latency.
+     * @var ?float $temperature This is the temperature that will be used for calls. Default is 0.5.
      */
     #[JsonProperty('temperature')]
     public ?float $temperature;
@@ -88,6 +102,7 @@ class DeepInfraModel extends JsonSerializableType
      *   messages?: ?array<OpenAiMessage>,
      *   tools?: ?array<DeepInfraModelToolsItem>,
      *   toolIds?: ?array<string>,
+     *   toolRefs?: ?array<ToolRef>,
      *   knowledgeBase?: ?CreateCustomKnowledgeBaseDto,
      *   temperature?: ?float,
      *   maxTokens?: ?float,
@@ -101,6 +116,7 @@ class DeepInfraModel extends JsonSerializableType
         $this->messages = $values['messages'] ?? null;
         $this->tools = $values['tools'] ?? null;
         $this->toolIds = $values['toolIds'] ?? null;
+        $this->toolRefs = $values['toolRefs'] ?? null;
         $this->knowledgeBase = $values['knowledgeBase'] ?? null;
         $this->model = $values['model'];
         $this->temperature = $values['temperature'] ?? null;

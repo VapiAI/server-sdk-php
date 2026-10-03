@@ -11,11 +11,13 @@ use Vapi\Core\Types\Date;
 class OutputTool extends JsonSerializableType
 {
     /**
-     * These are the messages that will be spoken to the user as the tool is running.
-     *
-     * For some tools, this is auto-filled based on special fields like `tool.destinations`. For others like the function tool, these can be custom configured.
-     *
-     * @var ?array<OutputToolMessagesItem> $messages
+     * @var ?string $latestVersion
+     */
+    #[JsonProperty('latestVersion')]
+    public ?string $latestVersion;
+
+    /**
+     * @var ?array<OutputToolMessagesItem> $messages Messages spoken while the tool is running. Multiple request-start messages are variants. For request-response-delayed, same timing means variants and different timings mean staged updates.
      */
     #[JsonProperty('messages'), ArrayType([OutputToolMessagesItem::class])]
     public ?array $messages;
@@ -142,6 +144,7 @@ class OutputTool extends JsonSerializableType
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
+     *   latestVersion?: ?string,
      *   messages?: ?array<OutputToolMessagesItem>,
      *   rejectionPlan?: ?ToolRejectionPlan,
      * } $values
@@ -149,6 +152,7 @@ class OutputTool extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
+        $this->latestVersion = $values['latestVersion'] ?? null;
         $this->messages = $values['messages'] ?? null;
         $this->type = $values['type'];
         $this->id = $values['id'];

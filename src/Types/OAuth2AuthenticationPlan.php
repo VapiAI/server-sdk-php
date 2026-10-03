@@ -5,10 +5,13 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Client-credentials configuration for obtaining an OAuth 2.0 access token used to authenticate outbound requests.
+ */
 class OAuth2AuthenticationPlan extends JsonSerializableType
 {
     /**
-     * @var value-of<OAuth2AuthenticationPlanType> $type
+     * @var value-of<OAuth2AuthenticationPlanType> $type Selects OAuth 2.0 authentication.
      */
     #[JsonProperty('type')]
     public string $type;

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Fallback configuration for sending conversation audio to a custom WebSocket transcription server.
+ */
 class FallbackCustomTranscriber extends JsonSerializableType
 {
     /**

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for synthesizing assistant speech with LMNT, including voice selection, language, speed, chunking, caching, and fallback settings.
+ */
 class LmntVoice extends JsonSerializableType
 {
     /**

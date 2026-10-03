@@ -54,4 +54,11 @@ enum RimeAiVoiceIdEnum: string
     case Masonry = "masonry";
     case Albion = "albion";
     case Parapet = "parapet";
+    case Clementine = "clementine";
+    case Walnut = "walnut";
+    case Eyre = "eyre";
+    case Bancroft = "bancroft";
+    case Hesse = "hesse";
+    case Beatty = "beatty";
+    case Godfrey = "godfrey";
 }

@@ -5,10 +5,13 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Enables Anthropic extended thinking with a maximum thinking-token budget.
+ */
 class AnthropicThinkingConfig extends JsonSerializableType
 {
     /**
-     * @var value-of<AnthropicThinkingConfigType> $type
+     * @var value-of<AnthropicThinkingConfigType> $type Enables Anthropic extended thinking.
      */
     #[JsonProperty('type')]
     public string $type;

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for using LiveKit smart endpointing, including provider selection and wait-function behavior.
+ */
 class LivekitSmartEndpointingPlan extends JsonSerializableType
 {
     /**

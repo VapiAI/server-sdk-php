@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Tavus conversation behavior and media settings, including duration, participant timeouts, recording, transcription, background, language, and recording storage.
+ */
 class TavusConversationProperties extends JsonSerializableType
 {
     /**

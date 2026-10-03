@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Fallback configuration for synthesizing assistant speech with OpenAI, including voice and model selection, delivery instructions, speed, chunking, and caching.
+ */
 class FallbackOpenAiVoice extends JsonSerializableType
 {
     /**
@@ -14,16 +17,10 @@ class FallbackOpenAiVoice extends JsonSerializableType
     public ?bool $cachingEnabled;
 
     /**
-     * This is the provider-specific ID that will be used.
-     * Please note that ash, ballad, coral, sage, and verse may only be used with realtime models.
-     *
-     * @var (
-     *    value-of<FallbackOpenAiVoiceIdEnum>
-     *   |string
-     * ) $voiceId
+     * @var mixed $voiceId
      */
     #[JsonProperty('voiceId')]
-    public string $voiceId;
+    public mixed $voiceId;
 
     /**
      * @var ?value-of<FallbackOpenAiVoiceModel> $model This is the model that will be used for text-to-speech.
@@ -54,10 +51,7 @@ class FallbackOpenAiVoice extends JsonSerializableType
 
     /**
      * @param array{
-     *   voiceId: (
-     *    value-of<FallbackOpenAiVoiceIdEnum>
-     *   |string
-     * ),
+     *   voiceId: mixed,
      *   cachingEnabled?: ?bool,
      *   model?: ?value-of<FallbackOpenAiVoiceModel>,
      *   instructions?: ?string,

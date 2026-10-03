@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Filters event data by comparing or searching a string field.
+ */
 class EventsTableStringCondition extends JsonSerializableType
 {
     /**

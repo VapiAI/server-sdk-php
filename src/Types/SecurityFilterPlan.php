@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Controls filtering of transcripts for security threats before content is sent to the assistant's language model, including filter selection, handling mode, and replacement text.
+ */
 class SecurityFilterPlan extends JsonSerializableType
 {
     /**

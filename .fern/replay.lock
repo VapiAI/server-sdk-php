@@ -6,5 +6,11 @@ generations:
     timestamp: 2026-10-09T21:56:58.184Z
     cli_version: unknown
     generator_versions: {}
-current_generation: 13cd0c5de1ca81174c35f2ed009501bad4407ee6
+  - commit_sha: c7f97942c09d33ca2ec019e502914b82c2aeff3d
+    tree_hash: e254e709cb6aa7c216cb7f7c91b7e85a79341c8c
+    timestamp: 2026-10-09T21:56:59.008Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-php-sdk: 2.4.0
+current_generation: c7f97942c09d33ca2ec019e502914b82c2aeff3d
 patches: []

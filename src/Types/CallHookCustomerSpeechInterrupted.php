@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Runs configured actions when the assistant interrupts the customer's speech.
+ */
 class CallHookCustomerSpeechInterrupted extends JsonSerializableType
 {
     /**

@@ -9,6 +9,30 @@ use Vapi\Core\Types\ArrayType;
 class CreateOutboundCallDto extends JsonSerializableType
 {
     /**
+     * This is the assistant version to use for this call. Supported only with
+     * direct `assistantId`. Omit to follow the latest version.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
+     * This is the squad version to use for this call. Supported only with
+     * direct `squadId`. Omit to follow the latest version.
+     *
+     * @var ?string $squadVersion
+     */
+    #[JsonProperty('squadVersion')]
+    public ?string $squadVersion;
+
+    /**
+     * @var ?CreateOutboundCallDtoTransport $transport This is the transport of the call.
+     */
+    #[JsonProperty('transport')]
+    public ?CreateOutboundCallDtoTransport $transport;
+
+    /**
      * This is used to issue batch calls to multiple customers.
      *
      * Only relevant for `outboundPhoneCall`. To call a single customer, use `customer` instead.
@@ -29,12 +53,6 @@ class CreateOutboundCallDto extends JsonSerializableType
      */
     #[JsonProperty('schedulePlan')]
     public ?SchedulePlan $schedulePlan;
-
-    /**
-     * @var ?array<string, mixed> $transport This is the transport of the call.
-     */
-    #[JsonProperty('transport'), ArrayType(['string' => 'mixed'])]
-    public ?array $transport;
 
     /**
      * This is the assistant ID that will be used for the call. To use a transient assistant, use `assistant` instead.
@@ -177,10 +195,12 @@ class CreateOutboundCallDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   assistantVersion?: ?string,
+     *   squadVersion?: ?string,
+     *   transport?: ?CreateOutboundCallDtoTransport,
      *   customers?: ?array<CreateCustomerDto>,
      *   name?: ?string,
      *   schedulePlan?: ?SchedulePlan,
-     *   transport?: ?array<string, mixed>,
      *   assistantId?: ?string,
      *   assistant?: ?CreateAssistantDto,
      *   assistantOverrides?: ?AssistantOverrides,
@@ -199,10 +219,12 @@ class CreateOutboundCallDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
+        $this->squadVersion = $values['squadVersion'] ?? null;
+        $this->transport = $values['transport'] ?? null;
         $this->customers = $values['customers'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->schedulePlan = $values['schedulePlan'] ?? null;
-        $this->transport = $values['transport'] ?? null;
         $this->assistantId = $values['assistantId'] ?? null;
         $this->assistant = $values['assistant'] ?? null;
         $this->assistantOverrides = $values['assistantOverrides'] ?? null;

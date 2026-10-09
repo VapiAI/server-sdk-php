@@ -10,22 +10,22 @@ use Vapi\Core\Types\Date;
 class GetEvalRunPaginatedDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<GetEvalRunPaginatedDtoSortBy> $sortBy
+     */
+    #[JsonProperty('sortBy')]
+    public ?string $sortBy;
+
+    /**
+     * @var ?string $search Literal, case-insensitive search across eval and assistant names.
+     */
+    #[JsonProperty('search')]
+    public ?string $search;
+
+    /**
      * @var ?string $id
      */
     #[JsonProperty('id')]
     public ?string $id;
-
-    /**
-     * @var ?float $page This is the page number to return. Defaults to 1.
-     */
-    #[JsonProperty('page')]
-    public ?float $page;
-
-    /**
-     * @var ?value-of<GetEvalRunPaginatedDtoSortOrder> $sortOrder This is the sort order for pagination. Defaults to 'DESC'.
-     */
-    #[JsonProperty('sortOrder')]
-    public ?string $sortOrder;
 
     /**
      * @var ?float $limit This is the maximum number of items to return. Defaults to 100.
@@ -82,10 +82,22 @@ class GetEvalRunPaginatedDto extends JsonSerializableType
     public ?DateTime $updatedAtLe;
 
     /**
+     * @var ?float $page This is the page number to return. Defaults to 1.
+     */
+    #[JsonProperty('page')]
+    public ?float $page;
+
+    /**
+     * @var ?value-of<GetEvalRunPaginatedDtoSortOrder> $sortOrder This is the sort order for pagination. Defaults to 'DESC'.
+     */
+    #[JsonProperty('sortOrder')]
+    public ?string $sortOrder;
+
+    /**
      * @param array{
+     *   sortBy?: ?value-of<GetEvalRunPaginatedDtoSortBy>,
+     *   search?: ?string,
      *   id?: ?string,
-     *   page?: ?float,
-     *   sortOrder?: ?value-of<GetEvalRunPaginatedDtoSortOrder>,
      *   limit?: ?float,
      *   createdAtGt?: ?DateTime,
      *   createdAtLt?: ?DateTime,
@@ -95,14 +107,16 @@ class GetEvalRunPaginatedDto extends JsonSerializableType
      *   updatedAtLt?: ?DateTime,
      *   updatedAtGe?: ?DateTime,
      *   updatedAtLe?: ?DateTime,
+     *   page?: ?float,
+     *   sortOrder?: ?value-of<GetEvalRunPaginatedDtoSortOrder>,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
+        $this->sortBy = $values['sortBy'] ?? null;
+        $this->search = $values['search'] ?? null;
         $this->id = $values['id'] ?? null;
-        $this->page = $values['page'] ?? null;
-        $this->sortOrder = $values['sortOrder'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->createdAtGt = $values['createdAtGt'] ?? null;
         $this->createdAtLt = $values['createdAtLt'] ?? null;
@@ -112,6 +126,8 @@ class GetEvalRunPaginatedDto extends JsonSerializableType
         $this->updatedAtLt = $values['updatedAtLt'] ?? null;
         $this->updatedAtGe = $values['updatedAtGe'] ?? null;
         $this->updatedAtLe = $values['updatedAtLe'] ?? null;
+        $this->page = $values['page'] ?? null;
+        $this->sortOrder = $values['sortOrder'] ?? null;
     }
 
     /**

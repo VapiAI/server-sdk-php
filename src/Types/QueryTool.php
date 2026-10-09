@@ -8,14 +8,19 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A reusable tool that searches configured knowledge bases and returns relevant content to the assistant.
+ */
 class QueryTool extends JsonSerializableType
 {
     /**
-     * These are the messages that will be spoken to the user as the tool is running.
-     *
-     * For some tools, this is auto-filled based on special fields like `tool.destinations`. For others like the function tool, these can be custom configured.
-     *
-     * @var ?array<QueryToolMessagesItem> $messages
+     * @var ?string $latestVersion
+     */
+    #[JsonProperty('latestVersion')]
+    public ?string $latestVersion;
+
+    /**
+     * @var ?array<QueryToolMessagesItem> $messages Messages spoken while the tool is running. Multiple request-start messages are variants. For request-response-delayed, same timing means variants and different timings mean staged updates.
      */
     #[JsonProperty('messages'), ArrayType([QueryToolMessagesItem::class])]
     public ?array $messages;
@@ -141,6 +146,7 @@ class QueryTool extends JsonSerializableType
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
+     *   latestVersion?: ?string,
      *   messages?: ?array<QueryToolMessagesItem>,
      *   knowledgeBases?: ?array<KnowledgeBase>,
      *   rejectionPlan?: ?ToolRejectionPlan,
@@ -149,6 +155,7 @@ class QueryTool extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
+        $this->latestVersion = $values['latestVersion'] ?? null;
         $this->messages = $values['messages'] ?? null;
         $this->knowledgeBases = $values['knowledgeBases'] ?? null;
         $this->id = $values['id'];

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for signing outbound requests with an HMAC secret, including algorithm, headers, payload format, and signature encoding.
+ */
 class HmacAuthenticationPlan extends JsonSerializableType
 {
     /**

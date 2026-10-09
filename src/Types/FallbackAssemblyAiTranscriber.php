@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Fallback configuration for transcribing speech with AssemblyAI, including language, streaming model, endpointing, and vocabulary.
+ */
 class FallbackAssemblyAiTranscriber extends JsonSerializableType
 {
     /**
@@ -86,8 +89,52 @@ class FallbackAssemblyAiTranscriber extends JsonSerializableType
     public ?bool $vadAssistedEndpointingEnabled;
 
     /**
+     * This is the transcription mode used by the Universal Pro speech models. Only applies to `universal-3-5-pro` and `universal-3-6-pro`.
+     *
+     * @default 'balanced'
+     *
+     * @var ?value-of<FallbackAssemblyAiTranscriberMode> $mode
+     */
+    #[JsonProperty('mode')]
+    public ?string $mode;
+
+    /**
+     * @var ?string $prompt This is a prompt that provides additional context to the transcription model. Only applies to `universal-3-5-pro` and `universal-3-6-pro`.
+     */
+    #[JsonProperty('prompt')]
+    public ?string $prompt;
+
+    /**
+     * @var ?string $agentContext This is context about the voice agent that guides the transcription model. Only applies to `universal-3-5-pro` and `universal-3-6-pro`.
+     */
+    #[JsonProperty('agentContext')]
+    public ?string $agentContext;
+
+    /**
+     * When true, the text the assistant just spoke is sent to AssemblyAI as `agent_context` after every assistant turn, replacing the previous value, so the user's reply is transcribed in the context of the question it answers.
+     * `agentContext` still seeds the first turn. Text longer than 1750 characters keeps its last 1750 characters. Turns the user interrupted are not sent when the interruption is detected by voice activity (the default, `stopSpeakingPlan.numWords: 0`).
+     * Only applies to `universal-3-5-pro` and `universal-3-6-pro`.
+     *
+     * @default false
+     *
+     * @var ?bool $agentContextAutoUpdateEnabled
+     */
+    #[JsonProperty('agentContextAutoUpdateEnabled')]
+    public ?bool $agentContextAutoUpdateEnabled;
+
+    /**
+     * These are language codes used to steer automatic language detection. Only applies to `universal-3-5-pro` and `universal-3-6-pro`.
+     * `ur`, `ru`, `ko`, `ca`, `gl`, `ro`, `et`, `fa`, `yue`, `af`, `mr`, `zu`, `xh` and `nn` were added with `universal-3-6-pro`.
+     *
+     * @var ?array<value-of<FallbackAssemblyAiTranscriberLanguageCodesItem>> $languageCodes
+     */
+    #[JsonProperty('languageCodes'), ArrayType(['string'])]
+    public ?array $languageCodes;
+
+    /**
      * This is the speech model used for the streaming session.
-     * Note: Keyterms prompting is not supported with multilingual streaming.
+     * Keyterms prompting is supported on universal-streaming-english, universal-3-5-pro and universal-3-6-pro.
+     * universal-3-6-pro is AssemblyAI's newest and most accurate voice-agent model.
      * @default 'universal-streaming-english'
      *
      * @var ?value-of<FallbackAssemblyAiTranscriberSpeechModel> $speechModel
@@ -110,7 +157,7 @@ class FallbackAssemblyAiTranscriber extends JsonSerializableType
     /**
      * Keyterms prompting improves recognition accuracy for specific words and phrases.
      * Can include up to 100 keyterms, each up to 50 characters.
-     * Costs an additional $0.04/hour when enabled.
+     * Costs an additional $0.04/hour on universal-streaming-english and is included at no extra cost on the Universal Pro models (universal-3-5-pro, universal-3-6-pro).
      *
      * @var ?array<string> $keytermsPrompt
      */
@@ -142,6 +189,11 @@ class FallbackAssemblyAiTranscriber extends JsonSerializableType
      *   wordFinalizationMaxWaitTime?: ?float,
      *   maxTurnSilence?: ?float,
      *   vadAssistedEndpointingEnabled?: ?bool,
+     *   mode?: ?value-of<FallbackAssemblyAiTranscriberMode>,
+     *   prompt?: ?string,
+     *   agentContext?: ?string,
+     *   agentContextAutoUpdateEnabled?: ?bool,
+     *   languageCodes?: ?array<value-of<FallbackAssemblyAiTranscriberLanguageCodesItem>>,
      *   speechModel?: ?value-of<FallbackAssemblyAiTranscriberSpeechModel>,
      *   realtimeUrl?: ?string,
      *   wordBoost?: ?array<string>,
@@ -161,6 +213,11 @@ class FallbackAssemblyAiTranscriber extends JsonSerializableType
         $this->wordFinalizationMaxWaitTime = $values['wordFinalizationMaxWaitTime'] ?? null;
         $this->maxTurnSilence = $values['maxTurnSilence'] ?? null;
         $this->vadAssistedEndpointingEnabled = $values['vadAssistedEndpointingEnabled'] ?? null;
+        $this->mode = $values['mode'] ?? null;
+        $this->prompt = $values['prompt'] ?? null;
+        $this->agentContext = $values['agentContext'] ?? null;
+        $this->agentContextAutoUpdateEnabled = $values['agentContextAutoUpdateEnabled'] ?? null;
+        $this->languageCodes = $values['languageCodes'] ?? null;
         $this->speechModel = $values['speechModel'] ?? null;
         $this->realtimeUrl = $values['realtimeUrl'] ?? null;
         $this->wordBoost = $values['wordBoost'] ?? null;

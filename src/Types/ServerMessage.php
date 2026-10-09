@@ -46,10 +46,12 @@ class ServerMessage extends JsonSerializableType
      *   |ServerMessageSessionDeleted
      *   |ServerMessageCallDeleted
      *   |ServerMessageCallDeleteFailed
+     *   |ServerMessageCallArtifactUpload
+     *   |ServerMessageCampaignPredial
      * ) $message
      */
-    #[JsonProperty('message'), Union(ServerMessageAssistantRequest::class, ServerMessageConversationUpdate::class, ServerMessageEndOfCallReport::class, ServerMessageHandoffDestinationRequest::class, ServerMessageHang::class, ServerMessageKnowledgeBaseRequest::class, ServerMessageModelOutput::class, ServerMessagePhoneCallControl::class, ServerMessageSpeechUpdate::class, ServerMessageStatusUpdate::class, ServerMessageToolCalls::class, ServerMessageTransferDestinationRequest::class, ServerMessageTransferUpdate::class, ServerMessageTranscript::class, ServerMessageUserInterrupted::class, ServerMessageLanguageChangeDetected::class, ServerMessageVoiceInput::class, ServerMessageAssistantSpeech::class, ServerMessageVoiceRequest::class, ServerMessageCallEndpointingRequest::class, ServerMessageChatCreated::class, ServerMessageChatDeleted::class, ServerMessageSessionCreated::class, ServerMessageSessionUpdated::class, ServerMessageSessionDeleted::class, ServerMessageCallDeleted::class, ServerMessageCallDeleteFailed::class)]
-    public ServerMessageAssistantRequest|ServerMessageConversationUpdate|ServerMessageEndOfCallReport|ServerMessageHandoffDestinationRequest|ServerMessageHang|ServerMessageKnowledgeBaseRequest|ServerMessageModelOutput|ServerMessagePhoneCallControl|ServerMessageSpeechUpdate|ServerMessageStatusUpdate|ServerMessageToolCalls|ServerMessageTransferDestinationRequest|ServerMessageTransferUpdate|ServerMessageTranscript|ServerMessageUserInterrupted|ServerMessageLanguageChangeDetected|ServerMessageVoiceInput|ServerMessageAssistantSpeech|ServerMessageVoiceRequest|ServerMessageCallEndpointingRequest|ServerMessageChatCreated|ServerMessageChatDeleted|ServerMessageSessionCreated|ServerMessageSessionUpdated|ServerMessageSessionDeleted|ServerMessageCallDeleted|ServerMessageCallDeleteFailed $message;
+    #[JsonProperty('message'), Union(ServerMessageAssistantRequest::class, ServerMessageConversationUpdate::class, ServerMessageEndOfCallReport::class, ServerMessageHandoffDestinationRequest::class, ServerMessageHang::class, ServerMessageKnowledgeBaseRequest::class, ServerMessageModelOutput::class, ServerMessagePhoneCallControl::class, ServerMessageSpeechUpdate::class, ServerMessageStatusUpdate::class, ServerMessageToolCalls::class, ServerMessageTransferDestinationRequest::class, ServerMessageTransferUpdate::class, ServerMessageTranscript::class, ServerMessageUserInterrupted::class, ServerMessageLanguageChangeDetected::class, ServerMessageVoiceInput::class, ServerMessageAssistantSpeech::class, ServerMessageVoiceRequest::class, ServerMessageCallEndpointingRequest::class, ServerMessageChatCreated::class, ServerMessageChatDeleted::class, ServerMessageSessionCreated::class, ServerMessageSessionUpdated::class, ServerMessageSessionDeleted::class, ServerMessageCallDeleted::class, ServerMessageCallDeleteFailed::class, ServerMessageCallArtifactUpload::class, ServerMessageCampaignPredial::class)]
+    public ServerMessageAssistantRequest|ServerMessageConversationUpdate|ServerMessageEndOfCallReport|ServerMessageHandoffDestinationRequest|ServerMessageHang|ServerMessageKnowledgeBaseRequest|ServerMessageModelOutput|ServerMessagePhoneCallControl|ServerMessageSpeechUpdate|ServerMessageStatusUpdate|ServerMessageToolCalls|ServerMessageTransferDestinationRequest|ServerMessageTransferUpdate|ServerMessageTranscript|ServerMessageUserInterrupted|ServerMessageLanguageChangeDetected|ServerMessageVoiceInput|ServerMessageAssistantSpeech|ServerMessageVoiceRequest|ServerMessageCallEndpointingRequest|ServerMessageChatCreated|ServerMessageChatDeleted|ServerMessageSessionCreated|ServerMessageSessionUpdated|ServerMessageSessionDeleted|ServerMessageCallDeleted|ServerMessageCallDeleteFailed|ServerMessageCallArtifactUpload|ServerMessageCampaignPredial $message;
 
     /**
      * @param array{
@@ -81,6 +83,8 @@ class ServerMessage extends JsonSerializableType
      *   |ServerMessageSessionDeleted
      *   |ServerMessageCallDeleted
      *   |ServerMessageCallDeleteFailed
+     *   |ServerMessageCallArtifactUpload
+     *   |ServerMessageCampaignPredial
      * ),
      * } $values
      */

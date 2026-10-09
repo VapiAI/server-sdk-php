@@ -4,7 +4,11 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
+use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for transcribing speech during assistant conversations with Gladia, including language behavior, audio processing, endpointing, vocabulary, region, and fallback settings.
+ */
 class GladiaTranscriber extends JsonSerializableType
 {
     /**
@@ -26,10 +30,10 @@ class GladiaTranscriber extends JsonSerializableType
     public ?string $language;
 
     /**
-     * @var ?value-of<GladiaTranscriberLanguages> $languages Defines the languages to use for the transcription. Required when languageBehaviour is 'manual'.
+     * @var ?array<value-of<GladiaTranscriberLanguagesItem>> $languages Defines the languages to use for the transcription. Required when languageBehaviour is 'manual'.
      */
-    #[JsonProperty('languages')]
-    public ?string $languages;
+    #[JsonProperty('languages'), ArrayType(['string'])]
+    public ?array $languages;
 
     /**
      * Provides a custom vocabulary to the model to improve accuracy of transcribing context specific words, technical terms, names, etc. If empty, this argument is ignored.
@@ -109,7 +113,7 @@ class GladiaTranscriber extends JsonSerializableType
      *   model?: ?value-of<GladiaTranscriberModel>,
      *   languageBehaviour?: ?value-of<GladiaTranscriberLanguageBehaviour>,
      *   language?: ?value-of<GladiaTranscriberLanguage>,
-     *   languages?: ?value-of<GladiaTranscriberLanguages>,
+     *   languages?: ?array<value-of<GladiaTranscriberLanguagesItem>>,
      *   transcriptionHint?: ?string,
      *   prosody?: ?bool,
      *   audioEnhancer?: ?bool,

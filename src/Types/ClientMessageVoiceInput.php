@@ -14,6 +14,17 @@ class ClientMessageVoiceInput extends JsonSerializableType
     public ?ClientMessageVoiceInputPhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var value-of<ClientMessageVoiceInputType> $type This is the type of the message. "voice-input" is sent when a generation is requested from voice provider.
      */
     #[JsonProperty('type')]
@@ -54,6 +65,7 @@ class ClientMessageVoiceInput extends JsonSerializableType
      *   type: value-of<ClientMessageVoiceInputType>,
      *   input: string,
      *   phoneNumber?: ?ClientMessageVoiceInputPhoneNumber,
+     *   assistantVersion?: ?string,
      *   timestamp?: ?float,
      *   call?: ?Call,
      *   customer?: ?CreateCustomerDto,
@@ -64,6 +76,7 @@ class ClientMessageVoiceInput extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->timestamp = $values['timestamp'] ?? null;
         $this->call = $values['call'] ?? null;

@@ -9,6 +9,12 @@ use Vapi\Core\Types\ArrayType;
 class UpdateByoSipTrunkCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateByoSipTrunkCredentialDtoProvider> $provider This can be used to bring your own SIP trunks or to connect to a Carrier.
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?string $name This is the name of credential. This is just for your reference.
      */
     #[JsonProperty('name')]
@@ -52,32 +58,26 @@ class UpdateByoSipTrunkCredentialDto extends JsonSerializableType
     public ?string $sipDiversionHeader;
 
     /**
-     * @var ?SbcConfiguration $sbcConfiguration This is an advanced configuration for enterprise deployments. This uses the onprem SBC to trunk into the SIP trunk's `gateways`, rather than the managed SBC provided by Vapi.
-     */
-    #[JsonProperty('sbcConfiguration')]
-    public ?SbcConfiguration $sbcConfiguration;
-
-    /**
      * @param array{
+     *   provider?: ?value-of<UpdateByoSipTrunkCredentialDtoProvider>,
      *   name?: ?string,
      *   gateways?: ?array<SipTrunkGateway>,
      *   outboundAuthenticationPlan?: ?SipTrunkOutboundAuthenticationPlan,
      *   outboundLeadingPlusEnabled?: ?bool,
      *   techPrefix?: ?string,
      *   sipDiversionHeader?: ?string,
-     *   sbcConfiguration?: ?SbcConfiguration,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->gateways = $values['gateways'] ?? null;
         $this->outboundAuthenticationPlan = $values['outboundAuthenticationPlan'] ?? null;
         $this->outboundLeadingPlusEnabled = $values['outboundLeadingPlusEnabled'] ?? null;
         $this->techPrefix = $values['techPrefix'] ?? null;
         $this->sipDiversionHeader = $values['sipDiversionHeader'] ?? null;
-        $this->sbcConfiguration = $values['sbcConfiguration'] ?? null;
     }
 
     /**

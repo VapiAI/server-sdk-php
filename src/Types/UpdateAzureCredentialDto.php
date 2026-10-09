@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateAzureCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateAzureCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?value-of<UpdateAzureCredentialDtoService> $service This is the service being used in Azure.
      */
     #[JsonProperty('service')]
@@ -45,6 +51,7 @@ class UpdateAzureCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateAzureCredentialDtoProvider>,
      *   service?: ?value-of<UpdateAzureCredentialDtoService>,
      *   region?: ?value-of<UpdateAzureCredentialDtoRegion>,
      *   apiKey?: ?string,
@@ -56,6 +63,7 @@ class UpdateAzureCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->service = $values['service'] ?? null;
         $this->region = $values['region'] ?? null;
         $this->apiKey = $values['apiKey'] ?? null;

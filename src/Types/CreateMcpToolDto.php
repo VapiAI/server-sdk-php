@@ -6,14 +6,13 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration used to create a tool that connects an assistant to a Model Context Protocol server and exposes its available tools.
+ */
 class CreateMcpToolDto extends JsonSerializableType
 {
     /**
-     * These are the messages that will be spoken to the user as the tool is running.
-     *
-     * For some tools, this is auto-filled based on special fields like `tool.destinations`. For others like the function tool, these can be custom configured.
-     *
-     * @var ?array<CreateMcpToolDtoMessagesItem> $messages
+     * @var ?array<CreateMcpToolDtoMessagesItem> $messages Messages spoken while the tool is running. Multiple request-start messages are variants. For request-response-delayed, same timing means variants and different timings mean staged updates.
      */
     #[JsonProperty('messages'), ArrayType([CreateMcpToolDtoMessagesItem::class])]
     public ?array $messages;
@@ -41,7 +40,7 @@ class CreateMcpToolDto extends JsonSerializableType
     public ?array $toolMessages;
 
     /**
-     * @var ?McpToolMetadata $metadata
+     * @var ?McpToolMetadata $metadata Connection metadata for the MCP server, including its communication protocol.
      */
     #[JsonProperty('metadata')]
     public ?McpToolMetadata $metadata;

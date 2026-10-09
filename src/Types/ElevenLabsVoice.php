@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for synthesizing assistant speech with ElevenLabs, including voice and model selection, language, voice tuning, streaming, Speech Synthesis Markup Language parsing, pronunciation dictionaries, chunking, caching, and fallback settings.
+ */
 class ElevenLabsVoice extends JsonSerializableType
 {
     /**
@@ -30,37 +33,37 @@ class ElevenLabsVoice extends JsonSerializableType
     public ?float $stability;
 
     /**
-     * @var ?float $similarityBoost Defines the similarity boost for voice settings.
+     * @var ?float $similarityBoost Defines the similarity boost for voice settings. Ignored by `eleven_v4_turbo`.
      */
     #[JsonProperty('similarityBoost')]
     public ?float $similarityBoost;
 
     /**
-     * @var ?float $style Defines the style for voice settings.
+     * @var ?float $style Defines the style for voice settings. Ignored by `eleven_v4_turbo`.
      */
     #[JsonProperty('style')]
     public ?float $style;
 
     /**
-     * @var ?bool $useSpeakerBoost Defines the use speaker boost for voice settings.
+     * @var ?bool $useSpeakerBoost Defines the use speaker boost for voice settings. Ignored by `eleven_v4_turbo`.
      */
     #[JsonProperty('useSpeakerBoost')]
     public ?bool $useSpeakerBoost;
 
     /**
-     * @var ?float $speed Defines the speed for voice settings.
+     * @var ?float $speed Defines the speed for voice settings. Ignored by `eleven_v4_turbo`.
      */
     #[JsonProperty('speed')]
     public ?float $speed;
 
     /**
-     * @var ?float $optimizeStreamingLatency Defines the optimize streaming latency for voice settings. Defaults to 3.
+     * @var ?float $optimizeStreamingLatency Defines the optimize streaming latency for voice settings. Defaults to 3. Ignored by `eleven_v4_turbo`.
      */
     #[JsonProperty('optimizeStreamingLatency')]
     public ?float $optimizeStreamingLatency;
 
     /**
-     * This enables the use of https://elevenlabs.io/docs/speech-synthesis/prompting#pronunciation. Defaults to false to save latency.
+     * This enables the use of https://elevenlabs.io/docs/speech-synthesis/prompting#pronunciation. Defaults to false to save latency. Ignored by `eleven_v4_turbo`.
      *
      * @default false
      *
@@ -70,7 +73,7 @@ class ElevenLabsVoice extends JsonSerializableType
     public ?bool $enableSsmlParsing;
 
     /**
-     * @var ?bool $autoMode Defines the auto mode for voice settings. Defaults to false.
+     * @var ?bool $autoMode Defines the auto mode for voice settings. Defaults to false. Ignored by `eleven_v4_turbo`.
      */
     #[JsonProperty('autoMode')]
     public ?bool $autoMode;
@@ -82,7 +85,7 @@ class ElevenLabsVoice extends JsonSerializableType
     public ?string $model;
 
     /**
-     * @var ?string $language This is the language (ISO 639-1) that is enforced for the model. Currently only Turbo v2.5 supports language enforcement. For other models, an error will be returned if language code is provided.
+     * @var ?string $language This is the language (ISO 639-1) that is enforced for the model. Currently only Turbo v2.5, Flash v2.5 and v4 Turbo support language enforcement; other models ignore it.
      */
     #[JsonProperty('language')]
     public ?string $language;

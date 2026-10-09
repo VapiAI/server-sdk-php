@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Voice-synthesis cost for a call, including voice, character usage, and amount.
+ */
 class VoiceCost extends JsonSerializableType
 {
     /**

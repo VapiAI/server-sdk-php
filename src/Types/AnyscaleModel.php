@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for generating assistant responses with Anyscale, including model, prompts, tools, knowledge-base access, and generation settings.
+ */
 class AnyscaleModel extends JsonSerializableType
 {
     /**
@@ -35,6 +38,17 @@ class AnyscaleModel extends JsonSerializableType
     public ?array $toolIds;
 
     /**
+     * These are version-pinned references to tools. Each entry pins a specific
+     * version of a tool by `(toolId, version)`. When the same `toolId` appears
+     * in both `toolIds` and `toolRefs[]`, the `toolRefs` pin wins (the
+     * `toolIds` entry is dropped at write time).
+     *
+     * @var ?array<ToolRef> $toolRefs
+     */
+    #[JsonProperty('toolRefs'), ArrayType([ToolRef::class])]
+    public ?array $toolRefs;
+
+    /**
      * @var ?CreateCustomKnowledgeBaseDto $knowledgeBase These are the options for the knowledge base.
      */
     #[JsonProperty('knowledgeBase')]
@@ -47,13 +61,13 @@ class AnyscaleModel extends JsonSerializableType
     public string $model;
 
     /**
-     * @var ?float $temperature This is the temperature that will be used for calls. Default is 0 to leverage caching for lower latency.
+     * @var ?float $temperature This is the temperature that will be used for calls. Default is 0.5.
      */
     #[JsonProperty('temperature')]
     public ?float $temperature;
 
     /**
-     * @var ?float $maxTokens This is the max number of tokens that the assistant will be allowed to generate in each turn of the conversation. Default is 250.
+     * @var ?float $maxTokens This is the max number of tokens that the assistant will be allowed to generate in each turn of the conversation. Default is 250. On gpt-6-luna no cap is applied unless you set one, because reasoning uses output tokens and a small cap can leave the reply empty.
      */
     #[JsonProperty('maxTokens')]
     public ?float $maxTokens;
@@ -88,6 +102,7 @@ class AnyscaleModel extends JsonSerializableType
      *   messages?: ?array<OpenAiMessage>,
      *   tools?: ?array<AnyscaleModelToolsItem>,
      *   toolIds?: ?array<string>,
+     *   toolRefs?: ?array<ToolRef>,
      *   knowledgeBase?: ?CreateCustomKnowledgeBaseDto,
      *   temperature?: ?float,
      *   maxTokens?: ?float,
@@ -101,6 +116,7 @@ class AnyscaleModel extends JsonSerializableType
         $this->messages = $values['messages'] ?? null;
         $this->tools = $values['tools'] ?? null;
         $this->toolIds = $values['toolIds'] ?? null;
+        $this->toolRefs = $values['toolRefs'] ?? null;
         $this->knowledgeBase = $values['knowledgeBase'] ?? null;
         $this->model = $values['model'];
         $this->temperature = $values['temperature'] ?? null;

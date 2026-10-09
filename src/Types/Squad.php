@@ -8,8 +8,27 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A saved squad configuration that coordinates a group of assistants during a conversation. The first member starts the call, and member destinations control transfers between assistants.
+ */
 class Squad extends JsonSerializableType
 {
+    /**
+     * This is the latest version label (e.g. `v3`) of the squad in the version
+     * history. `null` while the org is not yet onboarded to versioning, or for
+     * squads that have not yet been published under it.
+     *
+     * @var ?string $latestVersion
+     */
+    #[JsonProperty('latestVersion')]
+    public ?string $latestVersion;
+
+    /**
+     * @var ?array<ModelDeprecationNotice> $modelDeprecations Read-only. Present only when a model this configuration uses is deprecated or retired in Vapi's model deprecation registry, judged on the day of the response. Each entry names the slot (for example `model` or `model.fallbackModels[1]`), provider, stored model, and deprecation and retirement dates as `YYYY-MM-DD` in UTC. `replacementStatus` is `available` with a `replacementModel` when a replacement can be recommended, or `manual-action-required` with no replacement model when eligibility is unknown or no eligible replacement exists. `manual-action-required` can be transient when compliance context is unavailable; re-fetch before acting. HIPAA-required configurations, sparse drafts, and squads with unresolved assistant references currently require manual action. HIPAA requirements include the organization and assistant settings, including HIPAA with data retention. Recommendations reflect the response-time decision; they do not confirm a swap or authorize future execution. Examples: an available recommendation includes `{"replacementStatus":"available","replacementModel":"gpt-5"}`; a blocked recommendation includes `{"replacementStatus":"manual-action-required"}`. Ignored if sent back in a create or update request.
+     */
+    #[JsonProperty('modelDeprecations'), ArrayType([ModelDeprecationNotice::class])]
+    public ?array $modelDeprecations;
+
     /**
      * @var ?string $name This is the name of the squad.
      */
@@ -67,6 +86,8 @@ class Squad extends JsonSerializableType
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
+     *   latestVersion?: ?string,
+     *   modelDeprecations?: ?array<ModelDeprecationNotice>,
      *   name?: ?string,
      *   membersOverrides?: ?AssistantOverrides,
      * } $values
@@ -74,6 +95,8 @@ class Squad extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
+        $this->latestVersion = $values['latestVersion'] ?? null;
+        $this->modelDeprecations = $values['modelDeprecations'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->members = $values['members'];
         $this->membersOverrides = $values['membersOverrides'] ?? null;

@@ -11,20 +11,16 @@ use Vapi\Core\Types\Date;
 class GhlTool extends JsonSerializableType
 {
     /**
-     * These are the messages that will be spoken to the user as the tool is running.
-     *
-     * For some tools, this is auto-filled based on special fields like `tool.destinations`. For others like the function tool, these can be custom configured.
-     *
-     * @var ?array<GhlToolMessagesItem> $messages
+     * @var ?string $latestVersion
+     */
+    #[JsonProperty('latestVersion')]
+    public ?string $latestVersion;
+
+    /**
+     * @var ?array<GhlToolMessagesItem> $messages Messages spoken while the tool is running. Multiple request-start messages are variants. For request-response-delayed, same timing means variants and different timings mean staged updates.
      */
     #[JsonProperty('messages'), ArrayType([GhlToolMessagesItem::class])]
     public ?array $messages;
-
-    /**
-     * @var value-of<GhlToolType> $type The type of tool. "ghl" for GHL tool.
-     */
-    #[JsonProperty('type')]
-    public string $type;
 
     /**
      * @var string $id This is the unique identifier for the tool.
@@ -143,12 +139,12 @@ class GhlTool extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: value-of<GhlToolType>,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
      *   metadata: GhlToolMetadata,
+     *   latestVersion?: ?string,
      *   messages?: ?array<GhlToolMessagesItem>,
      *   rejectionPlan?: ?ToolRejectionPlan,
      * } $values
@@ -156,8 +152,8 @@ class GhlTool extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
+        $this->latestVersion = $values['latestVersion'] ?? null;
         $this->messages = $values['messages'] ?? null;
-        $this->type = $values['type'];
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];

@@ -25,6 +25,7 @@ use Vapi\Types\CreateGoHighLevelContactCreateToolDto;
 use Vapi\Types\CreateGoHighLevelContactGetToolDto;
 use Vapi\Types\CreateSipRequestToolDto;
 use Vapi\Types\CreateVoicemailToolDto;
+use Vapi\Types\CreateCodeToolDto;
 use Exception;
 use Vapi\Core\Json\JsonDecoder;
 
@@ -54,6 +55,7 @@ class CreateToolsRequest extends JsonSerializableType
      *   |'gohighlevel.contact.get'
      *   |'sipRequest'
      *   |'voicemail'
+     *   |'code'
      *   |'_unknown'
      * ) $type
      */
@@ -83,6 +85,7 @@ class CreateToolsRequest extends JsonSerializableType
      *   |CreateGoHighLevelContactGetToolDto
      *   |CreateSipRequestToolDto
      *   |CreateVoicemailToolDto
+     *   |CreateCodeToolDto
      *   |mixed
      * ) $value
      */
@@ -113,6 +116,7 @@ class CreateToolsRequest extends JsonSerializableType
      *   |'gohighlevel.contact.get'
      *   |'sipRequest'
      *   |'voicemail'
+     *   |'code'
      *   |'_unknown'
      * ),
      *   value: (
@@ -138,6 +142,7 @@ class CreateToolsRequest extends JsonSerializableType
      *   |CreateGoHighLevelContactGetToolDto
      *   |CreateSipRequestToolDto
      *   |CreateVoicemailToolDto
+     *   |CreateCodeToolDto
      *   |mixed
      * ),
      * } $values
@@ -410,6 +415,18 @@ class CreateToolsRequest extends JsonSerializableType
         return new CreateToolsRequest([
             'type' => 'voicemail',
             'value' => $voicemail,
+        ]);
+    }
+
+    /**
+     * @param CreateCodeToolDto $code
+     * @return CreateToolsRequest
+     */
+    public static function code(CreateCodeToolDto $code): CreateToolsRequest
+    {
+        return new CreateToolsRequest([
+            'type' => 'code',
+            'value' => $code,
         ]);
     }
 
@@ -898,6 +915,28 @@ class CreateToolsRequest extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isCode(): bool
+    {
+        return $this->value instanceof CreateCodeToolDto && $this->type === 'code';
+    }
+
+    /**
+     * @return CreateCodeToolDto
+     */
+    public function asCode(): CreateCodeToolDto
+    {
+        if (!($this->value instanceof CreateCodeToolDto && $this->type === 'code')) {
+            throw new Exception(
+                "Expected code; got " . $this->type . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -1003,6 +1042,10 @@ class CreateToolsRequest extends JsonSerializableType
                 break;
             case 'voicemail':
                 $value = $this->asVoicemail()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'code':
+                $value = $this->asCode()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -1118,6 +1161,9 @@ class CreateToolsRequest extends JsonSerializableType
                 break;
             case 'voicemail':
                 $args['value'] = CreateVoicemailToolDto::jsonDeserialize($data);
+                break;
+            case 'code':
+                $args['value'] = CreateCodeToolDto::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

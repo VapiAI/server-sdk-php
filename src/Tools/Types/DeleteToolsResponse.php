@@ -8,6 +8,7 @@ use Vapi\Types\CodeTool;
 use Vapi\Types\DtmfTool;
 use Vapi\Types\EndCallTool;
 use Vapi\Types\FunctionTool;
+use Vapi\Types\KnowledgeBaseTool;
 use Vapi\Types\TransferCallTool;
 use Vapi\Types\HandoffTool;
 use Vapi\Types\BashTool;
@@ -26,6 +27,7 @@ use Vapi\Types\GoHighLevelContactCreateTool;
 use Vapi\Types\GoHighLevelContactGetTool;
 use Vapi\Types\SipRequestTool;
 use Vapi\Types\VoicemailTool;
+use Vapi\Types\GhlTool;
 use Exception;
 use Vapi\Core\Json\JsonDecoder;
 
@@ -38,6 +40,7 @@ class DeleteToolsResponse extends JsonSerializableType
      *   |'dtmf'
      *   |'endCall'
      *   |'function'
+     *   |'knowledgeBase'
      *   |'transferCall'
      *   |'handoff'
      *   |'bash'
@@ -56,6 +59,7 @@ class DeleteToolsResponse extends JsonSerializableType
      *   |'gohighlevel.contact.get'
      *   |'sipRequest'
      *   |'voicemail'
+     *   |'ghl'
      *   |'_unknown'
      * ) $type
      */
@@ -68,6 +72,7 @@ class DeleteToolsResponse extends JsonSerializableType
      *   |DtmfTool
      *   |EndCallTool
      *   |FunctionTool
+     *   |KnowledgeBaseTool
      *   |TransferCallTool
      *   |HandoffTool
      *   |BashTool
@@ -86,6 +91,7 @@ class DeleteToolsResponse extends JsonSerializableType
      *   |GoHighLevelContactGetTool
      *   |SipRequestTool
      *   |VoicemailTool
+     *   |GhlTool
      *   |mixed
      * ) $value
      */
@@ -99,6 +105,7 @@ class DeleteToolsResponse extends JsonSerializableType
      *   |'dtmf'
      *   |'endCall'
      *   |'function'
+     *   |'knowledgeBase'
      *   |'transferCall'
      *   |'handoff'
      *   |'bash'
@@ -117,6 +124,7 @@ class DeleteToolsResponse extends JsonSerializableType
      *   |'gohighlevel.contact.get'
      *   |'sipRequest'
      *   |'voicemail'
+     *   |'ghl'
      *   |'_unknown'
      * ),
      *   value: (
@@ -125,6 +133,7 @@ class DeleteToolsResponse extends JsonSerializableType
      *   |DtmfTool
      *   |EndCallTool
      *   |FunctionTool
+     *   |KnowledgeBaseTool
      *   |TransferCallTool
      *   |HandoffTool
      *   |BashTool
@@ -143,6 +152,7 @@ class DeleteToolsResponse extends JsonSerializableType
      *   |GoHighLevelContactGetTool
      *   |SipRequestTool
      *   |VoicemailTool
+     *   |GhlTool
      *   |mixed
      * ),
      * } $values
@@ -211,6 +221,18 @@ class DeleteToolsResponse extends JsonSerializableType
         return new DeleteToolsResponse([
             'type' => 'function',
             'value' => $function,
+        ]);
+    }
+
+    /**
+     * @param KnowledgeBaseTool $knowledgeBase
+     * @return DeleteToolsResponse
+     */
+    public static function knowledgeBase(KnowledgeBaseTool $knowledgeBase): DeleteToolsResponse
+    {
+        return new DeleteToolsResponse([
+            'type' => 'knowledgeBase',
+            'value' => $knowledgeBase,
         ]);
     }
 
@@ -431,6 +453,18 @@ class DeleteToolsResponse extends JsonSerializableType
     }
 
     /**
+     * @param GhlTool $ghl
+     * @return DeleteToolsResponse
+     */
+    public static function ghl(GhlTool $ghl): DeleteToolsResponse
+    {
+        return new DeleteToolsResponse([
+            'type' => 'ghl',
+            'value' => $ghl,
+        ]);
+    }
+
+    /**
      * @return bool
      */
     public function isApiRequest(): bool
@@ -534,6 +568,28 @@ class DeleteToolsResponse extends JsonSerializableType
         if (!($this->value instanceof FunctionTool && $this->type === 'function')) {
             throw new Exception(
                 "Expected function; got " . $this->type . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isKnowledgeBase(): bool
+    {
+        return $this->value instanceof KnowledgeBaseTool && $this->type === 'knowledgeBase';
+    }
+
+    /**
+     * @return KnowledgeBaseTool
+     */
+    public function asKnowledgeBase(): KnowledgeBaseTool
+    {
+        if (!($this->value instanceof KnowledgeBaseTool && $this->type === 'knowledgeBase')) {
+            throw new Exception(
+                "Expected knowledgeBase; got " . $this->type . " with value of type " . get_debug_type($this->value),
             );
         }
 
@@ -937,6 +993,28 @@ class DeleteToolsResponse extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isGhl(): bool
+    {
+        return $this->value instanceof GhlTool && $this->type === 'ghl';
+    }
+
+    /**
+     * @return GhlTool
+     */
+    public function asGhl(): GhlTool
+    {
+        if (!($this->value instanceof GhlTool && $this->type === 'ghl')) {
+            throw new Exception(
+                "Expected ghl; got " . $this->type . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -974,6 +1052,10 @@ class DeleteToolsResponse extends JsonSerializableType
                 break;
             case 'function':
                 $value = $this->asFunction_()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'knowledgeBase':
+                $value = $this->asKnowledgeBase()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case 'transferCall':
@@ -1048,6 +1130,10 @@ class DeleteToolsResponse extends JsonSerializableType
                 $value = $this->asVoicemail()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
+            case 'ghl':
+                $value = $this->asGhl()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
             case '_unknown':
             default:
                 if (is_null($this->value)) {
@@ -1111,6 +1197,9 @@ class DeleteToolsResponse extends JsonSerializableType
             case 'function':
                 $args['value'] = FunctionTool::jsonDeserialize($data);
                 break;
+            case 'knowledgeBase':
+                $args['value'] = KnowledgeBaseTool::jsonDeserialize($data);
+                break;
             case 'transferCall':
                 $args['value'] = TransferCallTool::jsonDeserialize($data);
                 break;
@@ -1164,6 +1253,9 @@ class DeleteToolsResponse extends JsonSerializableType
                 break;
             case 'voicemail':
                 $args['value'] = VoicemailTool::jsonDeserialize($data);
+                break;
+            case 'ghl':
+                $args['value'] = GhlTool::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

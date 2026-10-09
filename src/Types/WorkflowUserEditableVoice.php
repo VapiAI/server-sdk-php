@@ -33,6 +33,8 @@ class WorkflowUserEditableVoice extends JsonSerializableType
      *   |'sesame'
      *   |'inworld'
      *   |'minimax'
+     *   |'xai'
+     *   |'microsoft'
      *   |'_unknown'
      * ) $provider
      */
@@ -58,6 +60,8 @@ class WorkflowUserEditableVoice extends JsonSerializableType
      *   |SesameVoice
      *   |InworldVoice
      *   |MinimaxVoice
+     *   |XaiVoice
+     *   |MicrosoftVoice
      *   |mixed
      * ) $value
      */
@@ -84,6 +88,8 @@ class WorkflowUserEditableVoice extends JsonSerializableType
      *   |'sesame'
      *   |'inworld'
      *   |'minimax'
+     *   |'xai'
+     *   |'microsoft'
      *   |'_unknown'
      * ),
      *   value: (
@@ -105,6 +111,8 @@ class WorkflowUserEditableVoice extends JsonSerializableType
      *   |SesameVoice
      *   |InworldVoice
      *   |MinimaxVoice
+     *   |XaiVoice
+     *   |MicrosoftVoice
      *   |mixed
      * ),
      * } $values
@@ -329,6 +337,30 @@ class WorkflowUserEditableVoice extends JsonSerializableType
         return new WorkflowUserEditableVoice([
             'provider' => 'minimax',
             'value' => $minimax,
+        ]);
+    }
+
+    /**
+     * @param XaiVoice $xai
+     * @return WorkflowUserEditableVoice
+     */
+    public static function xai(XaiVoice $xai): WorkflowUserEditableVoice
+    {
+        return new WorkflowUserEditableVoice([
+            'provider' => 'xai',
+            'value' => $xai,
+        ]);
+    }
+
+    /**
+     * @param MicrosoftVoice $microsoft
+     * @return WorkflowUserEditableVoice
+     */
+    public static function microsoft(MicrosoftVoice $microsoft): WorkflowUserEditableVoice
+    {
+        return new WorkflowUserEditableVoice([
+            'provider' => 'microsoft',
+            'value' => $microsoft,
         ]);
     }
 
@@ -729,6 +761,50 @@ class WorkflowUserEditableVoice extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isXai(): bool
+    {
+        return $this->value instanceof XaiVoice && $this->provider === 'xai';
+    }
+
+    /**
+     * @return XaiVoice
+     */
+    public function asXai(): XaiVoice
+    {
+        if (!($this->value instanceof XaiVoice && $this->provider === 'xai')) {
+            throw new Exception(
+                "Expected xai; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMicrosoft(): bool
+    {
+        return $this->value instanceof MicrosoftVoice && $this->provider === 'microsoft';
+    }
+
+    /**
+     * @return MicrosoftVoice
+     */
+    public function asMicrosoft(): MicrosoftVoice
+    {
+        if (!($this->value instanceof MicrosoftVoice && $this->provider === 'microsoft')) {
+            throw new Exception(
+                "Expected microsoft; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -818,6 +894,14 @@ class WorkflowUserEditableVoice extends JsonSerializableType
                 break;
             case 'minimax':
                 $value = $this->asMinimax()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'xai':
+                $value = $this->asXai()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'microsoft':
+                $value = $this->asMicrosoft()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -921,6 +1005,12 @@ class WorkflowUserEditableVoice extends JsonSerializableType
                 break;
             case 'minimax':
                 $args['value'] = MinimaxVoice::jsonDeserialize($data);
+                break;
+            case 'xai':
+                $args['value'] = XaiVoice::jsonDeserialize($data);
+                break;
+            case 'microsoft':
+                $args['value'] = MicrosoftVoice::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

@@ -6,16 +6,19 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Credentials for authenticating assistant model requests with Azure OpenAI, including region, endpoint, and available models.
+ */
 class CreateAzureOpenAiCredentialDto extends JsonSerializableType
 {
     /**
-     * @var value-of<CreateAzureOpenAiCredentialDtoRegion> $region
+     * @var value-of<CreateAzureOpenAiCredentialDtoRegion> $region Azure region that hosts the OpenAI resource.
      */
     #[JsonProperty('region')]
     public string $region;
 
     /**
-     * @var array<value-of<CreateAzureOpenAiCredentialDtoModelsItem>> $models
+     * @var array<value-of<CreateAzureOpenAiCredentialDtoModelsItem>> $models Azure OpenAI models available through this credential.
      */
     #[JsonProperty('models'), ArrayType(['string'])]
     public array $models;
@@ -33,7 +36,7 @@ class CreateAzureOpenAiCredentialDto extends JsonSerializableType
     public ?string $ocpApimSubscriptionKey;
 
     /**
-     * @var string $openAiEndpoint
+     * @var string $openAiEndpoint Endpoint URL for the Azure OpenAI resource.
      */
     #[JsonProperty('openAIEndpoint')]
     public string $openAiEndpoint;

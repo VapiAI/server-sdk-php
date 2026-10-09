@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for authenticating Vapi integrations with Make, including team, region, and API key.
+ */
 class CreateMakeCredentialDto extends JsonSerializableType
 {
     /**

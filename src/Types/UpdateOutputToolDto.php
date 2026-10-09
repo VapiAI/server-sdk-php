@@ -9,14 +9,16 @@ use Vapi\Core\Types\ArrayType;
 class UpdateOutputToolDto extends JsonSerializableType
 {
     /**
-     * These are the messages that will be spoken to the user as the tool is running.
-     *
-     * For some tools, this is auto-filled based on special fields like `tool.destinations`. For others like the function tool, these can be custom configured.
-     *
-     * @var ?array<UpdateOutputToolDtoMessagesItem> $messages
+     * @var ?array<UpdateOutputToolDtoMessagesItem> $messages Messages spoken while the tool is running. Multiple request-start messages are variants. For request-response-delayed, same timing means variants and different timings mean staged updates.
      */
     #[JsonProperty('messages'), ArrayType([UpdateOutputToolDtoMessagesItem::class])]
     public ?array $messages;
+
+    /**
+     * @var ?value-of<UpdateOutputToolDtoType> $type The type of tool. "output" for Output tool.
+     */
+    #[JsonProperty('type')]
+    public ?string $type;
 
     /**
      * This is the plan to reject a tool call based on the conversation state.
@@ -106,6 +108,7 @@ class UpdateOutputToolDto extends JsonSerializableType
     /**
      * @param array{
      *   messages?: ?array<UpdateOutputToolDtoMessagesItem>,
+     *   type?: ?value-of<UpdateOutputToolDtoType>,
      *   rejectionPlan?: ?ToolRejectionPlan,
      * } $values
      */
@@ -113,6 +116,7 @@ class UpdateOutputToolDto extends JsonSerializableType
         array $values = [],
     ) {
         $this->messages = $values['messages'] ?? null;
+        $this->type = $values['type'] ?? null;
         $this->rejectionPlan = $values['rejectionPlan'] ?? null;
     }
 

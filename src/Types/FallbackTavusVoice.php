@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Fallback configuration for using Tavus as the assistant's voice provider, including persona, callback, context, greeting, conversation properties, chunking, and caching.
+ */
 class FallbackTavusVoice extends JsonSerializableType
 {
     /**

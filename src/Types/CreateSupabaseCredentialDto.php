@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for storing call artifacts in Supabase's S3-compatible storage, including bucket configuration and upload fallback order.
+ */
 class CreateSupabaseCredentialDto extends JsonSerializableType
 {
     /**
@@ -14,7 +17,7 @@ class CreateSupabaseCredentialDto extends JsonSerializableType
     public ?float $fallbackIndex;
 
     /**
-     * @var ?SupabaseBucketPlan $bucketPlan
+     * @var ?SupabaseBucketPlan $bucketPlan Supabase S3-compatible bucket configuration used to store call artifacts.
      */
     #[JsonProperty('bucketPlan')]
     public ?SupabaseBucketPlan $bucketPlan;

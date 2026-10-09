@@ -67,7 +67,7 @@ class UpdateAssistantDto extends JsonSerializableType
     public ?string $firstMessage;
 
     /**
-     * @var ?bool $firstMessageInterruptionsEnabled
+     * @var ?bool $firstMessageInterruptionsEnabled Set to `true` to allow the user to interrupt the assistant while it speaks the first message. Default is `false`.
      */
     #[JsonProperty('firstMessageInterruptionsEnabled')]
     public ?bool $firstMessageInterruptionsEnabled;
@@ -217,7 +217,7 @@ class UpdateAssistantDto extends JsonSerializableType
     public ?array $endCallPhrases;
 
     /**
-     * @var ?CompliancePlan $compliancePlan
+     * @var ?CompliancePlan $compliancePlan Compliance settings for the assistant, including HIPAA and PCI behavior, security filtering, and recording consent.
      */
     #[JsonProperty('compliancePlan')]
     public ?CompliancePlan $compliancePlan;
@@ -320,7 +320,7 @@ class UpdateAssistantDto extends JsonSerializableType
     public ?Server $server;
 
     /**
-     * @var ?KeypadInputPlan $keypadInputPlan
+     * @var ?KeypadInputPlan $keypadInputPlan Configuration for collecting and processing DTMF keypad input during calls.
      */
     #[JsonProperty('keypadInputPlan')]
     public ?KeypadInputPlan $keypadInputPlan;

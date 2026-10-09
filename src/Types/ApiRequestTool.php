@@ -8,20 +8,35 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A reusable tool that sends HTTP requests to an API and supports authentication and response variable extraction.
+ */
 class ApiRequestTool extends JsonSerializableType
 {
     /**
-     * These are the messages that will be spoken to the user as the tool is running.
-     *
-     * For some tools, this is auto-filled based on special fields like `tool.destinations`. For others like the function tool, these can be custom configured.
-     *
-     * @var ?array<ApiRequestToolMessagesItem> $messages
+     * @var ?string $latestVersion
+     */
+    #[JsonProperty('latestVersion')]
+    public ?string $latestVersion;
+
+    /**
+     * @var ?array<ApiRequestToolMessagesItem> $messages Messages spoken while the tool is running. Multiple request-start messages are variants. For request-response-delayed, same timing means variants and different timings mean staged updates.
      */
     #[JsonProperty('messages'), ArrayType([ApiRequestToolMessagesItem::class])]
     public ?array $messages;
 
     /**
-     * @var value-of<ApiRequestToolMethod> $method
+     * This is the name of the tool. This will be passed to the model.
+     *
+     * Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 40.
+     *
+     * @var ?string $name
+     */
+    #[JsonProperty('name')]
+    public ?string $name;
+
+    /**
+     * @var value-of<ApiRequestToolMethod> $method The HTTP method used for the API request.
      */
     #[JsonProperty('method')]
     public string $method;
@@ -164,16 +179,6 @@ class ApiRequestTool extends JsonSerializableType
     public ?ToolRejectionPlan $rejectionPlan;
 
     /**
-     * This is the name of the tool. This will be passed to the model.
-     *
-     * Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 40.
-     *
-     * @var ?string $name
-     */
-    #[JsonProperty('name')]
-    public ?string $name;
-
-    /**
      * @var ?string $description This is the description of the tool. This will be passed to the model.
      */
     #[JsonProperty('description')]
@@ -198,11 +203,7 @@ class ApiRequestTool extends JsonSerializableType
     public ?JsonSchema $headers;
 
     /**
-     * This is the backoff plan if the request fails. Defaults to undefined (the request will not be retried).
-     *
-     * @default undefined (the request will not be retried)
-     *
-     * @var ?BackoffPlan $backoffPlan
+     * @var ?BackoffPlan $backoffPlan A backoff plan can be saved on an API Request Tool, but API Request Tools do not currently retry after a non-2xx response or a timeout.
      */
     #[JsonProperty('backoffPlan')]
     public ?BackoffPlan $backoffPlan;
@@ -375,13 +376,14 @@ class ApiRequestTool extends JsonSerializableType
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
      *   url: string,
+     *   latestVersion?: ?string,
      *   messages?: ?array<ApiRequestToolMessagesItem>,
+     *   name?: ?string,
      *   timeoutSeconds?: ?float,
      *   credentialId?: ?string,
      *   encryptedPaths?: ?array<string>,
      *   parameters?: ?array<ToolParameter>,
      *   rejectionPlan?: ?ToolRejectionPlan,
-     *   name?: ?string,
      *   description?: ?string,
      *   body?: ?JsonSchema,
      *   headers?: ?JsonSchema,
@@ -392,7 +394,9 @@ class ApiRequestTool extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
+        $this->latestVersion = $values['latestVersion'] ?? null;
         $this->messages = $values['messages'] ?? null;
+        $this->name = $values['name'] ?? null;
         $this->method = $values['method'];
         $this->timeoutSeconds = $values['timeoutSeconds'] ?? null;
         $this->credentialId = $values['credentialId'] ?? null;
@@ -403,7 +407,6 @@ class ApiRequestTool extends JsonSerializableType
         $this->createdAt = $values['createdAt'];
         $this->updatedAt = $values['updatedAt'];
         $this->rejectionPlan = $values['rejectionPlan'] ?? null;
-        $this->name = $values['name'] ?? null;
         $this->description = $values['description'] ?? null;
         $this->url = $values['url'];
         $this->body = $values['body'] ?? null;

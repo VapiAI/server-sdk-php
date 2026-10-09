@@ -9,6 +9,9 @@ use Vapi\Core\Types\Union;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A saved eval definition containing its mock conversation, checkpoints, descriptive metadata, type, and lifecycle information.
+ */
 class Eval_ extends JsonSerializableType
 {
     /**
@@ -31,25 +34,25 @@ class Eval_ extends JsonSerializableType
     public array $messages;
 
     /**
-     * @var string $id
+     * @var string $id The unique identifier for the eval.
      */
     #[JsonProperty('id')]
     public string $id;
 
     /**
-     * @var string $orgId
+     * @var string $orgId The unique identifier for the organization that owns the eval.
      */
     #[JsonProperty('orgId')]
     public string $orgId;
 
     /**
-     * @var DateTime $createdAt
+     * @var DateTime $createdAt The ISO 8601 timestamp when the eval was created.
      */
     #[JsonProperty('createdAt'), Date(Date::TYPE_DATETIME)]
     public DateTime $createdAt;
 
     /**
-     * @var DateTime $updatedAt
+     * @var DateTime $updatedAt The ISO 8601 timestamp when the eval was last updated.
      */
     #[JsonProperty('updatedAt'), Date(Date::TYPE_DATETIME)]
     public DateTime $updatedAt;

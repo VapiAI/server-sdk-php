@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Stored OAuth 2.0 authorization for Slack operations.
+ */
 class CreateSlackOAuth2AuthorizationCredentialDto extends JsonSerializableType
 {
     /**

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for synthesizing assistant speech with Sesame, including voice and model selection, chunking, caching, and fallback settings.
+ */
 class SesameVoice extends JsonSerializableType
 {
     /**

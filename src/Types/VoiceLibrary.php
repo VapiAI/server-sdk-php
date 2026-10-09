@@ -131,6 +131,25 @@ class VoiceLibrary extends JsonSerializableType
     public DateTime $updatedAt;
 
     /**
+     * Whether this voice was cloned by the org from their own audio, as opposed
+     * to a seeded/preset voice. Drives the cloned filter and tag. Backed by a
+     * NOT NULL DEFAULT false column, so it is always present at read time.
+     *
+     * @var ?bool $isCloned
+     */
+    #[JsonProperty('isCloned')]
+    public ?bool $isCloned;
+
+    /**
+     * The provider that produced the clone (e.g. 'xai'). The voice `provider`
+     * stays 'vapi'; this records the underlying backend. Unset for non-cloned voices.
+     *
+     * @var ?string $cloneBackend
+     */
+    #[JsonProperty('cloneBackend')]
+    public ?string $cloneBackend;
+
+    /**
      * @param array{
      *   id: string,
      *   orgId: string,
@@ -152,6 +171,8 @@ class VoiceLibrary extends JsonSerializableType
      *   sortOrder?: ?float,
      *   description?: ?string,
      *   credentialId?: ?string,
+     *   isCloned?: ?bool,
+     *   cloneBackend?: ?string,
      * } $values
      */
     public function __construct(
@@ -177,6 +198,8 @@ class VoiceLibrary extends JsonSerializableType
         $this->isDeleted = $values['isDeleted'];
         $this->createdAt = $values['createdAt'];
         $this->updatedAt = $values['updatedAt'];
+        $this->isCloned = $values['isCloned'] ?? null;
+        $this->cloneBackend = $values['cloneBackend'] ?? null;
     }
 
     /**

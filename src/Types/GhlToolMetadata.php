@@ -5,16 +5,19 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * GHL workflow and location identifiers attached to a tool.
+ */
 class GhlToolMetadata extends JsonSerializableType
 {
     /**
-     * @var ?string $workflowId
+     * @var ?string $workflowId GHL workflow identifier associated with the tool.
      */
     #[JsonProperty('workflowId')]
     public ?string $workflowId;
 
     /**
-     * @var ?string $locationId
+     * @var ?string $locationId GHL location identifier associated with the tool.
      */
     #[JsonProperty('locationId')]
     public ?string $locationId;

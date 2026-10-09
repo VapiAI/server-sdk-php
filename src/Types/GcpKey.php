@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Google Cloud service-account key used to authenticate access to Google Cloud resources.
+ */
 class GcpKey extends JsonSerializableType
 {
     /**

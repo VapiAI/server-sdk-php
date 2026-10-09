@@ -14,6 +14,17 @@ class ClientMessageUserInterrupted extends JsonSerializableType
     public ?ClientMessageUserInterruptedPhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var value-of<ClientMessageUserInterruptedType> $type This is the type of the message. "user-interrupted" is sent when the user interrupts the assistant.
      */
     #[JsonProperty('type')]
@@ -56,6 +67,7 @@ class ClientMessageUserInterrupted extends JsonSerializableType
      * @param array{
      *   type: value-of<ClientMessageUserInterruptedType>,
      *   phoneNumber?: ?ClientMessageUserInterruptedPhoneNumber,
+     *   assistantVersion?: ?string,
      *   turnId?: ?string,
      *   timestamp?: ?float,
      *   call?: ?Call,
@@ -67,6 +79,7 @@ class ClientMessageUserInterrupted extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->turnId = $values['turnId'] ?? null;
         $this->timestamp = $values['timestamp'] ?? null;

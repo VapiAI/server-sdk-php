@@ -5,10 +5,13 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Telephony transport cost for a call, including provider, billable minutes, and amount.
+ */
 class TransportCost extends JsonSerializableType
 {
     /**
-     * @var ?value-of<TransportCostProvider> $provider
+     * @var ?value-of<TransportCostProvider> $provider Telephony or transport provider that generated the cost.
      */
     #[JsonProperty('provider')]
     public ?string $provider;

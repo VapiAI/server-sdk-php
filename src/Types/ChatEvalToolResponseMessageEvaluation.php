@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * An expected tool-response turn evaluated by a configured LLM judge.
+ */
 class ChatEvalToolResponseMessageEvaluation extends JsonSerializableType
 {
     /**

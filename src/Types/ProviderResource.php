@@ -8,6 +8,9 @@ use DateTime;
 use Vapi\Core\Types\Date;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A provider-managed pronunciation-dictionary resource mirrored in Vapi, including its provider identifiers, resource data, and lifecycle information.
+ */
 class ProviderResource extends JsonSerializableType
 {
     /**

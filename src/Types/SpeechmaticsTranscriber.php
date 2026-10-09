@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for transcribing speech during assistant conversations with Speechmatics, including language, region, diarization, vocabulary, endpointing, formatting, and fallback settings.
+ */
 class SpeechmaticsTranscriber extends JsonSerializableType
 {
     /**
@@ -15,7 +18,7 @@ class SpeechmaticsTranscriber extends JsonSerializableType
     public ?string $model;
 
     /**
-     * @var ?value-of<SpeechmaticsTranscriberLanguage> $language
+     * @var ?value-of<SpeechmaticsTranscriberLanguage> $language Language used for transcription. Set to `auto` to detect the language automatically.
      */
     #[JsonProperty('language')]
     public ?string $language;
@@ -61,7 +64,7 @@ class SpeechmaticsTranscriber extends JsonSerializableType
     public ?float $maxDelay;
 
     /**
-     * @var array<SpeechmaticsCustomVocabularyItem> $customVocabulary
+     * @var array<SpeechmaticsCustomVocabularyItem> $customVocabulary Words and phrases that Speechmatics should recognize more accurately, with optional phonetic alternatives.
      */
     #[JsonProperty('customVocabulary'), ArrayType([SpeechmaticsCustomVocabularyItem::class])]
     public array $customVocabulary;

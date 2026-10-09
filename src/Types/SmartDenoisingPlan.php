@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Controls whether Krisp smart denoising filters background speech and noise.
+ */
 class SmartDenoisingPlan extends JsonSerializableType
 {
     /**

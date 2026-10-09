@@ -5,15 +5,16 @@ namespace Vapi\StructuredOutputs\Requests;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\StructuredOutputs\Types\UpdateStructuredOutputDtoType;
 use Vapi\Core\Json\JsonProperty;
-use Vapi\StructuredOutputs\Types\UpdateStructuredOutputDtoModel;
 use Vapi\Types\ComplianceOverride;
+use Vapi\StructuredOutputs\Types\UpdateStructuredOutputDtoConditionsItem;
 use Vapi\Core\Types\ArrayType;
+use Vapi\StructuredOutputs\Types\UpdateStructuredOutputDtoModel;
 use Vapi\Types\JsonSchema;
 
 class UpdateStructuredOutputDto extends JsonSerializableType
 {
     /**
-     * @var string $schemaOverride
+     * @var string $schemaOverride Set to the string `true` to allow changing the schema's top-level type. Other values do not enable schema type changes.
      */
     public string $schemaOverride;
 
@@ -31,6 +32,15 @@ class UpdateStructuredOutputDto extends JsonSerializableType
     /**
      * This is the regex pattern to match against the transcript.
      *
+     * Simulation evaluations use a canonical transcript built from recorded messages:
+     * User: and AI: dialogue, AI: tool_calls: JSON name/arguments records, and
+     * AI: tool_call_results: JSON results. System messages are excluded. These
+     * fixed labels apply even when custom artifact transcript labels are configured.
+     * Tool payloads participate in first-match and all-match extraction in event order.
+     * An empty message array falls back to the supplied transcript verbatim.
+     * Production-call extraction and call preview use their existing transcripts,
+     * so previewing the same output on a simulation's call can return a different result.
+     *
      * Only used when type is 'regex'. Supports both raw patterns (e.g. '\d+') and
      * regex literal format (e.g. '/\d+/gi'). Uses RE2 syntax for safety.
      *
@@ -44,6 +54,18 @@ class UpdateStructuredOutputDto extends JsonSerializableType
      */
     #[JsonProperty('regex')]
     public ?string $regex;
+
+    /**
+     * @var ?ComplianceOverride $compliancePlan Compliance configuration for this output. Only enable overrides if no sensitive data will be stored.
+     */
+    #[JsonProperty('compliancePlan')]
+    public ?ComplianceOverride $compliancePlan;
+
+    /**
+     * @var ?array<UpdateStructuredOutputDtoConditionsItem> $conditions These are the conditions that gate the execution of this structured output. Every condition must pass for the structured output to run (AND semantics). When omitted or empty, no user-defined conditions gate this output. Send null to clear a previously saved gate.
+     */
+    #[JsonProperty('conditions'), ArrayType([UpdateStructuredOutputDtoConditionsItem::class])]
+    public ?array $conditions;
 
     /**
      * This is the model that will be used to extract the structured output.
@@ -64,12 +86,6 @@ class UpdateStructuredOutputDto extends JsonSerializableType
      */
     #[JsonProperty('model')]
     public ?UpdateStructuredOutputDtoModel $model;
-
-    /**
-     * @var ?ComplianceOverride $compliancePlan Compliance configuration for this output. Only enable overrides if no sensitive data will be stored.
-     */
-    #[JsonProperty('compliancePlan')]
-    public ?ComplianceOverride $compliancePlan;
 
     /**
      * @var ?string $name This is the name of the structured output.
@@ -128,8 +144,9 @@ class UpdateStructuredOutputDto extends JsonSerializableType
      *   schemaOverride: string,
      *   type?: ?value-of<UpdateStructuredOutputDtoType>,
      *   regex?: ?string,
-     *   model?: ?UpdateStructuredOutputDtoModel,
      *   compliancePlan?: ?ComplianceOverride,
+     *   conditions?: ?array<UpdateStructuredOutputDtoConditionsItem>,
+     *   model?: ?UpdateStructuredOutputDtoModel,
      *   name?: ?string,
      *   description?: ?string,
      *   assistantIds?: ?array<string>,
@@ -143,8 +160,9 @@ class UpdateStructuredOutputDto extends JsonSerializableType
         $this->schemaOverride = $values['schemaOverride'];
         $this->type = $values['type'] ?? null;
         $this->regex = $values['regex'] ?? null;
-        $this->model = $values['model'] ?? null;
         $this->compliancePlan = $values['compliancePlan'] ?? null;
+        $this->conditions = $values['conditions'] ?? null;
+        $this->model = $values['model'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->description = $values['description'] ?? null;
         $this->assistantIds = $values['assistantIds'] ?? null;

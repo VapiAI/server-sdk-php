@@ -74,6 +74,18 @@ class Scenario extends JsonSerializableType
     public ?array $toolMocks;
 
     /**
+     * Latency ceilings for voice simulations. Each expectation aggregates the
+     * target call's per-turn latencies and fails the simulation (when required)
+     * if the aggregated value exceeds its threshold. Skipped for chat simulations
+     * and GPT Live targets; on any other voice simulation, a metric that no turn
+     * measured fails.
+     *
+     * @var ?array<LatencyExpectation> $latencyExpectations
+     */
+    #[JsonProperty('latencyExpectations'), ArrayType([LatencyExpectation::class])]
+    public ?array $latencyExpectations;
+
+    /**
      * Optional folder path for organizing scenarios.
      * Supports up to 3 levels (e.g., "dept/feature/variant").
      * Maps to GitOps resource folder structure.
@@ -95,6 +107,7 @@ class Scenario extends JsonSerializableType
      *   hooks?: ?array<ScenarioHooksItem>,
      *   targetOverrides?: ?AssistantOverrides,
      *   toolMocks?: ?array<ScenarioToolMock>,
+     *   latencyExpectations?: ?array<LatencyExpectation>,
      *   path?: ?string,
      * } $values
      */
@@ -111,6 +124,7 @@ class Scenario extends JsonSerializableType
         $this->hooks = $values['hooks'] ?? null;
         $this->targetOverrides = $values['targetOverrides'] ?? null;
         $this->toolMocks = $values['toolMocks'] ?? null;
+        $this->latencyExpectations = $values['latencyExpectations'] ?? null;
         $this->path = $values['path'] ?? null;
     }
 

@@ -5,22 +5,25 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Localized text content used as a language-specific message variant.
+ */
 class TextContent extends JsonSerializableType
 {
     /**
-     * @var value-of<TextContentType> $type
+     * @var value-of<TextContentType> $type Selects text as the content type.
      */
     #[JsonProperty('type')]
     public string $type;
 
     /**
-     * @var string $text
+     * @var string $text Text spoken or displayed for this content variant.
      */
     #[JsonProperty('text')]
     public string $text;
 
     /**
-     * @var value-of<TextContentLanguage> $language
+     * @var value-of<TextContentLanguage> $language Language code associated with this text variant.
      */
     #[JsonProperty('language')]
     public string $language;

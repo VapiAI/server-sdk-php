@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * Fields used to update a line-chart insight, including its queries, formulas, grouping, time range, metadata, and name.
+ */
 class UpdateLineInsightFromCallTableDto extends JsonSerializableType
 {
     /**
@@ -44,7 +47,7 @@ class UpdateLineInsightFromCallTableDto extends JsonSerializableType
     public ?LineInsightMetadata $metadata;
 
     /**
-     * @var ?InsightTimeRangeWithStep $timeRange
+     * @var ?InsightTimeRangeWithStep $timeRange The time range and interval used to aggregate the line-chart data.
      */
     #[JsonProperty('timeRange')]
     public ?InsightTimeRangeWithStep $timeRange;

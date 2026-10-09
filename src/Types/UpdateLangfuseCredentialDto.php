@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateLangfuseCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateLangfuseCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?string $publicKey The public key for Langfuse project. Eg: pk-lf-...
      */
     #[JsonProperty('publicKey')]
@@ -33,6 +39,7 @@ class UpdateLangfuseCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateLangfuseCredentialDtoProvider>,
      *   publicKey?: ?string,
      *   apiKey?: ?string,
      *   apiUrl?: ?string,
@@ -42,6 +49,7 @@ class UpdateLangfuseCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->publicKey = $values['publicKey'] ?? null;
         $this->apiKey = $values['apiKey'] ?? null;
         $this->apiUrl = $values['apiUrl'] ?? null;

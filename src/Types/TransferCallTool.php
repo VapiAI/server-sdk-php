@@ -8,14 +8,19 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A reusable tool that transfers the active call to one of its configured destinations.
+ */
 class TransferCallTool extends JsonSerializableType
 {
     /**
-     * These are the messages that will be spoken to the user as the tool is running.
-     *
-     * For some tools, this is auto-filled based on special fields like `tool.destinations`. For others like the function tool, these can be custom configured.
-     *
-     * @var ?array<TransferCallToolMessagesItem> $messages
+     * @var ?string $latestVersion
+     */
+    #[JsonProperty('latestVersion')]
+    public ?string $latestVersion;
+
+    /**
+     * @var ?array<TransferCallToolMessagesItem> $messages Messages spoken while the tool is running. Multiple request-start messages are variants. For request-response-delayed, same timing means variants and different timings mean staged updates.
      */
     #[JsonProperty('messages'), ArrayType([TransferCallToolMessagesItem::class])]
     public ?array $messages;
@@ -141,6 +146,7 @@ class TransferCallTool extends JsonSerializableType
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
+     *   latestVersion?: ?string,
      *   messages?: ?array<TransferCallToolMessagesItem>,
      *   destinations?: ?array<TransferCallToolDestinationsItem>,
      *   rejectionPlan?: ?ToolRejectionPlan,
@@ -149,6 +155,7 @@ class TransferCallTool extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
+        $this->latestVersion = $values['latestVersion'] ?? null;
         $this->messages = $values['messages'] ?? null;
         $this->destinations = $values['destinations'] ?? null;
         $this->id = $values['id'];

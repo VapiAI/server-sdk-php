@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for synthesizing assistant speech with Vapi, including voice selection, speed, pronunciation dictionary, chunking, caching, and fallback settings.
+ */
 class VapiVoice extends JsonSerializableType
 {
     /**
@@ -15,10 +18,16 @@ class VapiVoice extends JsonSerializableType
     public ?bool $cachingEnabled;
 
     /**
-     * @var value-of<VapiVoiceVoiceId> $voiceId The voices provided by Vapi
+     * @var string $voiceId The voice to use: a built-in Vapi voice name, or a cloned voice id (used with version 2).
      */
     #[JsonProperty('voiceId')]
     public string $voiceId;
+
+    /**
+     * @var ?value-of<VapiVoiceVersion> $version The Vapi voice routing generation. `latest` auto-updates to the newest generation; version 1 uses legacy mappings; version 2 can use xAI-backed voices when available. When omitted, Version 1 is used. Accepts the string channel ('latest', '1', '2'); legacy numeric values (1, 2) are also accepted and coerced to their string form.
+     */
+    #[JsonProperty('version')]
+    public ?string $version;
 
     /**
      * This is the speed multiplier that will be used.
@@ -29,6 +38,12 @@ class VapiVoice extends JsonSerializableType
      */
     #[JsonProperty('speed')]
     public ?float $speed;
+
+    /**
+     * @var ?value-of<VapiVoiceLanguage> $language Language for Vapi voice synthesis. For Version 2, omit this field or set `auto` for automatic language detection. Version 1 supports legacy Vapi language values.
+     */
+    #[JsonProperty('language')]
+    public ?string $language;
 
     /**
      * @var ?array<VapiPronunciationDictionaryLocator> $pronunciationDictionary List of pronunciation dictionary locators for custom word pronunciations.
@@ -43,19 +58,14 @@ class VapiVoice extends JsonSerializableType
     public ?ChunkPlan $chunkPlan;
 
     /**
-     * @var ?FallbackPlan $fallbackPlan This is the plan for voice provider fallbacks in the event that the primary voice provider fails.
-     */
-    #[JsonProperty('fallbackPlan')]
-    public ?FallbackPlan $fallbackPlan;
-
-    /**
      * @param array{
-     *   voiceId: value-of<VapiVoiceVoiceId>,
+     *   voiceId: string,
      *   cachingEnabled?: ?bool,
+     *   version?: ?value-of<VapiVoiceVersion>,
      *   speed?: ?float,
+     *   language?: ?value-of<VapiVoiceLanguage>,
      *   pronunciationDictionary?: ?array<VapiPronunciationDictionaryLocator>,
      *   chunkPlan?: ?ChunkPlan,
-     *   fallbackPlan?: ?FallbackPlan,
      * } $values
      */
     public function __construct(
@@ -63,10 +73,11 @@ class VapiVoice extends JsonSerializableType
     ) {
         $this->cachingEnabled = $values['cachingEnabled'] ?? null;
         $this->voiceId = $values['voiceId'];
+        $this->version = $values['version'] ?? null;
         $this->speed = $values['speed'] ?? null;
+        $this->language = $values['language'] ?? null;
         $this->pronunciationDictionary = $values['pronunciationDictionary'] ?? null;
         $this->chunkPlan = $values['chunkPlan'] ?? null;
-        $this->fallbackPlan = $values['fallbackPlan'] ?? null;
     }
 
     /**

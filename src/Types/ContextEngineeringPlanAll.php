@@ -4,6 +4,9 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 
+/**
+ * Includes all available messages when constructing context for a handoff.
+ */
 class ContextEngineeringPlanAll extends JsonSerializableType
 {
     /**

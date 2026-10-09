@@ -46,6 +46,12 @@ class ExportChatDto extends JsonSerializableType
     public ?string $previousChatId;
 
     /**
+     * @var ?string $idAny Filter by multiple chat IDs. Provide as comma-separated values.
+     */
+    #[JsonProperty('idAny')]
+    public ?string $idAny;
+
+    /**
      * @var ?value-of<ExportChatDtoColumns> $columns Columns to include in the CSV export
      */
     #[JsonProperty('columns')]
@@ -81,6 +87,12 @@ class ExportChatDto extends JsonSerializableType
      */
     #[JsonProperty('sortOrder')]
     public ?string $sortOrder;
+
+    /**
+     * @var ?value-of<ExportChatDtoSortBy> $sortBy This is the column to sort by. Defaults to 'createdAt'.
+     */
+    #[JsonProperty('sortBy')]
+    public ?string $sortBy;
 
     /**
      * @var ?float $limit This is the maximum number of items to return. Defaults to 100.
@@ -144,11 +156,13 @@ class ExportChatDto extends JsonSerializableType
      *   squadId?: ?string,
      *   sessionId?: ?string,
      *   previousChatId?: ?string,
+     *   idAny?: ?string,
      *   columns?: ?value-of<ExportChatDtoColumns>,
      *   email?: ?string,
      *   format?: ?value-of<ExportChatDtoFormat>,
      *   page?: ?float,
      *   sortOrder?: ?value-of<ExportChatDtoSortOrder>,
+     *   sortBy?: ?value-of<ExportChatDtoSortBy>,
      *   limit?: ?float,
      *   createdAtGt?: ?DateTime,
      *   createdAtLt?: ?DateTime,
@@ -169,11 +183,13 @@ class ExportChatDto extends JsonSerializableType
         $this->squadId = $values['squadId'] ?? null;
         $this->sessionId = $values['sessionId'] ?? null;
         $this->previousChatId = $values['previousChatId'] ?? null;
+        $this->idAny = $values['idAny'] ?? null;
         $this->columns = $values['columns'] ?? null;
         $this->email = $values['email'] ?? null;
         $this->format = $values['format'] ?? null;
         $this->page = $values['page'] ?? null;
         $this->sortOrder = $values['sortOrder'] ?? null;
+        $this->sortBy = $values['sortBy'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->createdAtGt = $values['createdAtGt'] ?? null;
         $this->createdAtLt = $values['createdAtLt'] ?? null;

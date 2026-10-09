@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * An environment variable supplied to code-tool execution, with support for Liquid templates in its value.
+ */
 class CodeToolEnvironmentVariable extends JsonSerializableType
 {
     /**

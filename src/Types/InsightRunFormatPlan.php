@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Selects whether an insight run returns raw data or Recharts-formatted data.
+ */
 class InsightRunFormatPlan extends JsonSerializableType
 {
     /**

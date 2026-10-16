@@ -1,3 +1,172 @@
+## [3.0.0] - 2026-10-16
+### Breaking Changes
+
+- **`TrieveKnowledgeBase`**, **`CreateTrieveKnowledgeBaseDto`**, **`UpdateTrieveKnowledgeBaseDto`**, **`TrieveKnowledgeBaseChunkPlan`**, **`TrieveKnowledgeBaseCreate`**, **`TrieveKnowledgeBaseSearchPlan`**, and all related enums (`TrieveKnowledgeBaseProvider`, `TrieveKnowledgeBaseCreateType`, `TrieveKnowledgeBaseImportType`, `TrieveKnowledgeBaseSearchPlanSearchType`, `TrieveCredentialProvider`, `CreateTrieveKnowledgeBaseDtoProvider`) have been removed. Remove any references to these types from your code.
+- **`VapiVoiceVoiceId`** and **`FallbackVapiVoiceVoiceId`** enums have been removed. Update any voice ID references to use the replacement types.
+- **`VapiModelProvider`** and **`CreateCampaignDto`** public classes have been removed. Update any usages accordingly.
+- **`ByoSipTrunkCredential::$sbcConfiguration`** field has been removed. Remove any reads or writes of this property.
+- **`CerebrasModelModel::Llama3370B`**, **`GroqModelModel::MetaLlamaLlama4Maverick17B128EInstruct`**, and **`EvalGroqModelModel::MetaLlamaLlama4Maverick17B128EInstruct`** enum cases have been removed. Switch to a supported model value.
+- **`UpdateAssistantDtoCredentialsItem::trieve()`**, **`isTrieve()`**, and **`asTrieve()`** — the `trieve` credential variant has been removed; callers using these methods must migrate to an alternative credential type.
+- **`CreateCallDto::$transport`** — the type has changed from `?array<string, mixed>` to `?CreateCallDtoTransport`; update any code that passes a raw array to construct a `CreateCallDtoTransport` instance instead.
+- **`CampaignsClient::campaignControllerUpdate`** now accepts `CampaignControllerUpdateRequest` (wrapping the body) instead of `UpdateCampaignDto`, and the parameter is now required (no default). Update call sites to wrap your payload: `new CampaignControllerUpdateRequest(['body' => $dto])`.
+- **`UpdatePersonalityDto`** has been moved from the `Vapi\Types` namespace to `Vapi\SimulationPersonalities\Requests`. Update any `use Vapi\Types\UpdatePersonalityDto` imports to `use Vapi\SimulationPersonalities\Requests\UpdatePersonalityDto`.
+- **`AssistantCredentialsItem::trieve()`**, **`isTrieve()`**, and **`asTrieve()`** have been removed along with the `trieve` provider variant. Remove any code that constructs or checks for Trieve credentials.
+- **`CreateTrieveCredentialDto`** has been removed along with the `trieve` provider variant on `CreateAssistantDtoCredentialsItem`. Remove any calls to `CreateAssistantDtoCredentialsItem::trieve()`, `isTrieve()`, and `asTrieve()`, and stop constructing `CreateTrieveCredentialDto`.
+- **`CreateByoSipTrunkCredentialDto::$sbcConfiguration`** field has been removed. Remove any references to `sbcConfiguration` when constructing or reading this DTO.
+- **`CreateSesameVoiceDto`** now requires `file`, `voiceName`, and `transcription` as mandatory constructor arguments (previously optional). Update all construction sites to supply all three values.
+- **`TrieveCredential`** has been renamed to `MicrosoftCredential`. Update all references from `TrieveCredential` to `MicrosoftCredential` and from `TrieveCredentialProvider` to `MicrosoftCredentialProvider`.
+- **`GladiaTranscriber::$languages`** type changed from `?string` to `?array<string>`. Wrap any single-language string value in an array when constructing or reading this field.
+- **`Subscription::$slackSupportEnabled`** and **`Subscription::$slackChannelId`** have been removed. Remove any references to these fields in your code; Slack support configuration is no longer exposed on the subscription object.
+- **`User`** has been renamed to `UserWithRole` and now requires a `role` constructor argument. Update all references and pass the required `role` value.
+- **`VapiModel`** removes the previously required `provider` and `model` fields (both now optional/nullable) and drops `maxTokens` entirely. Remove any `maxTokens` usage and update constructor calls accordingly.
+- **`VapiVoice`** removes the `fallbackPlan` field. Remove any references to `$fallbackPlan` on `VapiVoice` instances.
+- **`WorkflowCredentialsItem`** and **`WorkflowUserEditableCredentialsItem`** remove the `trieve` credential variant (`isTrieve()`, `asTrieve()`, `::trieve()`). Migrate to an alternative credential type.
+- **`VoiceLibraryVoiceResponse::$age`** type changes from `?array<string, mixed>` to `string|float|null`. Update any code that treats `$age` as an array.
+- **`CreateSimulationRunDtoSimulationsItem`** has moved from `Vapi\Types` to `Vapi\SimulationRuns\Types`. Update any `use` statements or fully-qualified references to the new namespace.
+- **`CreateSimulationRunDtoTarget`** has moved from `Vapi\Types` to `Vapi\SimulationRuns\Types`. Update any `use` statements or fully-qualified references to the new namespace.
+- **`UpdateScenarioDtoHooksItem`** has moved from `Vapi\Types` to `Vapi\SimulationScenarios\Types`. Update any `use` statements or fully-qualified references to the new namespace.
+- **`FallbackGladiaTranscriberLanguages`** has been renamed to `FallbackGladiaTranscriberLanguagesItem`. Update any references to this enum in your code to use the new name.
+- **`GladiaTranscriberLanguages`** has been renamed to `GladiaTranscriberLanguagesItem`. Update any references to this enum in your code to use the new name.
+- **`InviteUserDtoRole`** has been renamed to `InviteUserDtoRoleZero`. Update any references to this enum in your code to use the new name. The `role` field on `InviteUserDto` now accepts `value-of<InviteUserDtoRoleZero>|string`.
+- **`GhlToolType`** has been renamed to `UpdateGhlToolDtoType`. Update any references to this enum in your code to use the new name.
+- **`UpdateCampaignDtoStatus`** has been moved from the `Vapi\Campaigns\Types` namespace to `Vapi\Types`. Update your `use` statements accordingly.
+
+### Added
+
+- **`AssistantsClient::assistantControllerValidateBackgroundSoundUrl()`** — new method to validate a background sound URL, returning a `BackgroundSoundUrlValidationResult`.
+- **`UpdateAssistantDtoCredentialsItem::s3Compatible()`** — new factory, `isS3Compatible()`, and `asS3Compatible()` methods for the `s3-compatible` credential variant backed by `CreateS3CompatibleCredentialDto`.
+- **`UpdateAssistantDtoCredentialsItem::microsoft()`** — new factory, `isMicrosoft()`, and `asMicrosoft()` methods for the `microsoft` credential variant backed by `CreateMicrosoftCredentialDto`.
+- **`CallsClient`** — seven new artifact download methods: `callArtifactControllerMonoRecordingDownload`, `callArtifactControllerStereoRecordingDownload`, `callArtifactControllerVideoRecordingDownload`, `callArtifactControllerCustomerRecordingDownload`, `callArtifactControllerAssistantRecordingDownload`, `callArtifactControllerPcapDownload`, and `callArtifactControllerCallLogsDownload`.
+- **`CreateCallDto::$assistantVersion`** and **`$squadVersion`** — new optional string fields to pin a specific assistant or squad version for a call.
+- **v2 campaign endpoints** — `campaignControllerFindAllV2`, `campaignControllerCreateV2`, `campaignControllerFindOneV2`, `campaignControllerRemoveV2`, `campaignControllerUpdateV2`, and `campaignControllerGetCampaignV2Contacts` are now available on `CampaignsClient`.
+- **`FilesClient::list`** now accepts an optional `ListFilesRequest` to filter files by purpose; `CreateFileDto` gains optional `purpose` and `metadata` fields.
+- **`sortBy` field** added to paginated request types across `CampaignControllerFindAllRequest`, `EvalControllerGetPaginatedRequest`, `EvalControllerGetRunsPaginatedRequest`, `InsightControllerFindAllRequest`, `ScorecardControllerGetPaginatedRequest`, and `ProviderResourceControllerGetProviderResourcesPaginatedRequest`.
+- **`InsightRunDto::$assistantId`** — new optional field for scoping dashboard queries to a specific assistant at runtime without mutating the saved insight.
+- **`AssistantCredentialsItem::s3Compatible()`** — new factory method (plus `isS3Compatible()` / `asS3Compatible()`) for the `s3-compatible` credential provider.
+- **`AssistantCredentialsItem::microsoft()`** — new factory method (plus `isMicrosoft()` / `asMicrosoft()`) for the `microsoft` credential provider.
+- **`Artifact`** gains presigned download URL fields (`presignedMonoUrl`, `presignedStereoUrl`, `presignedVideoUrl`, `presignedAssistantUrl`, `presignedCustomerUrl`, `presignedPcapUrl`, `presignedLogUrl`, `presignedUrlsExpiresAt`), `skippedStructuredOutputs`, and a richer `transfers` field typed as `TransferArtifact[]`.
+- **`AssemblyAiTranscriber`** adds `mode`, `prompt`, `agentContext`, `agentContextAutoUpdateEnabled`, and `languageCodes` for Universal Pro speech models (`universal-3-5-pro`, `universal-3-6-pro`).
+- **`Assistant`** adds `latestVersion` and `modelDeprecations` (read-only deprecation notices); **`ApiRequestTool`** adds `latestVersion` and `baselineVersion` for version-history support.
+- **`CreateMicrosoftCredentialDto`** — new credential type for Microsoft Azure Speech, with optional `region` field; accessible via `CreateAssistantDtoCredentialsItem::microsoft()`, `isMicrosoft()`, and `asMicrosoft()`.
+- **`CreateS3CompatibleCredentialDto`** — new credential type for S3-compatible storage providers; accessible via `CreateAssistantDtoCredentialsItem::s3Compatible()`, `isS3Compatible()`, and `asS3Compatible()`.
+- **`CreateOutboundCallDto::$assistantVersion`** and **`$squadVersion`** — optional fields to pin a specific assistant or squad version for a call.
+- **`CreateOutboundCallDto::$transport`** — now typed as `CreateOutboundCallDtoTransport` instead of a generic `array<string, mixed>`.
+- **`CreateScenarioDto::$latencyExpectations`** and **`CreateStructuredOutputDto::$conditions`** — new optional fields for latency thresholds and execution-gating conditions respectively.
+- **`MicrosoftCredential::$region`** — new optional string field specifying the Azure region for the Speech resource (defaults to `eastus` when omitted).
+- **`toolRefs`** (`?array<ToolRef>`) added to `GoogleModel`, `GroqModel`, and `InflectionAiModel` for version-pinned tool references; when the same `toolId` appears in both `toolIds` and `toolRefs`, the `toolRefs` pin takes precedence.
+- **`latestVersion`** and **`baselineVersion`** optional string fields added to all reusable tool types (GoHighLevel, Google Calendar/Sheets, Handoff, Make, and MCP tools) to support tool version pinning.
+- **`LineInsight::$systemKey`** — new optional string field exposing the stable server-owned identifier for system-created insights.
+- **`ServerMessageResponseCampaignPredial`** is now a valid union variant for `ServerMessageResponse::$messageResponse`, enabling campaign predial handling in server message responses.
+- **`SimulationRunItemResults::$latencyEvaluations`** and **`SimulationRunItemCounts::$distinctSimulationTotal`** / **`$distinctSimulationFailed`** expose latency evaluation results and per-simulation aggregates in simulation run data.
+- **`latestVersion`** and **`baselineVersion`** optional fields added to `SipRequestTool`, `SlackSendMessageTool`, `SmsTool`, and `TextEditorTool` for tool version pinning.
+- **`SonioxTranscriber`** gains `languages`, `endpointSensitivity`, `endpointLatencyAdjustmentLevel`, `contextGeneral`, and `confidenceThreshold` for fine-grained multi-language and endpointing control.
+- **New optional fields** added to `TogetherAiModel` (`toolRefs`), `SquadMemberDto` (`assistantVersion`), `StructuredOutput` (`conditions`), `Subscription` (`name`, `billingCollectionMethod`), and `TextInsight` (`systemKey`).
+- **`UserWithRole`** gains optional `lastActiveAt` (`?DateTime`) and required `role` fields for org membership details.
+- **`VapiModel`** adds optional `toolRefs` (`?array<ToolRef>`) for version-pinned tool references, and optional `version` for Vapi-managed model routing.
+- **`VapiVoice`** adds optional `version` (routing generation) and `language` fields for enhanced voice synthesis control.
+- **`WorkflowCredentialsItem`** and **`WorkflowUserEditableCredentialsItem`** add `s3-compatible` and `microsoft` credential variants with full factory, accessor, and serialization support.
+- **`VapiPronunciationDictionaryLocator`** adds an optional `provider` field to identify the hosting provider.
+- **`XaiModel::$toolRefs`** — new optional field for version-pinned tool references; when the same `toolId` appears in both `toolIds` and `toolRefs`, the `toolRefs` pin takes precedence.
+- **`sortBy` query parameter** on paginated list methods across `EvalClient`, `InsightClient`, `ObservabilityScorecardClient`, `PhoneNumbersClient`, `ProviderResourcesClient`, `SessionsClient`, and `SquadsClient`.
+- **`idAny` and `squadOverrides` filter parameters** added to `SessionsClient` list, and `idAny` added to `SquadsClient` list for more flexible filtering.
+- **`InviteUserDtoRoleZero::HipaaSpecial`** — new `hipaa-special` case added to the role enum for HIPAA-specific user invitations.
+- **`SipAuthentication::$realm`** — documentation clarified to note that the default SIP realm is now region-aware (e.g. `sip.vapi.ai` for US, `sip.eu.vapi.ai` for EU).
+- **`UpdateCampaignDtoStatus::Cancelled`** — new `cancelled` case added to the campaign status enum alongside the existing `ended` case.
+- **`TransferPlan::$fallbackPlan`** — now also applies to SIP cold transfers (`blind-transfer` modes) when transfer-outcome detection is enabled, in addition to `warm-transfer-experimental`.
+- **`BoardClient`** — new client for managing reporting boards, supporting list, create, find, update, delete, and metrics-overview operations at the `reporting/board` endpoint.
+- **`ValidateBackgroundSoundUrlDto`** — new request type for validating background sound URLs via a ranged media-file check.
+- **`XaiVoice`** and **`MicrosoftVoice`** providers added to `UpdateAssistantDtoVoice`, along with `XaiTranscriber` and `VapiTranscriber` in `UpdateAssistantDtoTranscriber`, and `VapiModel` in `UpdateAssistantDtoModel`.
+- **`UpdateAssistantDtoServerMessagesItem::CallArtifactUpload`** — new `call.artifact.upload` enum case for server message subscriptions.
+- **`Board` resource** — new `CreateBoardDto`, `UpdateBoardDto`, and `BoardControllerFindAllRequest` types (with sort/filter enums) to manage dashboard boards containing insight and metric widgets.
+- **Campaign V2 request types** — `CampaignControllerFindAllV2Request`, `CampaignControllerFindOneV2Request`, `CampaignControllerGetCampaignV2ContactsRequest`, and `CampaignControllerUpdateV2Request` for the V2 campaign endpoints, including an `includeCounters` flag for opt-in aggregate metrics.
+- **`CreateCallDtoTransport`** — new discriminated union type for specifying call transport, with typed factory methods and accessors for `vapi.websocket`, `vonage`, `twilio`, `vapi.sip`, `telnyx`, and `daily` providers.
+- **`ListChatsRequest`** — new optional `idAny` (comma-separated chat ID filter) and `sortBy` fields, backed by the new `ListChatsRequestSortBy` enum (`createdAt`, `duration`, `cost`).
+- **New enum values** — `cancelled` and `archived` added to `CampaignControllerFindAllRequestStatus` and `CampaignControllerFindAllV2RequestStatus`; new `EvalControllerGetPaginatedRequestSortBy` and `EvalControllerGetRunsPaginatedRequestSortBy` enums added for eval pagination.
+- **`KnowledgeBasesV2Client`** — new client for managing v2 knowledge bases, supporting list, create, get, update, delete, and file attach/detach/retry operations.
+- **`CreateFileDto::$purpose` and `CreateFileDto::$metadata`** — new optional fields for specifying the product flow and JSON-encoded metadata when uploading files; backed by the new `CreateFilesRequestPurpose` enum.
+- **`ListFilesRequest`** — new request class for listing files, with an optional `purpose` filter using the new `ListFilesRequestPurpose` enum.
+- **`sortBy` field on `PhoneNumberControllerFindAllPaginatedRequest` and `ListSessionsRequest`** — new optional column-sort parameter backed by new `*SortBy` enums (`createdAt`, `duration`, `cost`).
+- **`ListSessionsRequest::$squadOverrides` and `ListSessionsRequest::$idAny`** — new optional filter fields for squad-based session filtering and multi-ID lookup.
+- **`SimulationPersonalitiesClient`** — new client for managing AI tester personality configurations used in simulations, with methods to list, create, retrieve, update, and delete personalities via the `eval/simulation/personality` endpoints.
+- **`SimulationRunControllerFindAllRequest`** — new request type for listing simulation runs with filtering by status, target type, target ID, and date ranges.
+- **`SimulationRunControllerFindItemsRequest`** — new request type for listing individual simulation run items, filterable by simulation ID, run ID, status, and date ranges.
+- **`SimulationRunControllerGenerateSuggestionsRequest`** — new request type for triggering improvement suggestion generation on a simulation run.
+- **`PersonalityControllerFindAllRequestSortBy`** and **`PersonalityControllerFindAllRequestSortOrder`** — new enums for controlling sort order and column when listing personalities.
+- **`SimulationRunsClient`** — new client for managing simulation runs, supporting list, create, get, cancel (group and item), list items, get item, and generate AI suggestions operations against the `eval/simulation/run` endpoints.
+- **`SimulationRunControllerFindAllRequest` filter/sort enums** — new enum types (`SimulationRunControllerFindAllRequestStatus`, `SimulationRunControllerFindAllRequestFilterStatus`, `SimulationRunControllerFindAllRequestSortBy`, `SimulationRunControllerFindAllRequestSortOrder`, `SimulationRunControllerFindAllRequestTargetType`) for filtering and sorting simulation run listings.
+- **`SimulationRunControllerFindItemsRequest` enums** — new enum types (`SimulationRunControllerFindItemsRequestStatus`, `SimulationRunControllerFindItemsRequestSortBy`, `SimulationRunControllerFindItemsRequestSortOrder`) for filtering and sorting simulation run item listings.
+- **`ScenarioControllerFindAllRequest`** — new request type under `Vapi\SimulationScenarios\Requests` with support for filtering by ID, name, date ranges, and pagination/sort options.
+- **`SimulationScenariosClient`** — new client for managing evaluation scenarios, with methods to list, create, retrieve, update, and delete scenarios via the `eval/simulation/scenario` endpoints.
+- **`SimulationSuitesClient`** — new client for managing simulation suites, with methods to list, create, duplicate, retrieve, update, and delete suites via the `eval/simulation/suite` endpoints.
+- **`SimulationControllerFindAllRequest`** — new paginated list-request type for simulations, supporting filtering by id, `standaloneOnly`, date ranges, and sort options.
+- **New sort enums** (`ScenarioControllerFindAllRequestSortBy`, `ScenarioControllerFindAllRequestSortOrder`, `SimulationSuiteControllerFindAllRequestSortBy`, `SimulationSuiteControllerFindAllRequestSortOrder`) for controlling pagination order across the new simulation resource clients.
+- **`SimulationsClient`** — new client for managing simulations, including methods to generate scenarios, list, create, update, delete, and retrieve simulations and concurrency limits.
+- **`code` tool type** — `CreateToolsRequest` now supports a `code` variant via `CreateCodeToolDto`, with `isCode()` and `asCode()` helpers.
+- **`ListSquadsRequest::$idAny`** — new optional array field to filter squads by a list of IDs.
+- **`StructuredOutputControllerFindAllRequest::$sortBy`** — new optional sort-by field backed by the new `StructuredOutputControllerFindAllRequestSortBy` enum (`createdAt`, `duration`, `cost`).
+- **`StructuredOutputControllerRunResponseOne`** and **`UpdateStructuredOutputDtoConditionsItem`** — new response and union condition types for structured output operations.
+- **`KnowledgeBaseTool` variant** — `CreateToolsResponse`, `DeleteToolsResponse`, `GetToolsResponse`, and `ListToolsResponseItem` now support the `'knowledgeBase'` discriminant, with `knowledgeBase()` factory, `isKnowledgeBase()` predicate, and `asKnowledgeBase()` accessor methods.
+- **`GhlTool` variant** — the same four response union types now support the `'ghl'` discriminant via `ghl()`, `isGhl()`, and `asGhl()` methods.
+- **`UpdateKnowledgeBaseToolDto` variant** — `UpdateToolsRequestBody` now supports the `'knowledgeBase'` discriminant with matching factory, predicate, and accessor methods.
+- **`UpdateCodeToolDto` variant** — `UpdateToolsRequestBody` now supports the `'code'` discriminant via `code()`, `isCode()`, and `asCode()` methods.
+- **`TrafficAllocationsClient`** — new client for managing assistant traffic splitting (beta), with methods to list allocation history, create allocations, retrieve the latest allocation, and fetch a single allocation by ID.
+- **`KnowledgeBaseTool` and `GhlTool` variants on `UpdateToolsResponse`** — the tools union now supports `'knowledgeBase'` and `'ghl'` discriminants, with corresponding factory methods (`knowledgeBase()`, `ghl()`), type guards (`isKnowledgeBase()`, `isGhl()`), and accessors (`asKnowledgeBase()`, `asGhl()`).
+- **New enum types** — `AnthropicModelReasoningEffort`, `AnthropicBedrockModelReasoningEffort`, `AnthropicBedrockModelFallbackModelsItem`, `AssemblyAiTranscriberMode`, and `AssemblyAiTranscriberLanguageCodesItem` for expanded model configuration.
+- **New model and region values** — `AnthropicModelModel` gains `ClaudeSonnet5` and `ClaudeHaiku55`; `AnthropicBedrockModelModel` gains `ClaudeHaiku55` and `GlobalAnthropicClaudeHaiku4520251001V10`; `AssemblyAiTranscriberSpeechModel` gains `Universal35Pro` and `Universal36Pro`; `AnthropicBedrockCredentialRegion` gains `EuCentral1`.
+- **`AnalysisCost::$structuredOutputBreakdown`** — new optional field providing a per-structured-output cost breakdown when `analysisType` is `structuredOutput`.
+- **`AssistantDraft`** — new type representing a saved draft of an assistant configuration, including full assistant settings plus draft metadata (`id`, `orgId`, `assistantId`, `baseVersion`, `createdBy`, `createdAt`, `updatedAt`).
+- **`AssistantDraftConflictResponseDto`** — new response type returned when a draft creation conflicts with an existing draft, exposing `existingDraftId`, `error`, and `message`.
+- **`AssistantDraftBackgroundSoundZero`** and **`AssistantDraftClientMessagesItem`** — new enums supporting `AssistantDraft` configuration options.
+- **`AssistantActivation::$assistantVersion`** and **`AssistantActivation::$squadVersion`** — new optional string fields that expose the version label of the active assistant and governing squad at the time a call activation was recorded.
+- **`AssistantDraftCredentialsItem`** — new discriminated union type representing any credential that can be attached to an assistant draft, supporting 57 provider variants (e.g. `11labs`, `anthropic`, `openai`, `azure`, `deepgram`, `google`, and more).
+- **Static factory methods** on `AssistantDraftCredentialsItem` (e.g. `::openai()`, `::anthropic()`, `::azure()`) for constructing typed credential items for each supported provider.
+- **`is*()`/`as*()`** accessor pairs on `AssistantDraftCredentialsItem` for type-safe variant checking and unwrapping (e.g. `isOpenai()`, `asOpenai()`).
+- **`_unknown` fallback** on `AssistantDraftCredentialsItem` for forward-compatible handling of unrecognized provider values returned by the API.
+- **`AssistantDraftModel`** — new union class representing the LLM model for an assistant draft, supporting 17 providers (Anthropic, OpenAI, Google, Groq, and more) with typed `is*()` / `as*()` accessor methods.
+- **`AssistantDraftPaginatedResponse`** and **`AssistantDraftPaginatedMetadata`** — new types for cursor-based pagination of assistant draft listings, exposing `results`, `metadata`, `nextCursor`, `hasNextPage`, and `limit`.
+- **`AssistantDraftFirstMessageMode`** — new enum controlling how an assistant begins a conversation (`AssistantSpeaksFirst`, `AssistantSpeaksFirstWithModelGeneratedMessage`, `AssistantWaitsForUser`).
+- **`AssistantDraftServerMessagesItem`** — new enum enumerating 28 server-side event types that an assistant draft can subscribe to.
+- **`AssistantDraftTranscriber`** — new discriminated union type representing all supported transcriber providers (assembly-ai, azure, custom-transcriber, deepgram, 11labs, gladia, google, speechmatics, talkscriber, openai, cartesia, soniox, xai, vapi) for assistant drafts, with static factory methods and type-safe `is*()`/`as*()` accessors.
+- **`AssistantDraftVoice`** — new union type representing all supported voice providers for draft assistant configuration, with typed factory methods and accessors for each of the 20 providers.
+- **`AssistantManagedConflictResponseDto`** and **`AssistantManagedVapiAgentsDto`** — new response types surfaced when a write to a Vapi-Agents-managed assistant is rejected, including the agent link and MCP URL for making the change via the agent instead.
+- **`AssistantManagedConflictResponseDtoError`** — new enum with the `AssistantManagedByVapiAgents` case used in managed-conflict responses.
+- **`AssistantDraftVoicemailDetectionZero`** — new enum with the `Off` case for disabling voicemail detection on draft assistants.
+- **`vapi` provider variant on `AssistantModel`** — `AssistantModel` now supports the `vapi` provider via `AssistantModel::vapi()`, `isVapi()`, and `asVapi()`, backed by the new `VapiModel` type.
+- **`VapiModel`** variant support in `AssistantOverridesModel` — use the new `vapi()` factory, `isVapi()`, and `asVapi()` methods to work with the `vapi` model provider.
+- **`XaiTranscriber` and `VapiTranscriber`** variants added to `AssistantTranscriber` and `AssistantOverridesTranscriber` — new `xai()`, `vapi()`, `isXai()`, `asXai()`, `isVapi()`, and `asVapi()` methods are available on both classes.
+- **`XaiVoice` and `MicrosoftVoice`** variants added to `AssistantOverridesVoice` — new `xai()`, `microsoft()`, `isXai()`, `asXai()`, `isMicrosoft()`, and `asMicrosoft()` methods are available.
+- **`CallArtifactUpload`** case added to `AssistantServerMessagesItem` and `AssistantOverridesServerMessagesItem` enums for the new `call.artifact.upload` server message event.
+- **`AssistantPinnedConflictResponseDto`** — new response type returned when a parent-assistant delete is rejected due to pinned references.
+- **`AssistantVersion`** — new type representing a versioned snapshot of an assistant configuration, including versioning metadata such as `id`, `orgId`, `assistantId`, `version`, `configHash`, `parentVersion`, `restoredFromVersion`, `createdBy`, and `modelDeprecations`.
+- **`AssistantVersionBackgroundSoundZero`** — new enum for background sound options (`Off`, `Office`) used by `AssistantVersion`.
+- **`AssistantVersionClientMessagesItem`** — new enum enumerating all supported client message event types (e.g. `conversation-update`, `transcript`, `tool-calls`, `assistant.started`, etc.) used by `AssistantVersion`.
+- **`AssistantVersionCredentialsItem`** — new discriminated union type representing a credential attached to an assistant version, supporting all 57 credential providers (e.g. `11labs`, `anthropic`, `openai`, `twilio`, `google`, and more) with typed factory methods, `is*()` guards, and `as*()` accessors.
+- **`AssistantVersionModel`** — new union type representing the LLM model configuration for a versioned assistant, supporting all providers (Anthropic, OpenAI, Google, Groq, DeepSeek, and more).
+- **`AssistantVersionFirstMessageMode`** — new enum controlling whether the assistant speaks first, waits for the user, or uses a model-generated opening message.
+- **`AssistantVersionServerMessagesItem`** — new enum enumerating all server-side event message types available on a versioned assistant.
+- **`AssistantVersionPaginatedMetadata`** — new type carrying cursor-based pagination metadata (`nextCursor`, `hasNextPage`, `limit`) for assistant version list responses.
+- **`AssistantVersionTranscriber`** — new discriminated union type representing all supported transcriber providers (assembly-ai, azure, custom-transcriber, deepgram, 11labs, gladia, google, speechmatics, talkscriber, openai, cartesia, soniox, xai, vapi) for assistant versions, with static factory methods and type-safe `is*()`/`as*()` accessors.
+- **`AssistantVoice::xai()`** and **`AssistantVoice::microsoft()`** — new factory methods (plus `isXai`, `asXai`, `isMicrosoft`, `asMicrosoft`) add XAI and Microsoft as supported voice providers.
+- **`AssistantVersionVoice`** — new union type class representing the full set of 20 voice providers for assistant versions, with factory, accessor, and serialization methods.
+- **`AudioFormat`**, **`AudioFormatFormat`**, and **`AudioFormatContainer`** — new types for configuring call audio sample rate, encoding format (`pcm_s16le`, `mulaw`), and container (`raw`).
+- **New enum cases** added to `AzureCredentialRegion` and `AzureOpenAiCredentialRegion` (`switzerlandnorth`, `switzerlandwest`) and to `AzureOpenAiCredentialModelsItem` (GPT-5.6 Luna/Terra/Sol, GPT-4o, GPT-4.1, GPT-5.4-mini variants).
+- **`AssistantVersionVoicemailDetectionZero`** — new enum with an `off` case for disabling voicemail detection on assistant versions.
+- **`Board`**, **`BoardInsightItem`**, **`BoardMetricWidgetItem`**, **`BoardLayout`**, **`BoardItemPosition`**, **`BoardItemSize`**, and **`BoardPaginatedResponse`** — new types for creating and querying analytics dashboard boards with positioned insight and metric widgets.
+- **`BooleanComparatorScorecardMetricCondition`** — new type (with supporting enums `BooleanComparatorScorecardMetricConditionType` and `BooleanComparatorScorecardMetricConditionComparator`) for defining point-based boolean scorecard metric conditions.
+- **`BackgroundSoundUrlValidationResult`** and **`BackgroundSoundUrlValidationResultReason`** — new types for reporting whether a background sound URL serves a valid live audio file and why validation failed.
+- **`CallArtifactUploadItemType`** — new enum covering artifact upload categories (`end-of-call-report`, `recording-mono`, `recording-stereo`, `recording-assistant`, `recording-customer`, `log`, `pcap`).
+- **`BotMessage::$assistantName`** and **`BotMessage::$assistantId`** — new optional fields that identify the specific sub-agent that produced a message in squad or handoff calls, enabling per-speaker transcript labeling; new `CallEndedReason` cases added for xAI voice/transcriber, Microsoft voice, Cartesia transcriber, assistant/squad version validation, call forwarding no-answer, SIP outbound errors, and more.
+
+### Changed
+
+- **`ElevenLabsVoice`** and **`FallbackElevenLabsVoice`** — `similarityBoost`, `style`, `useSpeakerBoost`, `speed`, `optimizeStreamingLatency`, `enableSsmlParsing`, and `autoMode` properties now document that they are ignored by the `eleven_v4_turbo` model.
+- **`FallbackOpenAiVoice`** — voice-availability note updated to reflect that `quartz`, `ripple`, `vesper`, `willow`, `stone`, `gleam`, `meridian`, `bossa`, `tempo`, `beacon`, `delta`, and `cinder` are only supported with GPT-Live models.
+- **`CreateStructuredOutputDtoModel`** — documentation updated to include `messagesWithConfidence` as a supported template variable for text extraction alongside `transcript` and `messages`.
+- **`EvalRun`** — `results` field description clarified to reflect individual Eval semantics; a normally-finishing Eval contains one result and passes only when all judged checkpoints pass.
+- PHPDoc class-level descriptions and improved field-level documentation added across many types including `Monitor`, `MonitorPlan`, `OpenAiVoice`, `SipTrunkGateway`, `SpeechmaticsTranscriber`, and others for better developer experience.
+- PHPDoc descriptions improved across all `Update*ToolDto`, `ToolNode`, `TransferPlan`, `ToolMessageDelayed`, `StructuredOutputModel`, and insight DTO classes for greater clarity on field semantics and message-variant behavior.
+- **`UpdateUserRoleDtoRole`** has been renamed to `UserWithRoleRoleZero` and the `role` field on `UpdateUserRoleDto` now accepts an open `string` union (including the new `hipaa-special` value) instead of the closed enum. Update any references from `UpdateUserRoleDtoRole` to `UserWithRoleRoleZero`.
+
 ## 2.0.0 - 2026-06-24
 ### Breaking Changes
 * **`CartesiaExperimentalControlsSpeedZero`** has been renamed to `CartesiaSpeedControlZero`. Update any references to this enum in your code to use the new name.

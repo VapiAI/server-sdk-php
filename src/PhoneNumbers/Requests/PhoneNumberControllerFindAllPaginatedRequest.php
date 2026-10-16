@@ -4,6 +4,7 @@ namespace Vapi\PhoneNumbers\Requests;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\PhoneNumbers\Types\PhoneNumberControllerFindAllPaginatedRequestSortOrder;
+use Vapi\PhoneNumbers\Types\PhoneNumberControllerFindAllPaginatedRequestSortBy;
 use DateTime;
 
 class PhoneNumberControllerFindAllPaginatedRequest extends JsonSerializableType
@@ -22,6 +23,11 @@ class PhoneNumberControllerFindAllPaginatedRequest extends JsonSerializableType
      * @var ?value-of<PhoneNumberControllerFindAllPaginatedRequestSortOrder> $sortOrder This is the sort order for pagination. Defaults to 'DESC'.
      */
     public ?string $sortOrder;
+
+    /**
+     * @var ?value-of<PhoneNumberControllerFindAllPaginatedRequestSortBy> $sortBy This is the column to sort by. Defaults to 'createdAt'.
+     */
+    public ?string $sortBy;
 
     /**
      * @var ?float $limit This is the maximum number of items to return. Defaults to 100.
@@ -73,6 +79,7 @@ class PhoneNumberControllerFindAllPaginatedRequest extends JsonSerializableType
      *   search?: ?string,
      *   page?: ?float,
      *   sortOrder?: ?value-of<PhoneNumberControllerFindAllPaginatedRequestSortOrder>,
+     *   sortBy?: ?value-of<PhoneNumberControllerFindAllPaginatedRequestSortBy>,
      *   limit?: ?float,
      *   createdAtGt?: ?DateTime,
      *   createdAtLt?: ?DateTime,
@@ -90,6 +97,7 @@ class PhoneNumberControllerFindAllPaginatedRequest extends JsonSerializableType
         $this->search = $values['search'] ?? null;
         $this->page = $values['page'] ?? null;
         $this->sortOrder = $values['sortOrder'] ?? null;
+        $this->sortBy = $values['sortBy'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->createdAtGt = $values['createdAtGt'] ?? null;
         $this->createdAtLt = $values['createdAtLt'] ?? null;

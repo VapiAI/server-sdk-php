@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Conditions evaluated to determine whether a requested tool call should be rejected.
+ */
 class ToolRejectionPlan extends JsonSerializableType
 {
     /**

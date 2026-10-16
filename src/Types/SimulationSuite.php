@@ -63,6 +63,12 @@ class SimulationSuite extends JsonSerializableType
     public array $simulationIds;
 
     /**
+     * @var array<SimulationSuiteTargetAssignment> $targetAssignments This is the ordered list of assistant or squad assignments for the suite.
+     */
+    #[JsonProperty('targetAssignments'), ArrayType([SimulationSuiteTargetAssignment::class])]
+    public array $targetAssignments;
+
+    /**
      * @param array{
      *   id: string,
      *   orgId: string,
@@ -70,6 +76,7 @@ class SimulationSuite extends JsonSerializableType
      *   updatedAt: DateTime,
      *   name: string,
      *   simulationIds: array<string>,
+     *   targetAssignments: array<SimulationSuiteTargetAssignment>,
      *   slackWebhookUrl?: ?string,
      *   path?: ?string,
      * } $values
@@ -85,6 +92,7 @@ class SimulationSuite extends JsonSerializableType
         $this->slackWebhookUrl = $values['slackWebhookUrl'] ?? null;
         $this->path = $values['path'] ?? null;
         $this->simulationIds = $values['simulationIds'];
+        $this->targetAssignments = $values['targetAssignments'];
     }
 
     /**

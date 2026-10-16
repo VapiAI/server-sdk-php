@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Per-call overrides for values used in workflow template variables.
+ */
 class WorkflowOverrides extends JsonSerializableType
 {
     /**

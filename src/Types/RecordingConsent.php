@@ -4,17 +4,19 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
-use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * Result of the recording-consent flow, including consent type and the time consent was granted.
+ */
 class RecordingConsent extends JsonSerializableType
 {
     /**
-     * @var array<string, mixed> $type This is the type of recording consent.
+     * @var value-of<RecordingConsentType> $type This is the type of recording consent.
      */
-    #[JsonProperty('type'), ArrayType(['string' => 'mixed'])]
-    public array $type;
+    #[JsonProperty('type')]
+    public string $type;
 
     /**
      * This is the date and time the recording consent was granted.
@@ -27,7 +29,7 @@ class RecordingConsent extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: array<string, mixed>,
+     *   type: value-of<RecordingConsentType>,
      *   grantedAt?: ?DateTime,
      * } $values
      */

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * An assistant-authored entry in the call message history, including content, timing, source, and duration.
+ */
 class BotMessage extends JsonSerializableType
 {
     /**
@@ -50,6 +53,25 @@ class BotMessage extends JsonSerializableType
     public ?float $duration;
 
     /**
+     * The name of the assistant that produced this message. In a squad or
+     * handoff call this is the specific sub-agent active when the message was
+     * spoken, letting the transcript label each message by speaker.
+     *
+     * @var ?string $assistantName
+     */
+    #[JsonProperty('assistantName')]
+    public ?string $assistantName;
+
+    /**
+     * The ID of the assistant that produced this message. Stable reference for
+     * the assistant named in `assistantName`.
+     *
+     * @var ?string $assistantId
+     */
+    #[JsonProperty('assistantId')]
+    public ?string $assistantId;
+
+    /**
      * @param array{
      *   role: string,
      *   message: string,
@@ -58,6 +80,8 @@ class BotMessage extends JsonSerializableType
      *   secondsFromStart: float,
      *   source?: ?string,
      *   duration?: ?float,
+     *   assistantName?: ?string,
+     *   assistantId?: ?string,
      * } $values
      */
     public function __construct(
@@ -70,6 +94,8 @@ class BotMessage extends JsonSerializableType
         $this->secondsFromStart = $values['secondsFromStart'];
         $this->source = $values['source'] ?? null;
         $this->duration = $values['duration'] ?? null;
+        $this->assistantName = $values['assistantName'] ?? null;
+        $this->assistantId = $values['assistantId'] ?? null;
     }
 
     /**

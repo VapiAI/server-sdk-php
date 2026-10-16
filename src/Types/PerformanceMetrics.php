@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Call performance measurements, including per-turn and average provider, endpointing, transport, and interruption metrics.
+ */
 class PerformanceMetrics extends JsonSerializableType
 {
     /**

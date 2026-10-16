@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for synthesizing assistant speech through a custom server, including voice selection, server connection, chunking, caching, and fallback settings.
+ */
 class CustomVoice extends JsonSerializableType
 {
     /**

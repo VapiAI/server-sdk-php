@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Controls real-time listening and control for assistant calls, authentication requirements for monitor URLs, and attached monitors.
+ */
 class MonitorPlan extends JsonSerializableType
 {
     /**
@@ -59,13 +62,7 @@ class MonitorPlan extends JsonSerializableType
     public ?bool $controlAuthenticationEnabled;
 
     /**
-     * This the set of monitor ids that are attached to the assistant.
-     * The source of truth for the monitor ids is the assistant_monitor join table.
-     * This field can be used for transient assistants and to update assistants with new monitor ids.
-     *
-     * @default []
-     *
-     * @var ?array<string> $monitorIds
+     * @var ?array<string> $monitorIds IDs of the monitors attached to the assistant. Use this field for transient assistants or to update the monitors attached to an existing assistant. Defaults to an empty array.
      */
     #[JsonProperty('monitorIds'), ArrayType(['string'])]
     public ?array $monitorIds;

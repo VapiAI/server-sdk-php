@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * OpenAI-compatible custom model configuration for an LLM judge, including its endpoint, headers, messages, and generation settings.
+ */
 class EvalCustomModel extends JsonSerializableType
 {
     /**

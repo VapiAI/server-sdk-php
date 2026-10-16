@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for authenticating transcription requests with Soniox.
+ */
 class CreateSonioxCredentialDto extends JsonSerializableType
 {
     /**
@@ -12,6 +15,12 @@ class CreateSonioxCredentialDto extends JsonSerializableType
      */
     #[JsonProperty('apiKey')]
     public string $apiKey;
+
+    /**
+     * @var ?string $apiUrl Custom Soniox WebSocket endpoint (e.g. EU server wss://stt-rt.eu.soniox.com/transcribe-websocket). Defaults to the region-appropriate endpoint when omitted.
+     */
+    #[JsonProperty('apiUrl')]
+    public ?string $apiUrl;
 
     /**
      * @var ?string $name This is the name of credential. This is just for your reference.
@@ -22,6 +31,7 @@ class CreateSonioxCredentialDto extends JsonSerializableType
     /**
      * @param array{
      *   apiKey: string,
+     *   apiUrl?: ?string,
      *   name?: ?string,
      * } $values
      */
@@ -29,6 +39,7 @@ class CreateSonioxCredentialDto extends JsonSerializableType
         array $values,
     ) {
         $this->apiKey = $values['apiKey'];
+        $this->apiUrl = $values['apiUrl'] ?? null;
         $this->name = $values['name'] ?? null;
     }
 

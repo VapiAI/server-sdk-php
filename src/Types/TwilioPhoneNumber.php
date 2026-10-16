@@ -8,6 +8,9 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A Twilio phone number connected to Vapi, including its Twilio account details, SMS configuration, routing, hooks, server settings, and lifecycle metadata.
+ */
 class TwilioPhoneNumber extends JsonSerializableType
 {
     /**

@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for requesting explicit verbal recording consent, including the announcement voice and action to take when the customer declines.
+ */
 class RecordingConsentPlanVerbal extends JsonSerializableType
 {
     /**
@@ -28,6 +31,24 @@ class RecordingConsentPlanVerbal extends JsonSerializableType
     public ?RecordingConsentPlanVerbalVoice $voice;
 
     /**
+     * This controls whether the consent assistant speaks first or waits for the caller to speak first.
+     *
+     * Use:
+     * - `assistant-speaks-first` (default) to have the consent assistant play the consent message as soon as the call is answered.
+     * - `assistant-waits-for-user` to have the consent assistant wait for the caller to speak before playing the consent message.
+     *
+     * We strongly recommend `assistant-waits-for-user` for outbound calls. Some telephony providers signal "answered" while the line is still ringing, which can cause the consent message to play into a ringing line and be missed by the caller. Waiting for the caller to speak first guarantees they hear the full consent message.
+     *
+     * Note: when combined with `type: 'stay-on-line'`, silence only counts toward consent after the caller has spoken at least once.
+     *
+     * @default 'assistant-speaks-first'
+     *
+     * @var ?value-of<RecordingConsentPlanVerbalFirstMessageMode> $firstMessageMode
+     */
+    #[JsonProperty('firstMessageMode')]
+    public ?string $firstMessageMode;
+
+    /**
      * @var ?array<string, mixed> $declineTool Tool to execute if user verbally declines recording consent
      */
     #[JsonProperty('declineTool'), ArrayType(['string' => 'mixed'])]
@@ -43,6 +64,7 @@ class RecordingConsentPlanVerbal extends JsonSerializableType
      * @param array{
      *   message: string,
      *   voice?: ?RecordingConsentPlanVerbalVoice,
+     *   firstMessageMode?: ?value-of<RecordingConsentPlanVerbalFirstMessageMode>,
      *   declineTool?: ?array<string, mixed>,
      *   declineToolId?: ?string,
      * } $values
@@ -52,6 +74,7 @@ class RecordingConsentPlanVerbal extends JsonSerializableType
     ) {
         $this->message = $values['message'];
         $this->voice = $values['voice'] ?? null;
+        $this->firstMessageMode = $values['firstMessageMode'] ?? null;
         $this->declineTool = $values['declineTool'] ?? null;
         $this->declineToolId = $values['declineToolId'] ?? null;
     }

@@ -15,6 +15,17 @@ class ServerMessageHandoffDestinationRequest extends JsonSerializableType
     public ?ServerMessageHandoffDestinationRequestPhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var value-of<ServerMessageHandoffDestinationRequestType> $type This is the type of the message. "handoff-destination-request" is sent when the model is requesting handoff but destination is unknown.
      */
     #[JsonProperty('type')]
@@ -71,6 +82,7 @@ class ServerMessageHandoffDestinationRequest extends JsonSerializableType
      *   type: value-of<ServerMessageHandoffDestinationRequestType>,
      *   parameters: array<string, mixed>,
      *   phoneNumber?: ?ServerMessageHandoffDestinationRequestPhoneNumber,
+     *   assistantVersion?: ?string,
      *   timestamp?: ?float,
      *   artifact?: ?Artifact,
      *   assistant?: ?CreateAssistantDto,
@@ -83,6 +95,7 @@ class ServerMessageHandoffDestinationRequest extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->timestamp = $values['timestamp'] ?? null;
         $this->artifact = $values['artifact'] ?? null;

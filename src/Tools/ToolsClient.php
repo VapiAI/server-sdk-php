@@ -59,6 +59,8 @@ class ToolsClient
     }
 
     /**
+     * Returns reusable tools for the authenticated organization. Filter results by creation or update timestamps and limit the number returned.
+     *
      * @param ListToolsRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -134,6 +136,8 @@ class ToolsClient
     }
 
     /**
+     * Creates a reusable tool that assistants can invoke during conversations.
+     *
      * @param CreateToolsRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -181,7 +185,9 @@ class ToolsClient
     }
 
     /**
-     * @param string $id
+     * Returns the tool identified by its ID.
+     *
+     * @param string $id The unique identifier of the tool.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -227,7 +233,9 @@ class ToolsClient
     }
 
     /**
-     * @param string $id
+     * Deletes the tool identified by its ID.
+     *
+     * @param string $id The unique identifier of the tool.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -273,7 +281,9 @@ class ToolsClient
     }
 
     /**
-     * @param string $id
+     * Updates the specified fields of the tool identified by its ID.
+     *
+     * @param string $id The unique identifier of the tool.
      * @param UpdateToolsRequest $request
      * @param ?array{
      *   baseUrl?: string,

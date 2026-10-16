@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Controls whether a conversation node can be entered globally and the condition evaluated before that node runs.
+ */
 class GlobalNodePlan extends JsonSerializableType
 {
     /**

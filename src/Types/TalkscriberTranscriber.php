@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for transcribing speech during assistant conversations with Talkscriber, including model, language, and fallback settings.
+ */
 class TalkscriberTranscriber extends JsonSerializableType
 {
     /**

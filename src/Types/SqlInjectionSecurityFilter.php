@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Filters potential SQL injection patterns from transcripts.
+ */
 class SqlInjectionSecurityFilter extends JsonSerializableType
 {
     /**

@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * An assistant-authored message, including content, refusal text, tool calls, participant name, and metadata.
+ */
 class AssistantMessage extends JsonSerializableType
 {
     /**

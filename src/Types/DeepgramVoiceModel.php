@@ -6,4 +6,5 @@ enum DeepgramVoiceModel: string
 {
     case Aura = "aura";
     case Aura2 = "aura-2";
+    case Flux = "flux";
 }

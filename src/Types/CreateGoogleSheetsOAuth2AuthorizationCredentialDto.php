@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Stored OAuth 2.0 authorization for Google Sheets operations.
+ */
 class CreateGoogleSheetsOAuth2AuthorizationCredentialDto extends JsonSerializableType
 {
     /**

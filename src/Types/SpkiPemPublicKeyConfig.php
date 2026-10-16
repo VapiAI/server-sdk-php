@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * An SPKI public key in PEM format used to encrypt sensitive request data.
+ */
 class SpkiPemPublicKeyConfig extends JsonSerializableType
 {
     /**

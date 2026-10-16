@@ -6,16 +6,19 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A paginated collection of provider resources and metadata describing the result set.
+ */
 class ProviderResourcePaginatedResponse extends JsonSerializableType
 {
     /**
-     * @var array<ProviderResource> $results
+     * @var array<ProviderResource> $results The provider resources returned for the current page.
      */
     #[JsonProperty('results'), ArrayType([ProviderResource::class])]
     public array $results;
 
     /**
-     * @var PaginationMeta $metadata
+     * @var PaginationMeta $metadata Pagination metadata for the provider-resource result set.
      */
     #[JsonProperty('metadata')]
     public PaginationMeta $metadata;

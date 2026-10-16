@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * A formula used to calculate an insight from its query results, with an optional display name.
+ */
 class InsightFormula extends JsonSerializableType
 {
     /**

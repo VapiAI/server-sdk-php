@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateGoogleSheetsOAuth2AuthorizationCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateGoogleSheetsOAuth2AuthorizationCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?string $authorizationId The authorization ID for the OAuth2 authorization
      */
     #[JsonProperty('authorizationId')]
@@ -21,6 +27,7 @@ class UpdateGoogleSheetsOAuth2AuthorizationCredentialDto extends JsonSerializabl
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateGoogleSheetsOAuth2AuthorizationCredentialDtoProvider>,
      *   authorizationId?: ?string,
      *   name?: ?string,
      * } $values
@@ -28,6 +35,7 @@ class UpdateGoogleSheetsOAuth2AuthorizationCredentialDto extends JsonSerializabl
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->authorizationId = $values['authorizationId'] ?? null;
         $this->name = $values['name'] ?? null;
     }

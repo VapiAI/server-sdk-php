@@ -46,6 +46,12 @@ class GetChatPaginatedDto extends JsonSerializableType
     public ?string $previousChatId;
 
     /**
+     * @var ?string $idAny Filter by multiple chat IDs. Provide as comma-separated values.
+     */
+    #[JsonProperty('idAny')]
+    public ?string $idAny;
+
+    /**
      * @var ?float $page This is the page number to return. Defaults to 1.
      */
     #[JsonProperty('page')]
@@ -56,6 +62,12 @@ class GetChatPaginatedDto extends JsonSerializableType
      */
     #[JsonProperty('sortOrder')]
     public ?string $sortOrder;
+
+    /**
+     * @var ?value-of<GetChatPaginatedDtoSortBy> $sortBy This is the column to sort by. Defaults to 'createdAt'.
+     */
+    #[JsonProperty('sortBy')]
+    public ?string $sortBy;
 
     /**
      * @var ?float $limit This is the maximum number of items to return. Defaults to 100.
@@ -119,8 +131,10 @@ class GetChatPaginatedDto extends JsonSerializableType
      *   squadId?: ?string,
      *   sessionId?: ?string,
      *   previousChatId?: ?string,
+     *   idAny?: ?string,
      *   page?: ?float,
      *   sortOrder?: ?value-of<GetChatPaginatedDtoSortOrder>,
+     *   sortBy?: ?value-of<GetChatPaginatedDtoSortBy>,
      *   limit?: ?float,
      *   createdAtGt?: ?DateTime,
      *   createdAtLt?: ?DateTime,
@@ -141,8 +155,10 @@ class GetChatPaginatedDto extends JsonSerializableType
         $this->squadId = $values['squadId'] ?? null;
         $this->sessionId = $values['sessionId'] ?? null;
         $this->previousChatId = $values['previousChatId'] ?? null;
+        $this->idAny = $values['idAny'] ?? null;
         $this->page = $values['page'] ?? null;
         $this->sortOrder = $values['sortOrder'] ?? null;
+        $this->sortBy = $values['sortBy'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->createdAtGt = $values['createdAtGt'] ?? null;
         $this->createdAtLt = $values['createdAtLt'] ?? null;

@@ -9,6 +9,9 @@ use Vapi\Core\Types\Union;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A saved line-chart insight containing its call-data queries, formulas, grouping, stepped time range, metadata, and lifecycle information.
+ */
 class LineInsight extends JsonSerializableType
 {
     /**
@@ -46,7 +49,7 @@ class LineInsight extends JsonSerializableType
     public ?LineInsightMetadata $metadata;
 
     /**
-     * @var ?InsightTimeRangeWithStep $timeRange
+     * @var ?InsightTimeRangeWithStep $timeRange The time range and interval used to aggregate the line-chart data.
      */
     #[JsonProperty('timeRange')]
     public ?InsightTimeRangeWithStep $timeRange;
@@ -96,6 +99,12 @@ class LineInsight extends JsonSerializableType
     public DateTime $updatedAt;
 
     /**
+     * @var ?string $systemKey Stable server-owned identifier for system-created insights.
+     */
+    #[JsonProperty('systemKey')]
+    public ?string $systemKey;
+
+    /**
      * @param array{
      *   queries: array<(
      *    JsonQueryOnCallTableWithStringTypeColumn
@@ -111,6 +120,7 @@ class LineInsight extends JsonSerializableType
      *   metadata?: ?LineInsightMetadata,
      *   timeRange?: ?InsightTimeRangeWithStep,
      *   groupBy?: ?value-of<LineInsightGroupBy>,
+     *   systemKey?: ?string,
      * } $values
      */
     public function __construct(
@@ -126,6 +136,7 @@ class LineInsight extends JsonSerializableType
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];
         $this->updatedAt = $values['updatedAt'];
+        $this->systemKey = $values['systemKey'] ?? null;
     }
 
     /**

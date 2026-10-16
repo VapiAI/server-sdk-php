@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Service-account credentials for Google Cloud resources and optional call-artifact storage, including region, bucket configuration, and upload fallback order.
+ */
 class CreateGcpCredentialDto extends JsonSerializableType
 {
     /**
@@ -30,7 +33,7 @@ class CreateGcpCredentialDto extends JsonSerializableType
     public ?string $region;
 
     /**
-     * @var ?BucketPlan $bucketPlan
+     * @var ?BucketPlan $bucketPlan Bucket configuration used to store call artifacts in Google Cloud Storage.
      */
     #[JsonProperty('bucketPlan')]
     public ?BucketPlan $bucketPlan;

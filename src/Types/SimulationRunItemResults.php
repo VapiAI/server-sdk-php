@@ -15,7 +15,7 @@ class SimulationRunItemResults extends JsonSerializableType
     public array $evaluations;
 
     /**
-     * @var bool $passed This indicates whether all required evaluations passed.
+     * @var bool $passed This indicates whether all required, non-skipped structured output evaluations and latency expectations passed.
      */
     #[JsonProperty('passed')]
     public bool $passed;
@@ -27,10 +27,20 @@ class SimulationRunItemResults extends JsonSerializableType
     public ?LatencyMetrics $latencyMetrics;
 
     /**
+     * This is the list of results from the scenario's latency expectations.
+     * Absent when the scenario has no latency expectations.
+     *
+     * @var ?array<LatencyEvaluationResult> $latencyEvaluations
+     */
+    #[JsonProperty('latencyEvaluations'), ArrayType([LatencyEvaluationResult::class])]
+    public ?array $latencyEvaluations;
+
+    /**
      * @param array{
      *   evaluations: array<StructuredOutputEvaluationResult>,
      *   passed: bool,
      *   latencyMetrics?: ?LatencyMetrics,
+     *   latencyEvaluations?: ?array<LatencyEvaluationResult>,
      * } $values
      */
     public function __construct(
@@ -39,6 +49,7 @@ class SimulationRunItemResults extends JsonSerializableType
         $this->evaluations = $values['evaluations'];
         $this->passed = $values['passed'];
         $this->latencyMetrics = $values['latencyMetrics'] ?? null;
+        $this->latencyEvaluations = $values['latencyEvaluations'] ?? null;
     }
 
     /**

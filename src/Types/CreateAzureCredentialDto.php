@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for Azure Speech or Blob Storage, including service, region, and optional storage bucket settings.
+ */
 class CreateAzureCredentialDto extends JsonSerializableType
 {
     /**

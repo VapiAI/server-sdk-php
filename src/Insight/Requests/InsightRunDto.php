@@ -10,7 +10,7 @@ use Vapi\Types\InsightTimeRangeWithStep;
 class InsightRunDto extends JsonSerializableType
 {
     /**
-     * @var ?InsightRunFormatPlan $formatPlan
+     * @var ?InsightRunFormatPlan $formatPlan Output-formatting instructions applied to the insight run.
      */
     #[JsonProperty('formatPlan')]
     public ?InsightRunFormatPlan $formatPlan;
@@ -30,9 +30,19 @@ class InsightRunDto extends JsonSerializableType
     public ?InsightTimeRangeWithStep $timeRangeOverride;
 
     /**
+     * Optional runtime assistant scope for dashboards.
+     * This is applied to call-table queries without mutating the saved insight.
+     *
+     * @var ?string $assistantId
+     */
+    #[JsonProperty('assistantId')]
+    public ?string $assistantId;
+
+    /**
      * @param array{
      *   formatPlan?: ?InsightRunFormatPlan,
      *   timeRangeOverride?: ?InsightTimeRangeWithStep,
+     *   assistantId?: ?string,
      * } $values
      */
     public function __construct(
@@ -40,5 +50,6 @@ class InsightRunDto extends JsonSerializableType
     ) {
         $this->formatPlan = $values['formatPlan'] ?? null;
         $this->timeRangeOverride = $values['timeRangeOverride'] ?? null;
+        $this->assistantId = $values['assistantId'] ?? null;
     }
 }

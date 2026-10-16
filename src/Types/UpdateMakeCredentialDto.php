@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateMakeCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateMakeCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?string $teamId Team ID
      */
     #[JsonProperty('teamId')]
@@ -33,6 +39,7 @@ class UpdateMakeCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateMakeCredentialDtoProvider>,
      *   teamId?: ?string,
      *   region?: ?string,
      *   apiKey?: ?string,
@@ -42,6 +49,7 @@ class UpdateMakeCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->teamId = $values['teamId'] ?? null;
         $this->region = $values['region'] ?? null;
         $this->apiKey = $values['apiKey'] ?? null;

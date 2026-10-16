@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for generating assistant responses with OpenAI, including model selection, fallback models, prompts, tools, prompt caching, and generation settings.
+ */
 class OpenAiModel extends JsonSerializableType
 {
     /**
@@ -35,13 +38,37 @@ class OpenAiModel extends JsonSerializableType
     public ?array $toolIds;
 
     /**
+     * These are version-pinned references to tools. Each entry pins a specific
+     * version of a tool by `(toolId, version)`. When the same `toolId` appears
+     * in both `toolIds` and `toolRefs[]`, the `toolRefs` pin wins (the
+     * `toolIds` entry is dropped at write time).
+     *
+     * @var ?array<ToolRef> $toolRefs
+     */
+    #[JsonProperty('toolRefs'), ArrayType([ToolRef::class])]
+    public ?array $toolRefs;
+
+    /**
      * @var ?CreateCustomKnowledgeBaseDto $knowledgeBase These are the options for the knowledge base.
      */
     #[JsonProperty('knowledgeBase')]
     public ?CreateCustomKnowledgeBaseDto $knowledgeBase;
 
     /**
+     * @var ?OpenAiSpeaker $speaker Configuration for the GPT-Live speaker.
+     */
+    #[JsonProperty('speaker')]
+    public ?OpenAiSpeaker $speaker;
+
+    /**
+     * @var ?OpenAiReasoner $reasoner Configuration for the reasoner supporting the GPT-Live speaker.
+     */
+    #[JsonProperty('reasoner')]
+    public ?OpenAiReasoner $reasoner;
+
+    /**
      * This is the OpenAI model that will be used.
+     * For GPT-Live configuration and supported settings, see https://docs.vapi.ai/gpt-live/overview.
      *
      * When using Vapi OpenAI or your own Azure Credentials, you have the option to specify the region for the selected model. This shouldn't be specified unless you have a specific reason to do so. Vapi will automatically find the fastest region that make sense.
      * This is helpful when you are required to comply with Data Residency rules. Learn more about Azure regions here https://azure.microsoft.com/en-us/explore/global-infrastructure/data-residency/.
@@ -78,7 +105,7 @@ class OpenAiModel extends JsonSerializableType
      * - `in_memory`: Default behavior, cache retained in GPU memory only
      * - `24h`: Extended caching, keeps cached prefixes active for up to 24 hours by offloading to GPU-local storage
      *
-     * Only applies to models: gpt-5.4, gpt-5.4-mini, gpt-5.4-nano, gpt-5.2, gpt-5.1, gpt-5.1-codex, gpt-5.1-codex-mini, gpt-5.1-chat-latest, gpt-5, gpt-5-codex, gpt-4.1
+     * Only applies to models: gpt-5.6-sol, gpt-5.6-terra, gpt-5.6-luna, gpt-5.5, chat-latest, gpt-5.4, gpt-5.4-mini, gpt-5.4-nano, gpt-5.2, gpt-5.1, gpt-5.1-codex, gpt-5.1-codex-mini, gpt-5.1-chat-latest, gpt-5, gpt-5-codex, gpt-4.1
      *
      * @default undefined (uses API default which is 'in_memory')
      *
@@ -100,13 +127,41 @@ class OpenAiModel extends JsonSerializableType
     public ?string $promptCacheKey;
 
     /**
-     * @var ?float $temperature This is the temperature that will be used for calls. Default is 0 to leverage caching for lower latency.
+     * This is the OpenAI service tier to request.
+     *
+     * - `fast`: requests Fast mode, which gives faster responses at a higher per-token rate. How much faster depends on the model.
+     * - `priority`: the old name for `fast`, accepted and billed the same.
+     * - `default`: standard processing.
+     * - `auto`: the default when unset. On Vapi's OpenAI keys this is standard processing; on your own OpenAI key, OpenAI applies your project's default tier.
+     *
+     * OpenAI sets Fast mode rates per model, and they are not a fixed multiple of the standard rates. Vapi bills them only when OpenAI reports that it served the request in Fast mode. Otherwise the request is billed at standard rates, for example when Fast mode isn't available for the model on Vapi, OpenAI downgrades the request, or the request runs on Azure OpenAI.
+     *
+     * Supported models and their Fast mode rates: https://docs.vapi.ai/providers/model/openai
+     *
+     * @var ?value-of<OpenAiModelServiceTier> $serviceTier
+     */
+    #[JsonProperty('serviceTier')]
+    public ?string $serviceTier;
+
+    /**
+     * Reasoning effort for reasoning-capable OpenAI models.
+     * For `gpt-realtime-2`: forwarded to V2 stream's session.update as `reasoning.effort`.
+     * For non-realtime OpenAI models, model-aware validation limits newly public
+     * values while preserving the existing four-value storage contract.
+     *
+     * @var ?value-of<OpenAiModelReasoningEffort> $reasoningEffort
+     */
+    #[JsonProperty('reasoningEffort')]
+    public ?string $reasoningEffort;
+
+    /**
+     * @var ?float $temperature This is the temperature that will be used for calls. Default is 0.5.
      */
     #[JsonProperty('temperature')]
     public ?float $temperature;
 
     /**
-     * @var ?float $maxTokens This is the max number of tokens that the assistant will be allowed to generate in each turn of the conversation. Default is 250.
+     * @var ?float $maxTokens This is the max number of tokens that the assistant will be allowed to generate in each turn of the conversation. Default is 250. On gpt-6-luna and claude-haiku-5-5 no cap is applied unless you set one (claude-haiku-5-5 sends its 128,000-token maximum), because reasoning uses output tokens and a small cap can leave the reply empty.
      */
     #[JsonProperty('maxTokens')]
     public ?float $maxTokens;
@@ -141,11 +196,16 @@ class OpenAiModel extends JsonSerializableType
      *   messages?: ?array<OpenAiMessage>,
      *   tools?: ?array<OpenAiModelToolsItem>,
      *   toolIds?: ?array<string>,
+     *   toolRefs?: ?array<ToolRef>,
      *   knowledgeBase?: ?CreateCustomKnowledgeBaseDto,
+     *   speaker?: ?OpenAiSpeaker,
+     *   reasoner?: ?OpenAiReasoner,
      *   fallbackModels?: ?array<value-of<OpenAiModelFallbackModelsItem>>,
      *   toolStrictCompatibilityMode?: ?value-of<OpenAiModelToolStrictCompatibilityMode>,
      *   promptCacheRetention?: ?value-of<OpenAiModelPromptCacheRetention>,
      *   promptCacheKey?: ?string,
+     *   serviceTier?: ?value-of<OpenAiModelServiceTier>,
+     *   reasoningEffort?: ?value-of<OpenAiModelReasoningEffort>,
      *   temperature?: ?float,
      *   maxTokens?: ?float,
      *   emotionRecognitionEnabled?: ?bool,
@@ -158,12 +218,17 @@ class OpenAiModel extends JsonSerializableType
         $this->messages = $values['messages'] ?? null;
         $this->tools = $values['tools'] ?? null;
         $this->toolIds = $values['toolIds'] ?? null;
+        $this->toolRefs = $values['toolRefs'] ?? null;
         $this->knowledgeBase = $values['knowledgeBase'] ?? null;
+        $this->speaker = $values['speaker'] ?? null;
+        $this->reasoner = $values['reasoner'] ?? null;
         $this->model = $values['model'];
         $this->fallbackModels = $values['fallbackModels'] ?? null;
         $this->toolStrictCompatibilityMode = $values['toolStrictCompatibilityMode'] ?? null;
         $this->promptCacheRetention = $values['promptCacheRetention'] ?? null;
         $this->promptCacheKey = $values['promptCacheKey'] ?? null;
+        $this->serviceTier = $values['serviceTier'] ?? null;
+        $this->reasoningEffort = $values['reasoningEffort'] ?? null;
         $this->temperature = $values['temperature'] ?? null;
         $this->maxTokens = $values['maxTokens'] ?? null;
         $this->emotionRecognitionEnabled = $values['emotionRecognitionEnabled'] ?? null;

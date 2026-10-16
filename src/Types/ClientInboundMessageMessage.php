@@ -14,6 +14,7 @@ class ClientInboundMessageMessage extends JsonSerializableType
     /**
      * @var (
      *    'add-message'
+     *   |'append-context'
      *   |'control'
      *   |'say'
      *   |'end-call'
@@ -27,6 +28,7 @@ class ClientInboundMessageMessage extends JsonSerializableType
     /**
      * @var (
      *    ClientInboundMessageAddMessage
+     *   |ClientInboundMessageAppendContext
      *   |ClientInboundMessageControl
      *   |ClientInboundMessageSay
      *   |ClientInboundMessageEndCall
@@ -41,6 +43,7 @@ class ClientInboundMessageMessage extends JsonSerializableType
      * @param array{
      *   type: (
      *    'add-message'
+     *   |'append-context'
      *   |'control'
      *   |'say'
      *   |'end-call'
@@ -50,6 +53,7 @@ class ClientInboundMessageMessage extends JsonSerializableType
      * ),
      *   value: (
      *    ClientInboundMessageAddMessage
+     *   |ClientInboundMessageAppendContext
      *   |ClientInboundMessageControl
      *   |ClientInboundMessageSay
      *   |ClientInboundMessageEndCall
@@ -75,6 +79,18 @@ class ClientInboundMessageMessage extends JsonSerializableType
         return new ClientInboundMessageMessage([
             'type' => 'add-message',
             'value' => $addMessage,
+        ]);
+    }
+
+    /**
+     * @param ClientInboundMessageAppendContext $appendContext
+     * @return ClientInboundMessageMessage
+     */
+    public static function appendContext(ClientInboundMessageAppendContext $appendContext): ClientInboundMessageMessage
+    {
+        return new ClientInboundMessageMessage([
+            'type' => 'append-context',
+            'value' => $appendContext,
         ]);
     }
 
@@ -154,6 +170,28 @@ class ClientInboundMessageMessage extends JsonSerializableType
         if (!($this->value instanceof ClientInboundMessageAddMessage && $this->type === 'add-message')) {
             throw new Exception(
                 "Expected add-message; got " . $this->type . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAppendContext(): bool
+    {
+        return $this->value instanceof ClientInboundMessageAppendContext && $this->type === 'append-context';
+    }
+
+    /**
+     * @return ClientInboundMessageAppendContext
+     */
+    public function asAppendContext(): ClientInboundMessageAppendContext
+    {
+        if (!($this->value instanceof ClientInboundMessageAppendContext && $this->type === 'append-context')) {
+            throw new Exception(
+                "Expected append-context; got " . $this->type . " with value of type " . get_debug_type($this->value),
             );
         }
 
@@ -294,6 +332,10 @@ class ClientInboundMessageMessage extends JsonSerializableType
                 $value = $this->asAddMessage()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
+            case 'append-context':
+                $value = $this->asAppendContext()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
             case 'control':
                 $value = $this->asControl()->jsonSerialize();
                 $result = array_merge($value, $result);
@@ -364,6 +406,9 @@ class ClientInboundMessageMessage extends JsonSerializableType
         switch ($type) {
             case 'add-message':
                 $args['value'] = ClientInboundMessageAddMessage::jsonDeserialize($data);
+                break;
+            case 'append-context':
+                $args['value'] = ClientInboundMessageAppendContext::jsonDeserialize($data);
                 break;
             case 'control':
                 $args['value'] = ClientInboundMessageControl::jsonDeserialize($data);

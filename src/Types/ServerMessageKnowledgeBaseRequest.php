@@ -16,6 +16,17 @@ class ServerMessageKnowledgeBaseRequest extends JsonSerializableType
     public ?ServerMessageKnowledgeBaseRequestPhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var value-of<ServerMessageKnowledgeBaseRequestType> $type This is the type of the message. "knowledge-base-request" is sent to request knowledge base documents. To enable, use `assistant.knowledgeBase.provider=custom-knowledge-base`.
      */
     #[JsonProperty('type')]
@@ -84,6 +95,7 @@ class ServerMessageKnowledgeBaseRequest extends JsonSerializableType
      *   type: value-of<ServerMessageKnowledgeBaseRequestType>,
      *   messagesOpenAiFormatted: array<OpenAiMessage>,
      *   phoneNumber?: ?ServerMessageKnowledgeBaseRequestPhoneNumber,
+     *   assistantVersion?: ?string,
      *   messages?: ?array<(
      *    UserMessage
      *   |SystemMessage
@@ -103,6 +115,7 @@ class ServerMessageKnowledgeBaseRequest extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->messages = $values['messages'] ?? null;
         $this->messagesOpenAiFormatted = $values['messagesOpenAiFormatted'];

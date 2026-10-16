@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\Union;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Controls when the assistant begins speaking after customer speech, including the minimum wait, endpointing strategy, and custom endpointing rules.
+ */
 class StartSpeakingPlan extends JsonSerializableType
 {
     /**

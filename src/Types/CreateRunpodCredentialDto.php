@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for authenticating assistant model requests through Runpod.
+ */
 class CreateRunpodCredentialDto extends JsonSerializableType
 {
     /**

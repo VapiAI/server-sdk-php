@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for using a custom endpointing model, including its provider identifier and server connection.
+ */
 class CustomEndpointingModelSmartEndpointingPlan extends JsonSerializableType
 {
     /**

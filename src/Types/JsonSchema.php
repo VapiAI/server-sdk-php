@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * JSON Schema definition used to describe structured data for extraction, validation, or model output.
+ */
 class JsonSchema extends JsonSerializableType
 {
     /**

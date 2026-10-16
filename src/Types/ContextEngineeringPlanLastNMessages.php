@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Includes a configured number of the most recent messages when constructing context for a handoff.
+ */
 class ContextEngineeringPlanLastNMessages extends JsonSerializableType
 {
     /**

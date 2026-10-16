@@ -9,22 +9,19 @@ use Vapi\Core\Types\ArrayType;
 class CreateScenarioDto extends JsonSerializableType
 {
     /**
-     * @var string $name This is the name of the scenario.
+     * @var string $name The display name of the scenario, for example `Book an appointment`.
      */
     #[JsonProperty('name')]
     public string $name;
 
     /**
-     * @var string $instructions This is the script/instructions for the tester to follow during the simulation.
+     * @var string $instructions What the AI tester should try to accomplish in the conversation. Write it as the AI tester's goal, for example `Book an appointment for next week and confirm the time.`
      */
     #[JsonProperty('instructions')]
     public string $instructions;
 
     /**
-     * This is the structured output-based evaluation plan for the simulation.
-     * Each item defines a structured output to extract and evaluate against an expected value.
-     *
-     * @var array<EvaluationPlanItem> $evaluations
+     * @var array<EvaluationPlanItem> $evaluations The checks that decide whether a run passes. Each evaluation compares a structured output against an expected value. At least one evaluation is required to run.
      */
     #[JsonProperty('evaluations'), ArrayType([EvaluationPlanItem::class])]
     public array $evaluations;
@@ -42,10 +39,22 @@ class CreateScenarioDto extends JsonSerializableType
     public ?AssistantOverrides $targetOverrides;
 
     /**
-     * @var ?array<ScenarioToolMock> $toolMocks Scenario-level tool call mocks to use during simulations.
+     * @var ?array<ScenarioToolMock> $toolMocks Mock results for the assistant or squad's tools during the simulation, so the run stays deterministic without calling real services.
      */
     #[JsonProperty('toolMocks'), ArrayType([ScenarioToolMock::class])]
     public ?array $toolMocks;
+
+    /**
+     * Latency ceilings for voice simulations. Each expectation aggregates the
+     * target call's per-turn latencies and fails the simulation (when required)
+     * if the aggregated value exceeds its threshold. Skipped for chat simulations
+     * and GPT Live targets; on any other voice simulation, a metric that no turn
+     * measured fails.
+     *
+     * @var ?array<LatencyExpectation> $latencyExpectations
+     */
+    #[JsonProperty('latencyExpectations'), ArrayType([LatencyExpectation::class])]
+    public ?array $latencyExpectations;
 
     /**
      * Optional folder path for organizing scenarios.
@@ -65,6 +74,7 @@ class CreateScenarioDto extends JsonSerializableType
      *   hooks?: ?array<CreateScenarioDtoHooksItem>,
      *   targetOverrides?: ?AssistantOverrides,
      *   toolMocks?: ?array<ScenarioToolMock>,
+     *   latencyExpectations?: ?array<LatencyExpectation>,
      *   path?: ?string,
      * } $values
      */
@@ -77,6 +87,7 @@ class CreateScenarioDto extends JsonSerializableType
         $this->hooks = $values['hooks'] ?? null;
         $this->targetOverrides = $values['targetOverrides'] ?? null;
         $this->toolMocks = $values['toolMocks'] ?? null;
+        $this->latencyExpectations = $values['latencyExpectations'] ?? null;
         $this->path = $values['path'] ?? null;
     }
 

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials and optional SIP REGISTER settings used to authenticate outbound calls with a SIP trunk.
+ */
 class SipTrunkOutboundAuthenticationPlan extends JsonSerializableType
 {
     /**
@@ -14,7 +17,7 @@ class SipTrunkOutboundAuthenticationPlan extends JsonSerializableType
     public ?string $authPassword;
 
     /**
-     * @var ?string $authUsername
+     * @var ?string $authUsername Username used to authenticate outbound SIP requests.
      */
     #[JsonProperty('authUsername')]
     public ?string $authUsername;

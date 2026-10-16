@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Reusable custom credentials for authenticating outbound requests, with optional public-key encryption for sensitive request data.
+ */
 class CreateCustomCredentialDto extends JsonSerializableType
 {
     /**

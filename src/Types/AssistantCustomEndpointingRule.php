@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A custom endpointing rule that matches the assistant's last message and applies a configured timeout.
+ */
 class AssistantCustomEndpointingRule extends JsonSerializableType
 {
     /**

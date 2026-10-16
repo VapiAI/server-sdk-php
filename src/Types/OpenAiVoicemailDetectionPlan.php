@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for detecting voicemail with OpenAI, including detection type, maximum beep wait, and retry backoff.
+ */
 class OpenAiVoicemailDetectionPlan extends JsonSerializableType
 {
     /**

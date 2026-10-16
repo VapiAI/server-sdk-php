@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateGoHighLevelMcpCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateGoHighLevelMcpCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?Oauth2AuthenticationSession $authenticationSession This is the authentication session for the credential.
      */
     #[JsonProperty('authenticationSession')]
@@ -21,6 +27,7 @@ class UpdateGoHighLevelMcpCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateGoHighLevelMcpCredentialDtoProvider>,
      *   authenticationSession?: ?Oauth2AuthenticationSession,
      *   name?: ?string,
      * } $values
@@ -28,6 +35,7 @@ class UpdateGoHighLevelMcpCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->authenticationSession = $values['authenticationSession'] ?? null;
         $this->name = $values['name'] ?? null;
     }

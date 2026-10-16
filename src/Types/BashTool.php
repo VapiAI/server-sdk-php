@@ -8,14 +8,25 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A reusable tool that executes shell commands in a configured environment.
+ */
 class BashTool extends JsonSerializableType
 {
     /**
-     * These are the messages that will be spoken to the user as the tool is running.
-     *
-     * For some tools, this is auto-filled based on special fields like `tool.destinations`. For others like the function tool, these can be custom configured.
-     *
-     * @var ?array<BashToolMessagesItem> $messages
+     * @var ?string $latestVersion
+     */
+    #[JsonProperty('latestVersion')]
+    public ?string $latestVersion;
+
+    /**
+     * @var ?string $baselineVersion Display-only baseline label returned by the tool list before a version is stored. Fetch version history to initialize it before using it as a pin.
+     */
+    #[JsonProperty('baselineVersion')]
+    public ?string $baselineVersion;
+
+    /**
+     * @var ?array<BashToolMessagesItem> $messages Messages spoken while the tool is running. Multiple request-start messages are variants. For request-response-delayed, same timing means variants and different timings mean staged updates.
      */
     #[JsonProperty('messages'), ArrayType([BashToolMessagesItem::class])]
     public ?array $messages;
@@ -165,6 +176,8 @@ class BashTool extends JsonSerializableType
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
      *   name: value-of<BashToolName>,
+     *   latestVersion?: ?string,
+     *   baselineVersion?: ?string,
      *   messages?: ?array<BashToolMessagesItem>,
      *   server?: ?Server,
      *   rejectionPlan?: ?ToolRejectionPlan,
@@ -173,6 +186,8 @@ class BashTool extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
+        $this->latestVersion = $values['latestVersion'] ?? null;
+        $this->baselineVersion = $values['baselineVersion'] ?? null;
         $this->messages = $values['messages'] ?? null;
         $this->subType = $values['subType'];
         $this->server = $values['server'] ?? null;

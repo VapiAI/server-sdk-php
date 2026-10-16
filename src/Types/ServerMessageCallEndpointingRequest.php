@@ -16,6 +16,17 @@ class ServerMessageCallEndpointingRequest extends JsonSerializableType
     public ?ServerMessageCallEndpointingRequestPhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * This is the type of the message. "call.endpointing.request" is sent when using `assistant.startSpeakingPlan.smartEndpointingPlan={ "provider": "custom-endpointing-model" }`.
      *
      * Here is what the request will look like:
@@ -111,6 +122,7 @@ class ServerMessageCallEndpointingRequest extends JsonSerializableType
      *   type: value-of<ServerMessageCallEndpointingRequestType>,
      *   messagesOpenAiFormatted: array<OpenAiMessage>,
      *   phoneNumber?: ?ServerMessageCallEndpointingRequestPhoneNumber,
+     *   assistantVersion?: ?string,
      *   messages?: ?array<(
      *    UserMessage
      *   |SystemMessage
@@ -130,6 +142,7 @@ class ServerMessageCallEndpointingRequest extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->messages = $values['messages'] ?? null;
         $this->messagesOpenAiFormatted = $values['messagesOpenAiFormatted'];

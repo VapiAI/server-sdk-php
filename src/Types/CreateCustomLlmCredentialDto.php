@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for authenticating requests to a custom language model with an API key or OAuth 2.0 authentication plan.
+ */
 class CreateCustomLlmCredentialDto extends JsonSerializableType
 {
     /**

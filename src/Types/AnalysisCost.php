@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Cost for an individual analysis request, including analysis type, model, token usage, and amount.
+ */
 class AnalysisCost extends JsonSerializableType
 {
     /**
@@ -39,6 +42,18 @@ class AnalysisCost extends JsonSerializableType
     public ?float $cachedPromptTokens;
 
     /**
+     * This is the per-structured-output breakdown of this cost. The `cost`, `promptTokens`, `completionTokens` and `cachedPromptTokens` above are the sums of these rows.
+     *
+     * This is only set when `analysisType` is `structuredOutput`, and it is omitted entirely rather than partially populated, so when it is present the rows always reconcile to the totals above.
+     *
+     * A structured output that was skipped, or that extracts via regex, makes no LLM call and so has no row here — this is not a complete list of the call's configured structured outputs. There is one row per evaluation, so a `structuredOutputId` can appear more than once if it was evaluated more than once; sum the rows rather than indexing them by id.
+     *
+     * @var ?array<StructuredOutputCostBreakdown> $structuredOutputBreakdown
+     */
+    #[JsonProperty('structuredOutputBreakdown'), ArrayType([StructuredOutputCostBreakdown::class])]
+    public ?array $structuredOutputBreakdown;
+
+    /**
      * @var float $cost This is the cost of the component in USD.
      */
     #[JsonProperty('cost')]
@@ -52,6 +67,7 @@ class AnalysisCost extends JsonSerializableType
      *   completionTokens: float,
      *   cost: float,
      *   cachedPromptTokens?: ?float,
+     *   structuredOutputBreakdown?: ?array<StructuredOutputCostBreakdown>,
      * } $values
      */
     public function __construct(
@@ -62,6 +78,7 @@ class AnalysisCost extends JsonSerializableType
         $this->promptTokens = $values['promptTokens'];
         $this->completionTokens = $values['completionTokens'];
         $this->cachedPromptTokens = $values['cachedPromptTokens'] ?? null;
+        $this->structuredOutputBreakdown = $values['structuredOutputBreakdown'] ?? null;
         $this->cost = $values['cost'];
     }
 

@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * Fields used to update a pie-chart insight, including its queries, formulas, grouping, time range, and name.
+ */
 class UpdatePieInsightFromCallTableDto extends JsonSerializableType
 {
     /**
@@ -38,7 +41,7 @@ class UpdatePieInsightFromCallTableDto extends JsonSerializableType
     public ?array $formulas;
 
     /**
-     * @var ?InsightTimeRange $timeRange
+     * @var ?InsightTimeRange $timeRange The time range used to query the pie-chart data.
      */
     #[JsonProperty('timeRange')]
     public ?InsightTimeRange $timeRange;

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * A hook action that adds an OpenAI-format message to the conversation and can trigger an assistant response.
+ */
 class MessageAddHookAction extends JsonSerializableType
 {
     /**

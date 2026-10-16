@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for encrypting sensitive outbound request data with a public key.
+ */
 class PublicKeyEncryptionPlan extends JsonSerializableType
 {
     /**

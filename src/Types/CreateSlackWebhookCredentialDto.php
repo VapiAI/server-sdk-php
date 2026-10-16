@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for sending Vapi alerts through a Slack incoming webhook.
+ */
 class CreateSlackWebhookCredentialDto extends JsonSerializableType
 {
     /**

@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A user-authored entry in the call message history, including content, timing, security-filter results, and optional speaker metadata.
+ */
 class UserMessage extends JsonSerializableType
 {
     /**
@@ -63,10 +66,40 @@ class UserMessage extends JsonSerializableType
     public ?string $originalMessage;
 
     /**
-     * @var ?array<string, mixed> $metadata The metadata associated with the message. Currently used to store the transcriber's word level confidence.
+     * The transcriber's confidence score for this message, in [0, 1]. Only
+     * ever set alongside `confidenceSource` — see there for why an unmarked
+     * or out-of-range score is never stored.
+     *
+     * @var ?float $confidence
      */
-    #[JsonProperty('metadata'), ArrayType(['string' => 'mixed'])]
-    public ?array $metadata;
+    #[JsonProperty('confidence')]
+    public ?float $confidence;
+
+    /**
+     * Whether `confidence` came directly from the transcriber ('provider') or
+     * was computed by Vapi ('derived').
+     *
+     * 'derived' means Vapi computed the score from the transcriber's per-word
+     * scores; the exact aggregation is provider-specific (an average, a median
+     * or a minimum, depending on the transcriber). It is also 'derived' when
+     * consecutive transcript fragments were merged into one message, where the
+     * score is the minimum across the fragments.
+     *
+     * Absent means no trustworthy score was available for this message: either
+     * the transcriber does not report one, or the value it reported was invalid
+     * and was dropped. A merged message is unmarked whenever any fragment it
+     * contains was unmarked.
+     *
+     * @var ?value-of<UserMessageConfidenceSource> $confidenceSource
+     */
+    #[JsonProperty('confidenceSource')]
+    public ?string $confidenceSource;
+
+    /**
+     * @var ?UserMessageMetadata $metadata The metadata associated with the message. Currently used to store the transcriber's word level confidence.
+     */
+    #[JsonProperty('metadata')]
+    public ?UserMessageMetadata $metadata;
 
     /**
      * @var ?string $speakerLabel Stable speaker label for diarized user speakers (e.g., "Speaker 1").
@@ -85,7 +118,9 @@ class UserMessage extends JsonSerializableType
      *   isFiltered?: ?bool,
      *   detectedThreats?: ?array<string>,
      *   originalMessage?: ?string,
-     *   metadata?: ?array<string, mixed>,
+     *   confidence?: ?float,
+     *   confidenceSource?: ?value-of<UserMessageConfidenceSource>,
+     *   metadata?: ?UserMessageMetadata,
      *   speakerLabel?: ?string,
      * } $values
      */
@@ -101,6 +136,8 @@ class UserMessage extends JsonSerializableType
         $this->isFiltered = $values['isFiltered'] ?? null;
         $this->detectedThreats = $values['detectedThreats'] ?? null;
         $this->originalMessage = $values['originalMessage'] ?? null;
+        $this->confidence = $values['confidence'] ?? null;
+        $this->confidenceSource = $values['confidenceSource'] ?? null;
         $this->metadata = $values['metadata'] ?? null;
         $this->speakerLabel = $values['speakerLabel'] ?? null;
     }

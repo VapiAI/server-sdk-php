@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A named analytics query against call or subscription data, including grouping, time range, and aggregation operations.
+ */
 class AnalyticsQuery extends JsonSerializableType
 {
     /**

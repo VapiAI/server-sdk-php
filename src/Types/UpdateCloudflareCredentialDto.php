@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateCloudflareCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateCloudflareCredentialDtoProvider> $provider Credential provider. Only allowed value is cloudflare
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?string $accountId Cloudflare Account Id.
      */
     #[JsonProperty('accountId')]
@@ -45,6 +51,7 @@ class UpdateCloudflareCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateCloudflareCredentialDtoProvider>,
      *   accountId?: ?string,
      *   apiKey?: ?string,
      *   accountEmail?: ?string,
@@ -56,6 +63,7 @@ class UpdateCloudflareCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->accountId = $values['accountId'] ?? null;
         $this->apiKey = $values['apiKey'] ?? null;
         $this->accountEmail = $values['accountEmail'] ?? null;

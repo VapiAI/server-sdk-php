@@ -4,10 +4,19 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
-use Vapi\Core\Types\ArrayType;
+use Vapi\Core\Types\Union;
 
 class VoiceLibraryVoiceResponse extends JsonSerializableType
 {
+    /**
+     * @var (
+     *    string
+     *   |float
+     * )|null $age
+     */
+    #[JsonProperty('age'), Union('string', 'float', 'null')]
+    public string|float|null $age;
+
     /**
      * @var string $voiceId
      */
@@ -39,12 +48,6 @@ class VoiceLibraryVoiceResponse extends JsonSerializableType
     public ?string $gender;
 
     /**
-     * @var ?array<string, mixed> $age
-     */
-    #[JsonProperty('age'), ArrayType(['string' => 'mixed'])]
-    public ?array $age;
-
-    /**
      * @var ?string $accent
      */
     #[JsonProperty('accent')]
@@ -54,22 +57,25 @@ class VoiceLibraryVoiceResponse extends JsonSerializableType
      * @param array{
      *   voiceId: string,
      *   name: string,
+     *   age?: (
+     *    string
+     *   |float
+     * )|null,
      *   publicOwnerId?: ?string,
      *   description?: ?string,
      *   gender?: ?string,
-     *   age?: ?array<string, mixed>,
      *   accent?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->age = $values['age'] ?? null;
         $this->voiceId = $values['voiceId'];
         $this->name = $values['name'];
         $this->publicOwnerId = $values['publicOwnerId'] ?? null;
         $this->description = $values['description'] ?? null;
         $this->gender = $values['gender'] ?? null;
-        $this->age = $values['age'] ?? null;
         $this->accent = $values['accent'] ?? null;
     }
 

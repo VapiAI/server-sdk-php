@@ -5,7 +5,7 @@ namespace Vapi\Sessions\Requests;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Sessions\Types\CreateSessionDtoStatus;
-use Vapi\Types\CreateAssistantDto;
+use Vapi\Types\TransientAssistantDto;
 use Vapi\Types\AssistantOverrides;
 use Vapi\Types\CreateSquadDto;
 use Vapi\Types\SystemMessage;
@@ -48,10 +48,10 @@ class CreateSessionDto extends JsonSerializableType
      * This is the assistant configuration for this session. Use this when creating a new assistant configuration.
      * If assistantId is provided, this will be ignored.
      *
-     * @var ?CreateAssistantDto $assistant
+     * @var ?TransientAssistantDto $assistant
      */
     #[JsonProperty('assistant')]
-    public ?CreateAssistantDto $assistant;
+    public ?TransientAssistantDto $assistant;
 
     /**
      * These are the overrides for the assistant configuration.
@@ -120,7 +120,7 @@ class CreateSessionDto extends JsonSerializableType
      *   status?: ?value-of<CreateSessionDtoStatus>,
      *   expirationSeconds?: ?float,
      *   assistantId?: ?string,
-     *   assistant?: ?CreateAssistantDto,
+     *   assistant?: ?TransientAssistantDto,
      *   assistantOverrides?: ?AssistantOverrides,
      *   squadId?: ?string,
      *   squad?: ?CreateSquadDto,

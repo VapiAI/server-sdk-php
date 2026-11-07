@@ -1,3 +1,22 @@
+## [3.0.0] - 2026-11-07
+### Breaking Changes
+- **`CreateCampaignDto`**, **`TavusVoice`** family, **`TrieveKnowledgeBase`** family, and several enums (`VapiVoiceVoiceId`, `FallbackVapiVoiceVoiceId`, `VapiModelProvider`, `FallbackDeepgramTranscriberModel`) have been removed; remove all references from your code.
+- **`CampaignsClient::campaignControllerUpdate`** now requires a `CampaignControllerUpdateRequest` argument instead of the optional `UpdateCampaignDto`; wrap your payload in the new request type.
+- **`TransferAssistantVoice`**, **`WorkflowVoice`**, and **`WorkflowUserEditableVoice`** have dropped `tavus()` / `isTavus()` / `asTavus()`; use the new `xai()` or `microsoft()` variants instead.
+- **`WorkflowCredentialsItem`** and **`WorkflowUserEditableCredentialsItem`** have replaced `trieve()` / `isTrieve()` / `asTrieve()` with `reson8()` / `isReson8()` / `asReson8()`; `UpdateTrieveCredentialDto` is renamed to `UpdateReson8CredentialDto`.
+- **Several types and enums have been renamed or moved**: `FallbackDeepgramTranscriberLanguage` → `FallbackVapiVoiceLanguage`, `GladiaTranscriberLanguages` → `GladiaTranscriberLanguagesItem`, `FallbackGladiaTranscriberLanguages` → `FallbackGladiaTranscriberLanguagesItem`, `GhlToolType` → `UpdateGhlToolDtoType`, `InviteUserDtoRole` → `InviteUserDtoRoleZero`, `UpdateUserRoleDtoRole` → `UserWithRoleRoleZero`; `CreateSimulationRunDtoSimulationsItem` and `CreateSimulationRunDtoTarget` moved to `Vapi\SimulationRuns\Types`; update all `use` statements accordingly.
+
+### Added
+- **V2 Campaigns API** — `CampaignsClient` gains six new `*V2` methods (`campaignControllerFindAllV2`, `campaignControllerCreateV2`, etc.) along with matching request types and new `Cancelled`/`Archived` status enum cases.
+- **New simulation clients** — `SimulationsClient`, `SimulationRunsClient`, `SimulationScenariosClient`, `SimulationSuitesClient`, and `SimulationPersonalitiesClient` added for full lifecycle management of eval simulations, with rich filtering request types and onboarding-generation helpers.
+- **New management clients** — `BoardClient` (reporting boards), `GuardrailPacksClient`, `GuardrailRulesClient`, `KnowledgeBasesV2Client`, and `TrafficAllocationsClient` added with full CRUD and paginated-list support.
+- **`AssistantDraft` family** — new `AssistantDraft`, `AssistantDraftPaginatedResponse`, `AssistantDraftCredentialsItem`, `AssistantDraftModel`, `AssistantDraftVoice`, `AssistantDraftTranscriber`, and related enums/DTOs for managing versioned assistant drafts.
+- **Broad additions across existing types** — `toolRefs` (`ToolRef[]`) on multiple model types for pinning tool versions; `sortBy`, `idAny`, `search`, and `squadOverrides` filter fields on paginated list requests; `xai` and `microsoft` voice/credential variants; `JsonQueryOnEventsTable` as a union variant in all insight query fields; new `AnthropicModelReasoningEffort`, `AssemblyAiTranscriberMode`, and background-sound enum values; `VapiModel` added to `AssistantModel` and `UpdateAssistantDtoModel`.
+
+### Changed
+- **`CreateChatDto::$assistant`**, **`OpenAiResponsesRequest::$assistant`**, and **`HandoffDestinationAssistant::$assistant`** now use `TransientAssistantDto` instead of `CreateAssistantDto`; update any code that constructs or type-checks these fields.
+- **`ElevenLabsVoice` and `FallbackElevenLabsVoice`** field docs updated to note that several settings are ignored by `eleven_v4_turbo` and `eleven_v3_conversational` models.
+
 ## 2.0.0 - 2026-06-24
 ### Breaking Changes
 * **`CartesiaExperimentalControlsSpeedZero`** has been renamed to `CartesiaSpeedControlZero`. Update any references to this enum in your code to use the new name.

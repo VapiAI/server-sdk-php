@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Fields used to update a bring-your-own phone number, including its credential, number, routing, hooks, and server settings.
+ */
 class UpdateByoPhoneNumberDto extends JsonSerializableType
 {
     /**

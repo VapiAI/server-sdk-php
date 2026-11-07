@@ -6,22 +6,34 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Call performance measurements, including per-turn and average provider, endpointing, transport, and interruption metrics.
+ */
 class PerformanceMetrics extends JsonSerializableType
 {
     /**
-     * @var ?array<TurnLatency> $turnLatencies These are the individual latencies for each turn.
+     * These are the individual latencies for each turn, in milliseconds, measured on Vapi's servers without network or playback time.
+     * A turn is recorded only when the assistant replies to the user. A first message the assistant speaks first is not recorded; with `assistant-waits-for-user` it is recorded, with `endpointingLatency` 0. A component that was not measured on a turn is 0.
+     *
+     * @var ?array<TurnLatency> $turnLatencies
      */
     #[JsonProperty('turnLatencies'), ArrayType([TurnLatency::class])]
     public ?array $turnLatencies;
 
     /**
-     * @var ?float $modelLatencyAverage This is the average latency for the model to output the first token.
+     * This is the average `modelLatency` across `turnLatencies`, in milliseconds.
+     * Turns that recorded 0 because the model latency was not measured are included in the average.
+     *
+     * @var ?float $modelLatencyAverage
      */
     #[JsonProperty('modelLatencyAverage')]
     public ?float $modelLatencyAverage;
 
     /**
-     * @var ?float $voiceLatencyAverage This is the average latency for the text to speech.
+     * This is the average `voiceLatency` across `turnLatencies`, in milliseconds.
+     * Turns that recorded 0 because the voice latency was not measured are included in the average.
+     *
+     * @var ?float $voiceLatencyAverage
      */
     #[JsonProperty('voiceLatencyAverage')]
     public ?float $voiceLatencyAverage;

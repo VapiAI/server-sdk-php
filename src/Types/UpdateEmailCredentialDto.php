@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateEmailCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateEmailCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?string $email The recipient email address for alerts
      */
     #[JsonProperty('email')]
@@ -21,6 +27,7 @@ class UpdateEmailCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateEmailCredentialDtoProvider>,
      *   email?: ?string,
      *   name?: ?string,
      * } $values
@@ -28,6 +35,7 @@ class UpdateEmailCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->email = $values['email'] ?? null;
         $this->name = $values['name'] ?? null;
     }

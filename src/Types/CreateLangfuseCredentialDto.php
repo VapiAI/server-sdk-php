@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for sending assistant call traces to a Langfuse project, including its public key, secret key, and host URL.
+ */
 class CreateLangfuseCredentialDto extends JsonSerializableType
 {
     /**
@@ -26,6 +29,12 @@ class CreateLangfuseCredentialDto extends JsonSerializableType
     public string $apiUrl;
 
     /**
+     * @var ?string $serverVersion The semver version of your Langfuse server, e.g. 3.63.0, as its /api/public/health endpoint reports it. Optional.
+     */
+    #[JsonProperty('serverVersion')]
+    public ?string $serverVersion;
+
+    /**
      * @var ?string $name This is the name of credential. This is just for your reference.
      */
     #[JsonProperty('name')]
@@ -36,6 +45,7 @@ class CreateLangfuseCredentialDto extends JsonSerializableType
      *   publicKey: string,
      *   apiKey: string,
      *   apiUrl: string,
+     *   serverVersion?: ?string,
      *   name?: ?string,
      * } $values
      */
@@ -45,6 +55,7 @@ class CreateLangfuseCredentialDto extends JsonSerializableType
         $this->publicKey = $values['publicKey'];
         $this->apiKey = $values['apiKey'];
         $this->apiUrl = $values['apiUrl'];
+        $this->serverVersion = $values['serverVersion'] ?? null;
         $this->name = $values['name'] ?? null;
     }
 

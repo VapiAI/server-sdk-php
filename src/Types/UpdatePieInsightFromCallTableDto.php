@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * Fields used to update a pie-chart insight, including its queries, formulas, grouping, time range, and name.
+ */
 class UpdatePieInsightFromCallTableDto extends JsonSerializableType
 {
     /**
@@ -38,7 +41,7 @@ class UpdatePieInsightFromCallTableDto extends JsonSerializableType
     public ?array $formulas;
 
     /**
-     * @var ?InsightTimeRange $timeRange
+     * @var ?InsightTimeRange $timeRange The time range used to query the pie-chart data.
      */
     #[JsonProperty('timeRange')]
     public ?InsightTimeRange $timeRange;
@@ -58,9 +61,10 @@ class UpdatePieInsightFromCallTableDto extends JsonSerializableType
      *    JsonQueryOnCallTableWithStringTypeColumn
      *   |JsonQueryOnCallTableWithNumberTypeColumn
      *   |JsonQueryOnCallTableWithStructuredOutputColumn
+     *   |JsonQueryOnEventsTable
      * )> $queries These are the queries to run to generate the insight.
      */
-    #[JsonProperty('queries'), ArrayType([new Union(JsonQueryOnCallTableWithStringTypeColumn::class, JsonQueryOnCallTableWithNumberTypeColumn::class, JsonQueryOnCallTableWithStructuredOutputColumn::class)])]
+    #[JsonProperty('queries'), ArrayType([new Union(JsonQueryOnCallTableWithStringTypeColumn::class, JsonQueryOnCallTableWithNumberTypeColumn::class, JsonQueryOnCallTableWithStructuredOutputColumn::class, JsonQueryOnEventsTable::class)])]
     public ?array $queries;
 
     /**
@@ -73,6 +77,7 @@ class UpdatePieInsightFromCallTableDto extends JsonSerializableType
      *    JsonQueryOnCallTableWithStringTypeColumn
      *   |JsonQueryOnCallTableWithNumberTypeColumn
      *   |JsonQueryOnCallTableWithStructuredOutputColumn
+     *   |JsonQueryOnEventsTable
      * )>,
      * } $values
      */

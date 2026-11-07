@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Filters call records by comparing a start or end timestamp with a date.
+ */
 class FilterDateTypeColumnOnCallTable extends JsonSerializableType
 {
     /**

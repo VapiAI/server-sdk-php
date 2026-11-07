@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateXAiCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateXAiCredentialDtoProvider> $provider This is the api key for Grok in XAi's console. Get it from here: https://console.x.ai
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?string $apiKey This is not returned in the API.
      */
     #[JsonProperty('apiKey')]
@@ -21,6 +27,7 @@ class UpdateXAiCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateXAiCredentialDtoProvider>,
      *   apiKey?: ?string,
      *   name?: ?string,
      * } $values
@@ -28,6 +35,7 @@ class UpdateXAiCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->apiKey = $values['apiKey'] ?? null;
         $this->name = $values['name'] ?? null;
     }

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Defines an additional Liquid-based variable from values extracted during a call.
+ */
 class VariableExtractionAlias extends JsonSerializableType
 {
     /**

@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * VapiQL JSON query that aggregates or counts a structured-output value stored on call records.
+ */
 class JsonQueryOnCallTableWithStructuredOutputColumn extends JsonSerializableType
 {
     /**

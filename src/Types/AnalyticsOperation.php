@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * An aggregation or history operation applied to an analytics column, with an optional response alias.
+ */
 class AnalyticsOperation extends JsonSerializableType
 {
     /**

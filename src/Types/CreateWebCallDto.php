@@ -8,10 +8,47 @@ use Vapi\Core\Json\JsonProperty;
 class CreateWebCallDto extends JsonSerializableType
 {
     /**
+     * This is the assistant version to use for this call. Supported only with
+     * direct `assistantId`. Omit to follow the latest version.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
+     * This is the squad version to use for this call. Supported only with
+     * direct `squadId`. Omit to follow the latest version.
+     *
+     * @var ?string $squadVersion
+     */
+    #[JsonProperty('squadVersion')]
+    public ?string $squadVersion;
+
+    /**
      * @var ?bool $roomDeleteOnUserLeaveEnabled
      */
     #[JsonProperty('roomDeleteOnUserLeaveEnabled')]
     public ?bool $roomDeleteOnUserLeaveEnabled;
+
+    /**
+     * This determines who starts the video recording. Only applies when video
+     * recording is enabled (`artifactPlan.videoRecordingEnabled`).
+     *
+     * - `client`: the web client starts the recording when it joins.
+     * - `server`: Vapi starts the recording once when the user first joins, so a
+     *   weak client connection can't stop it from starting. The returned
+     *   `transport.callToken` doesn't start the recording, and the client should
+     *   not start it either. If Vapi can't set up the server-side start, no token
+     *   is returned. If the start itself fails, the client is told during the
+     *   call.
+     *
+     * Defaults to `client`.
+     *
+     * @var ?value-of<CreateWebCallDtoVideoRecordingStartMode> $videoRecordingStartMode
+     */
+    #[JsonProperty('videoRecordingStartMode')]
+    public ?string $videoRecordingStartMode;
 
     /**
      * This is the assistant ID that will be used for the call. To use a transient assistant, use `assistant` instead.
@@ -34,10 +71,10 @@ class CreateWebCallDto extends JsonSerializableType
      * - Squad, use `squad`
      * - Workflow, use `workflow`
      *
-     * @var ?CreateAssistantDto $assistant
+     * @var ?TransientAssistantDto $assistant
      */
     #[JsonProperty('assistant')]
-    public ?CreateAssistantDto $assistant;
+    public ?TransientAssistantDto $assistant;
 
     /**
      * @var ?AssistantOverrides $assistantOverrides These are the overrides for the `assistant` or `assistantId`'s settings and template variables.
@@ -114,9 +151,12 @@ class CreateWebCallDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   assistantVersion?: ?string,
+     *   squadVersion?: ?string,
      *   roomDeleteOnUserLeaveEnabled?: ?bool,
+     *   videoRecordingStartMode?: ?value-of<CreateWebCallDtoVideoRecordingStartMode>,
      *   assistantId?: ?string,
-     *   assistant?: ?CreateAssistantDto,
+     *   assistant?: ?TransientAssistantDto,
      *   assistantOverrides?: ?AssistantOverrides,
      *   squadId?: ?string,
      *   squad?: ?CreateSquadDto,
@@ -129,7 +169,10 @@ class CreateWebCallDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
+        $this->squadVersion = $values['squadVersion'] ?? null;
         $this->roomDeleteOnUserLeaveEnabled = $values['roomDeleteOnUserLeaveEnabled'] ?? null;
+        $this->videoRecordingStartMode = $values['videoRecordingStartMode'] ?? null;
         $this->assistantId = $values['assistantId'] ?? null;
         $this->assistant = $values['assistant'] ?? null;
         $this->assistantOverrides = $values['assistantOverrides'] ?? null;

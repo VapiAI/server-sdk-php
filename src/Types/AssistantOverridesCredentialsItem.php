@@ -41,6 +41,7 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
      *   |'rime-ai'
      *   |'runpod'
      *   |'s3'
+     *   |'s3-compatible'
      *   |'supabase'
      *   |'smallest-ai'
      *   |'tavus'
@@ -50,12 +51,13 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
      *   |'webhook'
      *   |'custom-credential'
      *   |'xai'
+     *   |'microsoft'
      *   |'neuphonic'
      *   |'hume'
      *   |'mistral'
      *   |'speechmatics'
      *   |'soniox'
-     *   |'trieve'
+     *   |'reson8'
      *   |'google.calendar.oauth2-client'
      *   |'google.calendar.oauth2-authorization'
      *   |'google.sheets.oauth2-authorization'
@@ -104,6 +106,7 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
      *   |CreateRimeAiCredentialDto
      *   |CreateRunpodCredentialDto
      *   |CreateS3CredentialDto
+     *   |CreateS3CompatibleCredentialDto
      *   |CreateSupabaseCredentialDto
      *   |CreateSmallestAiCredentialDto
      *   |CreateTavusCredentialDto
@@ -113,12 +116,13 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
      *   |CreateWebhookCredentialDto
      *   |CreateCustomCredentialDto
      *   |CreateXAiCredentialDto
+     *   |CreateMicrosoftCredentialDto
      *   |CreateNeuphonicCredentialDto
      *   |CreateHumeCredentialDto
      *   |CreateMistralCredentialDto
      *   |CreateSpeechmaticsCredentialDto
      *   |CreateSonioxCredentialDto
-     *   |CreateTrieveCredentialDto
+     *   |CreateReson8CredentialDto
      *   |CreateGoogleCalendarOAuth2ClientCredentialDto
      *   |CreateGoogleCalendarOAuth2AuthorizationCredentialDto
      *   |CreateGoogleSheetsOAuth2AuthorizationCredentialDto
@@ -168,6 +172,7 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
      *   |'rime-ai'
      *   |'runpod'
      *   |'s3'
+     *   |'s3-compatible'
      *   |'supabase'
      *   |'smallest-ai'
      *   |'tavus'
@@ -177,12 +182,13 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
      *   |'webhook'
      *   |'custom-credential'
      *   |'xai'
+     *   |'microsoft'
      *   |'neuphonic'
      *   |'hume'
      *   |'mistral'
      *   |'speechmatics'
      *   |'soniox'
-     *   |'trieve'
+     *   |'reson8'
      *   |'google.calendar.oauth2-client'
      *   |'google.calendar.oauth2-authorization'
      *   |'google.sheets.oauth2-authorization'
@@ -227,6 +233,7 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
      *   |CreateRimeAiCredentialDto
      *   |CreateRunpodCredentialDto
      *   |CreateS3CredentialDto
+     *   |CreateS3CompatibleCredentialDto
      *   |CreateSupabaseCredentialDto
      *   |CreateSmallestAiCredentialDto
      *   |CreateTavusCredentialDto
@@ -236,12 +243,13 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
      *   |CreateWebhookCredentialDto
      *   |CreateCustomCredentialDto
      *   |CreateXAiCredentialDto
+     *   |CreateMicrosoftCredentialDto
      *   |CreateNeuphonicCredentialDto
      *   |CreateHumeCredentialDto
      *   |CreateMistralCredentialDto
      *   |CreateSpeechmaticsCredentialDto
      *   |CreateSonioxCredentialDto
-     *   |CreateTrieveCredentialDto
+     *   |CreateReson8CredentialDto
      *   |CreateGoogleCalendarOAuth2ClientCredentialDto
      *   |CreateGoogleCalendarOAuth2AuthorizationCredentialDto
      *   |CreateGoogleSheetsOAuth2AuthorizationCredentialDto
@@ -636,6 +644,18 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
     }
 
     /**
+     * @param CreateS3CompatibleCredentialDto $s3Compatible
+     * @return AssistantOverridesCredentialsItem
+     */
+    public static function s3Compatible(CreateS3CompatibleCredentialDto $s3Compatible): AssistantOverridesCredentialsItem
+    {
+        return new AssistantOverridesCredentialsItem([
+            'provider' => 's3-compatible',
+            'value' => $s3Compatible,
+        ]);
+    }
+
+    /**
      * @param CreateSupabaseCredentialDto $supabase
      * @return AssistantOverridesCredentialsItem
      */
@@ -744,6 +764,18 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
     }
 
     /**
+     * @param CreateMicrosoftCredentialDto $microsoft
+     * @return AssistantOverridesCredentialsItem
+     */
+    public static function microsoft(CreateMicrosoftCredentialDto $microsoft): AssistantOverridesCredentialsItem
+    {
+        return new AssistantOverridesCredentialsItem([
+            'provider' => 'microsoft',
+            'value' => $microsoft,
+        ]);
+    }
+
+    /**
      * @param CreateNeuphonicCredentialDto $neuphonic
      * @return AssistantOverridesCredentialsItem
      */
@@ -804,14 +836,14 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
     }
 
     /**
-     * @param CreateTrieveCredentialDto $trieve
+     * @param CreateReson8CredentialDto $reson8
      * @return AssistantOverridesCredentialsItem
      */
-    public static function trieve(CreateTrieveCredentialDto $trieve): AssistantOverridesCredentialsItem
+    public static function reson8(CreateReson8CredentialDto $reson8): AssistantOverridesCredentialsItem
     {
         return new AssistantOverridesCredentialsItem([
-            'provider' => 'trieve',
-            'value' => $trieve,
+            'provider' => 'reson8',
+            'value' => $reson8,
         ]);
     }
 
@@ -1620,6 +1652,28 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
     /**
      * @return bool
      */
+    public function isS3Compatible(): bool
+    {
+        return $this->value instanceof CreateS3CompatibleCredentialDto && $this->provider === 's3-compatible';
+    }
+
+    /**
+     * @return CreateS3CompatibleCredentialDto
+     */
+    public function asS3Compatible(): CreateS3CompatibleCredentialDto
+    {
+        if (!($this->value instanceof CreateS3CompatibleCredentialDto && $this->provider === 's3-compatible')) {
+            throw new Exception(
+                "Expected s3-compatible; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
     public function isSupabase(): bool
     {
         return $this->value instanceof CreateSupabaseCredentialDto && $this->provider === 'supabase';
@@ -1818,6 +1872,28 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
     /**
      * @return bool
      */
+    public function isMicrosoft(): bool
+    {
+        return $this->value instanceof CreateMicrosoftCredentialDto && $this->provider === 'microsoft';
+    }
+
+    /**
+     * @return CreateMicrosoftCredentialDto
+     */
+    public function asMicrosoft(): CreateMicrosoftCredentialDto
+    {
+        if (!($this->value instanceof CreateMicrosoftCredentialDto && $this->provider === 'microsoft')) {
+            throw new Exception(
+                "Expected microsoft; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
     public function isNeuphonic(): bool
     {
         return $this->value instanceof CreateNeuphonicCredentialDto && $this->provider === 'neuphonic';
@@ -1928,19 +2004,19 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
     /**
      * @return bool
      */
-    public function isTrieve(): bool
+    public function isReson8(): bool
     {
-        return $this->value instanceof CreateTrieveCredentialDto && $this->provider === 'trieve';
+        return $this->value instanceof CreateReson8CredentialDto && $this->provider === 'reson8';
     }
 
     /**
-     * @return CreateTrieveCredentialDto
+     * @return CreateReson8CredentialDto
      */
-    public function asTrieve(): CreateTrieveCredentialDto
+    public function asReson8(): CreateReson8CredentialDto
     {
-        if (!($this->value instanceof CreateTrieveCredentialDto && $this->provider === 'trieve')) {
+        if (!($this->value instanceof CreateReson8CredentialDto && $this->provider === 'reson8')) {
             throw new Exception(
-                "Expected trieve; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+                "Expected reson8; got " . $this->provider . " with value of type " . get_debug_type($this->value),
             );
         }
 
@@ -2311,6 +2387,10 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
                 $value = $this->asS3()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
+            case 's3-compatible':
+                $value = $this->asS3Compatible()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
             case 'supabase':
                 $value = $this->asSupabase()->jsonSerialize();
                 $result = array_merge($value, $result);
@@ -2347,6 +2427,10 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
                 $value = $this->asXai()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
+            case 'microsoft':
+                $value = $this->asMicrosoft()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
             case 'neuphonic':
                 $value = $this->asNeuphonic()->jsonSerialize();
                 $result = array_merge($value, $result);
@@ -2367,8 +2451,8 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
                 $value = $this->asSoniox()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
-            case 'trieve':
-                $value = $this->asTrieve()->jsonSerialize();
+            case 'reson8':
+                $value = $this->asReson8()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case 'google.calendar.oauth2-client':
@@ -2552,6 +2636,9 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
             case 's3':
                 $args['value'] = CreateS3CredentialDto::jsonDeserialize($data);
                 break;
+            case 's3-compatible':
+                $args['value'] = CreateS3CompatibleCredentialDto::jsonDeserialize($data);
+                break;
             case 'supabase':
                 $args['value'] = CreateSupabaseCredentialDto::jsonDeserialize($data);
                 break;
@@ -2579,6 +2666,9 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
             case 'xai':
                 $args['value'] = CreateXAiCredentialDto::jsonDeserialize($data);
                 break;
+            case 'microsoft':
+                $args['value'] = CreateMicrosoftCredentialDto::jsonDeserialize($data);
+                break;
             case 'neuphonic':
                 $args['value'] = CreateNeuphonicCredentialDto::jsonDeserialize($data);
                 break;
@@ -2594,8 +2684,8 @@ class AssistantOverridesCredentialsItem extends JsonSerializableType
             case 'soniox':
                 $args['value'] = CreateSonioxCredentialDto::jsonDeserialize($data);
                 break;
-            case 'trieve':
-                $args['value'] = CreateTrieveCredentialDto::jsonDeserialize($data);
+            case 'reson8':
+                $args['value'] = CreateReson8CredentialDto::jsonDeserialize($data);
                 break;
             case 'google.calendar.oauth2-client':
                 $args['value'] = CreateGoogleCalendarOAuth2ClientCredentialDto::jsonDeserialize($data);

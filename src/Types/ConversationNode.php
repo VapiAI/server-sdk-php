@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A workflow node where the assistant conducts a conversation using optional node-specific providers, tools, prompt, and variable extraction.
+ */
 class ConversationNode extends JsonSerializableType
 {
     /**
@@ -59,7 +62,7 @@ class ConversationNode extends JsonSerializableType
     public ?array $toolIds;
 
     /**
-     * @var ?string $prompt
+     * @var ?string $prompt Prompt that guides the assistant while this node is active.
      */
     #[JsonProperty('prompt')]
     public ?string $prompt;
@@ -125,7 +128,7 @@ class ConversationNode extends JsonSerializableType
     public ?VariableExtractionPlan $variableExtractionPlan;
 
     /**
-     * @var string $name
+     * @var string $name Unique name used to identify this workflow node.
      */
     #[JsonProperty('name')]
     public string $name;

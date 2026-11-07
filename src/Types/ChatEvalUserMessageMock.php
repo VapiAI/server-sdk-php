@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * A simulated user message in an evaluation conversation.
+ */
 class ChatEvalUserMessageMock extends JsonSerializableType
 {
     /**

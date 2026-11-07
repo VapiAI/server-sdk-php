@@ -21,10 +21,10 @@ class CredentialEndUser extends JsonSerializableType
     public string $endUserId;
 
     /**
-     * @var string $organizationId
+     * @var ?string $organizationId
      */
     #[JsonProperty('organizationId')]
-    public string $organizationId;
+    public ?string $organizationId;
 
     /**
      * @var ?array<string, mixed> $tags
@@ -35,8 +35,8 @@ class CredentialEndUser extends JsonSerializableType
     /**
      * @param array{
      *   endUserId: string,
-     *   organizationId: string,
      *   endUserEmail?: ?string,
+     *   organizationId?: ?string,
      *   tags?: ?array<string, mixed>,
      * } $values
      */
@@ -45,7 +45,7 @@ class CredentialEndUser extends JsonSerializableType
     ) {
         $this->endUserEmail = $values['endUserEmail'] ?? null;
         $this->endUserId = $values['endUserId'];
-        $this->organizationId = $values['organizationId'];
+        $this->organizationId = $values['organizationId'] ?? null;
         $this->tags = $values['tags'] ?? null;
     }
 

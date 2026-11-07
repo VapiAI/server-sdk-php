@@ -3,11 +3,12 @@
 namespace Vapi\Calls\Requests;
 
 use Vapi\Core\Json\JsonSerializableType;
-use Vapi\Types\CreateCustomerDto;
 use Vapi\Core\Json\JsonProperty;
+use Vapi\Calls\Types\CreateCallDtoTransport;
+use Vapi\Types\CreateCustomerDto;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Types\SchedulePlan;
-use Vapi\Types\CreateAssistantDto;
+use Vapi\Types\TransientAssistantDto;
 use Vapi\Types\AssistantOverrides;
 use Vapi\Types\CreateSquadDto;
 use Vapi\Types\CreateWorkflowDto;
@@ -16,6 +17,30 @@ use Vapi\Types\ImportTwilioPhoneNumberDto;
 
 class CreateCallDto extends JsonSerializableType
 {
+    /**
+     * This is the assistant version to use for this call. Supported only with
+     * direct `assistantId`. Omit to follow the latest version.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
+     * This is the squad version to use for this call. Supported only with
+     * direct `squadId`. Omit to follow the latest version.
+     *
+     * @var ?string $squadVersion
+     */
+    #[JsonProperty('squadVersion')]
+    public ?string $squadVersion;
+
+    /**
+     * @var ?CreateCallDtoTransport $transport This is the transport of the call.
+     */
+    #[JsonProperty('transport')]
+    public ?CreateCallDtoTransport $transport;
+
     /**
      * This is used to issue batch calls to multiple customers.
      *
@@ -39,12 +64,6 @@ class CreateCallDto extends JsonSerializableType
     public ?SchedulePlan $schedulePlan;
 
     /**
-     * @var ?array<string, mixed> $transport This is the transport of the call.
-     */
-    #[JsonProperty('transport'), ArrayType(['string' => 'mixed'])]
-    public ?array $transport;
-
-    /**
      * This is the assistant ID that will be used for the call. To use a transient assistant, use `assistant` instead.
      *
      * To start a call with:
@@ -65,10 +84,10 @@ class CreateCallDto extends JsonSerializableType
      * - Squad, use `squad`
      * - Workflow, use `workflow`
      *
-     * @var ?CreateAssistantDto $assistant
+     * @var ?TransientAssistantDto $assistant
      */
     #[JsonProperty('assistant')]
-    public ?CreateAssistantDto $assistant;
+    public ?TransientAssistantDto $assistant;
 
     /**
      * @var ?AssistantOverrides $assistantOverrides These are the overrides for the `assistant` or `assistantId`'s settings and template variables.
@@ -185,12 +204,14 @@ class CreateCallDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   assistantVersion?: ?string,
+     *   squadVersion?: ?string,
+     *   transport?: ?CreateCallDtoTransport,
      *   customers?: ?array<CreateCustomerDto>,
      *   name?: ?string,
      *   schedulePlan?: ?SchedulePlan,
-     *   transport?: ?array<string, mixed>,
      *   assistantId?: ?string,
-     *   assistant?: ?CreateAssistantDto,
+     *   assistant?: ?TransientAssistantDto,
      *   assistantOverrides?: ?AssistantOverrides,
      *   squadId?: ?string,
      *   squad?: ?CreateSquadDto,
@@ -207,10 +228,12 @@ class CreateCallDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
+        $this->squadVersion = $values['squadVersion'] ?? null;
+        $this->transport = $values['transport'] ?? null;
         $this->customers = $values['customers'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->schedulePlan = $values['schedulePlan'] ?? null;
-        $this->transport = $values['transport'] ?? null;
         $this->assistantId = $values['assistantId'] ?? null;
         $this->assistant = $values['assistant'] ?? null;
         $this->assistantOverrides = $values['assistantOverrides'] ?? null;

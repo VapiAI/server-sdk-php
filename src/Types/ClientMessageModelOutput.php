@@ -15,6 +15,17 @@ class ClientMessageModelOutput extends JsonSerializableType
     public ?ClientMessageModelOutputPhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var value-of<ClientMessageModelOutputType> $type This is the type of the message. "model-output" is sent as the model outputs tokens.
      */
     #[JsonProperty('type')]
@@ -64,6 +75,7 @@ class ClientMessageModelOutput extends JsonSerializableType
      *   type: value-of<ClientMessageModelOutputType>,
      *   output: array<string, mixed>,
      *   phoneNumber?: ?ClientMessageModelOutputPhoneNumber,
+     *   assistantVersion?: ?string,
      *   turnId?: ?string,
      *   timestamp?: ?float,
      *   call?: ?Call,
@@ -75,6 +87,7 @@ class ClientMessageModelOutput extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->turnId = $values['turnId'] ?? null;
         $this->timestamp = $values['timestamp'] ?? null;

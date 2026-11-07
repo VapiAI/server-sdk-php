@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Fallback configuration for synthesizing assistant speech with Inworld, including voice and model selection, language, temperature, speaking rate, chunking, and caching.
+ */
 class FallbackInworldVoice extends JsonSerializableType
 {
     /**

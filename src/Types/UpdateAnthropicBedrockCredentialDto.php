@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateAnthropicBedrockCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateAnthropicBedrockCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?value-of<UpdateAnthropicBedrockCredentialDtoRegion> $region AWS region where Bedrock is configured.
      */
     #[JsonProperty('region')]
@@ -27,6 +33,7 @@ class UpdateAnthropicBedrockCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateAnthropicBedrockCredentialDtoProvider>,
      *   region?: ?value-of<UpdateAnthropicBedrockCredentialDtoRegion>,
      *   authenticationPlan?: ?UpdateAnthropicBedrockCredentialDtoAuthenticationPlan,
      *   name?: ?string,
@@ -35,6 +42,7 @@ class UpdateAnthropicBedrockCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->region = $values['region'] ?? null;
         $this->authenticationPlan = $values['authenticationPlan'] ?? null;
         $this->name = $values['name'] ?? null;

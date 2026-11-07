@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Voicemail-detection model cost, including provider, model, multimodal token usage, and amount.
+ */
 class VoicemailDetectionCost extends JsonSerializableType
 {
     /**

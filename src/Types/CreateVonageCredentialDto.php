@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for authenticating telephony requests with Vonage.
+ */
 class CreateVonageCredentialDto extends JsonSerializableType
 {
     /**
@@ -14,7 +17,7 @@ class CreateVonageCredentialDto extends JsonSerializableType
     public string $apiSecret;
 
     /**
-     * @var string $apiKey
+     * @var string $apiKey Vonage API key associated with the credential.
      */
     #[JsonProperty('apiKey')]
     public string $apiKey;

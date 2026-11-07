@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * A squad evaluation target provided as a saved squad ID or a transient squad, with optional assistant overrides.
+ */
 class EvalRunTargetSquad extends JsonSerializableType
 {
     /**

@@ -26,11 +26,12 @@ class AssistantOverridesVoice extends JsonSerializableType
      *   |'wellsaid'
      *   |'rime-ai'
      *   |'smallest-ai'
-     *   |'tavus'
      *   |'vapi'
      *   |'sesame'
      *   |'inworld'
      *   |'minimax'
+     *   |'xai'
+     *   |'microsoft'
      *   |'_unknown'
      * ) $provider
      */
@@ -51,11 +52,12 @@ class AssistantOverridesVoice extends JsonSerializableType
      *   |WellSaidVoice
      *   |RimeAiVoice
      *   |SmallestAiVoice
-     *   |TavusVoice
      *   |VapiVoice
      *   |SesameVoice
      *   |InworldVoice
      *   |MinimaxVoice
+     *   |XaiVoice
+     *   |MicrosoftVoice
      *   |mixed
      * ) $value
      */
@@ -77,11 +79,12 @@ class AssistantOverridesVoice extends JsonSerializableType
      *   |'wellsaid'
      *   |'rime-ai'
      *   |'smallest-ai'
-     *   |'tavus'
      *   |'vapi'
      *   |'sesame'
      *   |'inworld'
      *   |'minimax'
+     *   |'xai'
+     *   |'microsoft'
      *   |'_unknown'
      * ),
      *   value: (
@@ -98,11 +101,12 @@ class AssistantOverridesVoice extends JsonSerializableType
      *   |WellSaidVoice
      *   |RimeAiVoice
      *   |SmallestAiVoice
-     *   |TavusVoice
      *   |VapiVoice
      *   |SesameVoice
      *   |InworldVoice
      *   |MinimaxVoice
+     *   |XaiVoice
+     *   |MicrosoftVoice
      *   |mixed
      * ),
      * } $values
@@ -271,18 +275,6 @@ class AssistantOverridesVoice extends JsonSerializableType
     }
 
     /**
-     * @param TavusVoice $tavus
-     * @return AssistantOverridesVoice
-     */
-    public static function tavus(TavusVoice $tavus): AssistantOverridesVoice
-    {
-        return new AssistantOverridesVoice([
-            'provider' => 'tavus',
-            'value' => $tavus,
-        ]);
-    }
-
-    /**
      * @param VapiVoice $vapi
      * @return AssistantOverridesVoice
      */
@@ -327,6 +319,30 @@ class AssistantOverridesVoice extends JsonSerializableType
         return new AssistantOverridesVoice([
             'provider' => 'minimax',
             'value' => $minimax,
+        ]);
+    }
+
+    /**
+     * @param XaiVoice $xai
+     * @return AssistantOverridesVoice
+     */
+    public static function xai(XaiVoice $xai): AssistantOverridesVoice
+    {
+        return new AssistantOverridesVoice([
+            'provider' => 'xai',
+            'value' => $xai,
+        ]);
+    }
+
+    /**
+     * @param MicrosoftVoice $microsoft
+     * @return AssistantOverridesVoice
+     */
+    public static function microsoft(MicrosoftVoice $microsoft): AssistantOverridesVoice
+    {
+        return new AssistantOverridesVoice([
+            'provider' => 'microsoft',
+            'value' => $microsoft,
         ]);
     }
 
@@ -619,28 +635,6 @@ class AssistantOverridesVoice extends JsonSerializableType
     /**
      * @return bool
      */
-    public function isTavus(): bool
-    {
-        return $this->value instanceof TavusVoice && $this->provider === 'tavus';
-    }
-
-    /**
-     * @return TavusVoice
-     */
-    public function asTavus(): TavusVoice
-    {
-        if (!($this->value instanceof TavusVoice && $this->provider === 'tavus')) {
-            throw new Exception(
-                "Expected tavus; got " . $this->provider . " with value of type " . get_debug_type($this->value),
-            );
-        }
-
-        return $this->value;
-    }
-
-    /**
-     * @return bool
-     */
     public function isVapi(): bool
     {
         return $this->value instanceof VapiVoice && $this->provider === 'vapi';
@@ -727,6 +721,50 @@ class AssistantOverridesVoice extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isXai(): bool
+    {
+        return $this->value instanceof XaiVoice && $this->provider === 'xai';
+    }
+
+    /**
+     * @return XaiVoice
+     */
+    public function asXai(): XaiVoice
+    {
+        if (!($this->value instanceof XaiVoice && $this->provider === 'xai')) {
+            throw new Exception(
+                "Expected xai; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMicrosoft(): bool
+    {
+        return $this->value instanceof MicrosoftVoice && $this->provider === 'microsoft';
+    }
+
+    /**
+     * @return MicrosoftVoice
+     */
+    public function asMicrosoft(): MicrosoftVoice
+    {
+        if (!($this->value instanceof MicrosoftVoice && $this->provider === 'microsoft')) {
+            throw new Exception(
+                "Expected microsoft; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -798,10 +836,6 @@ class AssistantOverridesVoice extends JsonSerializableType
                 $value = $this->asSmallestAi()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
-            case 'tavus':
-                $value = $this->asTavus()->jsonSerialize();
-                $result = array_merge($value, $result);
-                break;
             case 'vapi':
                 $value = $this->asVapi()->jsonSerialize();
                 $result = array_merge($value, $result);
@@ -816,6 +850,14 @@ class AssistantOverridesVoice extends JsonSerializableType
                 break;
             case 'minimax':
                 $value = $this->asMinimax()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'xai':
+                $value = $this->asXai()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'microsoft':
+                $value = $this->asMicrosoft()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -905,9 +947,6 @@ class AssistantOverridesVoice extends JsonSerializableType
             case 'smallest-ai':
                 $args['value'] = SmallestAiVoice::jsonDeserialize($data);
                 break;
-            case 'tavus':
-                $args['value'] = TavusVoice::jsonDeserialize($data);
-                break;
             case 'vapi':
                 $args['value'] = VapiVoice::jsonDeserialize($data);
                 break;
@@ -919,6 +958,12 @@ class AssistantOverridesVoice extends JsonSerializableType
                 break;
             case 'minimax':
                 $args['value'] = MinimaxVoice::jsonDeserialize($data);
+                break;
+            case 'xai':
+                $args['value'] = XaiVoice::jsonDeserialize($data);
+                break;
+            case 'microsoft':
+                $args['value'] = MicrosoftVoice::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

@@ -9,28 +9,21 @@ use Vapi\Core\Types\ArrayType;
 class AssistantVersionPaginatedResponse extends JsonSerializableType
 {
     /**
-     * @var array<mixed> $results
+     * @var array<AssistantVersion> $results
      */
-    #[JsonProperty('results'), ArrayType(['mixed'])]
+    #[JsonProperty('results'), ArrayType([AssistantVersion::class])]
     public array $results;
 
     /**
-     * @var PaginationMeta $metadata
+     * @var AssistantVersionPaginatedMetadata $metadata
      */
     #[JsonProperty('metadata')]
-    public PaginationMeta $metadata;
-
-    /**
-     * @var ?string $nextPageState
-     */
-    #[JsonProperty('nextPageState')]
-    public ?string $nextPageState;
+    public AssistantVersionPaginatedMetadata $metadata;
 
     /**
      * @param array{
-     *   results: array<mixed>,
-     *   metadata: PaginationMeta,
-     *   nextPageState?: ?string,
+     *   results: array<AssistantVersion>,
+     *   metadata: AssistantVersionPaginatedMetadata,
      * } $values
      */
     public function __construct(
@@ -38,7 +31,6 @@ class AssistantVersionPaginatedResponse extends JsonSerializableType
     ) {
         $this->results = $values['results'];
         $this->metadata = $values['metadata'];
-        $this->nextPageState = $values['nextPageState'] ?? null;
     }
 
     /**

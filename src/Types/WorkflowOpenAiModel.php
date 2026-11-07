@@ -4,9 +4,30 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
+use Vapi\Core\Types\ArrayType;
 
+/**
+ * Workflow model configuration for OpenAI, including model selection, temperature, and maximum output tokens.
+ */
 class WorkflowOpenAiModel extends JsonSerializableType
 {
+    /**
+     * These are the messages used to customize the prompt used for structured output extraction.
+     *
+     * When provided, these messages replace the default prompts. For text extraction, message contents support LiquidJS templating with the following variables:
+     * - `{{transcript}}`, `{{messages}}`, or `{{messagesWithConfidence}}` to reference the conversation (one is required)
+     * - `{{structuredOutput.name}}`, `{{structuredOutput.description}}`, or `{{structuredOutput.schema}}` to reference the structured output definition (one is required)
+     * - `{{systemPrompt}}`, `{{callEndedReason}}`, `{{duration}}`, `{{startedAt}}`, `{{endedAt}}`, and any `assistantOverrides.variableValues`
+     *
+     * In structured outputs, `{{messages}}` includes conversation text and tool calls/results, but omits caller transcription-confidence fields. For text extraction, `{{messagesWithConfidence}}` includes the original message history with transcription confidence for outputs that explicitly need it. These variables also apply in structured-output schema descriptions. Audio-targeted (`messages-with-audio`) extraction ignores custom messages. Stored call artifacts and API messages retain their confidence data. `{{transcript}}` is the spoken text only, which uses significantly fewer tokens.
+     *
+     * If not provided, default system and user prompts are used.
+     *
+     * @var ?array<OpenAiMessage> $messages
+     */
+    #[JsonProperty('messages'), ArrayType([OpenAiMessage::class])]
+    public ?array $messages;
+
     /**
      * This is the OpenAI model that will be used.
      *
@@ -17,6 +38,18 @@ class WorkflowOpenAiModel extends JsonSerializableType
      */
     #[JsonProperty('model')]
     public string $model;
+
+    /**
+     * This is the reasoning effort for structured output extraction. It applies to the primary extraction attempt only; the GPT-4.1 and Gemini fallbacks run without it. Other features that use this model type ignore it.
+     *
+     * Only reasoning models accept it, and each accepts only the efforts OpenAI supports for it (for example `none` and `xhigh` on gpt-5.6, `minimal` on gpt-5). When unset, OpenAI's default effort for the model applies, except on GPT-6 models, which Vapi sends with `none`.
+     *
+     * Reasoning tokens are billed as output tokens.
+     *
+     * @var ?value-of<WorkflowOpenAiModelReasoningEffort> $reasoningEffort
+     */
+    #[JsonProperty('reasoningEffort')]
+    public ?string $reasoningEffort;
 
     /**
      * @var ?float $temperature This is the temperature of the model.
@@ -33,6 +66,8 @@ class WorkflowOpenAiModel extends JsonSerializableType
     /**
      * @param array{
      *   model: value-of<WorkflowOpenAiModelModel>,
+     *   messages?: ?array<OpenAiMessage>,
+     *   reasoningEffort?: ?value-of<WorkflowOpenAiModelReasoningEffort>,
      *   temperature?: ?float,
      *   maxTokens?: ?float,
      * } $values
@@ -40,7 +75,9 @@ class WorkflowOpenAiModel extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
+        $this->messages = $values['messages'] ?? null;
         $this->model = $values['model'];
+        $this->reasoningEffort = $values['reasoningEffort'] ?? null;
         $this->temperature = $values['temperature'] ?? null;
         $this->maxTokens = $values['maxTokens'] ?? null;
     }

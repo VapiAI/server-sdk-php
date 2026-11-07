@@ -25,6 +25,9 @@ class AssistantOverridesTranscriber extends JsonSerializableType
      *   |'openai'
      *   |'cartesia'
      *   |'soniox'
+     *   |'xai'
+     *   |'reson8'
+     *   |'vapi'
      *   |'_unknown'
      * ) $provider
      */
@@ -44,6 +47,9 @@ class AssistantOverridesTranscriber extends JsonSerializableType
      *   |OpenAiTranscriber
      *   |CartesiaTranscriber
      *   |SonioxTranscriber
+     *   |XaiTranscriber
+     *   |Reson8Transcriber
+     *   |VapiTranscriber
      *   |mixed
      * ) $value
      */
@@ -64,6 +70,9 @@ class AssistantOverridesTranscriber extends JsonSerializableType
      *   |'openai'
      *   |'cartesia'
      *   |'soniox'
+     *   |'xai'
+     *   |'reson8'
+     *   |'vapi'
      *   |'_unknown'
      * ),
      *   value: (
@@ -79,6 +88,9 @@ class AssistantOverridesTranscriber extends JsonSerializableType
      *   |OpenAiTranscriber
      *   |CartesiaTranscriber
      *   |SonioxTranscriber
+     *   |XaiTranscriber
+     *   |Reson8Transcriber
+     *   |VapiTranscriber
      *   |mixed
      * ),
      * } $values
@@ -231,6 +243,42 @@ class AssistantOverridesTranscriber extends JsonSerializableType
         return new AssistantOverridesTranscriber([
             'provider' => 'soniox',
             'value' => $soniox,
+        ]);
+    }
+
+    /**
+     * @param XaiTranscriber $xai
+     * @return AssistantOverridesTranscriber
+     */
+    public static function xai(XaiTranscriber $xai): AssistantOverridesTranscriber
+    {
+        return new AssistantOverridesTranscriber([
+            'provider' => 'xai',
+            'value' => $xai,
+        ]);
+    }
+
+    /**
+     * @param Reson8Transcriber $reson8
+     * @return AssistantOverridesTranscriber
+     */
+    public static function reson8(Reson8Transcriber $reson8): AssistantOverridesTranscriber
+    {
+        return new AssistantOverridesTranscriber([
+            'provider' => 'reson8',
+            'value' => $reson8,
+        ]);
+    }
+
+    /**
+     * @param VapiTranscriber $vapi
+     * @return AssistantOverridesTranscriber
+     */
+    public static function vapi(VapiTranscriber $vapi): AssistantOverridesTranscriber
+    {
+        return new AssistantOverridesTranscriber([
+            'provider' => 'vapi',
+            'value' => $vapi,
         ]);
     }
 
@@ -499,6 +547,72 @@ class AssistantOverridesTranscriber extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isXai(): bool
+    {
+        return $this->value instanceof XaiTranscriber && $this->provider === 'xai';
+    }
+
+    /**
+     * @return XaiTranscriber
+     */
+    public function asXai(): XaiTranscriber
+    {
+        if (!($this->value instanceof XaiTranscriber && $this->provider === 'xai')) {
+            throw new Exception(
+                "Expected xai; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isReson8(): bool
+    {
+        return $this->value instanceof Reson8Transcriber && $this->provider === 'reson8';
+    }
+
+    /**
+     * @return Reson8Transcriber
+     */
+    public function asReson8(): Reson8Transcriber
+    {
+        if (!($this->value instanceof Reson8Transcriber && $this->provider === 'reson8')) {
+            throw new Exception(
+                "Expected reson8; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVapi(): bool
+    {
+        return $this->value instanceof VapiTranscriber && $this->provider === 'vapi';
+    }
+
+    /**
+     * @return VapiTranscriber
+     */
+    public function asVapi(): VapiTranscriber
+    {
+        if (!($this->value instanceof VapiTranscriber && $this->provider === 'vapi')) {
+            throw new Exception(
+                "Expected vapi; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -564,6 +678,18 @@ class AssistantOverridesTranscriber extends JsonSerializableType
                 break;
             case 'soniox':
                 $value = $this->asSoniox()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'xai':
+                $value = $this->asXai()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'reson8':
+                $value = $this->asReson8()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'vapi':
+                $value = $this->asVapi()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -649,6 +775,15 @@ class AssistantOverridesTranscriber extends JsonSerializableType
                 break;
             case 'soniox':
                 $args['value'] = SonioxTranscriber::jsonDeserialize($data);
+                break;
+            case 'xai':
+                $args['value'] = XaiTranscriber::jsonDeserialize($data);
+                break;
+            case 'reson8':
+                $args['value'] = Reson8Transcriber::jsonDeserialize($data);
+                break;
+            case 'vapi':
+                $args['value'] = VapiTranscriber::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

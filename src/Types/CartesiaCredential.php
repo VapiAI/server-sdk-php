@@ -52,6 +52,12 @@ class CartesiaCredential extends JsonSerializableType
     public ?string $name;
 
     /**
+     * @var ?string $apiUrl This can be used to point to an onprem Cartesia instance. Defaults to api.cartesia.ai.
+     */
+    #[JsonProperty('apiUrl')]
+    public ?string $apiUrl;
+
+    /**
      * @param array{
      *   provider: value-of<CartesiaCredentialProvider>,
      *   apiKey: string,
@@ -60,6 +66,7 @@ class CartesiaCredential extends JsonSerializableType
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
      *   name?: ?string,
+     *   apiUrl?: ?string,
      * } $values
      */
     public function __construct(
@@ -72,6 +79,7 @@ class CartesiaCredential extends JsonSerializableType
         $this->createdAt = $values['createdAt'];
         $this->updatedAt = $values['updatedAt'];
         $this->name = $values['name'] ?? null;
+        $this->apiUrl = $values['apiUrl'] ?? null;
     }
 
     /**

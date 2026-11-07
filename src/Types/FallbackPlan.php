@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Lists backup voice configurations that can be used if the primary voice provider fails.
+ */
 class FallbackPlan extends JsonSerializableType
 {
     /**

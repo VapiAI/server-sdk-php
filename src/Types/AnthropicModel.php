@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for generating assistant responses with Anthropic, including model, prompts, tools, knowledge-base access, reasoning, and generation settings.
+ */
 class AnthropicModel extends JsonSerializableType
 {
     /**
@@ -35,6 +38,17 @@ class AnthropicModel extends JsonSerializableType
     public ?array $toolIds;
 
     /**
+     * These are version-pinned references to tools. Each entry pins a specific
+     * version of a tool by `(toolId, version)`. When the same `toolId` appears
+     * in both `toolIds` and `toolRefs[]`, the `toolRefs` pin wins (the
+     * `toolIds` entry is dropped at write time).
+     *
+     * @var ?array<ToolRef> $toolRefs
+     */
+    #[JsonProperty('toolRefs'), ArrayType([ToolRef::class])]
+    public ?array $toolRefs;
+
+    /**
      * @var ?CreateCustomKnowledgeBaseDto $knowledgeBase These are the options for the knowledge base.
      */
     #[JsonProperty('knowledgeBase')]
@@ -47,6 +61,16 @@ class AnthropicModel extends JsonSerializableType
     public string $model;
 
     /**
+     * Reasoning effort for claude-haiku-5-5. `none` turns thinking off. `low` to `max`
+     * use adaptive thinking at that effort; higher effort can add latency before the
+     * model speaks. Unset means `none`. Rejected for every other model.
+     *
+     * @var ?value-of<AnthropicModelReasoningEffort> $reasoningEffort
+     */
+    #[JsonProperty('reasoningEffort')]
+    public ?string $reasoningEffort;
+
+    /**
      * Optional configuration for Anthropic's thinking feature.
      * Only applicable for claude-3-7-sonnet-20250219 model.
      * If provided, maxTokens must be greater than thinking.budgetTokens.
@@ -57,13 +81,13 @@ class AnthropicModel extends JsonSerializableType
     public ?AnthropicThinkingConfig $thinking;
 
     /**
-     * @var ?float $temperature This is the temperature that will be used for calls. Default is 0 to leverage caching for lower latency.
+     * @var ?float $temperature This is the temperature that will be used for calls. Default is 0.5.
      */
     #[JsonProperty('temperature')]
     public ?float $temperature;
 
     /**
-     * @var ?float $maxTokens This is the max number of tokens that the assistant will be allowed to generate in each turn of the conversation. Default is 250.
+     * @var ?float $maxTokens This is the max number of tokens that the assistant will be allowed to generate in each turn of the conversation. Default is 250. On gpt-6-luna and claude-haiku-5-5 no cap is applied unless you set one (claude-haiku-5-5 sends its 128,000-token maximum), because reasoning uses output tokens and a small cap can leave the reply empty.
      */
     #[JsonProperty('maxTokens')]
     public ?float $maxTokens;
@@ -98,7 +122,9 @@ class AnthropicModel extends JsonSerializableType
      *   messages?: ?array<OpenAiMessage>,
      *   tools?: ?array<AnthropicModelToolsItem>,
      *   toolIds?: ?array<string>,
+     *   toolRefs?: ?array<ToolRef>,
      *   knowledgeBase?: ?CreateCustomKnowledgeBaseDto,
+     *   reasoningEffort?: ?value-of<AnthropicModelReasoningEffort>,
      *   thinking?: ?AnthropicThinkingConfig,
      *   temperature?: ?float,
      *   maxTokens?: ?float,
@@ -112,8 +138,10 @@ class AnthropicModel extends JsonSerializableType
         $this->messages = $values['messages'] ?? null;
         $this->tools = $values['tools'] ?? null;
         $this->toolIds = $values['toolIds'] ?? null;
+        $this->toolRefs = $values['toolRefs'] ?? null;
         $this->knowledgeBase = $values['knowledgeBase'] ?? null;
         $this->model = $values['model'];
+        $this->reasoningEffort = $values['reasoningEffort'] ?? null;
         $this->thinking = $values['thinking'] ?? null;
         $this->temperature = $values['temperature'] ?? null;
         $this->maxTokens = $values['maxTokens'] ?? null;

@@ -31,6 +31,7 @@ enum CartesiaVoiceLanguage: string
     case Ms = "ms";
     case Nl = "nl";
     case No = "no";
+    case Or_ = "or";
     case Pa = "pa";
     case Pl = "pl";
     case Pt = "pt";
@@ -44,6 +45,7 @@ enum CartesiaVoiceLanguage: string
     case Tl = "tl";
     case Tr = "tr";
     case Uk = "uk";
+    case Ur = "ur";
     case Vi = "vi";
     case Zh = "zh";
 }

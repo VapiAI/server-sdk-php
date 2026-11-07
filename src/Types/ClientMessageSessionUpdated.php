@@ -14,6 +14,17 @@ class ClientMessageSessionUpdated extends JsonSerializableType
     public ?ClientMessageSessionUpdatedPhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var value-of<ClientMessageSessionUpdatedType> $type This is the type of the message. "session.updated" is sent when a session is updated.
      */
     #[JsonProperty('type')]
@@ -54,6 +65,7 @@ class ClientMessageSessionUpdated extends JsonSerializableType
      *   type: value-of<ClientMessageSessionUpdatedType>,
      *   session: Session,
      *   phoneNumber?: ?ClientMessageSessionUpdatedPhoneNumber,
+     *   assistantVersion?: ?string,
      *   timestamp?: ?float,
      *   call?: ?Call,
      *   customer?: ?CreateCustomerDto,
@@ -64,6 +76,7 @@ class ClientMessageSessionUpdated extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->timestamp = $values['timestamp'] ?? null;
         $this->call = $values['call'] ?? null;

@@ -55,6 +55,8 @@ class AssistantsClient
     }
 
     /**
+     * Returns assistants for the authenticated organization. Filter results by creation or update timestamps and limit the number returned.
+     *
      * @param ListAssistantsRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -130,6 +132,8 @@ class AssistantsClient
     }
 
     /**
+     * Creates a reusable assistant configuration containing the model, voice, transcriber, tools, prompts, and call behavior.
+     *
      * @param CreateAssistantDto $request
      * @param ?array{
      *   baseUrl?: string,
@@ -177,7 +181,9 @@ class AssistantsClient
     }
 
     /**
-     * @param string $id
+     * Returns the assistant identified by its ID.
+     *
+     * @param string $id The unique identifier of the assistant.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -223,7 +229,9 @@ class AssistantsClient
     }
 
     /**
-     * @param string $id
+     * Deletes the assistant identified by its ID.
+     *
+     * @param string $id The unique identifier of the assistant.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -269,7 +277,9 @@ class AssistantsClient
     }
 
     /**
-     * @param string $id
+     * Updates the specified fields of the assistant identified by its ID.
+     *
+     * @param string $id The unique identifier of the assistant.
      * @param UpdateAssistantDto $request
      * @param ?array{
      *   baseUrl?: string,

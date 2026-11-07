@@ -58,6 +58,8 @@ class CallsClient
     }
 
     /**
+     * Returns calls for the authenticated organization. Filter results by call ID, assistant ID, phone number ID, or creation and update timestamps.
+     *
      * @param ListCallsRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -142,6 +144,8 @@ class CallsClient
     }
 
     /**
+     * Creates a call using an assistant or squad. The request can reference saved resources or include transient configurations.
+     *
      * @param CreateCallDto $request
      * @param ?array{
      *   baseUrl?: string,
@@ -192,7 +196,9 @@ class CallsClient
     }
 
     /**
-     * @param string $id
+     * Returns the call identified by its ID, including its status, configuration, and available call data.
+     *
+     * @param string $id The unique identifier of the call.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -238,6 +244,8 @@ class CallsClient
     }
 
     /**
+     * Deletes the call identified by its ID.
+     *
      * @param string $id
      * @param DeleteCallDto $request
      * @param ?array{
@@ -286,7 +294,9 @@ class CallsClient
     }
 
     /**
-     * @param string $id
+     * Updates the call identified by its ID.
+     *
+     * @param string $id The unique identifier of the call.
      * @param UpdateCallDto $request
      * @param ?array{
      *   baseUrl?: string,
@@ -323,6 +333,279 @@ class CallsClient
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (ClientExceptionInterface $e) {
+            throw new VapiException(message: $e->getMessage(), previous: $e);
+        }
+        throw new VapiApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * @param string $id Call ID
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @throws VapiException
+     * @throws VapiApiException
+     */
+    public function callArtifactControllerMonoRecordingDownload(string $id, ?array $options = null): void
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
+                    path: "call/{$id}/mono-recording",
+                    method: HttpMethod::GET,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                return;
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new VapiException(message: $e->getMessage(), previous: $e);
+        }
+        throw new VapiApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * @param string $id Call ID
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @throws VapiException
+     * @throws VapiApiException
+     */
+    public function callArtifactControllerStereoRecordingDownload(string $id, ?array $options = null): void
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
+                    path: "call/{$id}/stereo-recording",
+                    method: HttpMethod::GET,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                return;
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new VapiException(message: $e->getMessage(), previous: $e);
+        }
+        throw new VapiApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * @param string $id Call ID
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @throws VapiException
+     * @throws VapiApiException
+     */
+    public function callArtifactControllerVideoRecordingDownload(string $id, ?array $options = null): void
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
+                    path: "call/{$id}/video-recording",
+                    method: HttpMethod::GET,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                return;
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new VapiException(message: $e->getMessage(), previous: $e);
+        }
+        throw new VapiApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * @param string $id Call ID
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @throws VapiException
+     * @throws VapiApiException
+     */
+    public function callArtifactControllerCustomerRecordingDownload(string $id, ?array $options = null): void
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
+                    path: "call/{$id}/customer-recording",
+                    method: HttpMethod::GET,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                return;
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new VapiException(message: $e->getMessage(), previous: $e);
+        }
+        throw new VapiApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * @param string $id Call ID
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @throws VapiException
+     * @throws VapiApiException
+     */
+    public function callArtifactControllerAssistantRecordingDownload(string $id, ?array $options = null): void
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
+                    path: "call/{$id}/assistant-recording",
+                    method: HttpMethod::GET,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                return;
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new VapiException(message: $e->getMessage(), previous: $e);
+        }
+        throw new VapiApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * @param string $id Call ID
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @throws VapiException
+     * @throws VapiApiException
+     */
+    public function callArtifactControllerPcapDownload(string $id, ?array $options = null): void
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
+                    path: "call/{$id}/pcap",
+                    method: HttpMethod::GET,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                return;
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new VapiException(message: $e->getMessage(), previous: $e);
+        }
+        throw new VapiApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * @param string $id Call ID
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @throws VapiException
+     * @throws VapiApiException
+     */
+    public function callArtifactControllerCallLogsDownload(string $id, ?array $options = null): void
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
+                    path: "call/{$id}/call-logs",
+                    method: HttpMethod::GET,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                return;
+            }
         } catch (ClientExceptionInterface $e) {
             throw new VapiException(message: $e->getMessage(), previous: $e);
         }

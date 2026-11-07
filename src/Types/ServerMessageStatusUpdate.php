@@ -16,6 +16,17 @@ class ServerMessageStatusUpdate extends JsonSerializableType
     public ?ServerMessageStatusUpdatePhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var value-of<ServerMessageStatusUpdateType> $type This is the type of the message. "status-update" is sent whenever the `call.status` changes.
      */
     #[JsonProperty('type')]
@@ -124,6 +135,7 @@ class ServerMessageStatusUpdate extends JsonSerializableType
      *   type: value-of<ServerMessageStatusUpdateType>,
      *   status: value-of<ServerMessageStatusUpdateStatus>,
      *   phoneNumber?: ?ServerMessageStatusUpdatePhoneNumber,
+     *   assistantVersion?: ?string,
      *   endedReason?: ?value-of<ServerMessageStatusUpdateEndedReason>,
      *   messages?: ?array<(
      *    UserMessage
@@ -149,6 +161,7 @@ class ServerMessageStatusUpdate extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->status = $values['status'];
         $this->endedReason = $values['endedReason'] ?? null;

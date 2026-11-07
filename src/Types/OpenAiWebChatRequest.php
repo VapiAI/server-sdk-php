@@ -15,10 +15,10 @@ class OpenAiWebChatRequest extends JsonSerializableType
     public ?string $assistantId;
 
     /**
-     * @var ?CreateAssistantDto $assistant This is the transient assistant configuration for this chat. To use an existing assistant, use `assistantId` instead.
+     * @var ?TransientAssistantDto $assistant This is the transient assistant configuration for this chat. To use an existing assistant, use `assistantId` instead.
      */
     #[JsonProperty('assistant')]
-    public ?CreateAssistantDto $assistant;
+    public ?TransientAssistantDto $assistant;
 
     /**
      * This is the ID of the session that will be used for the chat.
@@ -104,7 +104,7 @@ class OpenAiWebChatRequest extends JsonSerializableType
      * )>
      * ),
      *   assistantId?: ?string,
-     *   assistant?: ?CreateAssistantDto,
+     *   assistant?: ?TransientAssistantDto,
      *   sessionId?: ?string,
      *   sessionExpirationSeconds?: ?float,
      *   assistantOverrides?: ?ChatAssistantOverrides,

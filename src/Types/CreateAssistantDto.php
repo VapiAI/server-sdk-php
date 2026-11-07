@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\Union;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration used to create an assistant, including its model, voice, transcriber, prompts, tools, messaging, and conversation behavior.
+ */
 class CreateAssistantDto extends JsonSerializableType
 {
     /**
@@ -38,7 +41,7 @@ class CreateAssistantDto extends JsonSerializableType
     public ?string $firstMessage;
 
     /**
-     * @var ?bool $firstMessageInterruptionsEnabled
+     * @var ?bool $firstMessageInterruptionsEnabled Set to `true` to allow the user to interrupt the assistant while it speaks the first message. Default is `false`.
      */
     #[JsonProperty('firstMessageInterruptionsEnabled')]
     public ?bool $firstMessageInterruptionsEnabled;
@@ -97,6 +100,7 @@ class CreateAssistantDto extends JsonSerializableType
 
     /**
      * This is the background sound in the call. Default for phone calls is 'office' and default for web calls is 'off'.
+     * Bundled sounds: 'office', 'white-noise', 'city', 'crowd' and 'farm'. GPT Live assistants don't play 'office'.
      * You can also provide a custom sound by providing a URL to an audio file.
      *
      * @var (
@@ -172,11 +176,7 @@ class CreateAssistantDto extends JsonSerializableType
     public ?string $voicemailMessage;
 
     /**
-     * This is the message that the assistant will say if it ends the call.
-     *
-     * If unspecified, it will hang up without saying anything.
-     *
-     * @var ?string $endCallMessage
+     * @var ?string $endCallMessage The message the assistant says when it ends the call with the Hang Up tool (`endCall`) and that tool has no messages. If the tool has a `request-start` message, the assistant says that message instead. If this field is unspecified or empty, the assistant says "Goodbye" in the transcriber's language. When an assistant hook runs `endCall`, this field isn't used and the assistant says "Goodbye" in English.
      */
     #[JsonProperty('endCallMessage')]
     public ?string $endCallMessage;
@@ -188,7 +188,7 @@ class CreateAssistantDto extends JsonSerializableType
     public ?array $endCallPhrases;
 
     /**
-     * @var ?CompliancePlan $compliancePlan
+     * @var ?CompliancePlan $compliancePlan Compliance settings for the assistant, including HIPAA and PCI behavior, security filtering, and recording consent.
      */
     #[JsonProperty('compliancePlan')]
     public ?CompliancePlan $compliancePlan;
@@ -291,7 +291,7 @@ class CreateAssistantDto extends JsonSerializableType
     public ?Server $server;
 
     /**
-     * @var ?KeypadInputPlan $keypadInputPlan
+     * @var ?KeypadInputPlan $keypadInputPlan Configuration for collecting and processing DTMF keypad input during calls.
      */
     #[JsonProperty('keypadInputPlan')]
     public ?KeypadInputPlan $keypadInputPlan;

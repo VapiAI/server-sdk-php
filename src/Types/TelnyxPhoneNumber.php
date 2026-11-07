@@ -8,6 +8,9 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A Telnyx phone number connected to Vapi, including its credential, routing, hooks, server settings, and lifecycle metadata.
+ */
 class TelnyxPhoneNumber extends JsonSerializableType
 {
     /**

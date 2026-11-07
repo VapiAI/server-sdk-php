@@ -7,6 +7,9 @@ use DateTime;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\Date;
 
+/**
+ * Time window that controls the earliest and latest time a call may begin.
+ */
 class SchedulePlan extends JsonSerializableType
 {
     /**

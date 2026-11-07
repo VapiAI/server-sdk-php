@@ -15,6 +15,17 @@ class ClientMessageWorkflowNodeStarted extends JsonSerializableType
     public ?ClientMessageWorkflowNodeStartedPhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var value-of<ClientMessageWorkflowNodeStartedType> $type This is the type of the message. "workflow.node.started" is sent when the active node changes.
      */
     #[JsonProperty('type')]
@@ -55,6 +66,7 @@ class ClientMessageWorkflowNodeStarted extends JsonSerializableType
      *   type: value-of<ClientMessageWorkflowNodeStartedType>,
      *   node: array<string, mixed>,
      *   phoneNumber?: ?ClientMessageWorkflowNodeStartedPhoneNumber,
+     *   assistantVersion?: ?string,
      *   timestamp?: ?float,
      *   call?: ?Call,
      *   customer?: ?CreateCustomerDto,
@@ -65,6 +77,7 @@ class ClientMessageWorkflowNodeStarted extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->timestamp = $values['timestamp'] ?? null;
         $this->call = $values['call'] ?? null;

@@ -6,22 +6,25 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A directed connection between two workflow nodes, with an optional AI-evaluated transition condition.
+ */
 class Edge extends JsonSerializableType
 {
     /**
-     * @var ?AiEdgeCondition $condition
+     * @var ?AiEdgeCondition $condition Condition that must evaluate to true to follow this edge.
      */
     #[JsonProperty('condition')]
     public ?AiEdgeCondition $condition;
 
     /**
-     * @var string $from
+     * @var string $from Name of the source workflow node.
      */
     #[JsonProperty('from')]
     public string $from;
 
     /**
-     * @var string $to
+     * @var string $to Name of the destination workflow node.
      */
     #[JsonProperty('to')]
     public string $to;

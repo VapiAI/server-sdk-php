@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Controls extraction of post-call structured data, including prompt messages, JSON schema, enablement, and request timeout.
+ */
 class StructuredDataPlan extends JsonSerializableType
 {
     /**

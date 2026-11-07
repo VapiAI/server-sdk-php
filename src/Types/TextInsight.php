@@ -9,6 +9,9 @@ use Vapi\Core\Types\Union;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A saved text-value insight containing its call-data queries, formula, time range, and lifecycle information.
+ */
 class TextInsight extends JsonSerializableType
 {
     /**
@@ -40,7 +43,7 @@ class TextInsight extends JsonSerializableType
     public ?array $formula;
 
     /**
-     * @var ?InsightTimeRange $timeRange
+     * @var ?InsightTimeRange $timeRange The time range used to query the text-value data.
      */
     #[JsonProperty('timeRange')]
     public ?InsightTimeRange $timeRange;
@@ -53,9 +56,10 @@ class TextInsight extends JsonSerializableType
      *    JsonQueryOnCallTableWithStringTypeColumn
      *   |JsonQueryOnCallTableWithNumberTypeColumn
      *   |JsonQueryOnCallTableWithStructuredOutputColumn
+     *   |JsonQueryOnEventsTable
      * )> $queries
      */
-    #[JsonProperty('queries'), ArrayType([new Union(JsonQueryOnCallTableWithStringTypeColumn::class, JsonQueryOnCallTableWithNumberTypeColumn::class, JsonQueryOnCallTableWithStructuredOutputColumn::class)])]
+    #[JsonProperty('queries'), ArrayType([new Union(JsonQueryOnCallTableWithStringTypeColumn::class, JsonQueryOnCallTableWithNumberTypeColumn::class, JsonQueryOnCallTableWithStructuredOutputColumn::class, JsonQueryOnEventsTable::class)])]
     public array $queries;
 
     /**
@@ -83,11 +87,18 @@ class TextInsight extends JsonSerializableType
     public DateTime $updatedAt;
 
     /**
+     * @var ?string $systemKey Stable server-owned identifier for system-created insights.
+     */
+    #[JsonProperty('systemKey')]
+    public ?string $systemKey;
+
+    /**
      * @param array{
      *   queries: array<(
      *    JsonQueryOnCallTableWithStringTypeColumn
      *   |JsonQueryOnCallTableWithNumberTypeColumn
      *   |JsonQueryOnCallTableWithStructuredOutputColumn
+     *   |JsonQueryOnEventsTable
      * )>,
      *   id: string,
      *   orgId: string,
@@ -96,6 +107,7 @@ class TextInsight extends JsonSerializableType
      *   name?: ?string,
      *   formula?: ?array<string, mixed>,
      *   timeRange?: ?InsightTimeRange,
+     *   systemKey?: ?string,
      * } $values
      */
     public function __construct(
@@ -109,6 +121,7 @@ class TextInsight extends JsonSerializableType
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];
         $this->updatedAt = $values['updatedAt'];
+        $this->systemKey = $values['systemKey'] ?? null;
     }
 
     /**

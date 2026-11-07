@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * Configuration used to create a text-value insight from call data using metric queries, a formula, and a time range.
+ */
 class CreateTextInsightFromCallTableDto extends JsonSerializableType
 {
     /**
@@ -38,7 +41,7 @@ class CreateTextInsightFromCallTableDto extends JsonSerializableType
     public ?array $formula;
 
     /**
-     * @var ?InsightTimeRange $timeRange
+     * @var ?InsightTimeRange $timeRange The time range used to query the text-value data.
      */
     #[JsonProperty('timeRange')]
     public ?InsightTimeRange $timeRange;
@@ -51,9 +54,10 @@ class CreateTextInsightFromCallTableDto extends JsonSerializableType
      *    JsonQueryOnCallTableWithStringTypeColumn
      *   |JsonQueryOnCallTableWithNumberTypeColumn
      *   |JsonQueryOnCallTableWithStructuredOutputColumn
+     *   |JsonQueryOnEventsTable
      * )> $queries
      */
-    #[JsonProperty('queries'), ArrayType([new Union(JsonQueryOnCallTableWithStringTypeColumn::class, JsonQueryOnCallTableWithNumberTypeColumn::class, JsonQueryOnCallTableWithStructuredOutputColumn::class)])]
+    #[JsonProperty('queries'), ArrayType([new Union(JsonQueryOnCallTableWithStringTypeColumn::class, JsonQueryOnCallTableWithNumberTypeColumn::class, JsonQueryOnCallTableWithStructuredOutputColumn::class, JsonQueryOnEventsTable::class)])]
     public array $queries;
 
     /**
@@ -62,6 +66,7 @@ class CreateTextInsightFromCallTableDto extends JsonSerializableType
      *    JsonQueryOnCallTableWithStringTypeColumn
      *   |JsonQueryOnCallTableWithNumberTypeColumn
      *   |JsonQueryOnCallTableWithStructuredOutputColumn
+     *   |JsonQueryOnEventsTable
      * )>,
      *   name?: ?string,
      *   formula?: ?array<string, mixed>,

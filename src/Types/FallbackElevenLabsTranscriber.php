@@ -4,7 +4,11 @@ namespace Vapi\Types;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
+use Vapi\Core\Types\ArrayType;
 
+/**
+ * Fallback configuration for transcribing speech with ElevenLabs, including model, language, and speech thresholds.
+ */
 class FallbackElevenLabsTranscriber extends JsonSerializableType
 {
     /**
@@ -18,6 +22,12 @@ class FallbackElevenLabsTranscriber extends JsonSerializableType
      */
     #[JsonProperty('language')]
     public ?string $language;
+
+    /**
+     * @var ?array<string> $keyterms Words or phrases to bias the transcription towards, such as product names. Supported on scribe_v2 (up to 100 terms of 50 characters each) and scribe_v2_realtime (up to 50 terms of 20 characters each). Each term has at most 5 words and none of `< > { } [ ] \`. Adds ElevenLabs' keyterm prompting rate to the transcriber cost.
+     */
+    #[JsonProperty('keyterms'), ArrayType(['string'])]
+    public ?array $keyterms;
 
     /**
      * @var ?float $silenceThresholdSeconds This is the number of seconds of silence before VAD commits (0.3-3.0).
@@ -47,6 +57,7 @@ class FallbackElevenLabsTranscriber extends JsonSerializableType
      * @param array{
      *   model?: ?value-of<FallbackElevenLabsTranscriberModel>,
      *   language?: ?value-of<FallbackElevenLabsTranscriberLanguage>,
+     *   keyterms?: ?array<string>,
      *   silenceThresholdSeconds?: ?float,
      *   confidenceThreshold?: ?float,
      *   minSpeechDurationMs?: ?float,
@@ -58,6 +69,7 @@ class FallbackElevenLabsTranscriber extends JsonSerializableType
     ) {
         $this->model = $values['model'] ?? null;
         $this->language = $values['language'] ?? null;
+        $this->keyterms = $values['keyterms'] ?? null;
         $this->silenceThresholdSeconds = $values['silenceThresholdSeconds'] ?? null;
         $this->confidenceThreshold = $values['confidenceThreshold'] ?? null;
         $this->minSpeechDurationMs = $values['minSpeechDurationMs'] ?? null;

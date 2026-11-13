@@ -8,6 +8,9 @@ use DateTime;
 use Vapi\Core\Types\Date;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A saved scorecard containing its evaluation metrics, scoring conditions, assistant associations, descriptive metadata, and lifecycle information.
+ */
 class Scorecard extends JsonSerializableType
 {
     /**

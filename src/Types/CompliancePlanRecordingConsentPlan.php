@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Exception;
 use Vapi\Core\Json\JsonDecoder;
 
+/**
+ * Controls how recording consent is requested before the assistant joins the call.
+ */
 class CompliancePlanRecordingConsentPlan extends JsonSerializableType
 {
     /**

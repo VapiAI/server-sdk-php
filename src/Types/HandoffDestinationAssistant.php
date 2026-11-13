@@ -5,10 +5,13 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Routes a handoff to a saved or transient assistant, with optional context engineering, variable extraction, and assistant overrides.
+ */
 class HandoffDestinationAssistant extends JsonSerializableType
 {
     /**
-     * @var value-of<HandoffDestinationAssistantType> $type
+     * @var value-of<HandoffDestinationAssistantType> $type Selects an assistant as the handoff destination.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -32,10 +35,10 @@ class HandoffDestinationAssistant extends JsonSerializableType
     public ?string $assistantId;
 
     /**
-     * @var ?CreateAssistantDto $assistant This is a transient assistant to transfer the call to. You may provide a transient assistant in the response  `handoff-destination-request` in a dynamic handoff.
+     * @var ?TransientAssistantDto $assistant This is a transient assistant to transfer the call to. You may provide a transient assistant in the response  `handoff-destination-request` in a dynamic handoff.
      */
     #[JsonProperty('assistant')]
-    public ?CreateAssistantDto $assistant;
+    public ?TransientAssistantDto $assistant;
 
     /**
      * @var ?VariableExtractionPlan $variableExtractionPlan This is the variable extraction plan for the handoff tool.
@@ -61,7 +64,7 @@ class HandoffDestinationAssistant extends JsonSerializableType
      *   contextEngineeringPlan?: ?HandoffDestinationAssistantContextEngineeringPlan,
      *   assistantName?: ?string,
      *   assistantId?: ?string,
-     *   assistant?: ?CreateAssistantDto,
+     *   assistant?: ?TransientAssistantDto,
      *   variableExtractionPlan?: ?VariableExtractionPlan,
      *   assistantOverrides?: ?AssistantOverrides,
      *   description?: ?string,

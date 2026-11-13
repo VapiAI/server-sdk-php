@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Filters string-valued call fields using a list of values or an emptiness test.
+ */
 class FilterStringArrayTypeColumnOnCallTable extends JsonSerializableType
 {
     /**

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Filters potential server-side request forgery (SSRF) patterns from transcripts.
+ */
 class SsrfSecurityFilter extends JsonSerializableType
 {
     /**

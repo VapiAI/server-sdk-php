@@ -23,10 +23,11 @@ class FallbackPlanVoicesItem extends JsonSerializableType
      *   |'wellsaid'
      *   |'rime-ai'
      *   |'smallest-ai'
-     *   |'tavus'
      *   |'neuphonic'
      *   |'sesame'
      *   |'inworld'
+     *   |'xai'
+     *   |'microsoft'
      *   |'_unknown'
      * ) $provider
      */
@@ -47,10 +48,11 @@ class FallbackPlanVoicesItem extends JsonSerializableType
      *   |FallbackWellSaidVoice
      *   |FallbackRimeAiVoice
      *   |FallbackSmallestAiVoice
-     *   |FallbackTavusVoice
      *   |FallbackNeuphonicVoice
      *   |FallbackSesameVoice
      *   |FallbackInworldVoice
+     *   |FallbackXaiVoice
+     *   |FallbackMicrosoftVoice
      *   |mixed
      * ) $value
      */
@@ -72,10 +74,11 @@ class FallbackPlanVoicesItem extends JsonSerializableType
      *   |'wellsaid'
      *   |'rime-ai'
      *   |'smallest-ai'
-     *   |'tavus'
      *   |'neuphonic'
      *   |'sesame'
      *   |'inworld'
+     *   |'xai'
+     *   |'microsoft'
      *   |'_unknown'
      * ),
      *   value: (
@@ -92,10 +95,11 @@ class FallbackPlanVoicesItem extends JsonSerializableType
      *   |FallbackWellSaidVoice
      *   |FallbackRimeAiVoice
      *   |FallbackSmallestAiVoice
-     *   |FallbackTavusVoice
      *   |FallbackNeuphonicVoice
      *   |FallbackSesameVoice
      *   |FallbackInworldVoice
+     *   |FallbackXaiVoice
+     *   |FallbackMicrosoftVoice
      *   |mixed
      * ),
      * } $values
@@ -264,18 +268,6 @@ class FallbackPlanVoicesItem extends JsonSerializableType
     }
 
     /**
-     * @param FallbackTavusVoice $tavus
-     * @return FallbackPlanVoicesItem
-     */
-    public static function tavus(FallbackTavusVoice $tavus): FallbackPlanVoicesItem
-    {
-        return new FallbackPlanVoicesItem([
-            'provider' => 'tavus',
-            'value' => $tavus,
-        ]);
-    }
-
-    /**
      * @param FallbackNeuphonicVoice $neuphonic
      * @return FallbackPlanVoicesItem
      */
@@ -308,6 +300,30 @@ class FallbackPlanVoicesItem extends JsonSerializableType
         return new FallbackPlanVoicesItem([
             'provider' => 'inworld',
             'value' => $inworld,
+        ]);
+    }
+
+    /**
+     * @param FallbackXaiVoice $xai
+     * @return FallbackPlanVoicesItem
+     */
+    public static function xai(FallbackXaiVoice $xai): FallbackPlanVoicesItem
+    {
+        return new FallbackPlanVoicesItem([
+            'provider' => 'xai',
+            'value' => $xai,
+        ]);
+    }
+
+    /**
+     * @param FallbackMicrosoftVoice $microsoft
+     * @return FallbackPlanVoicesItem
+     */
+    public static function microsoft(FallbackMicrosoftVoice $microsoft): FallbackPlanVoicesItem
+    {
+        return new FallbackPlanVoicesItem([
+            'provider' => 'microsoft',
+            'value' => $microsoft,
         ]);
     }
 
@@ -600,28 +616,6 @@ class FallbackPlanVoicesItem extends JsonSerializableType
     /**
      * @return bool
      */
-    public function isTavus(): bool
-    {
-        return $this->value instanceof FallbackTavusVoice && $this->provider === 'tavus';
-    }
-
-    /**
-     * @return FallbackTavusVoice
-     */
-    public function asTavus(): FallbackTavusVoice
-    {
-        if (!($this->value instanceof FallbackTavusVoice && $this->provider === 'tavus')) {
-            throw new Exception(
-                "Expected tavus; got " . $this->provider . " with value of type " . get_debug_type($this->value),
-            );
-        }
-
-        return $this->value;
-    }
-
-    /**
-     * @return bool
-     */
     public function isNeuphonic(): bool
     {
         return $this->value instanceof FallbackNeuphonicVoice && $this->provider === 'neuphonic';
@@ -679,6 +673,50 @@ class FallbackPlanVoicesItem extends JsonSerializableType
         if (!($this->value instanceof FallbackInworldVoice && $this->provider === 'inworld')) {
             throw new Exception(
                 "Expected inworld; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isXai(): bool
+    {
+        return $this->value instanceof FallbackXaiVoice && $this->provider === 'xai';
+    }
+
+    /**
+     * @return FallbackXaiVoice
+     */
+    public function asXai(): FallbackXaiVoice
+    {
+        if (!($this->value instanceof FallbackXaiVoice && $this->provider === 'xai')) {
+            throw new Exception(
+                "Expected xai; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMicrosoft(): bool
+    {
+        return $this->value instanceof FallbackMicrosoftVoice && $this->provider === 'microsoft';
+    }
+
+    /**
+     * @return FallbackMicrosoftVoice
+     */
+    public function asMicrosoft(): FallbackMicrosoftVoice
+    {
+        if (!($this->value instanceof FallbackMicrosoftVoice && $this->provider === 'microsoft')) {
+            throw new Exception(
+                "Expected microsoft; got " . $this->provider . " with value of type " . get_debug_type($this->value),
             );
         }
 
@@ -757,10 +795,6 @@ class FallbackPlanVoicesItem extends JsonSerializableType
                 $value = $this->asSmallestAi()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
-            case 'tavus':
-                $value = $this->asTavus()->jsonSerialize();
-                $result = array_merge($value, $result);
-                break;
             case 'neuphonic':
                 $value = $this->asNeuphonic()->jsonSerialize();
                 $result = array_merge($value, $result);
@@ -771,6 +805,14 @@ class FallbackPlanVoicesItem extends JsonSerializableType
                 break;
             case 'inworld':
                 $value = $this->asInworld()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'xai':
+                $value = $this->asXai()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'microsoft':
+                $value = $this->asMicrosoft()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -860,9 +902,6 @@ class FallbackPlanVoicesItem extends JsonSerializableType
             case 'smallest-ai':
                 $args['value'] = FallbackSmallestAiVoice::jsonDeserialize($data);
                 break;
-            case 'tavus':
-                $args['value'] = FallbackTavusVoice::jsonDeserialize($data);
-                break;
             case 'neuphonic':
                 $args['value'] = FallbackNeuphonicVoice::jsonDeserialize($data);
                 break;
@@ -871,6 +910,12 @@ class FallbackPlanVoicesItem extends JsonSerializableType
                 break;
             case 'inworld':
                 $args['value'] = FallbackInworldVoice::jsonDeserialize($data);
+                break;
+            case 'xai':
+                $args['value'] = FallbackXaiVoice::jsonDeserialize($data);
+                break;
+            case 'microsoft':
+                $args['value'] = FallbackMicrosoftVoice::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

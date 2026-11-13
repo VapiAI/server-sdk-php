@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Runs configured actions when the language model does not respond before its timeout.
+ */
 class CallHookModelResponseTimeout extends JsonSerializableType
 {
     /**

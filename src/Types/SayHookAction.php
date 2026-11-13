@@ -5,10 +5,21 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\Union;
-use Vapi\Core\Types\ArrayType;
 
+/**
+ * A hook action that makes the assistant speak exact text or generate a response from a prompt.
+ */
 class SayHookAction extends JsonSerializableType
 {
+    /**
+     * @var (
+     *    string
+     *   |array<string>
+     * )|null $exact This is the exact message to say. When a string array is provided, one is randomly selected.
+     */
+    #[JsonProperty('exact'), Union('string', ['string'], 'null')]
+    public string|array|null $exact;
+
     /**
      * This is the prompt for the assistant to generate a response based on existing conversation.
      * Can be a string or an array of chat messages.
@@ -28,13 +39,11 @@ class SayHookAction extends JsonSerializableType
     public string|array|null $prompt;
 
     /**
-     * @var ?array<string, mixed> $exact This is the message to say
-     */
-    #[JsonProperty('exact'), ArrayType(['string' => 'mixed'])]
-    public ?array $exact;
-
-    /**
      * @param array{
+     *   exact?: (
+     *    string
+     *   |array<string>
+     * )|null,
      *   prompt?: (
      *    string
      *   |array<(
@@ -45,14 +54,13 @@ class SayHookAction extends JsonSerializableType
      *   |DeveloperMessage
      * )>
      * )|null,
-     *   exact?: ?array<string, mixed>,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
-        $this->prompt = $values['prompt'] ?? null;
         $this->exact = $values['exact'] ?? null;
+        $this->prompt = $values['prompt'] ?? null;
     }
 
     /**

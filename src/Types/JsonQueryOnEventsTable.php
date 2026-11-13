@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * VapiQL JSON query that counts or calculates the percentage of matching events using optional typed event-data filters.
+ */
 class JsonQueryOnEventsTable extends JsonSerializableType
 {
     /**
@@ -29,6 +32,12 @@ class JsonQueryOnEventsTable extends JsonSerializableType
      */
     #[JsonProperty('on')]
     public string $on;
+
+    /**
+     * @var ?string $column The structured output an evaluation monitor tracks, as artifact.structuredOutputs[OutputID]
+     */
+    #[JsonProperty('column')]
+    public ?string $column;
 
     /**
      * This is the operation to perform on matching events.
@@ -68,6 +77,7 @@ class JsonQueryOnEventsTable extends JsonSerializableType
      *   table: value-of<JsonQueryOnEventsTableTable>,
      *   on: value-of<JsonQueryOnEventsTableOn>,
      *   operation: value-of<JsonQueryOnEventsTableOperation>,
+     *   column?: ?string,
      *   filters?: ?array<(
      *    EventsTableStringCondition
      *   |EventsTableNumberCondition
@@ -82,6 +92,7 @@ class JsonQueryOnEventsTable extends JsonSerializableType
         $this->type = $values['type'];
         $this->table = $values['table'];
         $this->on = $values['on'];
+        $this->column = $values['column'] ?? null;
         $this->operation = $values['operation'];
         $this->filters = $values['filters'] ?? null;
         $this->name = $values['name'] ?? null;

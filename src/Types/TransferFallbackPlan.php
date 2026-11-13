@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\Union;
 
+/**
+ * Controls the message and end-call behavior used when a call transfer fails.
+ */
 class TransferFallbackPlan extends JsonSerializableType
 {
     /**

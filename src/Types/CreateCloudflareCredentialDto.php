@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for storing call artifacts in Cloudflare R2, including account details, bucket configuration, and upload fallback order.
+ */
 class CreateCloudflareCredentialDto extends JsonSerializableType
 {
     /**

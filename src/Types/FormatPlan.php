@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Controls text normalization before voice synthesis, including built-in formatters, number handling, and custom replacements.
+ */
 class FormatPlan extends JsonSerializableType
 {
     /**

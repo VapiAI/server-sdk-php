@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Subscription concurrency limits and remaining concurrent call capacity.
+ */
 class SubscriptionLimits extends JsonSerializableType
 {
     /**
@@ -14,7 +17,7 @@ class SubscriptionLimits extends JsonSerializableType
     public ?bool $concurrencyBlocked;
 
     /**
-     * @var ?float $concurrencyLimit Account Call Concurrency limit
+     * @var ?float $concurrencyLimit The total concurrent call limit for the subscription.
      */
     #[JsonProperty('concurrencyLimit')]
     public ?float $concurrencyLimit;

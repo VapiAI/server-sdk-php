@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A workflow node that invokes an inline tool or an existing saved tool.
+ */
 class ToolNode extends JsonSerializableType
 {
     /**
@@ -21,7 +24,7 @@ class ToolNode extends JsonSerializableType
     public ?string $toolId;
 
     /**
-     * @var string $name
+     * @var string $name Unique name used to identify this workflow node.
      */
     #[JsonProperty('name')]
     public string $name;

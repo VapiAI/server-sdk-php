@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Controls HIPAA and PCI requirements, transcript security filtering, and recording-consent handling for assistant calls.
+ */
 class CompliancePlan extends JsonSerializableType
 {
     /**
@@ -29,7 +32,7 @@ class CompliancePlan extends JsonSerializableType
     public ?SecurityFilterPlan $securityFilterPlan;
 
     /**
-     * @var ?CompliancePlanRecordingConsentPlan $recordingConsentPlan
+     * @var ?CompliancePlanRecordingConsentPlan $recordingConsentPlan Controls how recording consent is requested before the assistant joins the call.
      */
     #[JsonProperty('recordingConsentPlan')]
     public ?CompliancePlanRecordingConsentPlan $recordingConsentPlan;

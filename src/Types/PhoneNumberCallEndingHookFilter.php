@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Matches the call's ended reason against configured assistant-request failure reasons before an ending hook runs.
+ */
 class PhoneNumberCallEndingHookFilter extends JsonSerializableType
 {
     /**

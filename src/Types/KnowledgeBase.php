@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A knowledge-base configuration, including its provider, model, description, and associated files.
+ */
 class KnowledgeBase extends JsonSerializableType
 {
     /**

@@ -22,6 +22,8 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
      *   |'openai'
      *   |'cartesia'
      *   |'soniox'
+     *   |'xai'
+     *   |'reson8'
      *   |'_unknown'
      * ) $provider
      */
@@ -41,6 +43,8 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
      *   |FallbackOpenAiTranscriber
      *   |FallbackCartesiaTranscriber
      *   |FallbackSonioxTranscriber
+     *   |FallbackXaiTranscriber
+     *   |FallbackReson8Transcriber
      *   |mixed
      * ) $value
      */
@@ -61,6 +65,8 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
      *   |'openai'
      *   |'cartesia'
      *   |'soniox'
+     *   |'xai'
+     *   |'reson8'
      *   |'_unknown'
      * ),
      *   value: (
@@ -76,6 +82,8 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
      *   |FallbackOpenAiTranscriber
      *   |FallbackCartesiaTranscriber
      *   |FallbackSonioxTranscriber
+     *   |FallbackXaiTranscriber
+     *   |FallbackReson8Transcriber
      *   |mixed
      * ),
      * } $values
@@ -228,6 +236,30 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
         return new FallbackTranscriberPlanTranscribersItem([
             'provider' => 'soniox',
             'value' => $soniox,
+        ]);
+    }
+
+    /**
+     * @param FallbackXaiTranscriber $xai
+     * @return FallbackTranscriberPlanTranscribersItem
+     */
+    public static function xai(FallbackXaiTranscriber $xai): FallbackTranscriberPlanTranscribersItem
+    {
+        return new FallbackTranscriberPlanTranscribersItem([
+            'provider' => 'xai',
+            'value' => $xai,
+        ]);
+    }
+
+    /**
+     * @param FallbackReson8Transcriber $reson8
+     * @return FallbackTranscriberPlanTranscribersItem
+     */
+    public static function reson8(FallbackReson8Transcriber $reson8): FallbackTranscriberPlanTranscribersItem
+    {
+        return new FallbackTranscriberPlanTranscribersItem([
+            'provider' => 'reson8',
+            'value' => $reson8,
         ]);
     }
 
@@ -496,6 +528,50 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
     }
 
     /**
+     * @return bool
+     */
+    public function isXai(): bool
+    {
+        return $this->value instanceof FallbackXaiTranscriber && $this->provider === 'xai';
+    }
+
+    /**
+     * @return FallbackXaiTranscriber
+     */
+    public function asXai(): FallbackXaiTranscriber
+    {
+        if (!($this->value instanceof FallbackXaiTranscriber && $this->provider === 'xai')) {
+            throw new Exception(
+                "Expected xai; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isReson8(): bool
+    {
+        return $this->value instanceof FallbackReson8Transcriber && $this->provider === 'reson8';
+    }
+
+    /**
+     * @return FallbackReson8Transcriber
+     */
+    public function asReson8(): FallbackReson8Transcriber
+    {
+        if (!($this->value instanceof FallbackReson8Transcriber && $this->provider === 'reson8')) {
+            throw new Exception(
+                "Expected reson8; got " . $this->provider . " with value of type " . get_debug_type($this->value),
+            );
+        }
+
+        return $this->value;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
@@ -561,6 +637,14 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
                 break;
             case 'soniox':
                 $value = $this->asSoniox()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'xai':
+                $value = $this->asXai()->jsonSerialize();
+                $result = array_merge($value, $result);
+                break;
+            case 'reson8':
+                $value = $this->asReson8()->jsonSerialize();
                 $result = array_merge($value, $result);
                 break;
             case '_unknown':
@@ -646,6 +730,12 @@ class FallbackTranscriberPlanTranscribersItem extends JsonSerializableType
                 break;
             case 'soniox':
                 $args['value'] = FallbackSonioxTranscriber::jsonDeserialize($data);
+                break;
+            case 'xai':
+                $args['value'] = FallbackXaiTranscriber::jsonDeserialize($data);
+                break;
+            case 'reson8':
+                $args['value'] = FallbackReson8Transcriber::jsonDeserialize($data);
                 break;
             case '_unknown':
             default:

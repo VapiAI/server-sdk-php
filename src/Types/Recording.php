@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Call recording locations, including stereo, video, and separated mono recording URLs.
+ */
 class Recording extends JsonSerializableType
 {
     /**

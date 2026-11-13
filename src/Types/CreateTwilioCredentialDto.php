@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for authenticating telephony requests with Twilio using an account SID and either an auth token or API key credentials.
+ */
 class CreateTwilioCredentialDto extends JsonSerializableType
 {
     /**
@@ -26,7 +29,7 @@ class CreateTwilioCredentialDto extends JsonSerializableType
     public ?string $apiSecret;
 
     /**
-     * @var string $accountSid
+     * @var string $accountSid Twilio Account SID associated with the credential.
      */
     #[JsonProperty('accountSid')]
     public string $accountSid;

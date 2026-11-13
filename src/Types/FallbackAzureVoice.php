@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Fallback configuration for synthesizing assistant speech with Azure, including voice selection, speed, chunking, and caching.
+ */
 class FallbackAzureVoice extends JsonSerializableType
 {
     /**

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Filters potential prompt-injection patterns from transcripts.
+ */
 class PromptInjectionSecurityFilter extends JsonSerializableType
 {
     /**

@@ -61,6 +61,8 @@ class PhoneNumbersClient
     }
 
     /**
+     * Returns phone numbers for the authenticated organization. Filter results by creation or update timestamps and limit the number returned.
+     *
      * @param ListPhoneNumbersRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -136,6 +138,8 @@ class PhoneNumbersClient
     }
 
     /**
+     * Creates a Vapi phone number or imports a phone number from a supported provider, including Twilio, Vonage, Telnyx, or a bring-your-own provider.
+     *
      * @param CreatePhoneNumbersRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -183,6 +187,8 @@ class PhoneNumbersClient
     }
 
     /**
+     * Returns a paginated list of phone numbers for the authenticated organization. Search by name, number, or SIP URI using a partial, case-insensitive match, and filter by creation or update timestamps.
+     *
      * @param PhoneNumberControllerFindAllPaginatedRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -208,6 +214,9 @@ class PhoneNumbersClient
         }
         if ($request->sortOrder != null) {
             $query['sortOrder'] = $request->sortOrder;
+        }
+        if ($request->sortBy != null) {
+            $query['sortBy'] = $request->sortBy;
         }
         if ($request->limit != null) {
             $query['limit'] = $request->limit;
@@ -267,7 +276,9 @@ class PhoneNumbersClient
     }
 
     /**
-     * @param string $id
+     * Returns the phone number resource identified by its ID.
+     *
+     * @param string $id The unique identifier of the phone number.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -313,7 +324,9 @@ class PhoneNumbersClient
     }
 
     /**
-     * @param string $id
+     * Deletes the phone number resource identified by its ID.
+     *
+     * @param string $id The unique identifier of the phone number.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -359,7 +372,9 @@ class PhoneNumbersClient
     }
 
     /**
-     * @param string $id
+     * Updates the specified fields of the phone number resource identified by its ID.
+     *
+     * @param string $id The unique identifier of the phone number.
      * @param UpdatePhoneNumbersRequest $request
      * @param ?array{
      *   baseUrl?: string,

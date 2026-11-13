@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Anthropic model configuration for an LLM judge, including its messages, generation settings, and optional extended thinking.
+ */
 class EvalAnthropicModel extends JsonSerializableType
 {
     /**
@@ -15,7 +18,18 @@ class EvalAnthropicModel extends JsonSerializableType
     public string $model;
 
     /**
+     * Reasoning effort for the judge on claude-haiku-5-5. `none` turns thinking
+     * off. `low` to `max` let the judge think before it submits its verdict.
+     * Unset means `none`. Rejected for every other model.
+     *
+     * @var ?value-of<EvalAnthropicModelReasoningEffort> $reasoningEffort
+     */
+    #[JsonProperty('reasoningEffort')]
+    public ?string $reasoningEffort;
+
+    /**
      * This is the optional configuration for Anthropic's thinking feature.
+     * claude-haiku-5-5 uses `reasoningEffort` instead.
      *
      * - If provided, `maxTokens` must be greater than `thinking.budgetTokens`.
      *
@@ -57,6 +71,7 @@ class EvalAnthropicModel extends JsonSerializableType
      * @param array{
      *   model: value-of<EvalAnthropicModelModel>,
      *   messages: array<array<string, mixed>>,
+     *   reasoningEffort?: ?value-of<EvalAnthropicModelReasoningEffort>,
      *   thinking?: ?AnthropicThinkingConfig,
      *   temperature?: ?float,
      *   maxTokens?: ?float,
@@ -66,6 +81,7 @@ class EvalAnthropicModel extends JsonSerializableType
         array $values,
     ) {
         $this->model = $values['model'];
+        $this->reasoningEffort = $values['reasoningEffort'] ?? null;
         $this->thinking = $values['thinking'] ?? null;
         $this->temperature = $values['temperature'] ?? null;
         $this->maxTokens = $values['maxTokens'] ?? null;

@@ -8,19 +8,16 @@ use Vapi\Core\Json\JsonProperty;
 class CreatePersonalityDto extends JsonSerializableType
 {
     /**
-     * @var string $name This is the name of the personality (e.g., "Confused Carl", "Rude Rob").
+     * @var string $name The display name of the personality, for example `Impatient customer`.
      */
     #[JsonProperty('name')]
     public string $name;
 
     /**
-     * This is the full assistant configuration for this personality.
-     * It defines the tester's voice, model, behavior via system prompt, and other settings.
-     *
-     * @var CreateAssistantDto $assistant
+     * @var TransientAssistantDto $assistant The assistant configuration for the AI tester: the model, voice, and system prompt that determine how the AI tester behaves during the conversation.
      */
     #[JsonProperty('assistant')]
-    public CreateAssistantDto $assistant;
+    public TransientAssistantDto $assistant;
 
     /**
      * Optional folder path for organizing personalities.
@@ -35,7 +32,7 @@ class CreatePersonalityDto extends JsonSerializableType
     /**
      * @param array{
      *   name: string,
-     *   assistant: CreateAssistantDto,
+     *   assistant: TransientAssistantDto,
      *   path?: ?string,
      * } $values
      */

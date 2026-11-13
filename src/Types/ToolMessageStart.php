@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Message spoken when a tool call starts, with optional language variants, argument conditions, and blocking behavior.
+ */
 class ToolMessageStart extends JsonSerializableType
 {
     /**

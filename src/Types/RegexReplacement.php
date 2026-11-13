@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Replaces text matching a regular expression before it is sent to a voice provider.
+ */
 class RegexReplacement extends JsonSerializableType
 {
     /**

@@ -8,19 +8,19 @@ use Vapi\Core\Json\JsonProperty;
 class ScenarioToolMock extends JsonSerializableType
 {
     /**
-     * @var string $toolName This is the tool call function name to mock (must match `toolCall.function.name`).
+     * @var string $toolName The name of the assistant or squad's tool to mock. Must match the tool's name exactly.
      */
     #[JsonProperty('toolName')]
     public string $toolName;
 
     /**
-     * @var ?string $result This is the result content to return for this tool call.
+     * @var ?string $result The result string returned to the assistant or squad in place of calling the real tool.
      */
     #[JsonProperty('result')]
     public ?string $result;
 
     /**
-     * @var ?bool $enabled This is whether this mock is enabled. Defaults to true when omitted.
+     * @var ?bool $enabled Set to `true` to apply this mock during the simulation. Defaults to `true`.
      */
     #[JsonProperty('enabled')]
     public ?bool $enabled;

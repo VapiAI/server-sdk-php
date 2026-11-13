@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * VapiQL JSON query that aggregates a numeric call-table column with optional call filters.
+ */
 class JsonQueryOnCallTableWithNumberTypeColumn extends JsonSerializableType
 {
     /**
@@ -50,6 +53,7 @@ class JsonQueryOnCallTableWithNumberTypeColumn extends JsonSerializableType
     /**
      * This is the aggregation operation to perform on the column.
      * When the column is a number type, the operation must be one of the following:
+     * - count
      * - average
      * - sum
      * - min

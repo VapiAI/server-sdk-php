@@ -5,6 +5,7 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\Union;
+use Vapi\Core\Types\ArrayType;
 
 class TransferAssistant extends JsonSerializableType
 {
@@ -45,6 +46,7 @@ class TransferAssistant extends JsonSerializableType
 
     /**
      * This is the background sound in the transfer assistant call. Default for phone calls is 'office' and default for web calls is 'off'.
+     * Bundled sounds: 'office', 'white-noise', 'city', 'crowd' and 'farm'. GPT Live assistants don't play 'office'.
      * You can also provide a custom sound by providing a URL to an audio file.
      *
      * @var (
@@ -93,6 +95,24 @@ class TransferAssistant extends JsonSerializableType
     public ?float $maxDurationSeconds;
 
     /**
+     * @var ?bool $assistantHooksInheritEnabled This decides whether the transfer assistant runs the main assistant's hooks on the operator leg of a `warm-transfer-experimental` transfer. The operator is the "customer" there. When unset or `true`, the transfer assistant runs all of the main assistant's hooks, plus `hooks`. When `false`, it runs only `hooks`, plus the main assistant's `call.ending` hooks. An `endCall` in an inherited `customer.speech.timeout` hook ends the whole call when the operator is silent, so set this to `false` to stop that.
+     */
+    #[JsonProperty('assistantHooksInheritEnabled')]
+    public ?bool $assistantHooksInheritEnabled;
+
+    /**
+     * @var ?array<(
+     *    CallHookAssistantSpeechInterrupted
+     *   |CallHookCustomerSpeechInterrupted
+     *   |CallHookCustomerSpeechTimeout
+     *   |CallHookModelResponseTimeout
+     *   |CallHookTranscriberEndpointedSpeechLowConfidence
+     * )> $hooks These are the hooks the transfer assistant runs on the operator leg of a `warm-transfer-experimental` transfer. The operator is the "customer" there, so `customer.speech.timeout` fires on operator silence. Whether the main assistant's other hooks also run on the operator leg depends on `assistantHooksInheritEnabled`. These hooks run after them. `call.ending` and `call.timeElapsed` are not allowed here. The main assistant's `call.ending` hooks are kept automatically. Time-elapsed hooks are not armed on the operator leg. An `endCall` tool in these hooks ends the whole call, not only the operator leg. A `tool` action must carry an inline `tool`, because `toolId` is not resolved for the transfer assistant.
+     */
+    #[JsonProperty('hooks'), ArrayType([new Union(CallHookAssistantSpeechInterrupted::class, CallHookCustomerSpeechInterrupted::class, CallHookCustomerSpeechTimeout::class, CallHookModelResponseTimeout::class, CallHookTranscriberEndpointedSpeechLowConfidence::class)])]
+    public ?array $hooks;
+
+    /**
      * This enables filtering of noise and background speech while the user is talking.
      *
      * Features:
@@ -134,6 +154,14 @@ class TransferAssistant extends JsonSerializableType
      *   startSpeakingPlan?: ?StartSpeakingPlan,
      *   firstMessageMode?: ?value-of<TransferAssistantFirstMessageMode>,
      *   maxDurationSeconds?: ?float,
+     *   assistantHooksInheritEnabled?: ?bool,
+     *   hooks?: ?array<(
+     *    CallHookAssistantSpeechInterrupted
+     *   |CallHookCustomerSpeechInterrupted
+     *   |CallHookCustomerSpeechTimeout
+     *   |CallHookModelResponseTimeout
+     *   |CallHookTranscriberEndpointedSpeechLowConfidence
+     * )>,
      *   backgroundSpeechDenoisingPlan?: ?BackgroundSpeechDenoisingPlan,
      *   silenceTimeoutSeconds?: ?float,
      * } $values
@@ -150,6 +178,8 @@ class TransferAssistant extends JsonSerializableType
         $this->startSpeakingPlan = $values['startSpeakingPlan'] ?? null;
         $this->firstMessageMode = $values['firstMessageMode'] ?? null;
         $this->maxDurationSeconds = $values['maxDurationSeconds'] ?? null;
+        $this->assistantHooksInheritEnabled = $values['assistantHooksInheritEnabled'] ?? null;
+        $this->hooks = $values['hooks'] ?? null;
         $this->backgroundSpeechDenoisingPlan = $values['backgroundSpeechDenoisingPlan'] ?? null;
         $this->silenceTimeoutSeconds = $values['silenceTimeoutSeconds'] ?? null;
     }

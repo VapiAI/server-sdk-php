@@ -63,6 +63,8 @@ class ProviderResourcesClient
     }
 
     /**
+     * Returns a paginated list of provider resources for the authenticated organization. Filter pronunciation dictionaries by provider, resource ID, or creation and update timestamps.
+     *
      * @param value-of<ProviderResourceControllerGetProviderResourcesPaginatedRequestProvider> $provider The provider (e.g., 11labs)
      * @param value-of<ProviderResourceControllerGetProviderResourcesPaginatedRequestResourceName> $resourceName The resource name (e.g., pronunciation-dictionary)
      * @param ProviderResourceControllerGetProviderResourcesPaginatedRequest $request
@@ -93,6 +95,9 @@ class ProviderResourcesClient
         }
         if ($request->sortOrder != null) {
             $query['sortOrder'] = $request->sortOrder;
+        }
+        if ($request->sortBy != null) {
+            $query['sortBy'] = $request->sortBy;
         }
         if ($request->limit != null) {
             $query['limit'] = $request->limit;
@@ -152,6 +157,8 @@ class ProviderResourcesClient
     }
 
     /**
+     * Creates a pronunciation-dictionary resource for a supported provider, currently Cartesia or ElevenLabs.
+     *
      * @param value-of<ProviderResourceControllerCreateProviderResourceRequestProvider> $provider The provider (e.g., 11labs)
      * @param value-of<ProviderResourceControllerCreateProviderResourceRequestResourceName> $resourceName The resource name (e.g., pronunciation-dictionary)
      * @param ?array{
@@ -199,9 +206,11 @@ class ProviderResourcesClient
     }
 
     /**
+     * Returns the provider resource identified by its Vapi resource ID.
+     *
      * @param value-of<ProviderResourceControllerGetProviderResourceRequestProvider> $provider The provider (e.g., 11labs)
      * @param value-of<ProviderResourceControllerGetProviderResourceRequestResourceName> $resourceName The resource name (e.g., pronunciation-dictionary)
-     * @param string $id
+     * @param string $id The unique identifier of the provider resource.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -247,9 +256,11 @@ class ProviderResourcesClient
     }
 
     /**
+     * Deletes the provider resource identified by its Vapi resource ID.
+     *
      * @param value-of<ProviderResourceControllerDeleteProviderResourceRequestProvider> $provider The provider (e.g., 11labs)
      * @param value-of<ProviderResourceControllerDeleteProviderResourceRequestResourceName> $resourceName The resource name (e.g., pronunciation-dictionary)
-     * @param string $id
+     * @param string $id The unique identifier of the provider resource.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -295,9 +306,11 @@ class ProviderResourcesClient
     }
 
     /**
+     * Updates the provider resource identified by its Vapi resource ID.
+     *
      * @param value-of<ProviderResourceControllerUpdateProviderResourceRequestProvider> $provider The provider (e.g., 11labs)
      * @param value-of<ProviderResourceControllerUpdateProviderResourceRequestResourceName> $resourceName The resource name (e.g., pronunciation-dictionary)
-     * @param string $id
+     * @param string $id The unique identifier of the provider resource.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,

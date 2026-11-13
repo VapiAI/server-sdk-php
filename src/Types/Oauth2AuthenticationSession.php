@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * OAuth 2.0 session tokens and expiration used to authenticate integration requests.
+ */
 class Oauth2AuthenticationSession extends JsonSerializableType
 {
     /**

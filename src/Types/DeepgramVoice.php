@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for synthesizing assistant speech with Deepgram, including voice and model selection, model-improvement preferences, chunking, caching, and fallback settings.
+ */
 class DeepgramVoice extends JsonSerializableType
 {
     /**
@@ -20,7 +23,7 @@ class DeepgramVoice extends JsonSerializableType
     public string $voiceId;
 
     /**
-     * @var ?value-of<DeepgramVoiceModel> $model This is the model that will be used. Defaults to 'aura-2' when not specified.
+     * @var ?value-of<DeepgramVoiceModel> $model This is the model that will be used. Defaults to 'aura' when not specified.
      */
     #[JsonProperty('model')]
     public ?string $model;
@@ -28,7 +31,7 @@ class DeepgramVoice extends JsonSerializableType
     /**
      * If set to true, this will add mip_opt_out=true as a query parameter of all API requests. See https://developers.deepgram.com/docs/the-deepgram-model-improvement-partnership-program#want-to-opt-out
      *
-     * This will only be used if you are using your own Deepgram API key.
+     * This only applies to your own Deepgram API key. Requests on Vapi's key always opt out, whatever this is set to.
      *
      * @default false
      *
@@ -36,6 +39,26 @@ class DeepgramVoice extends JsonSerializableType
      */
     #[JsonProperty('mipOptOut')]
     public ?bool $mipOptOut;
+
+    /**
+     * This is the speed multiplier that will be used. Aura-2 accepts 0.7 to 1.5; Flux accepts 0.5 to 1.5 in steps of 0.05. Aura does not support speed.
+     *
+     * @default 1
+     *
+     * @var ?float $speed
+     */
+    #[JsonProperty('speed')]
+    public ?float $speed;
+
+    /**
+     * This is the expressivity level for Flux voices, from -2 (flat) to 2 (lively). Deepgram marks this control as beta and may retune the scale. Aura and Aura-2 do not support it.
+     *
+     * @default 0
+     *
+     * @var ?float $expressivity
+     */
+    #[JsonProperty('expressivity')]
+    public ?float $expressivity;
 
     /**
      * @var ?ChunkPlan $chunkPlan This is the plan for chunking the model output before it is sent to the voice provider.
@@ -55,6 +78,8 @@ class DeepgramVoice extends JsonSerializableType
      *   cachingEnabled?: ?bool,
      *   model?: ?value-of<DeepgramVoiceModel>,
      *   mipOptOut?: ?bool,
+     *   speed?: ?float,
+     *   expressivity?: ?float,
      *   chunkPlan?: ?ChunkPlan,
      *   fallbackPlan?: ?FallbackPlan,
      * } $values
@@ -66,6 +91,8 @@ class DeepgramVoice extends JsonSerializableType
         $this->voiceId = $values['voiceId'];
         $this->model = $values['model'] ?? null;
         $this->mipOptOut = $values['mipOptOut'] ?? null;
+        $this->speed = $values['speed'] ?? null;
+        $this->expressivity = $values['expressivity'] ?? null;
         $this->chunkPlan = $values['chunkPlan'] ?? null;
         $this->fallbackPlan = $values['fallbackPlan'] ?? null;
     }

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * An expected assistant turn in an evaluation, including the judge plan and how the evaluation should continue afterward.
+ */
 class ChatEvalAssistantMessageEvaluation extends JsonSerializableType
 {
     /**

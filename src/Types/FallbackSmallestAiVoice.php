@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Fallback configuration for synthesizing assistant speech with Smallest AI, including voice and model selection, speed, chunking, and caching.
+ */
 class FallbackSmallestAiVoice extends JsonSerializableType
 {
     /**

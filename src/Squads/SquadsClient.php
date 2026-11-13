@@ -55,6 +55,8 @@ class SquadsClient
     }
 
     /**
+     * Returns squads for the authenticated organization. Filter results by creation or update timestamps and limit the number returned.
+     *
      * @param ListSquadsRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -72,6 +74,9 @@ class SquadsClient
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
+        if ($request->idAny != null) {
+            $query['idAny'] = $request->idAny;
+        }
         if ($request->limit != null) {
             $query['limit'] = $request->limit;
         }
@@ -130,6 +135,8 @@ class SquadsClient
     }
 
     /**
+     * Creates a squad that coordinates multiple assistants and their handoffs during a conversation.
+     *
      * @param CreateSquadDto $request
      * @param ?array{
      *   baseUrl?: string,
@@ -177,7 +184,9 @@ class SquadsClient
     }
 
     /**
-     * @param string $id
+     * Returns the squad identified by its ID.
+     *
+     * @param string $id The unique identifier of the squad.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -223,7 +232,9 @@ class SquadsClient
     }
 
     /**
-     * @param string $id
+     * Deletes the squad identified by its ID.
+     *
+     * @param string $id The unique identifier of the squad.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -269,7 +280,9 @@ class SquadsClient
     }
 
     /**
-     * @param string $id
+     * Updates the specified fields of the squad identified by its ID.
+     *
+     * @param string $id The unique identifier of the squad.
      * @param UpdateSquadDto $request
      * @param ?array{
      *   baseUrl?: string,

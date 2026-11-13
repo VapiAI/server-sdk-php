@@ -18,10 +18,10 @@ class Chat extends JsonSerializableType
     public ?string $assistantId;
 
     /**
-     * @var ?CreateAssistantDto $assistant This is the assistant that will be used for the chat. To use an existing assistant, use `assistantId` instead.
+     * @var ?TransientAssistantDto $assistant This is the assistant that will be used for the chat. To use an existing assistant, use `assistantId` instead.
      */
     #[JsonProperty('assistant')]
-    public ?CreateAssistantDto $assistant;
+    public ?TransientAssistantDto $assistant;
 
     /**
      * These are the variable values that will be used to replace template variables in the assistant messages.
@@ -166,7 +166,7 @@ class Chat extends JsonSerializableType
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
      *   assistantId?: ?string,
-     *   assistant?: ?CreateAssistantDto,
+     *   assistant?: ?TransientAssistantDto,
      *   assistantOverrides?: ?AssistantOverrides,
      *   squadId?: ?string,
      *   squad?: ?CreateSquadDto,

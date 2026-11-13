@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A saved insight returned by the API, including its visualization type, identity, organization, and lifecycle timestamps.
+ */
 class Insight extends JsonSerializableType
 {
     /**
@@ -46,6 +49,12 @@ class Insight extends JsonSerializableType
     public DateTime $updatedAt;
 
     /**
+     * @var ?string $systemKey Stable server-owned identifier for system-created insights.
+     */
+    #[JsonProperty('systemKey')]
+    public ?string $systemKey;
+
+    /**
      * @param array{
      *   type: value-of<InsightType>,
      *   id: string,
@@ -53,6 +62,7 @@ class Insight extends JsonSerializableType
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
      *   name?: ?string,
+     *   systemKey?: ?string,
      * } $values
      */
     public function __construct(
@@ -64,6 +74,7 @@ class Insight extends JsonSerializableType
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];
         $this->updatedAt = $values['updatedAt'];
+        $this->systemKey = $values['systemKey'] ?? null;
     }
 
     /**

@@ -5,16 +5,19 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Fallback configuration for transcribing speech with Cartesia, including model and language.
+ */
 class FallbackCartesiaTranscriber extends JsonSerializableType
 {
     /**
-     * @var ?value-of<FallbackCartesiaTranscriberModel> $model
+     * @var ?value-of<FallbackCartesiaTranscriberModel> $model The Cartesia speech-to-text model used for transcription.
      */
     #[JsonProperty('model')]
     public ?string $model;
 
     /**
-     * @var ?value-of<FallbackCartesiaTranscriberLanguage> $language
+     * @var ?value-of<FallbackCartesiaTranscriberLanguage> $language The language code used for transcription.
      */
     #[JsonProperty('language')]
     public ?string $language;

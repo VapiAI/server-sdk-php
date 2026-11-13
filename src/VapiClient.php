@@ -179,8 +179,8 @@ class VapiClient
             'Authorization' => "Bearer $token",
             'X-Fern-Language' => 'PHP',
             'X-Fern-SDK-Name' => 'Vapi',
-            'X-Fern-SDK-Version' => '0.0.0-fern-placeholder',
-            'User-Agent' => 'vapi/vapi/0.0.0-fern-placeholder',
+            'X-Fern-SDK-Version' => '3.0.0',
+            'User-Agent' => 'vapi/vapi/3.0.0',
         ];
 
         $this->options = $options ?? [];

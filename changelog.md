@@ -1,3 +1,22 @@
+## [3.0.0] - 2026-11-13
+### Breaking Changes
+- **`CreateCampaignDto`**, **`TavusVoice`** family, and **`TrieveKnowledgeBase`** family — these classes have been removed entirely; remove all references from your code.
+- **`AssistantCredentialsItem::trieve()`/`isTrieve()`/`asTrieve()`** — renamed to `reson8()`/`isReson8()`/`asReson8()` and the provider string changed from `'trieve'` to `'reson8'`; update all call sites.
+- **`CreateAssistantDto` replaced by `TransientAssistantDto`** — the `$assistant` field on `CreateChatDto`, `OpenAiWebChatRequest`, `Personality`, `HandoffDestinationAssistant`, `SimulationRunTargetAssistant`, `SquadMemberDto`, `TesterPlan`, and `OpenAiResponsesRequest` now requires `TransientAssistantDto`; replace all `CreateAssistantDto` instances.
+- **Enum renames and removals** — `FallbackDeepgramTranscriberLanguage` → `FallbackVapiVoiceLanguage`, `GladiaTranscriberLanguages` → `GladiaTranscriberLanguagesItem`, `FallbackGladiaTranscriberLanguages` → `FallbackGladiaTranscriberLanguagesItem`, `GhlToolType` → `UpdateGhlToolDtoType`, `InviteUserDtoRole` → `InviteUserDtoRoleZero`; several enum cases and the `FallbackDeepgramTranscriberModel`, `VapiModelProvider`, and `TrieveCredentialProvider` enums removed entirely — update all references.
+- See full changelog for all changes
+
+### Added
+- **`BoardClient`**, **`KnowledgeBasesV2Client`**, **`SimulationPersonalitiesClient`**, **`SimulationRunsClient`**, **`SimulationScenariosClient`**, **`SimulationSuitesClient`**, **`SimulationsClient`**, and **`TrafficAllocationsClient`** — new clients covering reporting boards, v2 knowledge bases, simulation lifecycle management, and assistant traffic splitting.
+- **V2 Campaign endpoints** — `campaignControllerFindAllV2`, `campaignControllerCreateV2`, `campaignControllerFindOneV2`, `campaignControllerRemoveV2`, `campaignControllerUpdateV2`, and `campaignControllerGetCampaignV2Contacts` added to `CampaignsClient`.
+- **`toolRefs`** — new optional `array<ToolRef>` field on all model types (`OpenAiModel`, `GoogleModel`, `GroqModel`, `XaiModel`, and others) for version-pinned tool references that take precedence over `toolIds`.
+- **`AssistantDraft`** family — new classes (`AssistantDraft`, `AssistantDraftModel`, `AssistantDraftTranscriber`, `AssistantDraftVoice`, `AssistantDraftCredentialsItem`, and related enums/DTOs) for managing draft versions of assistants.
+- See full changelog for all changes
+
+### Changed
+- **`ElevenLabsVoice` and `FallbackElevenLabsVoice`** — field docs clarify which fields are ignored by `eleven_v4_turbo` and `eleven_v3_conversational` models, and which models support `$language` enforcement.
+- **`TransferPlan::$fallbackPlan`** — documentation expanded to clarify the fallback plan also applies to SIP cold transfers when transfer-outcome detection is enabled.
+
 ## 2.0.0 - 2026-06-24
 ### Breaking Changes
 * **`CartesiaExperimentalControlsSpeedZero`** has been renamed to `CartesiaSpeedControlZero`. Update any references to this enum in your code to use the new name.

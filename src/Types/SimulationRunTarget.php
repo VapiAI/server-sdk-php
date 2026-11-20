@@ -7,7 +7,7 @@ use Exception;
 use Vapi\Core\Json\JsonDecoder;
 
 /**
- * Target to test against
+ * The assistant or squad the run was tested against.
  */
 class SimulationRunTarget extends JsonSerializableType
 {

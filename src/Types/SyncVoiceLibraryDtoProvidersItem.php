@@ -23,4 +23,6 @@ enum SyncVoiceLibraryDtoProvidersItem: string
     case Minimax = "minimax";
     case Wellsaid = "wellsaid";
     case Orpheus = "orpheus";
+    case Xai = "xai";
+    case Microsoft = "microsoft";
 }

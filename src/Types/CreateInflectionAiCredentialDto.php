@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for authenticating assistant model requests with Inflection AI.
+ */
 class CreateInflectionAiCredentialDto extends JsonSerializableType
 {
     /**

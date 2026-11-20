@@ -6,14 +6,13 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Fields used to update a Google Calendar availability tool, including its spoken messages and rejection plan.
+ */
 class UpdateGoogleCalendarCheckAvailabilityToolDto extends JsonSerializableType
 {
     /**
-     * These are the messages that will be spoken to the user as the tool is running.
-     *
-     * For some tools, this is auto-filled based on special fields like `tool.destinations`. For others like the function tool, these can be custom configured.
-     *
-     * @var ?array<UpdateGoogleCalendarCheckAvailabilityToolDtoMessagesItem> $messages
+     * @var ?array<UpdateGoogleCalendarCheckAvailabilityToolDtoMessagesItem> $messages Messages spoken while the tool is running. Multiple request-start messages are variants. For request-response-delayed, same timing means variants and different timings mean staged updates.
      */
     #[JsonProperty('messages'), ArrayType([UpdateGoogleCalendarCheckAvailabilityToolDtoMessagesItem::class])]
     public ?array $messages;

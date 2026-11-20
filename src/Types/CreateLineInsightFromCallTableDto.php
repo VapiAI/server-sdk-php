@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * Configuration used to create a line-chart insight from call data using metric queries, formulas, grouping, and a stepped time range.
+ */
 class CreateLineInsightFromCallTableDto extends JsonSerializableType
 {
     /**
@@ -44,7 +47,7 @@ class CreateLineInsightFromCallTableDto extends JsonSerializableType
     public ?LineInsightMetadata $metadata;
 
     /**
-     * @var ?InsightTimeRangeWithStep $timeRange
+     * @var ?InsightTimeRangeWithStep $timeRange The time range and interval used to aggregate the line-chart data.
      */
     #[JsonProperty('timeRange')]
     public ?InsightTimeRangeWithStep $timeRange;
@@ -64,9 +67,10 @@ class CreateLineInsightFromCallTableDto extends JsonSerializableType
      *    JsonQueryOnCallTableWithStringTypeColumn
      *   |JsonQueryOnCallTableWithNumberTypeColumn
      *   |JsonQueryOnCallTableWithStructuredOutputColumn
+     *   |JsonQueryOnEventsTable
      * )> $queries These are the queries to run to generate the insight.
      */
-    #[JsonProperty('queries'), ArrayType([new Union(JsonQueryOnCallTableWithStringTypeColumn::class, JsonQueryOnCallTableWithNumberTypeColumn::class, JsonQueryOnCallTableWithStructuredOutputColumn::class)])]
+    #[JsonProperty('queries'), ArrayType([new Union(JsonQueryOnCallTableWithStringTypeColumn::class, JsonQueryOnCallTableWithNumberTypeColumn::class, JsonQueryOnCallTableWithStructuredOutputColumn::class, JsonQueryOnEventsTable::class)])]
     public array $queries;
 
     /**
@@ -75,6 +79,7 @@ class CreateLineInsightFromCallTableDto extends JsonSerializableType
      *    JsonQueryOnCallTableWithStringTypeColumn
      *   |JsonQueryOnCallTableWithNumberTypeColumn
      *   |JsonQueryOnCallTableWithStructuredOutputColumn
+     *   |JsonQueryOnEventsTable
      * )>,
      *   name?: ?string,
      *   formulas?: ?array<InsightFormula>,

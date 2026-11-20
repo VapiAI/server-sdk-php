@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Message spoken when a tool call exceeds a configured response delay, with optional language variants and argument conditions.
+ */
 class ToolMessageDelayed extends JsonSerializableType
 {
     /**
@@ -23,7 +26,7 @@ class ToolMessageDelayed extends JsonSerializableType
     public ?array $contents;
 
     /**
-     * @var ?float $timingMilliseconds The number of milliseconds to wait for the server response before saying this message.
+     * @var ?float $timingMilliseconds The number of milliseconds to wait for the server response before saying this delayed message.
      */
     #[JsonProperty('timingMilliseconds')]
     public ?float $timingMilliseconds;

@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Controls voicemail-detection retry timing, including when retries start, retry frequency, and maximum attempts.
+ */
 class VoicemailDetectionBackoffPlan extends JsonSerializableType
 {
     /**

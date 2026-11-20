@@ -75,10 +75,10 @@ class Session extends JsonSerializableType
      * This is the assistant configuration for this session. Use this when creating a new assistant configuration.
      * If assistantId is provided, this will be ignored.
      *
-     * @var ?CreateAssistantDto $assistant
+     * @var ?TransientAssistantDto $assistant
      */
     #[JsonProperty('assistant')]
-    public ?CreateAssistantDto $assistant;
+    public ?TransientAssistantDto $assistant;
 
     /**
      * These are the overrides for the assistant configuration.
@@ -165,7 +165,7 @@ class Session extends JsonSerializableType
      *   status?: ?value-of<SessionStatus>,
      *   expirationSeconds?: ?float,
      *   assistantId?: ?string,
-     *   assistant?: ?CreateAssistantDto,
+     *   assistant?: ?TransientAssistantDto,
      *   assistantOverrides?: ?AssistantOverrides,
      *   squadId?: ?string,
      *   squad?: ?CreateSquadDto,

@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateWebhookCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateWebhookCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?UpdateWebhookCredentialDtoAuthenticationPlan $authenticationPlan This is the authentication plan. Supports OAuth2 RFC 6749, HMAC signing, and Bearer authentication.
      */
     #[JsonProperty('authenticationPlan')]
@@ -21,6 +27,7 @@ class UpdateWebhookCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateWebhookCredentialDtoProvider>,
      *   authenticationPlan?: ?UpdateWebhookCredentialDtoAuthenticationPlan,
      *   name?: ?string,
      * } $values
@@ -28,6 +35,7 @@ class UpdateWebhookCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->authenticationPlan = $values['authenticationPlan'] ?? null;
         $this->name = $values['name'] ?? null;
     }

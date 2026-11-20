@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A developer-authored instruction message supplied to the language model.
+ */
 class DeveloperMessage extends JsonSerializableType
 {
     /**

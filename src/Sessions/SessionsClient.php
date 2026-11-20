@@ -99,6 +99,9 @@ class SessionsClient
         if ($request->assistantOverrides != null) {
             $query['assistantOverrides'] = $request->assistantOverrides;
         }
+        if ($request->squadOverrides != null) {
+            $query['squadOverrides'] = $request->squadOverrides;
+        }
         if ($request->number != null) {
             $query['number'] = $request->number;
         }
@@ -114,6 +117,9 @@ class SessionsClient
         if ($request->customerNumberAny != null) {
             $query['customerNumberAny'] = $request->customerNumberAny;
         }
+        if ($request->idAny != null) {
+            $query['idAny'] = $request->idAny;
+        }
         if ($request->phoneNumberId != null) {
             $query['phoneNumberId'] = $request->phoneNumberId;
         }
@@ -125,6 +131,9 @@ class SessionsClient
         }
         if ($request->sortOrder != null) {
             $query['sortOrder'] = $request->sortOrder;
+        }
+        if ($request->sortBy != null) {
+            $query['sortBy'] = $request->sortBy;
         }
         if ($request->limit != null) {
             $query['limit'] = $request->limit;
@@ -231,7 +240,7 @@ class SessionsClient
     }
 
     /**
-     * @param string $id
+     * @param string $id The unique identifier for the resource.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -277,7 +286,7 @@ class SessionsClient
     }
 
     /**
-     * @param string $id
+     * @param string $id The unique identifier for the resource.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -323,7 +332,7 @@ class SessionsClient
     }
 
     /**
-     * @param string $id
+     * @param string $id The unique identifier for the resource.
      * @param UpdateSessionDto $request
      * @param ?array{
      *   baseUrl?: string,

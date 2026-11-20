@@ -14,15 +14,15 @@ class SimulationRunTargetAssistant extends JsonSerializableType
     public ?string $assistantId;
 
     /**
-     * @var ?CreateAssistantDto $assistant Inline assistant configuration to test against. Cannot be combined with assistantId.
+     * @var ?TransientAssistantDto $assistant Inline assistant configuration to test against. Cannot be combined with assistantId.
      */
     #[JsonProperty('assistant')]
-    public ?CreateAssistantDto $assistant;
+    public ?TransientAssistantDto $assistant;
 
     /**
      * @param array{
      *   assistantId?: ?string,
-     *   assistant?: ?CreateAssistantDto,
+     *   assistant?: ?TransientAssistantDto,
      * } $values
      */
     public function __construct(

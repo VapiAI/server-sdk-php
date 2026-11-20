@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration for requests Vapi sends to a customer server, including URL, authentication, headers, timeout, encryption, static IP addresses, and retry behavior.
+ */
 class Server extends JsonSerializableType
 {
     /**

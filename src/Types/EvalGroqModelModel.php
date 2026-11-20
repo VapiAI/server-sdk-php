@@ -14,7 +14,6 @@ enum EvalGroqModelModel: string
     case Llama370B8192 = "llama3-70b-8192";
     case Gemma29BIt = "gemma2-9b-it";
     case MoonshotaiKimiK2Instruct0905 = "moonshotai/kimi-k2-instruct-0905";
-    case MetaLlamaLlama4Maverick17B128EInstruct = "meta-llama/llama-4-maverick-17b-128e-instruct";
     case MetaLlamaLlama4Scout17B16EInstruct = "meta-llama/llama-4-scout-17b-16e-instruct";
     case MistralSaba24B = "mistral-saba-24b";
     case CompoundBeta = "compound-beta";

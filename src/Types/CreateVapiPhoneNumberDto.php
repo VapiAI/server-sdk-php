@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Configuration used to provision a Vapi-managed phone number or connect a SIP URI, with optional routing and authentication settings.
+ */
 class CreateVapiPhoneNumberDto extends JsonSerializableType
 {
     /**

@@ -6,4 +6,5 @@ enum SubscriptionStatus: string
 {
     case Active = "active";
     case Frozen = "frozen";
+    case Blocked = "blocked";
 }

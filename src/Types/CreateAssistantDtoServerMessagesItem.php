@@ -31,4 +31,5 @@ enum CreateAssistantDtoServerMessagesItem: string
     case SessionDeleted = "session.deleted";
     case CallDeleted = "call.deleted";
     case CallDeleteFailed = "call.delete.failed";
+    case CallArtifactUpload = "call.artifact.upload";
 }

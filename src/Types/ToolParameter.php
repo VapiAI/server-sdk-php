@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\Union;
 
+/**
+ * Static key-value parameter added to a tool request, with Liquid template support for string values.
+ */
 class ToolParameter extends JsonSerializableType
 {
     /**

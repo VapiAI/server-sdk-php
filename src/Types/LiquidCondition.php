@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Evaluates a Liquid template that must return `true` or `false`.
+ */
 class LiquidCondition extends JsonSerializableType
 {
     /**

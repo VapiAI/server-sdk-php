@@ -9,6 +9,9 @@ use Vapi\Core\Types\ArrayType;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A saved assistant configuration returned by the Vapi API. It defines how the assistant listens, reasons, speaks, handles conversations, sends events, and produces artifacts and analysis.
+ */
 class Assistant extends JsonSerializableType
 {
     /**
@@ -40,7 +43,7 @@ class Assistant extends JsonSerializableType
     public ?string $firstMessage;
 
     /**
-     * @var ?bool $firstMessageInterruptionsEnabled
+     * @var ?bool $firstMessageInterruptionsEnabled Set to `true` to allow the user to interrupt the assistant while it speaks the first message. Default is `false`.
      */
     #[JsonProperty('firstMessageInterruptionsEnabled')]
     public ?bool $firstMessageInterruptionsEnabled;
@@ -99,6 +102,7 @@ class Assistant extends JsonSerializableType
 
     /**
      * This is the background sound in the call. Default for phone calls is 'office' and default for web calls is 'off'.
+     * Bundled sounds: 'office', 'white-noise', 'city', 'crowd' and 'farm'. GPT Live assistants don't play 'office'.
      * You can also provide a custom sound by providing a URL to an audio file.
      *
      * @var (
@@ -154,6 +158,23 @@ class Assistant extends JsonSerializableType
     public ?array $hooks;
 
     /**
+     * This is the latest version label (e.g. `v3`) of the assistant in the
+     * version history. `null` while the org is not yet
+     * onboarded to versioning, or for assistants that have not yet been
+     * published under it.
+     *
+     * @var ?string $latestVersion
+     */
+    #[JsonProperty('latestVersion')]
+    public ?string $latestVersion;
+
+    /**
+     * @var ?array<ModelDeprecationNotice> $modelDeprecations Read-only. Present only when a model this configuration uses is deprecated or retired in Vapi's model deprecation registry, judged on the day of the response. Each entry names the slot (for example `model` or `model.fallbackModels[1]`), provider, stored model, and deprecation and retirement dates as `YYYY-MM-DD` in UTC. `replacementStatus` is `available` with a `replacementModel` when a replacement can be recommended, or `manual-action-required` with no replacement model when eligibility is unknown or no eligible replacement exists. `manual-action-required` can be transient when compliance context is unavailable; re-fetch before acting. HIPAA-required configurations, sparse drafts, and squads with unresolved assistant references currently require manual action. HIPAA requirements include the organization and assistant settings, including HIPAA with data retention. Recommendations reflect the response-time decision; they do not confirm a swap or authorize future execution. Examples: an available recommendation includes `{"replacementStatus":"available","replacementModel":"gpt-5"}`; a blocked recommendation includes `{"replacementStatus":"manual-action-required"}`. Ignored if sent back in a create or update request.
+     */
+    #[JsonProperty('modelDeprecations'), ArrayType([ModelDeprecationNotice::class])]
+    public ?array $modelDeprecations;
+
+    /**
      * This is the name of the assistant.
      *
      * This is required when you want to transfer between assistants in a call.
@@ -174,11 +195,7 @@ class Assistant extends JsonSerializableType
     public ?string $voicemailMessage;
 
     /**
-     * This is the message that the assistant will say if it ends the call.
-     *
-     * If unspecified, it will hang up without saying anything.
-     *
-     * @var ?string $endCallMessage
+     * @var ?string $endCallMessage The message the assistant says when it ends the call with the Hang Up tool (`endCall`) and that tool has no messages. If the tool has a `request-start` message, the assistant says that message instead. If this field is unspecified or empty, the assistant says "Goodbye" in the transcriber's language. When an assistant hook runs `endCall`, this field isn't used and the assistant says "Goodbye" in English.
      */
     #[JsonProperty('endCallMessage')]
     public ?string $endCallMessage;
@@ -190,7 +207,7 @@ class Assistant extends JsonSerializableType
     public ?array $endCallPhrases;
 
     /**
-     * @var ?CompliancePlan $compliancePlan
+     * @var ?CompliancePlan $compliancePlan Compliance settings for the assistant, including HIPAA and PCI behavior, security filtering, and recording consent.
      */
     #[JsonProperty('compliancePlan')]
     public ?CompliancePlan $compliancePlan;
@@ -293,7 +310,7 @@ class Assistant extends JsonSerializableType
     public ?Server $server;
 
     /**
-     * @var ?KeypadInputPlan $keypadInputPlan
+     * @var ?KeypadInputPlan $keypadInputPlan Configuration for collecting and processing DTMF keypad input during calls.
      */
     #[JsonProperty('keypadInputPlan')]
     public ?KeypadInputPlan $keypadInputPlan;
@@ -359,6 +376,8 @@ class Assistant extends JsonSerializableType
      *   |CallHookCustomerSpeechTimeout
      *   |SessionCreatedHook
      * )>,
+     *   latestVersion?: ?string,
+     *   modelDeprecations?: ?array<ModelDeprecationNotice>,
      *   name?: ?string,
      *   voicemailMessage?: ?string,
      *   endCallMessage?: ?string,
@@ -395,6 +414,8 @@ class Assistant extends JsonSerializableType
         $this->observabilityPlan = $values['observabilityPlan'] ?? null;
         $this->credentials = $values['credentials'] ?? null;
         $this->hooks = $values['hooks'] ?? null;
+        $this->latestVersion = $values['latestVersion'] ?? null;
+        $this->modelDeprecations = $values['modelDeprecations'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->voicemailMessage = $values['voicemailMessage'] ?? null;
         $this->endCallMessage = $values['endCallMessage'] ?? null;

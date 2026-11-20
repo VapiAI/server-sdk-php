@@ -9,6 +9,9 @@ use Vapi\Core\Types\Union;
 use DateTime;
 use Vapi\Core\Types\Date;
 
+/**
+ * A saved pie-chart insight containing its call-data queries, formulas, grouping, time range, and lifecycle information.
+ */
 class PieInsight extends JsonSerializableType
 {
     /**
@@ -40,7 +43,7 @@ class PieInsight extends JsonSerializableType
     public ?array $formulas;
 
     /**
-     * @var ?InsightTimeRange $timeRange
+     * @var ?InsightTimeRange $timeRange The time range used to query the pie-chart data.
      */
     #[JsonProperty('timeRange')]
     public ?InsightTimeRange $timeRange;
@@ -60,9 +63,10 @@ class PieInsight extends JsonSerializableType
      *    JsonQueryOnCallTableWithStringTypeColumn
      *   |JsonQueryOnCallTableWithNumberTypeColumn
      *   |JsonQueryOnCallTableWithStructuredOutputColumn
+     *   |JsonQueryOnEventsTable
      * )> $queries These are the queries to run to generate the insight.
      */
-    #[JsonProperty('queries'), ArrayType([new Union(JsonQueryOnCallTableWithStringTypeColumn::class, JsonQueryOnCallTableWithNumberTypeColumn::class, JsonQueryOnCallTableWithStructuredOutputColumn::class)])]
+    #[JsonProperty('queries'), ArrayType([new Union(JsonQueryOnCallTableWithStringTypeColumn::class, JsonQueryOnCallTableWithNumberTypeColumn::class, JsonQueryOnCallTableWithStructuredOutputColumn::class, JsonQueryOnEventsTable::class)])]
     public array $queries;
 
     /**
@@ -90,11 +94,18 @@ class PieInsight extends JsonSerializableType
     public DateTime $updatedAt;
 
     /**
+     * @var ?string $systemKey Stable server-owned identifier for system-created insights.
+     */
+    #[JsonProperty('systemKey')]
+    public ?string $systemKey;
+
+    /**
      * @param array{
      *   queries: array<(
      *    JsonQueryOnCallTableWithStringTypeColumn
      *   |JsonQueryOnCallTableWithNumberTypeColumn
      *   |JsonQueryOnCallTableWithStructuredOutputColumn
+     *   |JsonQueryOnEventsTable
      * )>,
      *   id: string,
      *   orgId: string,
@@ -104,6 +115,7 @@ class PieInsight extends JsonSerializableType
      *   formulas?: ?array<InsightFormula>,
      *   timeRange?: ?InsightTimeRange,
      *   groupBy?: ?value-of<PieInsightGroupBy>,
+     *   systemKey?: ?string,
      * } $values
      */
     public function __construct(
@@ -118,6 +130,7 @@ class PieInsight extends JsonSerializableType
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];
         $this->updatedAt = $values['updatedAt'];
+        $this->systemKey = $values['systemKey'] ?? null;
     }
 
     /**

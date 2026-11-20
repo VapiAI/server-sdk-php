@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Google Cloud Storage bucket configuration for call artifacts, including bucket name, region, path, and optional HMAC credentials.
+ */
 class BucketPlan extends JsonSerializableType
 {
     /**

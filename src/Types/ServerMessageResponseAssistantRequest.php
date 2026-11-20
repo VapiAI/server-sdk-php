@@ -38,10 +38,10 @@ class ServerMessageResponseAssistantRequest extends JsonSerializableType
      * - Squad, use `squad`
      * - Workflow, use `workflow`
      *
-     * @var ?CreateAssistantDto $assistant
+     * @var ?TransientAssistantDto $assistant
      */
     #[JsonProperty('assistant')]
-    public ?CreateAssistantDto $assistant;
+    public ?TransientAssistantDto $assistant;
 
     /**
      * @var ?AssistantOverrides $assistantOverrides These are the overrides for the `assistant` or `assistantId`'s settings and template variables.
@@ -130,7 +130,7 @@ class ServerMessageResponseAssistantRequest extends JsonSerializableType
      * @param array{
      *   destination?: ?ServerMessageResponseAssistantRequestDestination,
      *   assistantId?: ?string,
-     *   assistant?: ?CreateAssistantDto,
+     *   assistant?: ?TransientAssistantDto,
      *   assistantOverrides?: ?AssistantOverrides,
      *   squadId?: ?string,
      *   squad?: ?CreateSquadDto,

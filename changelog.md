@@ -1,3 +1,22 @@
+## [3.0.0] - 2026-11-20
+### Breaking Changes
+- **`CreateCampaignDto`**, **`GhlToolType`**, **`FallbackGladiaTranscriberLanguages`**, **`GladiaTranscriberLanguages`**, **`InviteUserDtoRole`**, **`UpdateUserRoleDtoRole`**, **`FallbackDeepgramTranscriberLanguage`**, and several other enums/classes have been renamed or removed — update all `use` statements and references to the new names (e.g. `GladiaTranscriberLanguagesItem`, `UserWithRoleRoleZero`, `FallbackVapiVoiceLanguage`).
+- **`CreateAssistantDto` → `TransientAssistantDto`** — the `$assistant` field on `CreateChatDto`, `OpenAiResponsesRequest`, `CreateSessionDto`, `HandoffDestinationAssistant`, `OpenAiWebChatRequest`, `Personality`, `SimulationRunTargetAssistant`, `SquadMemberDto`, and `TesterPlan` now requires `TransientAssistantDto`; replace all `CreateAssistantDto` instances passed to these fields.
+- **Trieve and Tavus type families removed** — `TrieveKnowledgeBase`, `CreateTrieveKnowledgeBaseDto`, `TavusVoice`, `FallbackTavusVoice`, and all related classes/enums have been deleted; migrate away from any direct use of these types.
+- **Namespace relocations** — `CreateSimulationRunDto`, `UpdatePersonalityDto`, `UpdateScenarioDto`, `CreateSimulationSuiteDto`, `UpdateSimulationSuiteDto`, `CreateSimulationRunDtoSimulationsItem`, `CreateSimulationRunDtoTarget`, `UpdateScenarioDtoHooksItem`, and related DTOs have moved from `Vapi\Types` to feature-specific namespaces (`Vapi\SimulationRuns\Requests`, `Vapi\SimulationRuns\Types`, `Vapi\SimulationScenarios\Types`); update all `use` statements.
+- **Multiple additional breaking changes** — `ByoSipTrunkCredential::$sbcConfiguration` removed; `Subscription::$slackSupportEnabled`/`$slackChannelId` removed; `AssistantCredentialsItem::trieve()` replaced by `reson8()`; `StructuredOutputsClient::structuredOutputControllerRun` return type widened; `RecordingConsent::$type` changed from `array` to `string`; `CampaignsClient::campaignControllerUpdate` now requires `CampaignControllerUpdateRequest`; `UpdateCampaignDtoStatus` moved to `Vapi\Types`; see full changelog for all changes.
+
+### Added
+- **New simulation management clients** — `SimulationsClient`, `SimulationRunsClient`, `SimulationScenariosClient`, `SimulationSuitesClient`, and `SimulationPersonalitiesClient` provide full CRUD and AI-suggestion operations against the `eval/simulation/*` endpoints.
+- **`KnowledgeBasesV2Client`**, **`BoardClient`**, and **`TrafficAllocationsClient`** — new clients for managing v2 knowledge bases, reporting boards, and assistant traffic splitting respectively.
+- **V2 campaign endpoints and request types** — `campaignControllerFindAllV2`, `campaignControllerCreateV2`, and related V2 methods added to `CampaignsClient`, backed by new `CampaignControllerFindAllV2Request` and sibling request classes.
+- **`AssistantDraft` type family** — new `AssistantDraft`, `AssistantDraftModel`, `AssistantDraftTranscriber`, `AssistantDraftVoice`, `AssistantDraftCredentialsItem`, `AssistantDraftPaginatedResponse`, and supporting enums/DTOs for managing draft assistant versions.
+- **Broad field additions across existing types** — `Artifact` gains presigned URL fields and `transfers`; `Assistant` gains `latestVersion` and `modelDeprecations`; `OpenAiModel` gains `toolRefs`, `serviceTier`, `reasoningEffort`, `speaker`, and `reasoner`; `PaginationMeta` gains keyset-pagination fields; `SonioxTranscriber`, `AssemblyAiTranscriber`, and `OpenAiTranscriber` gain new configuration fields; `AssistantCredentialsItem` gains `s3Compatible()` and `microsoft()` providers; see full changelog for all additions.
+
+### Changed
+- **`ElevenLabsVoice` and `FallbackElevenLabsVoice`** — field documentation clarified to note which fields are ignored by `eleven_v4_turbo` and `eleven_v3_conversational` models, and `$language` enforcement behaviour updated for Turbo v2.5 and Flash v2.5.
+- **`TransferPlan::$fallbackPlan`** — documentation expanded to clarify the fallback plan also applies to SIP cold transfers when transfer-outcome detection is enabled.
+
 ## 2.0.0 - 2026-06-24
 ### Breaking Changes
 * **`CartesiaExperimentalControlsSpeedZero`** has been renamed to `CartesiaSpeedControlZero`. Update any references to this enum in your code to use the new name.

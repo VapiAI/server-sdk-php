@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Uses a webhook response to select the handoff destination at runtime.
+ */
 class HandoffDestinationDynamic extends JsonSerializableType
 {
     /**

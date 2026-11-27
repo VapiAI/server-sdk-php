@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A word or phrase to prioritize during Speechmatics transcription, with optional phonetic alternatives.
+ */
 class SpeechmaticsCustomVocabularyItem extends JsonSerializableType
 {
     /**

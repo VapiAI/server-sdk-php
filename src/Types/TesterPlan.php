@@ -12,10 +12,10 @@ class TesterPlan extends JsonSerializableType
      *
      * Make sure to write a detailed system prompt for a test assistant, and use the {{test.script}} variable to access the test script.
      *
-     * @var ?CreateAssistantDto $assistant
+     * @var ?TransientAssistantDto $assistant
      */
     #[JsonProperty('assistant')]
-    public ?CreateAssistantDto $assistant;
+    public ?TransientAssistantDto $assistant;
 
     /**
      * Pass an assistant id that can be access
@@ -40,7 +40,7 @@ class TesterPlan extends JsonSerializableType
 
     /**
      * @param array{
-     *   assistant?: ?CreateAssistantDto,
+     *   assistant?: ?TransientAssistantDto,
      *   assistantId?: ?string,
      *   assistantOverrides?: ?AssistantOverrides,
      * } $values

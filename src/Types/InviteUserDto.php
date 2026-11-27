@@ -15,7 +15,10 @@ class InviteUserDto extends JsonSerializableType
     public array $emails;
 
     /**
-     * @var value-of<InviteUserDtoRole> $role
+     * @var (
+     *    value-of<InviteUserDtoRoleZero>
+     *   |string
+     * ) $role
      */
     #[JsonProperty('role')]
     public string $role;
@@ -29,7 +32,10 @@ class InviteUserDto extends JsonSerializableType
     /**
      * @param array{
      *   emails: array<string>,
-     *   role: value-of<InviteUserDtoRole>,
+     *   role: (
+     *    value-of<InviteUserDtoRoleZero>
+     *   |string
+     * ),
      *   redirectTo?: ?string,
      * } $values
      */

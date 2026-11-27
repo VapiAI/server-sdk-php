@@ -189,4 +189,5 @@ enum FallbackElevenLabsTranscriberLanguage: string
     case Za = "za";
     case Zh = "zh";
     case Zu = "zu";
+    case Multi = "multi";
 }

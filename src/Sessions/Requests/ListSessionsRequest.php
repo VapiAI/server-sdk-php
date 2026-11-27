@@ -4,6 +4,7 @@ namespace Vapi\Sessions\Requests;
 
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Sessions\Types\ListSessionsRequestSortOrder;
+use Vapi\Sessions\Types\ListSessionsRequestSortBy;
 use DateTime;
 
 class ListSessionsRequest extends JsonSerializableType
@@ -71,6 +72,15 @@ class ListSessionsRequest extends JsonSerializableType
     public ?string $assistantOverrides;
 
     /**
+     * These are the overrides applied when the call targets a `squadId`. Mirrors
+     * the call-level `squadOverrides` — use this instead of `assistantOverrides`
+     * when the campaign or call is squad-based.
+     *
+     * @var ?string $squadOverrides
+     */
+    public ?string $squadOverrides;
+
+    /**
      * @var ?string $number This is the number of the customer.
      */
     public ?string $number;
@@ -96,6 +106,11 @@ class ListSessionsRequest extends JsonSerializableType
     public ?string $customerNumberAny;
 
     /**
+     * @var ?string $idAny Filter by multiple session IDs. Provide as comma-separated values.
+     */
+    public ?string $idAny;
+
+    /**
      * @var ?string $phoneNumberId This will return sessions with the specified phoneNumberId.
      */
     public ?string $phoneNumberId;
@@ -114,6 +129,11 @@ class ListSessionsRequest extends JsonSerializableType
      * @var ?value-of<ListSessionsRequestSortOrder> $sortOrder This is the sort order for pagination. Defaults to 'DESC'.
      */
     public ?string $sortOrder;
+
+    /**
+     * @var ?value-of<ListSessionsRequestSortBy> $sortBy This is the column to sort by. Defaults to 'createdAt'.
+     */
+    public ?string $sortBy;
 
     /**
      * @var ?float $limit This is the maximum number of items to return. Defaults to 100.
@@ -171,15 +191,18 @@ class ListSessionsRequest extends JsonSerializableType
      *   numberE164CheckEnabled?: ?bool,
      *   extension?: ?string,
      *   assistantOverrides?: ?string,
+     *   squadOverrides?: ?string,
      *   number?: ?string,
      *   sipUri?: ?string,
      *   email?: ?string,
      *   externalId?: ?string,
      *   customerNumberAny?: ?string,
+     *   idAny?: ?string,
      *   phoneNumberId?: ?string,
      *   phoneNumberIdAny?: ?array<string>,
      *   page?: ?float,
      *   sortOrder?: ?value-of<ListSessionsRequestSortOrder>,
+     *   sortBy?: ?value-of<ListSessionsRequestSortBy>,
      *   limit?: ?float,
      *   createdAtGt?: ?DateTime,
      *   createdAtLt?: ?DateTime,
@@ -203,15 +226,18 @@ class ListSessionsRequest extends JsonSerializableType
         $this->numberE164CheckEnabled = $values['numberE164CheckEnabled'] ?? null;
         $this->extension = $values['extension'] ?? null;
         $this->assistantOverrides = $values['assistantOverrides'] ?? null;
+        $this->squadOverrides = $values['squadOverrides'] ?? null;
         $this->number = $values['number'] ?? null;
         $this->sipUri = $values['sipUri'] ?? null;
         $this->email = $values['email'] ?? null;
         $this->externalId = $values['externalId'] ?? null;
         $this->customerNumberAny = $values['customerNumberAny'] ?? null;
+        $this->idAny = $values['idAny'] ?? null;
         $this->phoneNumberId = $values['phoneNumberId'] ?? null;
         $this->phoneNumberIdAny = $values['phoneNumberIdAny'] ?? null;
         $this->page = $values['page'] ?? null;
         $this->sortOrder = $values['sortOrder'] ?? null;
+        $this->sortBy = $values['sortBy'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->createdAtGt = $values['createdAtGt'] ?? null;
         $this->createdAtLt = $values['createdAtLt'] ?? null;

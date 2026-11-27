@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateSlackOAuth2AuthorizationCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateSlackOAuth2AuthorizationCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?string $authorizationId The authorization ID for the OAuth2 authorization
      */
     #[JsonProperty('authorizationId')]
@@ -21,6 +27,7 @@ class UpdateSlackOAuth2AuthorizationCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateSlackOAuth2AuthorizationCredentialDtoProvider>,
      *   authorizationId?: ?string,
      *   name?: ?string,
      * } $values
@@ -28,6 +35,7 @@ class UpdateSlackOAuth2AuthorizationCredentialDto extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->authorizationId = $values['authorizationId'] ?? null;
         $this->name = $values['name'] ?? null;
     }

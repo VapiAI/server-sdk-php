@@ -71,6 +71,12 @@ class AzureOpenAiCredential extends JsonSerializableType
     public ?string $name;
 
     /**
+     * @var ?array<AzureOpenAiDeployment> $deployments These are the names of your Azure deployments, one entry for every model in `models`. Omit the field when every deployment is named after its model; once it has any entry, a model with no entry is rejected, so a deployment named after its model takes `{ "model": "<model>", "name": "<model>" }`. Requests use the first of the org's keys that matches the region (on a live call, also the model), so an org holding two keys for the same region and model should pin `credentialIds` on its assistants.
+     */
+    #[JsonProperty('deployments'), ArrayType([AzureOpenAiDeployment::class])]
+    public ?array $deployments;
+
+    /**
      * @var string $openAiEndpoint
      */
     #[JsonProperty('openAIEndpoint')]
@@ -89,6 +95,7 @@ class AzureOpenAiCredential extends JsonSerializableType
      *   openAiEndpoint: string,
      *   ocpApimSubscriptionKey?: ?string,
      *   name?: ?string,
+     *   deployments?: ?array<AzureOpenAiDeployment>,
      * } $values
      */
     public function __construct(
@@ -104,6 +111,7 @@ class AzureOpenAiCredential extends JsonSerializableType
         $this->createdAt = $values['createdAt'];
         $this->updatedAt = $values['updatedAt'];
         $this->name = $values['name'] ?? null;
+        $this->deployments = $values['deployments'] ?? null;
         $this->openAiEndpoint = $values['openAiEndpoint'];
     }
 

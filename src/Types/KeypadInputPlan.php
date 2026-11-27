@@ -5,8 +5,30 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Controls collection of dual-tone multi-frequency (DTMF) keypad input, including enablement, processing timeout, and delimiters.
+ */
 class KeypadInputPlan extends JsonSerializableType
 {
+    /**
+     * This is the call variable each completed keypad entry is stored in, as a string with leading zeros kept. A later entry replaces the earlier one.
+     *
+     * Reference it as `{{variableName}}` in a transfer destination, for example in `sipHeaders`, so the model never has to repeat the digits. A keypad value the caller entered wins over a same-named handoff or transfer tool argument. Other writes to a variable with this name, such as variable extraction, still replace it. The value also appears in the call's `artifact.variableValues`.
+     *
+     * In a squad, the active assistant's `variableName` is used when the entry completes. A variable already stored under a previous assistant's name keeps its value.
+     *
+     * Not supported on full-duplex (GPT-Live) assistants: the call starts with a warning in the call logs and no variable is stored.
+     *
+     * Rules:
+     * - Must start with a letter (a-z, A-Z).
+     * - Subsequent characters can be letters, numbers, or underscores.
+     * - Minimum length of 1 and maximum length of 40.
+     *
+     * @var ?string $variableName
+     */
+    #[JsonProperty('variableName')]
+    public ?string $variableName;
+
     /**
      * This keeps track of whether the user has enabled keypad input.
      * By default, it is off.
@@ -40,18 +62,38 @@ class KeypadInputPlan extends JsonSerializableType
     public ?string $delimiters;
 
     /**
+     * This determines whether a completed keypad entry triggers an assistant response.
+     *
+     * Usage:
+     * - Use `true` to have the assistant respond to the entry.
+     * - Use `false` to add the entry to the conversation history silently. The model reads it on its next turn, for example to pass an ID to a tool. OpenAI Realtime and Gemini speech-to-speech models never receive keypad entries.
+     *
+     * In a squad, this follows the active assistant when the entry completes. A half-typed entry carries over and completes under the new assistant's setting. `enabled`, `timeoutSeconds` and `delimiters` come from the first assistant for the whole call.
+     *
+     * @default true
+     *
+     * @var ?bool $triggerResponseEnabled
+     */
+    #[JsonProperty('triggerResponseEnabled')]
+    public ?bool $triggerResponseEnabled;
+
+    /**
      * @param array{
+     *   variableName?: ?string,
      *   enabled?: ?bool,
      *   timeoutSeconds?: ?float,
      *   delimiters?: ?value-of<KeypadInputPlanDelimiters>,
+     *   triggerResponseEnabled?: ?bool,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
+        $this->variableName = $values['variableName'] ?? null;
         $this->enabled = $values['enabled'] ?? null;
         $this->timeoutSeconds = $values['timeoutSeconds'] ?? null;
         $this->delimiters = $values['delimiters'] ?? null;
+        $this->triggerResponseEnabled = $values['triggerResponseEnabled'] ?? null;
     }
 
     /**

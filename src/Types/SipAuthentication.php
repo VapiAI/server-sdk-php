@@ -5,10 +5,13 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Realm, username, and password used to authenticate SIP requests.
+ */
 class SipAuthentication extends JsonSerializableType
 {
     /**
-     * @var ?string $realm This will be expected in the `realm` field of the `authorization` header of the SIP INVITE. Defaults to sip.vapi.ai.
+     * @var ?string $realm This will be expected in the `realm` field of the `authorization` header of the SIP INVITE. Defaults to the SIP realm of the Vapi region serving the request (e.g. `sip.vapi.ai` for US, `sip.eu.vapi.ai` for EU).
      */
     #[JsonProperty('realm')]
     public ?string $realm;

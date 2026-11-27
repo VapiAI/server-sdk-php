@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * A phone-number hook action that transfers the call to a phone number or SIP destination.
+ */
 class TransferPhoneNumberHookAction extends JsonSerializableType
 {
     /**

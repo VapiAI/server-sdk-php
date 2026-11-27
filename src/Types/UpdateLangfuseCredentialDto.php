@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateLangfuseCredentialDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateLangfuseCredentialDtoProvider> $provider
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * @var ?string $publicKey The public key for Langfuse project. Eg: pk-lf-...
      */
     #[JsonProperty('publicKey')]
@@ -26,6 +32,12 @@ class UpdateLangfuseCredentialDto extends JsonSerializableType
     public ?string $apiUrl;
 
     /**
+     * @var ?string $serverVersion The semver version of your Langfuse server, e.g. 3.63.0. Detected from your server's /api/public/health endpoint at save time whenever possible, and a detected version always wins; supply it only when that endpoint is not reachable from Vapi.
+     */
+    #[JsonProperty('serverVersion')]
+    public ?string $serverVersion;
+
+    /**
      * @var ?string $name This is the name of credential. This is just for your reference.
      */
     #[JsonProperty('name')]
@@ -33,18 +45,22 @@ class UpdateLangfuseCredentialDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateLangfuseCredentialDtoProvider>,
      *   publicKey?: ?string,
      *   apiKey?: ?string,
      *   apiUrl?: ?string,
+     *   serverVersion?: ?string,
      *   name?: ?string,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->publicKey = $values['publicKey'] ?? null;
         $this->apiKey = $values['apiKey'] ?? null;
         $this->apiUrl = $values['apiUrl'] ?? null;
+        $this->serverVersion = $values['serverVersion'] ?? null;
         $this->name = $values['name'] ?? null;
     }
 

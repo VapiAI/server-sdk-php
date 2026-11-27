@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * A system-authored entry in the call message history, including its content and timing.
+ */
 class SystemMessage extends JsonSerializableType
 {
     /**

@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * An entry in the call message history that records one or more tool calls requested during the conversation.
+ */
 class ToolCallMessage extends JsonSerializableType
 {
     /**

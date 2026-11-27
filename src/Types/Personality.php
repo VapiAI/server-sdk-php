@@ -46,10 +46,10 @@ class Personality extends JsonSerializableType
      * This is the full assistant configuration for this personality.
      * It defines the tester's voice, model, behavior via system prompt, and other settings.
      *
-     * @var CreateAssistantDto $assistant
+     * @var TransientAssistantDto $assistant
      */
     #[JsonProperty('assistant')]
-    public CreateAssistantDto $assistant;
+    public TransientAssistantDto $assistant;
 
     /**
      * Optional folder path for organizing personalities.
@@ -67,7 +67,7 @@ class Personality extends JsonSerializableType
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
      *   name: string,
-     *   assistant: CreateAssistantDto,
+     *   assistant: TransientAssistantDto,
      *   orgId?: ?string,
      *   path?: ?string,
      * } $values

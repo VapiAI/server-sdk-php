@@ -24,6 +24,24 @@ class StructuredOutputEvaluationResult extends JsonSerializableType
     public string $name;
 
     /**
+     * @var ?string $path This is the optional dot-notation path evaluated within an object structured output.
+     */
+    #[JsonProperty('path')]
+    public ?string $path;
+
+    /**
+     * @var ?string $description This is the structured output description captured when the evaluation ran.
+     */
+    #[JsonProperty('description')]
+    public ?string $description;
+
+    /**
+     * @var ?JsonSchema $schema This is the structured output schema captured when the evaluation ran.
+     */
+    #[JsonProperty('schema')]
+    public ?JsonSchema $schema;
+
+    /**
      * @var (
      *    float
      *   |string
@@ -91,6 +109,9 @@ class StructuredOutputEvaluationResult extends JsonSerializableType
      *   comparator: value-of<StructuredOutputEvaluationResultComparator>,
      *   passed: bool,
      *   required: bool,
+     *   path?: ?string,
+     *   description?: ?string,
+     *   schema?: ?JsonSchema,
      *   extractedValue?: (
      *    float
      *   |string
@@ -106,6 +127,9 @@ class StructuredOutputEvaluationResult extends JsonSerializableType
     ) {
         $this->structuredOutputId = $values['structuredOutputId'];
         $this->name = $values['name'];
+        $this->path = $values['path'] ?? null;
+        $this->description = $values['description'] ?? null;
+        $this->schema = $values['schema'] ?? null;
         $this->extractedValue = $values['extractedValue'] ?? null;
         $this->expectedValue = $values['expectedValue'];
         $this->comparator = $values['comparator'];

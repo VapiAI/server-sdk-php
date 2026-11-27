@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for storing call artifacts in Amazon S3, including access keys, region, bucket, path prefix, and upload fallback order.
+ */
 class CreateS3CredentialDto extends JsonSerializableType
 {
     /**

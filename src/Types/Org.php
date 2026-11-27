@@ -20,6 +20,21 @@ class Org extends JsonSerializableType
     public ?bool $hipaaEnabled;
 
     /**
+     * The org was created locally, but WorkOS access is still being repaired.
+     * Clients should keep the current session/org and refresh the org list.
+     *
+     * @var ?bool $workosRepairPending
+     */
+    #[JsonProperty('workosRepairPending')]
+    public ?bool $workosRepairPending;
+
+    /**
+     * @var ?bool $workosRepairQueued Whether the pending WorkOS repair was accepted by Kafka.
+     */
+    #[JsonProperty('workosRepairQueued')]
+    public ?bool $workosRepairQueued;
+
+    /**
      * @var ?Subscription $subscription
      */
     #[JsonProperty('subscription')]
@@ -142,6 +157,8 @@ class Org extends JsonSerializableType
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
      *   hipaaEnabled?: ?bool,
+     *   workosRepairPending?: ?bool,
+     *   workosRepairQueued?: ?bool,
      *   subscription?: ?Subscription,
      *   subscriptionId?: ?string,
      *   stripeSubscriptionId?: ?string,
@@ -162,6 +179,8 @@ class Org extends JsonSerializableType
         array $values,
     ) {
         $this->hipaaEnabled = $values['hipaaEnabled'] ?? null;
+        $this->workosRepairPending = $values['workosRepairPending'] ?? null;
+        $this->workosRepairQueued = $values['workosRepairQueued'] ?? null;
         $this->subscription = $values['subscription'] ?? null;
         $this->subscriptionId = $values['subscriptionId'] ?? null;
         $this->id = $values['id'];

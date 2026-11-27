@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * A custom endpointing rule that matches both the assistant's last message and the customer's current speech before applying a configured timeout.
+ */
 class BothCustomEndpointingRule extends JsonSerializableType
 {
     /**
@@ -34,7 +37,7 @@ class BothCustomEndpointingRule extends JsonSerializableType
     public ?array $assistantRegexOptions;
 
     /**
-     * @var string $customerRegex
+     * @var string $customerRegex The regular expression pattern matched against the customer's speech.
      */
     #[JsonProperty('customerRegex')]
     public string $customerRegex;

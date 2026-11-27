@@ -7,6 +7,9 @@ use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 use Vapi\Core\Types\Union;
 
+/**
+ * Messages and variable values captured while a workflow node was active.
+ */
 class NodeArtifact extends JsonSerializableType
 {
     /**

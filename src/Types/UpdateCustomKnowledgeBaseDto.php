@@ -8,6 +8,12 @@ use Vapi\Core\Json\JsonProperty;
 class UpdateCustomKnowledgeBaseDto extends JsonSerializableType
 {
     /**
+     * @var ?value-of<UpdateCustomKnowledgeBaseDtoProvider> $provider This knowledge base is bring your own knowledge base implementation.
+     */
+    #[JsonProperty('provider')]
+    public ?string $provider;
+
+    /**
      * This is where the knowledge base request will be sent.
      *
      * Request Example:
@@ -55,12 +61,14 @@ class UpdateCustomKnowledgeBaseDto extends JsonSerializableType
 
     /**
      * @param array{
+     *   provider?: ?value-of<UpdateCustomKnowledgeBaseDtoProvider>,
      *   server?: ?Server,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
+        $this->provider = $values['provider'] ?? null;
         $this->server = $values['server'] ?? null;
     }
 

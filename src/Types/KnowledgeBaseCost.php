@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\ArrayType;
 
+/**
+ * Knowledge-base model cost, including model, token usage, and amount.
+ */
 class KnowledgeBaseCost extends JsonSerializableType
 {
     /**

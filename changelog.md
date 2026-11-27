@@ -1,3 +1,21 @@
+## [3.0.0] - 2026-11-27
+### Breaking Changes
+- **`CreateCampaignDto`**, **`TavusVoice`** family, **`TrieveKnowledgeBase`** family, **`VapiVoiceVoiceId`**/**`VapiModelProvider`**/**`FallbackDeepgramTranscriberModel`** enums, and **`ByoSipTrunkCredential::$sbcConfiguration`** have been removed — remove all references from your code.
+- **`Artifact::$transfers`** — type changed from `?array<string>` to `?array<TransferArtifact>`; update code to use `TransferArtifact` objects instead of plain strings.
+- **`HandoffDestinationAssistant::$assistant`**, **`SquadMemberDto::$assistant`**, and **`TesterPlan::$assistant`** — type changed from `CreateAssistantDto` to `TransientAssistantDto`; update constructor calls and type hints accordingly.
+- **`GladiaTranscriberLanguages`** renamed to `GladiaTranscriberLanguagesItem`, **`FallbackGladiaTranscriberLanguages`** renamed to `FallbackGladiaTranscriberLanguagesItem`, **`GhlToolType`** renamed to `UpdateGhlToolDtoType`, **`UpdateUserRoleDtoRole`** renamed to `UserWithRoleRoleZero`, and **`InviteUserDtoRole`** renamed to `InviteUserDtoRoleZero` — update all references to use the new names.
+- **`CreateSimulationRunDtoSimulationsItem`**, **`CreateSimulationRunDtoTarget`**, and **`UpdateScenarioDtoHooksItem`** moved to sub-namespaces (`Vapi\SimulationRuns\Types` / `Vapi\SimulationScenarios\Types`); **`Subscription::$slackSupportEnabled`** and **`Subscription::$slackChannelId`** removed; **`UpdateCampaignDtoStatus`** moved from `Vapi\Campaigns\Types` to `Vapi\Types` — update `use` statements accordingly.
+
+### Added
+- **`BoardClient`**, **`KnowledgeBasesV2Client`**, **`TrafficAllocationsClient`**, **`SimulationPersonalitiesClient`**, **`SimulationRunsClient`**, **`SimulationScenariosClient`**, **`SimulationSuitesClient`**, and **`SimulationsClient`** — new clients covering reporting boards, v2 knowledge bases, traffic allocations, and the full simulation/eval management surface.
+- **`AssistantDraft`** ecosystem — new `AssistantDraft`, `AssistantDraftModel`, `AssistantDraftTranscriber`, `AssistantDraftVoice`, `AssistantDraftCredentialsItem`, `AssistantDraftPaginatedResponse`, and related enums/DTOs for managing versioned assistant drafts.
+- **`toolRefs`** optional field added to all model types (`AnthropicModel`, `OpenAiModel`, `GoogleModel`, `GroqModel`, `XaiModel`, `TogetherAiModel`, and others) for version-pinned tool references; **`latestVersion`** and **`baselineVersion`** fields added to all tool types.
+- **Presigned URL fields** (`presignedMonoUrl`, `presignedStereoUrl`, `presignedVideoUrl`, and more) plus `presignedUrlsExpiresAt` added to **`Artifact`**; **`AssemblyAiTranscriber`** and **`SonioxTranscriber`** gain new configuration fields for Universal Pro models and fine-grained transcription control.
+- See full changelog for all changes.
+
+### Changed
+- **`ElevenLabsVoice`** and **`FallbackElevenLabsVoice`** — several fields (`similarityBoost`, `style`, `useSpeakerBoost`, etc.) are now documented as ignored by `eleven_v4_turbo` and `eleven_v3_conversational` models.
+
 ## 2.0.0 - 2026-06-24
 ### Breaking Changes
 * **`CartesiaExperimentalControlsSpeedZero`** has been renamed to `CartesiaSpeedControlZero`. Update any references to this enum in your code to use the new name.

@@ -41,16 +41,13 @@ class Scenario extends JsonSerializableType
     public string $name;
 
     /**
-     * @var string $instructions This is the script/instructions for the tester to follow during the simulation.
+     * @var string $instructions This is the script/instructions for the tester to follow during the simulation. Optional when `transcriptReplay` is set, which has no tester.
      */
     #[JsonProperty('instructions')]
     public string $instructions;
 
     /**
-     * This is the structured output-based evaluation plan for the simulation.
-     * Each item defines a structured output to extract and evaluate against an expected value.
-     *
-     * @var array<EvaluationPlanItem> $evaluations
+     * @var array<EvaluationPlanItem> $evaluations This is the evaluation plan for the simulation. At least one is required. With `transcriptReplay`, only `metric` evaluations are allowed, and none are required.
      */
     #[JsonProperty('evaluations'), ArrayType([EvaluationPlanItem::class])]
     public array $evaluations;
@@ -74,6 +71,28 @@ class Scenario extends JsonSerializableType
     public ?array $toolMocks;
 
     /**
+     * Latency ceilings for voice simulations. Each expectation aggregates the
+     * target call's per-turn latencies and fails the simulation (when required)
+     * if the aggregated value exceeds its threshold. Skipped for chat simulations
+     * and GPT Live targets; on any other voice simulation, a metric that no turn
+     * measured fails.
+     *
+     * @var ?array<LatencyExpectation> $latencyExpectations
+     */
+    #[JsonProperty('latencyExpectations'), ArrayType([LatencyExpectation::class])]
+    public ?array $latencyExpectations;
+
+    /**
+     * This turns the scenario into a transcription test: a recording is streamed
+     * into the target's call in place of a simulated caller, and the target's
+     * transcript is scored against an answer key.
+     *
+     * @var ?TranscriptReplay $transcriptReplay
+     */
+    #[JsonProperty('transcriptReplay')]
+    public ?TranscriptReplay $transcriptReplay;
+
+    /**
      * Optional folder path for organizing scenarios.
      * Supports up to 3 levels (e.g., "dept/feature/variant").
      * Maps to GitOps resource folder structure.
@@ -95,6 +114,8 @@ class Scenario extends JsonSerializableType
      *   hooks?: ?array<ScenarioHooksItem>,
      *   targetOverrides?: ?AssistantOverrides,
      *   toolMocks?: ?array<ScenarioToolMock>,
+     *   latencyExpectations?: ?array<LatencyExpectation>,
+     *   transcriptReplay?: ?TranscriptReplay,
      *   path?: ?string,
      * } $values
      */
@@ -111,6 +132,8 @@ class Scenario extends JsonSerializableType
         $this->hooks = $values['hooks'] ?? null;
         $this->targetOverrides = $values['targetOverrides'] ?? null;
         $this->toolMocks = $values['toolMocks'] ?? null;
+        $this->latencyExpectations = $values['latencyExpectations'] ?? null;
+        $this->transcriptReplay = $values['transcriptReplay'] ?? null;
         $this->path = $values['path'] ?? null;
     }
 

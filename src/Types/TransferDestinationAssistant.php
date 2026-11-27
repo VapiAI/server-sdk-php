@@ -6,6 +6,9 @@ use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 use Vapi\Core\Types\Union;
 
+/**
+ * Transfers a call to another assistant by name, with an optional message and assistant-transfer mode.
+ */
 class TransferDestinationAssistant extends JsonSerializableType
 {
     /**
@@ -26,7 +29,7 @@ class TransferDestinationAssistant extends JsonSerializableType
     public string|CustomMessage|null $message;
 
     /**
-     * @var value-of<TransferDestinationAssistantType> $type
+     * @var value-of<TransferDestinationAssistantType> $type Selects another assistant as the transfer destination.
      */
     #[JsonProperty('type')]
     public string $type;
@@ -133,6 +136,23 @@ class TransferDestinationAssistant extends JsonSerializableType
     public string $assistantName;
 
     /**
+     * This is the name of the transfer destination. This is just for your own reference.
+     *
+     * Usage:
+     * - Optional. Stored with the destination wherever it is supplied. For `number`
+     *   and `sip` destinations it is also persisted on the transfer record in the
+     *   call artifact after a transfer and displayed in the dashboard call log (on
+     *   the transfer divider in the transcript view) alongside the destination.
+     *   When omitted, everything behaves exactly as before.
+     * - Display-only. Unlike `description`, it is never included in prompts or tool
+     *   descriptions and has no effect on model behavior or destination choice.
+     *
+     * @var ?string $name
+     */
+    #[JsonProperty('name')]
+    public ?string $name;
+
+    /**
      * @var ?string $description This is the description of the destination, used by the AI to choose when and how to transfer the call.
      */
     #[JsonProperty('description')]
@@ -147,6 +167,7 @@ class TransferDestinationAssistant extends JsonSerializableType
      *   |CustomMessage
      * )|null,
      *   transferMode?: ?value-of<TransferMode>,
+     *   name?: ?string,
      *   description?: ?string,
      * } $values
      */
@@ -157,6 +178,7 @@ class TransferDestinationAssistant extends JsonSerializableType
         $this->type = $values['type'];
         $this->transferMode = $values['transferMode'] ?? null;
         $this->assistantName = $values['assistantName'];
+        $this->name = $values['name'] ?? null;
         $this->description = $values['description'] ?? null;
     }
 

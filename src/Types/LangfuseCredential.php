@@ -34,6 +34,12 @@ class LangfuseCredential extends JsonSerializableType
     public string $apiUrl;
 
     /**
+     * @var ?string $serverVersion The semver version of your Langfuse server, e.g. 3.63.0. Detected from your server's /api/public/health endpoint at save time whenever possible, and a detected version always wins; supply it only when that endpoint is not reachable from Vapi.
+     */
+    #[JsonProperty('serverVersion')]
+    public ?string $serverVersion;
+
+    /**
      * @var string $id This is the unique identifier for the credential.
      */
     #[JsonProperty('id')]
@@ -73,6 +79,7 @@ class LangfuseCredential extends JsonSerializableType
      *   orgId: string,
      *   createdAt: DateTime,
      *   updatedAt: DateTime,
+     *   serverVersion?: ?string,
      *   name?: ?string,
      * } $values
      */
@@ -83,6 +90,7 @@ class LangfuseCredential extends JsonSerializableType
         $this->publicKey = $values['publicKey'];
         $this->apiKey = $values['apiKey'];
         $this->apiUrl = $values['apiUrl'];
+        $this->serverVersion = $values['serverVersion'] ?? null;
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];

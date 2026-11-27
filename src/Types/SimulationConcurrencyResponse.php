@@ -34,6 +34,12 @@ class SimulationConcurrencyResponse extends JsonSerializableType
     public float $availableToStart;
 
     /**
+     * @var float $chatConcurrencyLimit Max chat simulations that can run at once. A count of simulations, not call slots: chat simulations use none.
+     */
+    #[JsonProperty('chatConcurrencyLimit')]
+    public float $chatConcurrencyLimit;
+
+    /**
      * @var ?DateTime $createdAt
      */
     #[JsonProperty('createdAt'), Date(Date::TYPE_DATETIME)]
@@ -57,6 +63,7 @@ class SimulationConcurrencyResponse extends JsonSerializableType
      *   concurrencyLimit: float,
      *   activeSimulations: float,
      *   availableToStart: float,
+     *   chatConcurrencyLimit: float,
      *   isDefault: bool,
      *   createdAt?: ?DateTime,
      *   updatedAt?: ?DateTime,
@@ -69,6 +76,7 @@ class SimulationConcurrencyResponse extends JsonSerializableType
         $this->concurrencyLimit = $values['concurrencyLimit'];
         $this->activeSimulations = $values['activeSimulations'];
         $this->availableToStart = $values['availableToStart'];
+        $this->chatConcurrencyLimit = $values['chatConcurrencyLimit'];
         $this->createdAt = $values['createdAt'] ?? null;
         $this->updatedAt = $values['updatedAt'] ?? null;
         $this->isDefault = $values['isDefault'];

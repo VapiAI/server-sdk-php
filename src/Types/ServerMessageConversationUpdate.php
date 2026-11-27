@@ -16,6 +16,17 @@ class ServerMessageConversationUpdate extends JsonSerializableType
     public ?ServerMessageConversationUpdatePhoneNumber $phoneNumber;
 
     /**
+     * This is the version label (e.g. `v3`) of the assistant the call was
+     * configured with. `null` for inline assistants, squad/workflow calls,
+     * pre-resolution assistant-request messages, and orgs not on
+     * assistant versioning.
+     *
+     * @var ?string $assistantVersion
+     */
+    #[JsonProperty('assistantVersion')]
+    public ?string $assistantVersion;
+
+    /**
      * @var value-of<ServerMessageConversationUpdateType> $type This is the type of the message. "conversation-update" is sent when an update is committed to the conversation history.
      */
     #[JsonProperty('type')]
@@ -84,6 +95,7 @@ class ServerMessageConversationUpdate extends JsonSerializableType
      *   type: value-of<ServerMessageConversationUpdateType>,
      *   messagesOpenAiFormatted: array<OpenAiMessage>,
      *   phoneNumber?: ?ServerMessageConversationUpdatePhoneNumber,
+     *   assistantVersion?: ?string,
      *   messages?: ?array<(
      *    UserMessage
      *   |SystemMessage
@@ -103,6 +115,7 @@ class ServerMessageConversationUpdate extends JsonSerializableType
         array $values,
     ) {
         $this->phoneNumber = $values['phoneNumber'] ?? null;
+        $this->assistantVersion = $values['assistantVersion'] ?? null;
         $this->type = $values['type'];
         $this->messages = $values['messages'] ?? null;
         $this->messagesOpenAiFormatted = $values['messagesOpenAiFormatted'];

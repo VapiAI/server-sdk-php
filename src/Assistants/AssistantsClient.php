@@ -16,6 +16,7 @@ use Vapi\Core\Json\JsonDecoder;
 use JsonException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Vapi\Types\CreateAssistantDto;
+use Vapi\Types\AssistantSaveResponse;
 use Vapi\Assistants\Requests\UpdateAssistantDto;
 
 class AssistantsClient
@@ -55,6 +56,8 @@ class AssistantsClient
     }
 
     /**
+     * Returns assistants for the authenticated organization. Filter results by creation or update timestamps and limit the number returned.
+     *
      * @param ListAssistantsRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -130,6 +133,8 @@ class AssistantsClient
     }
 
     /**
+     * Creates a reusable assistant configuration containing the model, voice, transcriber, tools, prompts, and call behavior.
+     *
      * @param CreateAssistantDto $request
      * @param ?array{
      *   baseUrl?: string,
@@ -139,11 +144,11 @@ class AssistantsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ?Assistant
+     * @return ?AssistantSaveResponse
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function create(CreateAssistantDto $request, ?array $options = null): ?Assistant
+    public function create(CreateAssistantDto $request, ?array $options = null): ?AssistantSaveResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -162,7 +167,7 @@ class AssistantsClient
                 if (empty($json)) {
                     return null;
                 }
-                return Assistant::fromJson($json);
+                return AssistantSaveResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -177,7 +182,9 @@ class AssistantsClient
     }
 
     /**
-     * @param string $id
+     * Returns the assistant identified by its ID.
+     *
+     * @param string $id The unique identifier of the assistant.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -223,7 +230,9 @@ class AssistantsClient
     }
 
     /**
-     * @param string $id
+     * Deletes the assistant identified by its ID.
+     *
+     * @param string $id The unique identifier of the assistant.
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -269,7 +278,9 @@ class AssistantsClient
     }
 
     /**
-     * @param string $id
+     * Updates the specified fields of the assistant identified by its ID.
+     *
+     * @param string $id The unique identifier of the assistant.
      * @param UpdateAssistantDto $request
      * @param ?array{
      *   baseUrl?: string,
@@ -279,11 +290,11 @@ class AssistantsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ?Assistant
+     * @return ?AssistantSaveResponse
      * @throws VapiException
      * @throws VapiApiException
      */
-    public function update(string $id, UpdateAssistantDto $request = new UpdateAssistantDto(), ?array $options = null): ?Assistant
+    public function update(string $id, UpdateAssistantDto $request = new UpdateAssistantDto(), ?array $options = null): ?AssistantSaveResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -302,7 +313,7 @@ class AssistantsClient
                 if (empty($json)) {
                     return null;
                 }
-                return Assistant::fromJson($json);
+                return AssistantSaveResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new VapiException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

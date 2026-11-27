@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Configuration for authenticating outbound requests with a bearer token, including header name and optional `Bearer` prefix.
+ */
 class BearerAuthenticationPlan extends JsonSerializableType
 {
     /**

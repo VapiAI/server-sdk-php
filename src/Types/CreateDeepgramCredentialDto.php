@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Credentials for authenticating speech recognition and voice synthesis requests with Deepgram, with an optional API URL for an on-premises instance.
+ */
 class CreateDeepgramCredentialDto extends JsonSerializableType
 {
     /**

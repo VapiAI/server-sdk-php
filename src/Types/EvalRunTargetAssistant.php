@@ -5,13 +5,16 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * An assistant evaluation target provided as a saved assistant ID or a transient assistant, with optional assistant overrides.
+ */
 class EvalRunTargetAssistant extends JsonSerializableType
 {
     /**
-     * @var ?CreateAssistantDto $assistant This is the transient assistant that will be run against the eval
+     * @var ?TransientAssistantDto $assistant This is the transient assistant that will be run against the eval
      */
     #[JsonProperty('assistant')]
-    public ?CreateAssistantDto $assistant;
+    public ?TransientAssistantDto $assistant;
 
     /**
      * @var ?AssistantOverrides $assistantOverrides This is the overrides that will be applied to the assistant.
@@ -27,7 +30,7 @@ class EvalRunTargetAssistant extends JsonSerializableType
 
     /**
      * @param array{
-     *   assistant?: ?CreateAssistantDto,
+     *   assistant?: ?TransientAssistantDto,
      *   assistantOverrides?: ?AssistantOverrides,
      *   assistantId?: ?string,
      * } $values

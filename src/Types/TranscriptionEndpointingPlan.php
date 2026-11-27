@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Controls endpointing delays based on whether customer speech ends with punctuation, without punctuation, or with a number.
+ */
 class TranscriptionEndpointingPlan extends JsonSerializableType
 {
     /**

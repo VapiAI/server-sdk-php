@@ -22,16 +22,16 @@ class MakeCredential extends JsonSerializableType
     public string $teamId;
 
     /**
-     * @var string $region Region of your application. For example: eu1, eu2, us1, us2
-     */
-    #[JsonProperty('region')]
-    public string $region;
-
-    /**
      * @var string $apiKey This is not returned in the API.
      */
     #[JsonProperty('apiKey')]
     public string $apiKey;
+
+    /**
+     * @var string $region Region of your application. For example: eu1, eu2, us1, us2
+     */
+    #[JsonProperty('region')]
+    public string $region;
 
     /**
      * @var string $id This is the unique identifier for the credential.
@@ -67,8 +67,8 @@ class MakeCredential extends JsonSerializableType
      * @param array{
      *   provider: value-of<MakeCredentialProvider>,
      *   teamId: string,
-     *   region: string,
      *   apiKey: string,
+     *   region: string,
      *   id: string,
      *   orgId: string,
      *   createdAt: DateTime,
@@ -81,8 +81,8 @@ class MakeCredential extends JsonSerializableType
     ) {
         $this->provider = $values['provider'];
         $this->teamId = $values['teamId'];
-        $this->region = $values['region'];
         $this->apiKey = $values['apiKey'];
+        $this->region = $values['region'];
         $this->id = $values['id'];
         $this->orgId = $values['orgId'];
         $this->createdAt = $values['createdAt'];

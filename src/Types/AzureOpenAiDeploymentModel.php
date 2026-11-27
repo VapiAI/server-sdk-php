@@ -1,0 +1,39 @@
+<?php
+
+namespace Vapi\Types;
+
+enum AzureOpenAiDeploymentModel: string
+{
+    case Gpt6Luna = "gpt-6-luna";
+    case Gpt6Luna20260922 = "gpt-6-luna-2026-09-22";
+    case Gpt56Luna20260709 = "gpt-5.6-luna-2026-07-09";
+    case Gpt56Terra20260709 = "gpt-5.6-terra-2026-07-09";
+    case Gpt56Sol20260709 = "gpt-5.6-sol-2026-07-09";
+    case Gpt55 = "gpt-5.5";
+    case Gpt54 = "gpt-5.4";
+    case Gpt54Mini = "gpt-5.4-mini";
+    case Gpt54Nano = "gpt-5.4-nano";
+    case Gpt52 = "gpt-5.2";
+    case Gpt52Chat = "gpt-5.2-chat";
+    case Gpt51 = "gpt-5.1";
+    case Gpt51Chat = "gpt-5.1-chat";
+    case Gpt5 = "gpt-5";
+    case Gpt5Mini = "gpt-5-mini";
+    case Gpt5Nano = "gpt-5-nano";
+    case Gpt4120250414 = "gpt-4.1-2025-04-14";
+    case Gpt41Mini20250414 = "gpt-4.1-mini-2025-04-14";
+    case Gpt41Nano20250414 = "gpt-4.1-nano-2025-04-14";
+    case Gpt4O20241120 = "gpt-4o-2024-11-20";
+    case Gpt4O20240806 = "gpt-4o-2024-08-06";
+    case Gpt4O20240513 = "gpt-4o-2024-05-13";
+    case Gpt4OMini20240718 = "gpt-4o-mini-2024-07-18";
+    case Gpt4Turbo20240409 = "gpt-4-turbo-2024-04-09";
+    case Gpt40125Preview = "gpt-4-0125-preview";
+    case Gpt41106Preview = "gpt-4-1106-preview";
+    case Gpt40613 = "gpt-4-0613";
+    case Gpt35Turbo0125 = "gpt-35-turbo-0125";
+    case Gpt35Turbo1106 = "gpt-35-turbo-1106";
+    case Gpt4O = "gpt-4o";
+    case Gpt41 = "gpt-4.1";
+    case Gpt54Mini20260317 = "gpt-5.4-mini-2026-03-17";
+}

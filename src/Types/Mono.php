@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Mono recording URLs for the combined call and isolated assistant and customer audio.
+ */
 class Mono extends JsonSerializableType
 {
     /**

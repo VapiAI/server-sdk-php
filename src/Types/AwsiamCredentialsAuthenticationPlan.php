@@ -5,6 +5,9 @@ namespace Vapi\Types;
 use Vapi\Core\Json\JsonSerializableType;
 use Vapi\Core\Json\JsonProperty;
 
+/**
+ * Direct AWS IAM credentials used to authenticate requests.
+ */
 class AwsiamCredentialsAuthenticationPlan extends JsonSerializableType
 {
     /**
